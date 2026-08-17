@@ -172,7 +172,7 @@ def preview_issue(issue_id: int, db: Session = Depends(get_db)):
 @router.get("/{issue_id}/export")
 def export_issue(
     issue_id: int,
-    format: str = Query("json", regex="^(json|markdown|md|zip)$"),
+    format: str = Query("json", pattern="^(json|markdown|md|zip)$"),
     db: Session = Depends(get_db),
 ):
     issue = db.query(Issue).filter(Issue.id == issue_id).first()
