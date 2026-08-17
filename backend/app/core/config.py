@@ -28,6 +28,15 @@ class Settings(BaseSettings):
     
     # 数据库
     database_url: str = "sqlite:///./data/videos.db"
+
+    # 双周刊锚点：VOL.09 刊发日 2026-08-03，每期 14 天
+    issue_anchor_vol: int = 9
+    issue_anchor_end: str = "2026-08-03"
+    issue_span_days: int = 14
+
+    # ffmpeg（可选，默认走 PATH）
+    ffmpeg_path: str = ""
+    ffprobe_path: str = ""
     
     # 抓取配置
     min_play_count: int = 100000
@@ -37,6 +46,7 @@ class Settings(BaseSettings):
     class Config:
         env_file = os.path.join(BASE_DIR, "backend", ".env")
         env_file_encoding = "utf-8"
+        extra = "ignore"
 
 
 @lru_cache()

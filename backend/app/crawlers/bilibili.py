@@ -181,6 +181,8 @@ class BilibiliCrawler:
                 if detail:
                     v["description"] = detail.get("description", "")
                     v["tags"] = detail.get("tags", [])
+                    if detail.get("duration"):
+                        v["duration"] = detail.get("duration")
                 time.sleep(0.3)  # 避免请求过快
             enriched.append(v)
         return enriched

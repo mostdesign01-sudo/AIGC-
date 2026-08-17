@@ -1,56 +1,96 @@
-# AIGC创意 - AI创意视频收集平台
+# AIGC创意双周报 · 工作台
 
-## 项目简介
+把原来的 AI 创意视频收集站，收成一份能出「AIGC 创意双周报 · 创意灵感」的编辑工作台。
 
-自动抓取 B站、YouTube 等平台的热门创意视频，通过 AI 智能分析，生成标签和简介，存储到七牛云并推送到飞书多维表格。
+仍然是 **FastAPI + SQLite + Vue**。B站 / YouTube / 抖音抓取接口都还在；在此之上加了期号、9 类覆盖、手传/外链、入选 3 条、2 倍速 GIF、出报预览。
 
-## 技术栈
+## 和旧「双周最佳」的关系
 
-- **后端**: FastAPI + SQLite
-- **存储**: 七牛云 (aigc-creative bucket)
-- **AI分析**: 阿里云 DashScope (qwen-vl-plus)
-- **推送**: 飞书多维表格 (Phase 3)
+| | 双周最佳（旧） | 当期工作台（新） |
+|---|---|---|
+| 窗口 | 滚动过去 14 天 | 锚定双周刊 VOL，当前默认 VOL.10（2026.08.03–2026.08.17） |
+| 规则 | 按播放量取 12 条 | 先铺满可配置的 9 类，再人工抽最多 3 条进简报 |
+| 用途 | 发现高热 | 出报：封面/GIF、标题、介绍 |
 
-## 快速启动
+抓到的视频会挂到**当期**，出现在工作台「未分类」里，你可以再分类型、改介绍、决定是否入选。热度榜还在「双周最佳」页，不自动等于入选。
+
+期号算法可改，不必改代码：环境变量 `ISSUE_ANCHOR_VOL`（默认 9）、`ISSUE_ANCHOR_END`（默认 `2026-08-03`）、`ISSUE_SPAN_DAYS`（默认 14）。上一期 VOL.09 刊发日是 2026.08.03，所以 2026-08-17 会落到 VOL.10。
+
+## 依赖
+
+- Python 3.12、Node.js 20+
+- **ffmpeg**（出 2x GIF 必需）
+  - macOS: `brew install ffmpeg`
+  - Debian/Ubuntu: `sudo apt-get install -y ffmpeg`
+  - 也可设 `FFMPEG_PATH` 指向可执行文件
+  - 未安装时，生成 GIF 的接口会返回清楚的 503 说明，不会闷声失败
+
+## 启动
+
+```bash
+# 后端（前端代理指向 8001）
+cd backend
+pip install -r requirements.txt
+PORT=8001 python run.py
+# API: http://127.0.0.1:8001/docs
+
+# 另开终端：前端
+cd frontend
+npm install
+npm run dev
+# http://127.0.0.1:5174
+```
+
+生产环境可设 `VITE_API_BASE`；本地默认走 Vite 代理 `/api`、`/media` → `8001`。
+
+不要把 `.env`、本地 `*.db`、上传文件和 GIF 提交进仓库。
+
+## 当期怎么建
+
+1. 打开工作台，会自动 `POST /api/v1/issues/current`：按今天算出 VOL，没有就建一期。
+2. 也可以 `POST /api/v1/issues` 带 `vol_number` 建指定期。
+3. 默认 9 类来自 `backend/app/data/default_categories.json`，工作台「管理类型」可改/停用/新增，接口在 `/api/v1/categories`。
+4. 收录方式：
+   - 旧抓取：`POST /api/v1/crawlers/run?platform=bilibili`（youtube/douyin/all 仍可用）
+   - 粘贴外链：工具/模型也可以，链接 + 封面 + 标题 + 介绍
+   - 手动上传视频或图
+5. 每类至少 1 条后，在当期里最多勾 3 条「入选简报」。类型没铺满或没抽满 3，顶栏缺口会一直亮着。
+6. 入选且有**本地视频**的，点「生成 2x GIF」（竖版按竖版出，短循环、限分辨率）。可下载单条 GIF，或在出报预览打包 zip。
+7. 「出报预览」按 VOL.09 编辑向版式：期号/日期/综述/缩略图 + 3 张竖版卡片。导出 JSON / Markdown / zip 给设计文案。
+
+本地灌一套能走通的示例（9 类各 1 条，抽 3，带视频的出 GIF）：
 
 ```bash
 cd backend
-
-# 安装依赖
-pip install -r requirements.txt
-
-# 启动服务
-python run.py
+python scripts/seed_issue_demo.py
 ```
 
-服务将在 http://localhost:8001 启动
+## GIF 怎么出
 
-## API 文档
+- 接口：`POST /api/v1/videos/{id}/gif`，下载 `GET /api/v1/videos/{id}/gif`
+- 只处理已上传到本地的视频；纯外链/工具条目请先传一条演示视频
+- ffmpeg：片源最多约 6 秒，`setpts=0.5*PTS` 变成 2 倍速，竖版宽 360 / 横版宽 480，10fps，调色板限制颜色；超过约 2.5MB 会自动再收一档参数
 
-启动后访问 http://localhost:8001/docs 查看交互式 API 文档
+## 测试
 
-## 核心功能
+```bash
+cd backend
+pytest -q
+```
 
-### 1. 视频抓取
-- `POST /api/v1/crawlers/bilibili/run` - 手动触发 B站抓取
-- `GET /api/v1/crawlers/status` - 查看抓取状态
+覆盖：VOL.10 窗口、9 类种子、选 3 拒第 4、上传后出 GIF。
 
-### 2. 视频列表
-- `GET /api/v1/videos` - 获取视频列表
-- `GET /api/v1/videos/{id}` - 获取单个视频详情
+## 主要 API
 
-## 筛选条件
+- `GET/POST /api/v1/issues/current` 当期（含 9 类槽和入选缺口）
+- `PATCH /api/v1/issues/{id}` 综述
+- `GET /api/v1/issues/{id}/preview` 出报数据
+- `GET /api/v1/issues/{id}/export?format=json|markdown|zip`
+- `POST /api/v1/videos/from-link` `POST /api/v1/videos/upload`
+- `POST /api/v1/issues/{id}/items/{video_id}/select`
+- `GET /api/v1/videos/best` 旧热度榜
+- 爬虫原路径未拆：`/api/v1/crawlers/*`
 
-- 播放量 > 50万
-- 点赞数 > 5万
-- 关键词: AI、创意、教程、黑科技、自动化
+## 原 Phase 能力
 
-## Phase 规划
-
-| Phase | 功能 |
-|-------|------|
-| Phase 1 | 项目骨架 + B站抓取 + 本地存储 ✅ |
-| Phase 2 | 七牛云封面存储 + AI分析 |
-| Phase 3 | 飞书多维表格推送 |
-| Phase 4 | 前端管理界面 |
-| Phase 5 | YouTube/抖音抓取 |
+七牛封面、DashScope 摘要、飞书（规划中）仍按原配置工作。抓取结果会多写 `issue_id`、`duration_seconds`，介绍位留给编辑手改，AI 摘要单独保留。
