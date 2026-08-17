@@ -1,0 +1,11 @@
+[
+  {"slug": "ai-short-film", "name": "AI创意短片", "sort_order": 1, "item_kind_hint": "video"},
+  {"slug": "ai-ad", "name": "AI创意广告", "sort_order": 2, "item_kind_hint": "video"},
+  {"slug": "fashion", "name": "换装/时尚", "sort_order": 3, "item_kind_hint": "video"},
+  {"slug": "props-transition", "name": "道具/转场", "sort_order": 4, "item_kind_hint": "video"},
+  {"slug": "ar-material", "name": "AR/物料", "sort_order": 5, "item_kind_hint": "video"},
+  {"slug": "ai-tool", "name": "AI创意工具", "sort_order": 6, "item_kind_hint": "tool"},
+  {"slug": "new-model", "name": "新模型表现", "sort_order": 7, "item_kind_hint": "model"},
+  {"slug": "3d-render", "name": "3D/渲染", "sort_order": 8, "item_kind_hint": "video"},
+  {"slug": "ip-character", "name": "IP/角色", "sort_order": 9, "item_kind_hint": "video"}
+]

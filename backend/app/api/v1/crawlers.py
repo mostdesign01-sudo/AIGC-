@@ -11,6 +11,7 @@ from app.crawlers.douyin import DouyinCrawler
 from app.crawlers.youtube import YouTubeCrawler
 from app.services.qiniu_service import qiniu_service
 from app.services.ai_analyzer import ai_analyzer
+from app.services.issue_service import get_or_create_current_issue
 from datetime import datetime, timezone
 from typing import List, Optional
 
@@ -41,6 +42,7 @@ def run_crawler_task(platforms: List[str] = ["bilibili"]):
     try:
         db = SessionLocal()
         total_collected = 0
+        current_issue = get_or_create_current_issue(db)
 
         for platform in platforms:
             crawler_status["current_platform"] = platform
@@ -95,7 +97,7 @@ def run_crawler_task(platforms: List[str] = ["bilibili"]):
                 except Exception as e:
                     print(f"生成简介失败: {e}")
 
-                # 保存到数据库
+                # 保存到数据库，并挂到当期（未分类，供工作台筛选）
                 video = Video(
                     platform=v["platform"],
                     video_id=str(v["video_id"]),
@@ -110,7 +112,14 @@ def run_crawler_task(platforms: List[str] = ["bilibili"]):
                     author_id=str(v.get("author_id", "")),
                     tags=json.dumps(v.get("tags", [])),
                     ai_summary=ai_summary,
-                    collected_at=datetime.now(timezone.utc)
+                    collected_at=datetime.now(timezone.utc),
+                    issue_id=current_issue.id,
+                    duration_seconds=int(v.get("duration") or 0),
+                    intro="",
+                    media_type="video",
+                    item_kind="video",
+                    gif_status="none",
+                    selected=False,
                 )
                 db.add(video)
                 collected += 1
