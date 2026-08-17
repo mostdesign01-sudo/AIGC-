@@ -1,5 +1,7 @@
 # Python
+**/__pycache__/
 __pycache__/
+*.pyc
 *.py[cod]
 *$py.class
 *.so
@@ -9,6 +11,7 @@ venv/
 env/
 
 # Local data — do not commit collected videos, uploads, or GIFs
+backend/data/videos.db
 backend/data/*.db
 backend/data/uploads/
 backend/data/gifs/
