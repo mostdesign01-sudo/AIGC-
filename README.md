@@ -19,11 +19,13 @@
 ## 依赖
 
 - Python 3.12、Node.js 20+
-- **ffmpeg**（出 2x GIF 必需）
+- **ffmpeg**（出 2x GIF / 抽帧拆解必需）
   - macOS: `brew install ffmpeg`
   - Debian/Ubuntu: `sudo apt-get install -y ffmpeg`
   - 也可设 `FFMPEG_PATH` 指向可执行文件
   - 未安装时，生成 GIF 的接口会返回清楚的 503 说明，不会闷声失败
+- **yt-dlp**（外链下载成片，已写入 `requirements.txt`）
+  - B 站若 403：从浏览器导出 cookies.txt，设环境变量 `YTDLP_COOKIES_FILE`
 
 ## 启动
 
@@ -52,11 +54,12 @@ npm run dev
 3. 默认 9 类来自 `backend/app/data/default_categories.json`，工作台「管理类型」可改/停用/新增，接口在 `/api/v1/categories`。
 4. 收录方式：
    - 旧抓取：`POST /api/v1/crawlers/run?platform=bilibili`（youtube/douyin/all 仍可用）
-   - 粘贴外链：工具/模型也可以，链接 + 封面 + 标题 + 介绍
+   - 粘贴外链：工具/模型也可以，链接 + 封面 + 标题 + 介绍；视频类可勾选 yt-dlp 下载成片
    - 手动上传视频或图
 5. 每类至少 1 条后，在当期里最多勾 3 条「入选简报」。类型没铺满或没抽满 3，顶栏缺口会一直亮着。
-6. 入选且有**本地视频**的，点「生成 2x GIF」（竖版按竖版出，短循环、限分辨率）。可下载单条 GIF，或在出报预览打包 zip。
-7. 「出报预览」按 VOL.09 编辑向版式：期号/日期/综述/缩略图 + 3 张竖版卡片。导出 JSON / Markdown / zip 给设计文案。
+6. 已有原链但没有本地成片的，点「下载成片」。有本地视频后再出 2x GIF 或「拆解实现」。
+7. 「拆解实现」会写成「怎么做 / 创意点 / 能用在哪」：有成片则抽帧走视觉模型，否则用标题简介；没 Key 走规则降级。结果进 AI 摘要，介绍为空时一并填上（仍可手改）。
+8. 「出报预览」按 VOL.09 编辑向版式：期号/日期/综述/缩略图 + 3 张竖版卡片。导出 JSON / Markdown / zip 给设计文案。
 
 本地灌一套能走通的示例（9 类各 1 条，抽 3，带视频的出 GIF）：
 
@@ -68,7 +71,8 @@ python scripts/seed_issue_demo.py
 ## GIF 怎么出
 
 - 接口：`POST /api/v1/videos/{id}/gif`，下载 `GET /api/v1/videos/{id}/gif`
-- 只处理已上传到本地的视频；纯外链/工具条目请先传一条演示视频
+- 只处理本地成片：手动上传，或外链点「下载成片」（`POST /api/v1/videos/{id}/fetch-media`）
+- 拆解：`POST /api/v1/videos/{id}/deconstruct?overwrite_intro=false`
 - ffmpeg：片源最多约 6 秒，`setpts=0.5*PTS` 变成 2 倍速，竖版宽 360 / 横版宽 480，10fps，调色板限制颜色；超过约 2.5MB 会自动再收一档参数
 
 ## 测试
@@ -78,7 +82,7 @@ cd backend
 pytest -q
 ```
 
-覆盖：VOL.10 窗口、9 类种子、选 3 拒第 4、上传后出 GIF。
+覆盖：当期窗口、9 类种子、选 3 拒第 4、上传后出 GIF、拆解降级、外链成片挂载。
 
 ## 主要 API
 
@@ -87,6 +91,8 @@ pytest -q
 - `GET /api/v1/issues/{id}/preview` 出报数据
 - `GET /api/v1/issues/{id}/export?format=json|markdown|zip`
 - `POST /api/v1/videos/from-link` `POST /api/v1/videos/upload`
+- `POST /api/v1/videos/{id}/fetch-media` 外链下载成片
+- `POST /api/v1/videos/{id}/deconstruct` 拆解怎么做 / 创意点 / 能用在哪
 - `POST /api/v1/issues/{id}/items/{video_id}/select`
 - `GET /api/v1/videos/best` 旧热度榜
 - 爬虫原路径未拆：`/api/v1/crawlers/*`

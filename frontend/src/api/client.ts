@@ -109,8 +109,21 @@ export async function ingestLink(payload: {
   cover_url?: string
   item_kind?: string
   duration_seconds?: number
-}): Promise<Video> {
+  download?: boolean
+}): Promise<Video & { download_error?: string }> {
   const res = await api.post('/videos/from-link', payload)
+  return res.data
+}
+
+export async function fetchMedia(id: number): Promise<Video> {
+  const res = await api.post(`/videos/${id}/fetch-media`)
+  return res.data
+}
+
+export async function deconstructVideo(id: number, overwriteIntro = false): Promise<Video> {
+  const res = await api.post(`/videos/${id}/deconstruct`, null, {
+    params: { overwrite_intro: overwriteIntro },
+  })
   return res.data
 }
 

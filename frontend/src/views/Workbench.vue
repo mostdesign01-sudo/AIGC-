@@ -4,6 +4,8 @@ import type { Category, IssueCoverage, Video } from '../types'
 import {
   createCategory,
   errorMessage,
+  deconstructVideo,
+  fetchMedia,
   generateGif,
   getCategories,
   getCrawlerStatus,
@@ -35,7 +37,7 @@ const draftIntro = ref('')
 const draftTitle = ref('')
 const showCollect = ref(false)
 const collectTab = ref<'link' | 'upload'>('link')
-const linkForm = ref({ url: '', title: '', intro: '', cover_url: '', item_kind: 'video', category_id: 0 })
+const linkForm = ref({ url: '', title: '', intro: '', cover_url: '', item_kind: 'video', category_id: 0, download: true })
 const uploadForm = ref({ title: '', intro: '', item_kind: 'video', category_id: 0 })
 const uploadFile = ref<File | null>(null)
 const showTypes = ref(false)
@@ -141,12 +143,38 @@ async function makeGif(video: Video) {
   }
 }
 
+async function downloadClip(video: Video) {
+  busyId.value = video.id
+  try {
+    await fetchMedia(video.id)
+    await reload()
+  } catch (err) {
+    error.value = errorMessage(err)
+  } finally {
+    busyId.value = null
+  }
+}
+
+async function runDeconstruct(video: Video) {
+  busyId.value = video.id
+  try {
+    await deconstructVideo(video.id, !video.intro)
+    await reload()
+  } catch (err) {
+    error.value = errorMessage(err)
+  } finally {
+    busyId.value = null
+  }
+}
+
 async function submitLink() {
   try {
-    await ingestLink({
+    const res = await ingestLink({
       ...linkForm.value,
       category_id: linkForm.value.category_id || undefined,
+      download: linkForm.value.item_kind === 'video' && linkForm.value.download,
     })
+    if (res.download_error) error.value = res.download_error
     showCollect.value = false
     await reload()
   } catch (err) {
@@ -304,6 +332,10 @@ onMounted(reload)
             {{ item.selected ? `取消入选 #${item.selected_rank}` : '入选简报' }}
           </button>
           <button @click="openEdit(item)">编辑文案</button>
+          <button :disabled="busyId === item.id" @click="runDeconstruct(item)">拆解实现</button>
+          <button v-if="item.url && !item.local_media_path" :disabled="busyId === item.id" @click="downloadClip(item)">
+            下载成片
+          </button>
           <button v-if="item.local_media_path" :disabled="busyId === item.id" @click="makeGif(item)">
             {{ item.gif_status === 'ready' ? '重出 GIF' : '生成 2x GIF' }}
           </button>
@@ -350,6 +382,10 @@ onMounted(reload)
           <option value="tool">AI创意工具</option>
           <option value="model">AI创意模型</option>
         </select>
+        <label v-if="linkForm.item_kind === 'video'" class="hint">
+          <input v-model="linkForm.download" type="checkbox" />
+          用 yt-dlp 下载成片（才能出 GIF / 画面拆解；B 站 403 需 cookies）
+        </label>
         <button class="primary" @click="submitLink">收入当期</button>
       </template>
       <template v-else>

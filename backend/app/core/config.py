@@ -37,6 +37,9 @@ class Settings(BaseSettings):
     # ffmpeg（可选，默认走 PATH）
     ffmpeg_path: str = ""
     ffprobe_path: str = ""
+
+    # yt-dlp（可选 cookies，B 站 403 时用）
+    ytdlp_cookies_file: str = ""
     
     # 抓取配置
     min_play_count: int = 100000
