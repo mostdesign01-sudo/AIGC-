@@ -95,6 +95,35 @@ def extract_cover(video_path: str, cover_path: str) -> str:
     return cover_path
 
 
+def extract_frames(video_path: str, output_dir: str, count: int = 3) -> list:
+    """按时间均匀抽几帧，给视觉拆解用。"""
+    if not os.path.isfile(video_path):
+        return []
+    ffmpeg = ffmpeg_bin()
+    os.makedirs(output_dir, exist_ok=True)
+    probe = probe_media(video_path)
+    duration = float(probe.get("duration") or 0)
+    if duration <= 0:
+        duration = 2.0
+    paths = []
+    for i in range(max(1, count)):
+        t = duration * (i + 0.5) / max(1, count)
+        out = os.path.join(output_dir, f"frame_{i + 1}.jpg")
+        cmd = [
+            ffmpeg, "-y", "-ss", f"{t:.2f}", "-i", video_path,
+            "-vframes", "1", "-q:v", "3",
+            "-vf", "scale=480:-2",
+            out,
+        ]
+        try:
+            _run(cmd, "抽帧失败")
+        except GifError:
+            continue
+        if os.path.isfile(out) and os.path.getsize(out) > 0:
+            paths.append(out)
+    return paths
+
+
 def generate_2x_gif(input_path: str, output_path: str, orientation: str = "unknown") -> dict:
     """
     将视频转为 2 倍速短循环 GIF。

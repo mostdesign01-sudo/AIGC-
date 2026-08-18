@@ -10,15 +10,18 @@ from sqlalchemy.orm import Session
 
 from app.db.database import get_db
 from app.models.video import Video
+from app.services.deconstruct_service import deconstruct_video
 from app.services.gif_service import FFmpegNotFoundError, GifError, generate_2x_gif
 from app.services.issue_service import get_or_create_current_issue
 from app.services.media_service import (
     GIF_DIR,
     absolute_media_path,
+    attach_remote_media,
     create_from_link,
     create_from_upload,
     ensure_media_dirs,
 )
+from app.services.ytdlp_service import DownloadError, YtDlpNotFoundError, should_auto_download
 
 router = APIRouter()
 
@@ -47,6 +50,7 @@ class LinkIn(BaseModel):
     duration_seconds: Optional[int] = 0
     author: Optional[str] = ""
     assign_current: bool = True
+    download: Optional[bool] = None
 
 
 @router.get("")
@@ -128,7 +132,19 @@ def ingest_link(payload: LinkIn, db: Session = Depends(get_db)):
         )
     except ValueError as exc:
         raise HTTPException(400, str(exc))
-    return video.to_dict()
+
+    body = video.to_dict()
+    if should_auto_download(video.platform, video.item_kind or "video", payload.download):
+        try:
+            video = attach_remote_media(db, video)
+            body = video.to_dict()
+        except YtDlpNotFoundError as exc:
+            if payload.download is True:
+                raise HTTPException(503, str(exc))
+            body["download_error"] = str(exc)
+        except DownloadError as exc:
+            body["download_error"] = str(exc)
+    return body
 
 
 @router.post("/upload")
@@ -212,7 +228,7 @@ def make_gif(video_id: int, db: Session = Depends(get_db)):
         raise HTTPException(404, "视频不存在")
     src = absolute_media_path(video.local_media_path)
     if not src:
-        raise HTTPException(400, "该条目没有本地视频，无法生成 GIF。请先手动上传视频文件。")
+        raise HTTPException(400, "该条目没有本地视频，无法生成 GIF。请先「下载成片」或手动上传。")
     if video.media_type == "image":
         raise HTTPException(400, "图片条目无需生成 GIF")
 
@@ -248,6 +264,40 @@ def make_gif(video_id: int, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(video)
     return video.to_dict()
+
+
+@router.post("/{video_id}/fetch-media")
+def fetch_media(video_id: int, db: Session = Depends(get_db)):
+    """把外链拉成本地成片，之后才能出 GIF / 画面拆解。"""
+    video = db.query(Video).filter(Video.id == video_id).first()
+    if not video:
+        raise HTTPException(404, "视频不存在")
+    try:
+        video = attach_remote_media(db, video)
+    except YtDlpNotFoundError as exc:
+        raise HTTPException(503, str(exc))
+    except DownloadError as exc:
+        raise HTTPException(400, str(exc))
+    return video.to_dict()
+
+
+@router.post("/{video_id}/deconstruct")
+def deconstruct_item(
+    video_id: int,
+    overwrite_intro: bool = False,
+    db: Session = Depends(get_db),
+):
+    """拆解怎么做 / 创意点 / 能用在哪。写入 AI 摘要；介绍为空时一并填上。"""
+    video = db.query(Video).filter(Video.id == video_id).first()
+    if not video:
+        raise HTTPException(404, "视频不存在")
+    result = deconstruct_video(video, overwrite_intro=overwrite_intro)
+    db.add(video)
+    db.commit()
+    db.refresh(video)
+    body = video.to_dict()
+    body["deconstruct"] = result
+    return body
 
 
 @router.get("/{video_id}/gif")

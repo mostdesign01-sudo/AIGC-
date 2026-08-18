@@ -31,7 +31,7 @@ def test_ensure_current_and_category_seed(client):
     res = client.post("/api/v1/issues/current")
     assert res.status_code == 200
     body = res.json()
-    assert body["issue"]["vol_number"] == 10
+    assert body["issue"]["vol_number"] == issue_calendar(date.today())["vol_number"]
     assert body["required_count"] == 9
     assert body["filled_count"] == 0
     assert body["selected_count"] == 0
@@ -84,7 +84,7 @@ def test_select_three_and_reject_fourth(client):
 
     md = client.get(f"/api/v1/issues/{issue_id}/export?format=markdown")
     assert md.status_code == 200
-    assert "VOL.10" in md.text
+    assert issue["issue"]["vol_label"] in md.text
     assert "创意灵感" in md.text
 
 
@@ -137,6 +137,69 @@ def test_gif_2x_from_upload(client, tmp_path):
     assert download.headers["content-type"].startswith("image/gif")
     assert len(download.content) > 100
     assert len(download.content) < 2_500_000
+
+
+def test_deconstruct_fills_intro_and_summary(client):
+    res = client.post("/api/v1/videos/from-link", json={
+        "url": "https://example.com/kling-demo",
+        "title": "可灵锁角色夜店走秀",
+        "item_kind": "video",
+        "download": False,
+    })
+    assert res.status_code == 200
+    vid = res.json()["id"]
+    out = client.post(f"/api/v1/videos/{vid}/deconstruct")
+    assert out.status_code == 200, out.text
+    body = out.json()
+    assert "怎么做" in (body.get("ai_summary") or "")
+    assert "创意点" in (body.get("ai_summary") or "")
+    assert body["intro"]
+    assert body["deconstruct"]["how"]
+
+
+def test_fetch_media_attaches_local_file(client, tmp_path, monkeypatch):
+    try:
+        ffmpeg_bin()
+    except FFmpegNotFoundError:
+        pytest.skip("环境未安装 ffmpeg")
+
+    clip = tmp_path / "src.mp4"
+    _make_clip(clip, portrait=True)
+
+    def fake_download(url, dest_dir, stem, max_seconds=60):
+        dest = Path(dest_dir) / f"{stem}.mp4"
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_bytes(clip.read_bytes())
+        return {
+            "video_path": str(dest),
+            "thumb_path": None,
+            "title": "下载标题",
+            "description": "desc",
+            "duration": 2,
+            "author": "作者",
+            "webpage_url": url,
+        }
+
+    monkeypatch.setattr("app.services.media_service.download_from_url", fake_download)
+    created = client.post("/api/v1/videos/from-link", json={
+        "url": "https://www.bilibili.com/video/BV1xxx",
+        "title": "待下载",
+        "item_kind": "video",
+        "download": False,
+    })
+    vid = created.json()["id"]
+    got = client.post(f"/api/v1/videos/{vid}/fetch-media")
+    assert got.status_code == 200, got.text
+    body = got.json()
+    assert body["local_media_path"]
+    assert body["duration_seconds"] >= 1
+
+
+def test_parse_deconstruct_json():
+    from app.services.deconstruct_service import parse_deconstruct_json
+    raw = '```json\n{"how":"可灵锁人","idea":"夜店光","use":"时尚片","brief":"一段话"}\n```'
+    parsed = parse_deconstruct_json(raw)
+    assert parsed and parsed["how"] == "可灵锁人"
 
 
 def test_gif_service_speeds_up(tmp_path):

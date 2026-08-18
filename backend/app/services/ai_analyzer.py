@@ -2,6 +2,7 @@
 AI分析服务 - 使用 DashScope API (requests直调)
 """
 from app.core.config import get_settings
+import os
 import requests
 import json
 
@@ -64,6 +65,102 @@ class AIAnalyzer:
         except Exception as e:
             print(f"AI生成简介失败: {e}")
             return self._fallback_summary(title, description)
+
+    def deconstruct(
+        self,
+        title: str,
+        description: str = "",
+        category: str = "",
+        frames: list = None,
+    ) -> dict:
+        """拆成怎么做 / 创意点 / 能用在哪。有帧走 VL，否则走文本。"""
+        from app.services.deconstruct_service import fallback_deconstruct, parse_deconstruct_json
+
+        frames = frames or []
+        if not self.api_key:
+            return fallback_deconstruct(title, description, category)
+
+        prompt = f"""你是 AIGC 创意编辑，要给双周报「创意灵感」写拆解。根据标题、简介和可选画面，用 JSON 输出（不要其它文字）：
+{{"how":"怎么做的（模型/流程，1句）","idea":"创意点（1句）","use":"能用在哪（1句）","brief":"给简报用的一段话，讲清怎么做/创意点/能用在哪"}}
+
+标题：{title}
+类型：{category or "未分类"}
+简介：{(description or "")[:400] or "无"}
+"""
+        try:
+            if frames:
+                raw = self._call_vl(prompt, frames[:3])
+            else:
+                raw = self._call_text(prompt)
+            parsed = parse_deconstruct_json(raw or "")
+            if parsed:
+                parsed["source"] = "vl" if frames else "text"
+                return parsed
+        except Exception as exc:
+            print(f"拆解失败，走降级：{exc}")
+        result = fallback_deconstruct(title, description, category)
+        result["source"] = "fallback"
+        return result
+
+    def _call_text(self, prompt: str) -> str:
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+        }
+        payload = {
+            "model": "qwen-turbo",
+            "input": {
+                "messages": [
+                    {"role": "system", "content": "你只输出 JSON。"},
+                    {"role": "user", "content": prompt},
+                ]
+            },
+        }
+        resp = requests.post(self.api_url, headers=headers, json=payload, timeout=30)
+        data = resp.json()
+        if "output" in data and "text" in data["output"]:
+            return data["output"]["text"].strip()
+        return ""
+
+    def _call_vl(self, prompt: str, frame_paths: list) -> str:
+        import base64
+
+        content = []
+        for path in frame_paths:
+            if not os.path.isfile(path):
+                continue
+            with open(path, "rb") as f:
+                b64 = base64.b64encode(f.read()).decode("ascii")
+            content.append({"image": f"data:image/jpeg;base64,{b64}"})
+        content.append({"text": prompt})
+        if len(content) == 1:
+            return self._call_text(prompt)
+
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+        }
+        payload = {
+            "model": "qwen-vl-plus",
+            "input": {
+                "messages": [{"role": "user", "content": content}],
+            },
+        }
+        url = "https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation"
+        resp = requests.post(url, headers=headers, json=payload, timeout=60)
+        data = resp.json()
+        output = data.get("output") or {}
+        choices = output.get("choices") or []
+        if choices:
+            msg = (choices[0].get("message") or {}).get("content")
+            if isinstance(msg, list):
+                texts = [x.get("text", "") for x in msg if isinstance(x, dict)]
+                return "".join(texts).strip()
+            if isinstance(msg, str):
+                return msg.strip()
+        if "text" in output:
+            return str(output["text"]).strip()
+        return ""
 
     def _fallback_summary(self, title: str, description: str) -> str:
         """降级方案"""

@@ -15,6 +15,7 @@ from sqlalchemy.orm import Session
 from app.db.database import DATA_DIR
 from app.models.video import Video
 from app.services.gif_service import FFmpegNotFoundError, extract_cover, probe_media
+from app.services.ytdlp_service import copy_into_uploads, download_from_url
 
 UPLOAD_DIR = os.path.join(DATA_DIR, "uploads")
 GIF_DIR = os.path.join(DATA_DIR, "gifs")
@@ -88,6 +89,46 @@ def create_from_link(
         collected_at=datetime.now(timezone.utc),
         selected=False,
     )
+    db.add(video)
+    db.commit()
+    db.refresh(video)
+    return video
+
+
+def attach_remote_media(db: Session, video: Video) -> Video:
+    """把外链拉成本地成片 + 封面。"""
+    if not video.url or video.url.startswith("/media/"):
+        raise DownloadError("没有可下载的原始链接")
+    ensure_media_dirs()
+    tmp_dir = os.path.join(DATA_DIR, "tmp", "ytdlp", str(video.id or "new"))
+    os.makedirs(tmp_dir, exist_ok=True)
+    stem = f"dl-{video.id or uuid.uuid4().hex[:8]}"
+    result = download_from_url(video.url, tmp_dir, stem)
+    stored = f"{uuid.uuid4().hex}_{os.path.basename(result['video_path'])}"
+    abs_video = os.path.join(UPLOAD_DIR, stored)
+    copy_into_uploads(result["video_path"], abs_video)
+    video.local_media_path = f"uploads/{stored}"
+    video.media_type = "video"
+    if result.get("thumb_path"):
+        cover_name = f"{os.path.splitext(stored)[0]}_cover.jpg"
+        copy_into_uploads(result["thumb_path"], os.path.join(UPLOAD_DIR, cover_name))
+        video.local_cover_path = f"uploads/{cover_name}"
+    else:
+        cover_name = f"{os.path.splitext(stored)[0]}_cover.jpg"
+        try:
+            extract_cover(abs_video, os.path.join(UPLOAD_DIR, cover_name))
+            video.local_cover_path = f"uploads/{cover_name}"
+        except (FFmpegNotFoundError, Exception):
+            pass
+    probe = probe_media(abs_video)
+    video.duration_seconds = int(probe.get("duration") or result.get("duration") or 0)
+    video.orientation = probe.get("orientation") or "unknown"
+    if result.get("title") and (not video.title or video.title == video.url):
+        video.title = result["title"][:500]
+    if result.get("description") and not video.description:
+        video.description = result["description"][:2000]
+    if result.get("author") and not video.author:
+        video.author = result["author"][:100]
     db.add(video)
     db.commit()
     db.refresh(video)
