@@ -35,15 +35,15 @@ B.PODIUM_H = B.PODIUM_FLOORS * B.FLOOR_H + 1.2;  // 9.6
 // 列车轨道
 export const TRACK = { RADIUS: 56, HEIGHT: 27.5, TILT: 0 };
 
-// 章节进度区间（滚动 0-1）
+// 章节进度区间（滚动 0-1）；anchor 为章节跳转的落位点
 export const CHAPTERS = [
-  { id: 1, key: 'exterior', name: 'T7 外景', en: 'ARRIVAL',       from: 0.000, to: 0.140, floor: 'GF · 广场' },
-  { id: 2, key: 'lobby',    name: '入口大厅', en: 'THE CONTAINER', from: 0.140, to: 0.285, floor: '1F · 门厅' },
-  { id: 3, key: 'infohall', name: '信息大厅', en: 'ONE PAGE',      from: 0.285, to: 0.425, floor: '3F · 数字展廊' },
-  { id: 4, key: 'meeting',  name: '会议层',   en: 'PRESENTATION',  from: 0.425, to: 0.565, floor: '6F · 演示中心' },
-  { id: 5, key: 'lab',      name: '互动实验室', en: 'INTERACTIVE',  from: 0.565, to: 0.720, floor: '9F · 实验室' },
-  { id: 6, key: 'cinema',   name: '放映厅',   en: 'HYPERFRAMES',   from: 0.720, to: 0.860, floor: '11F · 放映厅' },
-  { id: 7, key: 'roof',     name: '屋顶 · 作业', en: 'ROOFTOP',    from: 0.860, to: 1.001, floor: 'RF · 屋顶' },
+  { id: 1, key: 'exterior', name: 'T7 外景', en: 'ARRIVAL',       from: 0.000, to: 0.140, anchor: 0.001, floor: 'GF · 广场' },
+  { id: 2, key: 'lobby',    name: '入口大厅', en: 'THE CONTAINER', from: 0.140, to: 0.285, anchor: 0.195, floor: '1F · 门厅' },
+  { id: 3, key: 'infohall', name: '信息大厅', en: 'ONE PAGE',      from: 0.285, to: 0.425, anchor: 0.330, floor: '3F · 数字展廊' },
+  { id: 4, key: 'meeting',  name: '会议层',   en: 'PRESENTATION',  from: 0.425, to: 0.565, anchor: 0.500, floor: '6F · 演示中心' },
+  { id: 5, key: 'lab',      name: '互动实验室', en: 'INTERACTIVE',  from: 0.565, to: 0.720, anchor: 0.663, floor: '9F · 实验室' },
+  { id: 6, key: 'cinema',   name: '放映厅',   en: 'HYPERFRAMES',   from: 0.720, to: 0.860, anchor: 0.790, floor: '11F · 放映厅' },
+  { id: 7, key: 'roof',     name: '屋顶 · 作业', en: 'ROOFTOP',    from: 0.860, to: 1.001, anchor: 0.935, floor: 'RF · 屋顶' },
 ];
 
 export function chapterAt(p) {

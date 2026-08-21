@@ -897,9 +897,12 @@ export function createInteriors(scene, videoEl) {
       benchM.position.set(bx, Y + 0.35, 8);
       g.add(benchM);
     }
-    const rl = new THREE.PointLight(0xffe0b8, 90, 28, 1.9);
+    const rl = new THREE.PointLight(0xffe0b8, 170, 30, 1.9);
     rl.position.set(0, Y + 4.5, 4);
     g.add(rl);
+    const rl2 = new THREE.PointLight(0x9adfe0, 70, 26, 1.9);
+    rl2.position.set(-4, Y + 5, 10);
+    g.add(rl2);
   }
 
   scene.add(root);

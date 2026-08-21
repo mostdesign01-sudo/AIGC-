@@ -29,7 +29,7 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.05;
+renderer.toneMappingExposure = 1.18;
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(COLORS.bg);
@@ -186,8 +186,23 @@ function markReady() {
   enterBtn.disabled = false;
   enterBtn.textContent = '进入 T7';
 }
-videoEl.addEventListener('canplaythrough', markReady, { once: true });
-setTimeout(markReady, 3500);
+videoEl.addEventListener('canplaythrough', () => precompileThen(markReady), { once: true });
+setTimeout(() => precompileThen(markReady), 3500);
+
+// 预编译全部材质与光照组合，避免章节转场/深链首帧卡顿
+let precompiled = false;
+function precompileThen(cb) {
+  if (precompiled) { cb(); return; }
+  precompiled = true;
+  const wasVisible = {};
+  for (const [k, g] of Object.entries(interiors.chapterGroups)) {
+    wasVisible[k] = g.visible;
+    g.visible = true;
+  }
+  try { renderer.compile(scene, camera); } catch (e) { /* 忽略编译异常，运行时再按需编译 */ }
+  for (const [k, g] of Object.entries(interiors.chapterGroups)) g.visible = wasVisible[k];
+  cb();
+}
 enterBtn.addEventListener('click', () => {
   loader.classList.add('done');
   document.body.classList.add('started');
@@ -234,7 +249,7 @@ function tick() {
   samplePath(p, _pos, _look);
   camera.position.copy(_pos);
   // 互动实验室：注视焦点微调至当前展台
-  if (currentChapterIdx === 4 && p > 0.62 && p < 0.7) {
+  if (currentChapterIdx === 4 && p > 0.605 && p < 0.7) {
     const target = interiors.dyn.labPedestals[lab.state.active];
     _look.lerp(new THREE.Vector3(target.x, target.y + 0.6, target.z), 0.45);
   }
@@ -267,7 +282,7 @@ function tick() {
   if (chIdx === 3) slides.update(windowSpan(p, TIMES.slides));
 
   // 实验室交互开关与面板
-  const labOn = chIdx === 4 && p > 0.615 && p < 0.705;
+  const labOn = chIdx === 4 && p > 0.60 && p < 0.706;
   lab.setEnabled(labOn);
   labPanel.classList.toggle('hidden-panel', !labOn);
   lab.update(dt, rm);
@@ -292,7 +307,7 @@ function tick() {
   if (!rm) {
     beacon.material.emissiveIntensity = 1.2 + Math.sin(t * 2.2) * 1.0;
     building.userData.uplights.children.forEach((l, i) => {
-      if (l.isSpotLight) l.intensity = 120 + Math.sin(t * 0.7 + i) * 14;
+      if (l.isSpotLight) l.intensity = 340 + Math.sin(t * 0.7 + i) * 30;
     });
   }
 
@@ -310,6 +325,32 @@ window.addEventListener('resize', () => {
   applyQuality();
 });
 
+/* ================= 深链：#p=0.42 或 #ch=3 直达（讲师上课可用） ================= */
+function applyHash() {
+  const h = location.hash;
+  let target = null;
+  const mp = h.match(/p=([\d.]+)/);
+  const mc = h.match(/ch=(\d)/);
+  if (mp) target = parseFloat(mp[1]);
+  else if (mc) {
+    const c = CHAPTERS[Math.max(0, Math.min(6, parseInt(mc[1], 10) - 1))];
+    target = c.from + 0.004;
+  }
+  if (target === null) return;
+  target = Math.max(0, Math.min(1, target));
+  scroll.goTo(target);
+  scroll.target = target;
+  scroll.value = target;   // 深链直接落位，不做穿行动画
+  interiors.updateVisibility(CHAPTERS.indexOf(chapterAt(target)));
+  if (h.includes('auto')) {
+    markReady();
+    loader.classList.add('done');
+    document.body.classList.add('started');
+  }
+}
+window.addEventListener('hashchange', applyHash);
+
 applyQuality();
 interiors.updateVisibility(0);
+applyHash();
 tick();

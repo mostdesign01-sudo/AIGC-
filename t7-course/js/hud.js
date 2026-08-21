@@ -14,7 +14,7 @@ export function createHUD(scroll, audio, settings) {
     btn.className = 'nav-item';
     btn.setAttribute('aria-label', c.name);
     btn.innerHTML = `<span class="nav-label">0${c.id} ${c.name}</span><span class="nav-dot"></span>`;
-    btn.addEventListener('click', () => scroll.goTo(c.from + 0.004));
+    btn.addEventListener('click', () => scroll.goTo(c.anchor));
     nav.appendChild(btn);
     return btn;
   });
@@ -59,12 +59,13 @@ export function createHUD(scroll, audio, settings) {
       case 'ArrowUp': scroll.nudge(-0.006); e.preventDefault(); break;
       case 'PageDown':
       case 'ArrowRight':
-        if (idx < CHAPTERS.length - 1) scroll.goTo(CHAPTERS[idx + 1].from + 0.004);
+        if (p < ch.anchor - 0.01) scroll.goTo(ch.anchor);
+        else if (idx < CHAPTERS.length - 1) scroll.goTo(CHAPTERS[idx + 1].anchor);
         e.preventDefault(); break;
       case 'PageUp':
       case 'ArrowLeft':
-        if (p - ch.from > 0.02) scroll.goTo(ch.from + 0.004);
-        else if (idx > 0) scroll.goTo(CHAPTERS[idx - 1].from + 0.004);
+        if (p > ch.anchor + 0.01) scroll.goTo(ch.anchor);
+        else if (idx > 0) scroll.goTo(CHAPTERS[idx - 1].anchor);
         e.preventDefault(); break;
       case 'Home': scroll.goTo(0); e.preventDefault(); break;
       case 'End': scroll.goTo(1); e.preventDefault(); break;

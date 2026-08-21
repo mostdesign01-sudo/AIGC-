@@ -111,37 +111,37 @@ export function createEnvironment(scene, quality) {
     group.add(trunk, crown);
   });
 
-  /* ---------- 巨型 HTML 立体字（建筑背后） ---------- */
+  /* ---------- 巨型 HTML 立体字（建筑背后，比楼体更宽更高可见） ---------- */
   const letterMat = new THREE.MeshStandardMaterial({
-    color: 0x14171a, metalness: 0.6, roughness: 0.35,
-    emissive: 0xdfe8ea, emissiveIntensity: 0.28,
+    color: 0x181c1f, metalness: 0.55, roughness: 0.4,
+    emissive: 0xe6eff1, emissiveIntensity: 0.85,
   });
   const htmlGroup = new THREE.Group();
   const letters = ['H', 'T', 'M', 'L'];
-  const LH = 30;
+  const LH = 38;
   letters.forEach((l, i) => {
     const lg = buildLetter(l, LH, letterMat);
-    lg.position.x = (i - 1.5) * LH * 0.82;
+    lg.position.x = (i - 1.5) * LH * 0.88;
     htmlGroup.add(lg);
     // 底部极光蓝细托座
     const base = new THREE.Mesh(
-      new THREE.BoxGeometry(LH * 0.7, 0.5, 6),
-      new THREE.MeshStandardMaterial({ color: 0x0a0f10, emissive: COLORS.aurora, emissiveIntensity: 0.9 })
+      new THREE.BoxGeometry(LH * 0.72, 0.6, 7),
+      new THREE.MeshStandardMaterial({ color: 0x0a0f10, emissive: COLORS.aurora, emissiveIntensity: 1.1 })
     );
-    base.position.set(lg.position.x, -LH / 2 - 0.3, 0);
+    base.position.set(lg.position.x, -LH / 2 - 0.35, 0);
     htmlGroup.add(base);
   });
-  htmlGroup.position.set(0, LH / 2 + 14, -120);
+  htmlGroup.position.set(0, LH / 2 + 10, -132);
   group.add(htmlGroup);
 
   // HTML 字后方的冷色轮廓光
-  const htmlLight = new THREE.PointLight(0x3899a8, 1800, 260, 1.8);
-  htmlLight.position.set(0, 40, -150);
+  const htmlLight = new THREE.PointLight(0x3899a8, 2600, 300, 1.8);
+  htmlLight.position.set(0, 46, -165);
   group.add(htmlLight);
 
   /* ---------- 远景城市（稀疏低层体块 + 少量亮窗） ---------- */
   const cityGroup = new THREE.Group();
-  const cityMat = new THREE.MeshStandardMaterial({ color: 0x101317, roughness: 0.95 });
+  const cityMat = new THREE.MeshStandardMaterial({ color: 0x0c0e11, roughness: 0.95, envMapIntensity: 0.12 });
   let s = 3;
   const rand = () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
   for (let i = 0; i < 60; i++) {
@@ -159,14 +159,18 @@ export function createEnvironment(scene, quality) {
   group.add(cityGroup);
 
   /* ---------- 基础照明 ---------- */
-  const hemi = new THREE.HemisphereLight(0x24303c, 0x0c0a09, 0.55);
+  const hemi = new THREE.HemisphereLight(0x2a3846, 0x0e0b0a, 0.75);
   group.add(hemi);
-  const moon = new THREE.DirectionalLight(0x9db4c8, 0.55);
+  const moon = new THREE.DirectionalLight(0x9db4c8, 0.75);
   moon.position.set(-80, 140, 60);
   group.add(moon);
+  // 正面柔和补光（保证红砖立面可读）
+  const frontFill = new THREE.DirectionalLight(0xcbb49a, 0.5);
+  frontFill.position.set(50, 70, 140);
+  group.add(frontFill);
   // 广场暖色补光
-  const plazaFill = new THREE.PointLight(0xffd9a6, 300, 90, 1.9);
-  plazaFill.position.set(0, 10, 42);
+  const plazaFill = new THREE.PointLight(0xffd9a6, 480, 100, 1.9);
+  plazaFill.position.set(0, 12, 42);
   group.add(plazaFill);
 
   scene.fog = new THREE.FogExp2(0x0a0c0f, 0.0028);

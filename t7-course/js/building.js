@@ -49,7 +49,7 @@ export function createBuilding() {
       const em = makeCurtainEmissive(floors, litRatio);
       curtainCache[key] = new THREE.MeshStandardMaterial({
         color: 0x0c1116, metalness: 0.9, roughness: 0.18,
-        emissive: 0xffffff, emissiveMap: em, emissiveIntensity: 1.0,
+        emissive: 0xffffff, emissiveMap: em, emissiveIntensity: 1.35,
       });
     }
     return curtainCache[key];
@@ -383,10 +383,10 @@ export function createBuilding() {
 
   /* ------- 立面泛光灯（暖色洗墙） ------- */
   const uplights = new THREE.Group();
-  [[-12, 20], [0, 22], [12, 20]].forEach(([x, z]) => {
-    const sp = new THREE.SpotLight(0xffd0a0, 120, 70, 0.5, 0.6, 1.6);
-    sp.position.set(x, 1, z + 4);
-    sp.target.position.set(x * 0.7, 30, 8);
+  [[-14, 22], [0, 24], [14, 22]].forEach(([x, z]) => {
+    const sp = new THREE.SpotLight(0xffd0a0, 340, 95, 0.58, 0.65, 1.5);
+    sp.position.set(x, 1, z + 6);
+    sp.target.position.set(x * 0.7, 34, 8);
     uplights.add(sp, sp.target);
   });
   group.add(uplights);
