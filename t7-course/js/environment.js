@@ -51,9 +51,9 @@ export function createEnvironment(scene, quality) {
     side: THREE.BackSide,
     depthWrite: false,
     uniforms: {
-      top: { value: new THREE.Color(0x05060a) },
-      mid: { value: new THREE.Color(0x0b0e14) },
-      bottom: { value: new THREE.Color(0x191d24) },
+      top: { value: new THREE.Color(0x060810) },
+      mid: { value: new THREE.Color(0x0c1220) },     // 蓝调时刻的低空
+      bottom: { value: new THREE.Color(0x141a26) },
     },
     vertexShader: `varying vec3 vp; void main(){ vp = position; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }`,
     fragmentShader: `

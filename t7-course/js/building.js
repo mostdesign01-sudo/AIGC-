@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { B, COLORS } from './config.js';
 import { makeBrickMaps, makeCurtainEmissive } from './textures.js';
 
-const BRICK_TILE = 3.2; // 贴图对应的真实尺寸（米）
+const BRICK_TILE = 2.4; // 贴图对应的真实尺寸（米）：40 皮砖 ≈ 6cm/皮，照片级密度
 
 // 让 BoxGeometry 每个面的 UV 与真实尺寸成正比，保证砖块密度一致
 function worldUV(geo, w, h, d, tile = BRICK_TILE) {
@@ -32,14 +32,18 @@ export function createBuilding() {
   const brickMaps = makeBrickMaps();
   const matBrick = new THREE.MeshStandardMaterial({
     map: brickMaps.map, roughnessMap: brickMaps.roughnessMap,
+    normalMap: brickMaps.normalMap, normalScale: new THREE.Vector2(0.85, 0.85),
     roughness: 1.0, metalness: 0.02,
   });
   const matBrickDark = new THREE.MeshStandardMaterial({
     map: brickMaps.map, roughnessMap: brickMaps.roughnessMap,
-    color: 0x8a7f78, roughness: 1.0, metalness: 0.02,
+    normalMap: brickMaps.normalMap, normalScale: new THREE.Vector2(0.7, 0.7),
+    color: 0x9a9089, roughness: 1.0, metalness: 0.02,
   });
   const matFrame = new THREE.MeshStandardMaterial({ color: COLORS.frame, roughness: 0.45, metalness: 0.85 });
   const matConcrete = new THREE.MeshStandardMaterial({ color: 0x2e3033, roughness: 0.9, metalness: 0.05 });
+  // 浅色石质压顶（照片中女儿墙顶部的浅色线条）
+  const matCoping = new THREE.MeshStandardMaterial({ color: 0x8d857c, roughness: 0.85, metalness: 0.02 });
 
   // 幕墙材质：不透明 + 自发光窗格贴图 + 高金属度反射（避免透明排序问题，边缘锐利）
   const curtainCache = {};
@@ -49,7 +53,7 @@ export function createBuilding() {
       const em = makeCurtainEmissive(floors, litRatio);
       curtainCache[key] = new THREE.MeshStandardMaterial({
         color: 0x0c1116, metalness: 0.9, roughness: 0.18,
-        emissive: 0xffffff, emissiveMap: em, emissiveIntensity: 1.35,
+        emissive: 0xffffff, emissiveMap: em, emissiveIntensity: 1.65,
       });
     }
     return curtainCache[key];
@@ -69,7 +73,7 @@ export function createBuilding() {
    * hollow: 空壳（裙房：大厅位于其内部）
    * liftBase: 外壳从该标高开始（塔楼底部隐藏于裙房内，让位给大厅）
    */
-  function buildBlock({ w, d, floors, x = 0, z = 0, stripsFront = 5, stripsSide = 3, litRatio = 0.55, skipFaces = [], hollow = false, liftBase = 0 }) {
+  function buildBlock({ w, d, floors, x = 0, z = 0, stripsFront = 5, stripsSide = 3, litRatio = 0.55, skipFaces = [], hollow = false, liftBase = 0, pilRatio = 0.42, transoms = false }) {
     const h = floors * B.FLOOR_H;
     const lift = liftBase;
     const fh = h - lift;       // 外壳实际高度
@@ -101,7 +105,7 @@ export function createBuilding() {
     for (const f of faces) {
       if (skipFaces.includes(f.dir)) continue;
       const n = f.strips;
-      const pilW = (f.len * 0.42) / (n + 1);       // 壁柱宽
+      const pilW = (f.len * pilRatio) / (n + 1);   // 壁柱宽
       const glassW = (f.len - pilW * (n + 1)) / n; // 玻璃条宽
       const faceG = new THREE.Group();
       faceG.position.set(f.cx, 0, f.cz);
@@ -137,6 +141,14 @@ export function createBuilding() {
           );
           lintel.position.set(cursor + glassW / 2, h - 0.6, PIL_D * 0.4 - 0.2);
           faceG.add(lintel);
+          // 楼层横梃（真实层间构件，增强进深与楼层可读性）
+          if (transoms) {
+            for (let fl = 1; fl < visFloors; fl++) {
+              const tr = new THREE.Mesh(new THREE.BoxGeometry(glassW, 0.22, 0.3), matFrame);
+              tr.position.set(cursor + glassW / 2, lift + 0.4 + fl * ((fh - 1.6) / visFloors), -GLASS_RECESS + 0.22);
+              faceG.add(tr);
+            }
+          }
           cursor += glassW;
         }
       }
@@ -150,7 +162,7 @@ export function createBuilding() {
     );
     cornice.position.y = h + 0.25;
     block.add(cornice);
-    // 女儿墙：沿四边的环形矮墙（不能封顶，屋面必须露出）
+    // 女儿墙：沿四边的环形矮墙（不能封顶，屋面必须露出）+ 浅色石压顶
     const PT = 0.45, PY = h + 0.5 + B.PARAPET / 2;
     for (const [px, pz, pw2, pd2] of [
       [0, (d + 0.4) / 2 - PT / 2, w + 0.4, PT],
@@ -164,6 +176,9 @@ export function createBuilding() {
       );
       seg.position.set(px, PY, pz);
       block.add(seg);
+      const cop = new THREE.Mesh(new THREE.BoxGeometry(pw2 + 0.08, 0.12, pd2 + 0.08), matCoping);
+      cop.position.set(px, h + 0.5 + B.PARAPET + 0.06, pz);
+      block.add(cop);
     }
 
     // 勒脚（底部石材基座，仅落地体块）
@@ -185,18 +200,47 @@ export function createBuilding() {
   const LIFT = 2 * B.FLOOR_H; // 8.4
   buildBlock({
     w: B.TOWER_W, d: B.TOWER_D, floors: B.TOWER_FLOORS,
-    stripsFront: 5, stripsSide: 3, litRatio: 0.62, liftBase: LIFT,
+    stripsFront: 5, stripsSide: 3, litRatio: 0.8, liftBase: LIFT,
+    pilRatio: 0.40, transoms: true,
   });
+
+  /* ------- 塔冠：中央抬升的阶梯式女儿墙（照片顶部轮廓） ------- */
+  {
+    const crownY = B.TOWER_H + 0.5 + B.PARAPET;
+    for (const side of [1, -1]) {
+      // 中央抬升段
+      const mid = new THREE.Mesh(
+        worldUV(new THREE.BoxGeometry(B.TOWER_W * 0.44, 1.5, 0.5), B.TOWER_W * 0.44, 1.5, 0.5),
+        matBrick
+      );
+      mid.position.set(0, crownY + 0.75, side * ((B.TOWER_D + 0.4) / 2 - 0.25));
+      group.add(mid);
+      const midCop = new THREE.Mesh(new THREE.BoxGeometry(B.TOWER_W * 0.44 + 0.1, 0.12, 0.58), matCoping);
+      midCop.position.set(0, crownY + 1.56, side * ((B.TOWER_D + 0.4) / 2 - 0.25));
+      group.add(midCop);
+      // 两侧过渡段
+      for (const sx of [1, -1]) {
+        const stepSeg = new THREE.Mesh(
+          worldUV(new THREE.BoxGeometry(B.TOWER_W * 0.14, 0.8, 0.5), B.TOWER_W * 0.14, 0.8, 0.5),
+          matBrick
+        );
+        stepSeg.position.set(sx * B.TOWER_W * 0.29, crownY + 0.4, side * ((B.TOWER_D + 0.4) / 2 - 0.25));
+        group.add(stepSeg);
+      }
+    }
+  }
 
   /* ------- 一级退台翼楼（10 层，左右） ------- */
   const wingOffset = B.TOWER_W / 2 + B.WING_W / 2 - 0.3;
   buildBlock({
     w: B.WING_W, d: B.WING_D, floors: B.WING_FLOORS,
-    x: wingOffset, stripsFront: 2, stripsSide: 3, litRatio: 0.5, skipFaces: ['x-'], liftBase: LIFT,
+    x: wingOffset, stripsFront: 2, stripsSide: 3, litRatio: 0.65, skipFaces: ['x-'], liftBase: LIFT,
+    pilRatio: 0.46, transoms: true,
   });
   buildBlock({
     w: B.WING_W, d: B.WING_D, floors: B.WING_FLOORS,
-    x: -wingOffset, stripsFront: 2, stripsSide: 3, litRatio: 0.5, skipFaces: ['x+'], liftBase: LIFT,
+    x: -wingOffset, stripsFront: 2, stripsSide: 3, litRatio: 0.65, skipFaces: ['x+'], liftBase: LIFT,
+    pilRatio: 0.46, transoms: true,
   });
 
   /* ------- 二级退台（6 层，更外侧） ------- */
@@ -220,9 +264,9 @@ export function createBuilding() {
     for (const side of [-1, 1]) {
       buildBlock({
         w: segW, d, floors: 2, x: side * (GATE_W / 2 + segW / 2),
-        stripsFront: 4, stripsSide: 2, litRatio: 0.75,
+        stripsFront: 5, stripsSide: 3, litRatio: 0.8,
         skipFaces: [side === 1 ? 'x-' : 'x+'],
-        hollow: true,
+        hollow: true, pilRatio: 0.2, transoms: true,
       });
     }
 
@@ -374,7 +418,7 @@ export function createBuilding() {
       emissive: 0xffffff, emissiveMap: logoTex, emissiveIntensity: 1.5,
       color: 0xffffff, roughness: 0.6,
     });
-    const logoW = 7.4, logoH = logoW * 217 / 375;
+    const logoW = 6.2, logoH = logoW * 217 / 375;
     const logo = new THREE.Mesh(new THREE.PlaneGeometry(logoW, logoH), logoMat);
     // 正面顶部（照片：位于顶部砖墙面，偏左）
     logo.position.set(-8.2, B.TOWER_H - 3.4, B.TOWER_D / 2 + 1.02);
@@ -384,6 +428,28 @@ export function createBuilding() {
     logoBack.position.set(8.2, B.TOWER_H - 3.4, -B.TOWER_D / 2 - 1.02);
     logoBack.rotation.y = Math.PI;
     group.add(logoBack);
+  }
+
+  /* ------- 建筑接触阴影（假 AO：贴地渐变） ------- */
+  {
+    const c = document.createElement('canvas');
+    c.width = 256; c.height = 256;
+    const cx2 = c.getContext('2d');
+    const grd = cx2.createRadialGradient(128, 128, 30, 128, 128, 128);
+    grd.addColorStop(0, 'rgba(0,0,0,0.62)');
+    grd.addColorStop(0.55, 'rgba(0,0,0,0.38)');
+    grd.addColorStop(1, 'rgba(0,0,0,0)');
+    cx2.fillStyle = grd; cx2.fillRect(0, 0, 256, 256);
+    const aoTex = new THREE.CanvasTexture(c);
+    const ao = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshBasicMaterial({ map: aoTex, transparent: true, depthWrite: false })
+    );
+    ao.rotation.x = -Math.PI / 2;
+    ao.scale.set(115, 62, 1);
+    ao.position.y = 0.02;
+    ao.renderOrder = 1;
+    group.add(ao);
   }
 
   /* ------- 立面泛光灯（暖色洗墙） ------- */
