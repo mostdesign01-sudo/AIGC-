@@ -40,7 +40,7 @@ camera.position.set(44, 9, 108);
 function applyQuality() {
   renderer.setPixelRatio(settings.lowPerf ? 1 : Math.min(devicePixelRatio, 2));
   renderer.setSize(innerWidth, innerHeight);
-  scene.fog.density = settings.lowPerf ? 0.0034 : 0.0028;
+  scene.fog.density = settings.lowPerf ? 0.0028 : 0.0022;
 }
 
 /* ================= 环境反射贴图（简易渐变室内环境） ================= */
@@ -304,6 +304,7 @@ function tick() {
 
   // 灯光呼吸与航空障碍灯
   const t = performance.now() * 0.001;
+  env.animate(t, rm);
   if (!rm) {
     beacon.material.emissiveIntensity = 1.2 + Math.sin(t * 2.2) * 1.0;
     building.userData.uplights.children.forEach((l, i) => {

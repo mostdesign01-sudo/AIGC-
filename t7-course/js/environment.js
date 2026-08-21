@@ -99,16 +99,28 @@ export function createEnvironment(scene, quality) {
     head.position.set(x, 5.6, z);
     group.add(head);
   });
-  // 树阵（克制的深色景观树：干 + 简洁球冠）
+  // 树阵（参考图：茂密的簇状树冠，混少量暖色秋树）
   const trunkMat = new THREE.MeshStandardMaterial({ color: 0x2a211c, roughness: 1 });
-  const crownMat = new THREE.MeshStandardMaterial({ color: 0x17251d, roughness: 1 });
-  [[-30, 42], [-38, 58], [30, 42], [38, 58], [-46, 40], [46, 40], [-26, 70], [26, 70]].forEach(([x, z]) => {
-    const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.2, 2.6, 8), trunkMat);
-    trunk.position.set(x, 1.3, z);
-    const crown = new THREE.Mesh(new THREE.IcosahedronGeometry(2.2, 1), crownMat);
-    crown.position.set(x, 4.0, z);
-    crown.scale.y = 1.25;
-    group.add(trunk, crown);
+  const crownMats = [
+    new THREE.MeshStandardMaterial({ color: 0x1c3524, roughness: 1 }),
+    new THREE.MeshStandardMaterial({ color: 0x2c4a2c, roughness: 1 }),
+    new THREE.MeshStandardMaterial({ color: 0x17251d, roughness: 1 }),
+    new THREE.MeshStandardMaterial({ color: 0x8a4520, roughness: 1 }),
+  ];
+  function tree(x, z, scale = 1, warm = false) {
+    const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.14 * scale, 0.22 * scale, 2.6 * scale, 7), trunkMat);
+    trunk.position.set(x, 1.3 * scale, z);
+    group.add(trunk);
+    const main = warm ? crownMats[3] : crownMats[(x * 7 + z) % 2 === 0 ? 0 : 1];
+    for (const [dx, dy, dz, r] of [[0, 3.9, 0, 1.9], [1.1, 3.1, 0.4, 1.2], [-1.0, 3.3, -0.5, 1.3], [0.2, 4.9, 0.2, 1.15]]) {
+      const c = new THREE.Mesh(new THREE.IcosahedronGeometry(r * scale, 1), main);
+      c.position.set(x + dx * scale, dy * scale, z + dz * scale);
+      group.add(c);
+    }
+  }
+  [[-24, 40], [-34, 52], [24, 40], [34, 52], [-42, 38], [42, 38], [-22, 64], [22, 64],
+   [-30, 26], [30, 26], [-38, 14], [38, 14], [-16, 52], [16, 52]].forEach(([x, z], i) => {
+    tree(x, z, 0.85 + (i % 3) * 0.18, i % 5 === 0);
   });
 
   /* ---------- 巨型 HTML 立体字（建筑背后，比楼体更宽更高可见） ---------- */
@@ -166,6 +178,91 @@ export function createEnvironment(scene, quality) {
   }
   group.add(cityGroup);
 
+  /* ---------- 极光光带（参考图：多条宽幅半透明光带环绕塔身） ---------- */
+  const dream = new THREE.Group();
+  const ribbons = [];
+  function ribbon(radius, height, tiltX, tiltZ, bandH, opacity) {
+    // 开口圆柱面 = 环绕塔身的宽幅光带；上下边缘做透明渐隐
+    const geo = new THREE.CylinderGeometry(radius, radius, bandH, 110, 1, true);
+    const c = document.createElement('canvas');
+    c.width = 4; c.height = 64;
+    const gx = c.getContext('2d');
+    const grd = gx.createLinearGradient(0, 0, 0, 64);
+    grd.addColorStop(0, 'rgba(1,194,195,0)');
+    grd.addColorStop(0.5, 'rgba(1,194,195,1)');
+    grd.addColorStop(1, 'rgba(1,194,195,0)');
+    gx.fillStyle = grd; gx.fillRect(0, 0, 4, 64);
+    const gt = new THREE.CanvasTexture(c);
+    const mat = new THREE.MeshBasicMaterial({
+      map: gt, transparent: true, opacity,
+      blending: THREE.AdditiveBlending, depthWrite: false,
+      side: THREE.DoubleSide,
+    });
+    const m = new THREE.Mesh(geo, mat);
+    m.rotation.x = tiltX;
+    m.rotation.z = tiltZ;
+    m.position.y = height;
+    m.userData.baseOpacity = opacity;
+    dream.add(m);
+    ribbons.push(m);
+    return m;
+  }
+  // 内侧亮带 + 外侧两条虚化宽带（角度错开，形成缠绕感）
+  ribbon(33, 40, 0.14, 0.09, 7, 0.42);
+  ribbon(41, 30, -0.10, -0.16, 10, 0.22);
+  ribbon(29, 51, 0.20, -0.07, 6, 0.30);
+  group.add(dream);
+
+  /* ---------- 悬浮岩石小岛与玻璃方块（参考图元素，克制数量） ---------- */
+  const rockMat = new THREE.MeshStandardMaterial({ color: 0x35322f, roughness: 1 });
+  const grassMat = new THREE.MeshStandardMaterial({ color: 0x24401f, roughness: 1 });
+  const floaters = [];
+  const islands = [[-52, 30, -20, 1.4], [58, 44, -34, 1.7], [-64, 52, -60, 2.0], [50, 24, 40, 1.1], [-44, 60, 30, 1.0]];
+  islands.forEach(([ix, iy, iz, s], idx) => {
+    const isl = new THREE.Group();
+    const rock = new THREE.Mesh(new THREE.IcosahedronGeometry(3 * s, 1), rockMat);
+    rock.scale.y = 1.2;
+    rock.position.y = -1.6 * s;
+    isl.add(rock);
+    const top = new THREE.Mesh(new THREE.CylinderGeometry(2.6 * s, 3.0 * s, 0.7 * s, 9), grassMat);
+    isl.add(top);
+    // 岛上小树
+    const tr = new THREE.Mesh(new THREE.CylinderGeometry(0.1 * s, 0.16 * s, 1.6 * s, 6), trunkMat);
+    tr.position.y = 1.1 * s;
+    isl.add(tr);
+    const cr = new THREE.Mesh(new THREE.IcosahedronGeometry(1.2 * s, 1), crownMats[idx % 2 === 0 ? 1 : 3]);
+    cr.position.y = 2.4 * s;
+    isl.add(cr);
+    isl.position.set(ix, iy, iz);
+    isl.userData = { baseY: iy, phase: idx * 1.7, amp: 0.6 + idx * 0.15 };
+    dream.add(isl);
+    floaters.push(isl);
+  });
+  const cubeMat = new THREE.MeshPhysicalMaterial({
+    color: 0x9fdfe0, metalness: 0, roughness: 0.06,
+    transparent: true, opacity: 0.32, transmission: 0.6,
+    thickness: 0.5, depthWrite: false,
+  });
+  [[-38, 56, -8, 2.2], [46, 62, -18, 1.6], [-58, 42, 16, 1.8], [40, 36, 26, 1.2], [62, 54, 6, 2.6]].forEach(([cx2, cy, cz2, s], idx) => {
+    const cube = new THREE.Mesh(new THREE.BoxGeometry(s, s, s), cubeMat);
+    cube.position.set(cx2, cy, cz2);
+    cube.rotation.set(idx, idx * 0.7, idx * 0.3);
+    cube.userData = { baseY: cy, phase: idx * 2.3, amp: 0.4, spin: 0.1 + idx * 0.03 };
+    dream.add(cube);
+    floaters.push(cube);
+  });
+
+  function animate(t, reducedMotion) {
+    if (reducedMotion) return;
+    ribbons.forEach((r, i) => {
+      r.material.opacity = r.userData.baseOpacity * (0.85 + Math.sin(t * 0.5 + i * 2.1) * 0.15);
+    });
+    for (const f of floaters) {
+      f.position.y = f.userData.baseY + Math.sin(t * 0.4 + f.userData.phase) * f.userData.amp;
+      if (f.userData.spin) { f.rotation.y += 0.0015; f.rotation.x += 0.0008; }
+    }
+  }
+
   /* ---------- 基础照明 ---------- */
   const hemi = new THREE.HemisphereLight(0x2a3846, 0x0e0b0a, 0.75);
   group.add(hemi);
@@ -181,7 +278,7 @@ export function createEnvironment(scene, quality) {
   plazaFill.position.set(0, 12, 42);
   group.add(plazaFill);
 
-  scene.fog = new THREE.FogExp2(0x0a0c0f, 0.0028);
+  scene.fog = new THREE.FogExp2(0x0a0c0f, 0.0022);
   scene.add(group);
-  return { group, htmlGroup, sky };
+  return { group, htmlGroup, sky, animate };
 }

@@ -53,7 +53,7 @@ export function createBuilding() {
       const em = makeCurtainEmissive(floors, litRatio);
       curtainCache[key] = new THREE.MeshStandardMaterial({
         color: 0x0c1116, metalness: 0.9, roughness: 0.18,
-        emissive: 0xffffff, emissiveMap: em, emissiveIntensity: 1.65,
+        emissive: 0xffffff, emissiveMap: em, emissiveIntensity: 1.85,
       });
     }
     return curtainCache[key];
@@ -200,8 +200,8 @@ export function createBuilding() {
   const LIFT = 2 * B.FLOOR_H; // 8.4
   buildBlock({
     w: B.TOWER_W, d: B.TOWER_D, floors: B.TOWER_FLOORS,
-    stripsFront: 5, stripsSide: 3, litRatio: 0.8, liftBase: LIFT,
-    pilRatio: 0.40, transoms: true,
+    stripsFront: 5, stripsSide: 3, litRatio: 0.9, liftBase: LIFT,
+    pilRatio: 0.30, transoms: true,
   });
 
   /* ------- 塔冠：中央抬升的阶梯式女儿墙（照片顶部轮廓） ------- */
@@ -230,28 +230,18 @@ export function createBuilding() {
     }
   }
 
-  /* ------- 一级退台翼楼（10 层，左右） ------- */
-  const wingOffset = B.TOWER_W / 2 + B.WING_W / 2 - 0.3;
+  /* ------- 退台附楼（参考图：体量收小、后退，塔身保持修长） ------- */
+  const wingW = 9, wingD = 18, wingFloors = 8;
+  const wingOffset = B.TOWER_W / 2 + wingW / 2 - 0.3;
   buildBlock({
-    w: B.WING_W, d: B.WING_D, floors: B.WING_FLOORS,
-    x: wingOffset, stripsFront: 2, stripsSide: 3, litRatio: 0.65, skipFaces: ['x-'], liftBase: LIFT,
+    w: wingW, d: wingD, floors: wingFloors, z: -2,
+    x: wingOffset, stripsFront: 1, stripsSide: 2, litRatio: 0.7, skipFaces: ['x-'], liftBase: LIFT,
     pilRatio: 0.46, transoms: true,
   });
   buildBlock({
-    w: B.WING_W, d: B.WING_D, floors: B.WING_FLOORS,
-    x: -wingOffset, stripsFront: 2, stripsSide: 3, litRatio: 0.65, skipFaces: ['x+'], liftBase: LIFT,
+    w: wingW, d: wingD, floors: wingFloors, z: -2,
+    x: -wingOffset, stripsFront: 1, stripsSide: 2, litRatio: 0.7, skipFaces: ['x+'], liftBase: LIFT,
     pilRatio: 0.46, transoms: true,
-  });
-
-  /* ------- 二级退台（6 层，更外侧） ------- */
-  const wing2Offset = B.TOWER_W / 2 + B.WING_W + 4.2 - 0.6;
-  buildBlock({
-    w: 8.6, d: 20, floors: 6, x: wing2Offset,
-    stripsFront: 1, stripsSide: 2, litRatio: 0.42, skipFaces: ['x-'], liftBase: LIFT,
-  });
-  buildBlock({
-    w: 8.6, d: 20, floors: 6, x: -wing2Offset,
-    stripsFront: 1, stripsSide: 2, litRatio: 0.42, skipFaces: ['x+'], liftBase: LIFT,
   });
 
   /* ------- 低层裙房（2 层，横向展开，大网格玻璃） ------- */
@@ -368,6 +358,76 @@ export function createBuilding() {
     group.add(podium);
 
     group.userData.doors = { left: doorL, right: doorR };
+
+    /* --- 裙房屋顶花园（参考图：低层体量上的绿化平台） --- */
+    const planterMat = new THREE.MeshStandardMaterial({ color: 0x1c1e1c, roughness: 0.9 });
+    const soilMat = new THREE.MeshStandardMaterial({ color: 0x181410, roughness: 1 });
+    const leafDark = new THREE.MeshStandardMaterial({ color: 0x1c3524, roughness: 1 });
+    const leafMid = new THREE.MeshStandardMaterial({ color: 0x2c4a2c, roughness: 1 });
+    const leafWarm = new THREE.MeshStandardMaterial({ color: 0x8a4520, roughness: 1 });
+    const roofY = 2 * B.FLOOR_H + 0.55;
+    function shrubRow(x0, z0, len, alongX, mats, baseY = roofY) {
+      const box = new THREE.Mesh(new THREE.BoxGeometry(alongX ? len : 1.1, 0.55, alongX ? 1.1 : len), planterMat);
+      box.position.set(x0, baseY + 0.28, z0);
+      group.add(box);
+      const soil = new THREE.Mesh(new THREE.BoxGeometry(alongX ? len - 0.15 : 0.95, 0.1, alongX ? 0.95 : len - 0.15), soilMat);
+      soil.position.set(x0, baseY + 0.56, z0);
+      group.add(soil);
+      const n = Math.floor(len / 1.5);
+      for (let i = 0; i <= n; i++) {
+        const t = i / n - 0.5;
+        const m = mats[i % mats.length];
+        const s = new THREE.Mesh(new THREE.IcosahedronGeometry(0.55 + (i % 3) * 0.18, 1), m);
+        s.position.set(x0 + (alongX ? t * (len - 1.5) : 0), baseY + 0.85, z0 + (alongX ? 0 : t * (len - 1.5)));
+        s.scale.y = 0.8;
+        group.add(s);
+      }
+    }
+    for (const side of [-1, 1]) {
+      shrubRow(side * 17, d / 2 - 1.6, 15, true, [leafDark, leafMid, leafWarm]);
+      shrubRow(side * (w / 2 - 1.6), 6, 20, false, [leafMid, leafDark]);
+      // 屋顶花园小树
+      for (const [tx, tz] of [[side * 14, 10], [side * 21, 2], [side * 12, -8]]) {
+        const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.14, 1.8, 6), new THREE.MeshStandardMaterial({ color: 0x2a211c, roughness: 1 }));
+        trunk.position.set(tx, roofY + 0.9, tz);
+        group.add(trunk);
+        const crown = new THREE.Mesh(new THREE.IcosahedronGeometry(1.3, 1), (tx + tz) % 3 === 0 ? leafWarm : leafMid);
+        crown.position.set(tx, roofY + 2.3, tz);
+        crown.scale.y = 1.15;
+        group.add(crown);
+      }
+      // 屋顶花园暖色地灯带
+      const glow = new THREE.Mesh(
+        new THREE.BoxGeometry(16, 0.05, 0.08),
+        new THREE.MeshStandardMaterial({ color: 0x1a1a14, emissive: 0xffd9a6, emissiveIntensity: 1.4 })
+      );
+      glow.position.set(side * 16, roofY + 0.1, d / 2 - 2.6);
+      group.add(glow);
+    }
+    const gardenLight1 = new THREE.PointLight(0xffd9a6, 60, 26, 1.9);
+    gardenLight1.position.set(-16, roofY + 3, 8);
+    const gardenLight2 = new THREE.PointLight(0xffd9a6, 60, 26, 1.9);
+    gardenLight2.position.set(16, roofY + 3, 8);
+    group.add(gardenLight1, gardenLight2);
+
+    /* --- 入口两侧景观台地（石阶 + 绿植 + 暖灯） --- */
+    const stoneMat = new THREE.MeshStandardMaterial({ color: 0x232527, roughness: 0.95 });
+    for (const side of [-1, 1]) {
+      for (let tier = 0; tier < 3; tier++) {
+        const tw = 14 - tier * 3;
+        const terr = new THREE.Mesh(new THREE.BoxGeometry(tw, 0.5, 6 - tier * 1.2), stoneMat);
+        terr.position.set(side * (GATE_W / 2 + 9), 0.25 + tier * 0.5, d / 2 + 4 + tier * 0.6);
+        group.add(terr);
+      }
+      // 台地绿植与小树
+      shrubRow(side * (GATE_W / 2 + 9), d / 2 + 3.2, 10, true, [leafMid, leafWarm, leafDark], 1.5);
+      const tGlow = new THREE.Mesh(
+        new THREE.BoxGeometry(10, 0.05, 0.08),
+        new THREE.MeshStandardMaterial({ color: 0x1a1a14, emissive: 0xffd9a6, emissiveIntensity: 1.5 })
+      );
+      tGlow.position.set(side * (GATE_W / 2 + 9), 1.62, d / 2 + 6.2);
+      group.add(tGlow);
+    }
   }
 
   /* ------- 屋顶设备层 ------- */
