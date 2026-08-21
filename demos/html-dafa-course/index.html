@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Html大法 — 得物AI公开课</title>
+  <style>
+    :root {
+      --bg: #070708;
+      --stage: #0c0c0e;
+      --ink: #F2EDE4;
+      --soft: rgba(242, 237, 228, 0.62);
+      --dim: rgba(242, 237, 228, 0.34);
+      --faint: rgba(242, 237, 228, 0.14);
+      --line: rgba(242, 237, 228, 0.1);
+      --cyan: #00DBDB;
+      --red: #E21A1A;
+      --sans: "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+      --serif: "Songti SC", "STSong", "Noto Serif SC", "Songti SC", ui-serif, Georgia, serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    body { overflow: hidden; }
+    ::selection { background: rgba(0, 219, 219, 0.28); color: var(--ink); }
+    button { font-family: inherit; color: inherit; }
+
+    .app {
+      height: 100%;
+      display: grid;
+      grid-template-columns: 212px 1fr;
+      grid-template-rows: 1fr auto;
+    }
+
+    .rail {
+      grid-row: 1 / -1;
+      border-right: 1px solid var(--line);
+      padding: 22px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .rail-brand {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--soft);
+    }
+    .rail-brand b {
+      display: block;
+      margin-top: 6px;
+      font-size: 15px;
+      letter-spacing: 0.04em;
+      font-weight: 650;
+      color: var(--ink);
+      text-transform: none;
+    }
+    .rail-tick {
+      width: 18px;
+      height: 1px;
+      background: var(--cyan);
+      margin: 16px 0 18px;
+    }
+    .rail nav { display: flex; flex-direction: column; gap: 4px; }
+    .rail button.ch {
+      appearance: none;
+      background: transparent;
+      border: 0;
+      text-align: left;
+      padding: 10px 10px 10px 0;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 8px;
+      align-items: baseline;
+      border-left: 1px solid transparent;
+      padding-left: 10px;
+      margin-left: -10px;
+    }
+    .rail button.ch:hover { color: var(--ink); }
+    .rail button.ch .num {
+      font-variant-numeric: tabular-nums;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--dim);
+    }
+    .rail button.ch .lab {
+      font-size: 13px;
+      line-height: 1.35;
+      color: var(--soft);
+    }
+    .rail button.ch.is-on {
+      border-left-color: var(--cyan);
+    }
+    .rail button.ch.is-on .num { color: var(--cyan); }
+    .rail button.ch.is-on .lab { color: var(--ink); font-weight: 600; }
+    .rail button.ch.is-seen:not(.is-on) .num { color: var(--soft); }
+
+    .rail-progress { margin-top: auto; padding-top: 18px; }
+    .rail-progress .meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 8px;
+    }
+    .bar {
+      height: 1px;
+      background: var(--faint);
+      position: relative;
+    }
+    .bar > i {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0;
+      background: var(--cyan);
+    }
+
+    .stage-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px 28px 8px;
+      min-width: 0;
+    }
+    .stage {
+      width: min(100%, calc((100vh - 108px) * 16 / 9));
+      aspect-ratio: 16 / 9;
+      background: var(--stage);
+      border: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+    .stage::after {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.28);
+    }
+
+    .room {
+      display: none;
+      position: absolute;
+      inset: 0;
+      padding: clamp(22px, 3.6vw, 42px) clamp(26px, 4vw, 52px);
+      overflow: auto;
+    }
+    .room.is-on {
+      display: block;
+      animation: in 280ms ease;
+    }
+    @keyframes in {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .kicker {
+      margin: 0 0 12px;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .kicker em {
+      font-style: normal;
+      color: var(--cyan);
+      margin: 0 8px;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+    h1 {
+      font-size: clamp(2.4rem, 6.2vw, 5.4rem);
+      font-weight: 780;
+      letter-spacing: -0.045em;
+      line-height: 0.92;
+    }
+    h2 {
+      font-size: clamp(1.55rem, 3.2vw, 2.35rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+    .lede {
+      margin-top: 16px;
+      max-width: 38em;
+      font-size: clamp(15px, 1.5vw, 18px);
+      line-height: 1.65;
+      color: var(--soft);
+    }
+    .en {
+      margin-top: 10px;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .gold {
+      font-size: clamp(1.7rem, 3.6vw, 2.7rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.28;
+    }
+    .gold u {
+      text-decoration: none;
+      box-shadow: inset 0 -1px 0 var(--cyan);
+    }
+
+    .quad {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .quad article, .trio article, .moves button, .doors button, .ex, .chip, .note-card, .step, .check label {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--line);
+    }
+    .quad article {
+      padding: 16px 16px 18px;
+      min-height: 132px;
+    }
+    .quad .tag, .trio .tag, .moves .tag, .doors .tag {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .quad h3, .trio h3, .moves h3, .doors h3 {
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: 650;
+    }
+    .quad p, .trio p { margin-top: 8px; font-size: 13px; line-height: 1.5; color: var(--soft); }
+
+    .trio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 22px;
+    }
+    .trio article, .ex { padding: 16px 16px 18px; }
+
+    .moves { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+    .moves button, .doors button {
+      appearance: none;
+      text-align: left;
+      padding: 16px 16px 18px;
+      cursor: pointer;
+    }
+    .moves button:hover, .doors button:hover, .ex:hover { border-color: rgba(242, 237, 228, 0.22); }
+    .moves button.is-on { border-color: var(--cyan); }
+    .moves button.is-on .tag { color: var(--cyan); }
+
+    .answer {
+      margin-top: 16px;
+      min-height: 92px;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.2fr;
+      gap: 16px;
+    }
+    .answer .q {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .answer .a {
+      margin-top: 8px;
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+    .answer .hint { margin-top: 8px; font-size: 13px; color: var(--soft); line-height: 1.5; }
+    .ghost {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--dim);
+    }
+    .ghost b { font-weight: 600; color: var(--soft); }
+
+    .master {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .master article {
+      padding: 18px 16px 20px;
+      border: 1px solid var(--line);
+      min-height: 168px;
+    }
+    .master .n {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--cyan);
+    }
+    .master h3 { margin-top: 14px; font-size: 26px; }
+    .master p { margin-top: 10px; font-size: 13px; color: var(--soft); line-height: 1.5; }
+
+    .ex {
+      cursor: default;
+    }
+    .ex .who { font-size: 12px; color: var(--dim); margin-top: 12px; }
+    .ex .line {
+      margin-top: 14px;
+      font-size: 15px;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+    }
+
+    .doors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; }
+    .doors button { min-height: 220px; }
+    .doors button .no {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      color: var(--cyan);
+    }
+    .doors h3 { margin-top: 14px; font-size: 22px; }
+    .doors p { margin-top: 10px; font-size: 13px; color: var(--soft); line-height: 1.55; }
+    .doors .go { margin-top: 18px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
+
+    .back {
+      appearance: none;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      color: var(--soft);
+    }
+    .back i {
+      display: inline-block;
+      width: 16px;
+      height: 1px;
+      background: var(--cyan);
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    .value {
+      margin-top: 16px;
+      font-size: clamp(18px, 2.1vw, 24px);
+      font-weight: 650;
+      letter-spacing: -0.025em;
+      line-height: 1.4;
+      max-width: 22em;
+    }
+
+    .schema {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+    .board {
+      border: 1px solid var(--line);
+      min-height: 220px;
+      padding: 16px;
+      position: relative;
+    }
+    .thumb {
+      border: 1px solid var(--line);
+      padding: 14px;
+      min-height: 220px;
+      position: relative;
+    }
+    .thumb .cap {
+      position: absolute;
+      left: 14px;
+      bottom: 12px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--dim);
+    }
+
+    .samebase {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .samebase span {
+      border: 1px solid var(--line);
+      padding: 10px 10px 12px;
+      font-size: 13px;
+    }
+    .samebase b { display: block; font-size: 11px; color: var(--dim); font-weight: 500; margin-bottom: 4px; }
+
+    .nono-grid {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 8px;
+      margin-top: 18px;
+    }
+    .nono {
+      aspect-ratio: 3 / 4;
+      border: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 8px;
+      font-size: 11px;
+      color: var(--soft);
+      position: relative;
+      overflow: hidden;
+    }
+    .nono::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 28%;
+      width: 36%;
+      height: 28%;
+      border: 1px solid var(--faint);
+      border-radius: 50% 50% 42% 42%;
+      transform: translateX(-50%);
+    }
+    .desk {
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--soft);
+    }
+
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 18px; }
+    .step { padding: 14px 12px 16px; }
+    .step .n { color: var(--cyan); font-size: 11px; letter-spacing: 0.14em; }
+    .step h3 { margin-top: 10px; font-size: 16px; }
+    .player {
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      padding: 14px 16px 12px;
+    }
+    .player .t { font-size: 13px; color: var(--soft); }
+    .player .ch3 {
+      margin-top: 8px;
+      font-size: 20px;
+      font-weight: 650;
+    }
+    .player .meta { margin-top: 8px; font-size: 12px; color: var(--dim); }
+    .credit {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--dim);
+      letter-spacing: 0.04em;
+    }
+
+    .hw {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 16px;
+      height: 100%;
+    }
+    .banner {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      font-size: 12px;
+      color: var(--soft);
+    }
+    .banner strong { font-weight: 650; color: var(--ink); }
+    .lock {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      grid-column: 1 / -1;
+    }
+    .chip { padding: 10px 10px 12px; }
+    .chip b { display: block; font-size: 10px; letter-spacing: 0.14em; color: var(--dim); font-weight: 500; margin-bottom: 4px; }
+    .chip span { font-size: 14px; font-weight: 650; }
+
+    .prompt, .rounds, .checks {
+      border: 1px solid var(--line);
+      padding: 14px 14px 16px;
+    }
+    .prompt pre {
+      margin: 10px 0 0;
+      white-space: pre-wrap;
+      font-family: inherit;
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: var(--soft);
+      max-height: 210px;
+      overflow: auto;
+    }
+    .copy {
+      margin-top: 12px;
+      appearance: none;
+      background: transparent;
+      border: 1px solid var(--cyan);
+      color: var(--ink);
+      padding: 7px 12px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+    }
+    .copy.is-ok { border-color: var(--line); color: var(--soft); }
+    .rounds ol { margin: 10px 0 0; padding-left: 18px; }
+    .rounds li { margin: 8px 0; font-size: 12.5px; line-height: 1.5; color: var(--soft); }
+    .rounds li b { color: var(--ink); font-weight: 650; }
+    .checks { margin-top: 10px; }
+    .check { display: flex; flex-direction: column; gap: 5px; margin-top: 8px; max-height: 196px; overflow: auto; }
+    .check label {
+      display: grid;
+      grid-template-columns: 14px 1fr;
+      gap: 8px;
+      align-items: start;
+      padding: 6px 8px;
+      font-size: 12px;
+      line-height: 1.4;
+      color: var(--soft);
+      cursor: pointer;
+    }
+    .check input { margin-top: 2px; accent-color: var(--cyan); }
+    .count { font-size: 11px; color: var(--dim); letter-spacing: 0.1em; }
+
+    .tee {
+      width: 92px;
+      height: 108px;
+      margin: 8px auto 0;
+      position: relative;
+    }
+    .tee .body {
+      position: absolute;
+      left: 22px; right: 22px; top: 22px; bottom: 8px;
+      background: #161616;
+      border: 1px solid rgba(226, 26, 26, 0.55);
+    }
+    .tee .sl, .tee .sr {
+      position: absolute;
+      top: 24px;
+      width: 26px;
+      height: 18px;
+      background: #161616;
+      border: 1px solid rgba(226, 26, 26, 0.55);
+    }
+    .tee .sl { left: 2px; transform: skewY(-18deg); }
+    .tee .sr { right: 2px; transform: skewY(18deg); }
+    .tee .print {
+      position: absolute;
+      left: 30px; right: 30px; top: 40px;
+      font-size: 8px;
+      letter-spacing: 0.02em;
+      color: #E21A1A;
+      text-align: center;
+      line-height: 1.15;
+    }
+    .acts {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .acts span {
+      flex: 1;
+      border: 1px solid var(--line);
+      padding: 8px;
+      font-size: 12px;
+      text-align: center;
+      color: var(--soft);
+    }
+
+    .quote-mini {
+      height: 100%;
+      background: #070707;
+      color: #F3EEE4;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .quote-mini .big {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      color: var(--red);
+      line-height: 0.8;
+    }
+    .quote-mini .who { font-size: 18px; font-weight: 750; }
+    .quote-mini .line { font-size: 11px; letter-spacing: 0.08em; }
+
+    .dock {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 28px 14px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .dock kbd {
+      font-family: inherit;
+      border: 1px solid var(--line);
+      padding: 1px 5px;
+      margin: 0 2px;
+    }
+    .beats { display: flex; gap: 6px; align-items: center; }
+    .beats i {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--faint);
+    }
+    .beats i.on { background: var(--cyan); }
+
+    .notes {
+      display: none;
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      z-index: 3;
+      background: rgba(7, 7, 8, 0.94);
+      border-top: 1px solid var(--line);
+      padding: 14px 22px 16px;
+    }
+    .notes.is-on { display: block; }
+    .notes .h {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+    .notes p {
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--soft);
+      max-width: 54em;
+    }
+
+    .toast {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      z-index: 4;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      border: 1px solid var(--cyan);
+      padding: 6px 10px;
+      background: var(--stage);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .toast.is-on { opacity: 1; }
+
+    @media (max-width: 980px) {
+      .app { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; }
+      .rail {
+        grid-row: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        padding: 12px 14px;
+      }
+      .rail nav { flex-direction: row; flex: 1; }
+      .rail button.ch { grid-template-columns: auto; padding: 6px 8px; margin: 0; border-left: 0; border-bottom: 1px solid transparent; }
+      .rail button.ch .lab { display: none; }
+      .rail-progress { margin: 0; padding: 0; width: 88px; }
+      .rail-tick { display: none; }
+      .master, .quad, .trio, .moves, .doors, .steps, .samebase, .lock, .hw, .schema, .answer, .nono-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .nono-grid { grid-template-columns: repeat(5, 1fr); }
+      .banner, .hw .prompt { grid-column: 1 / -1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="rail">
+      <div class="rail-brand">
+        Html大法
+        <b>得物AI公开课</b>
+      </div>
+      <div class="rail-tick"></div>
+      <nav>
+        <button class="ch is-on" type="button" data-go="00"><span class="num">00</span><span class="lab">讲在前面的</span></button>
+        <button class="ch" type="button" data-go="01"><span class="num">01</span><span class="lab">我们可以做什么？</span></button>
+        <button class="ch" type="button" data-go="02"><span class="num">02</span><span class="lab">怎么做的？</span></button>
+        <button class="ch" type="button" data-go="03"><span class="num">03</span><span class="lab">大家一起Html ！</span></button>
+      </nav>
+      <div class="rail-progress">
+        <div class="meta"><span>进度</span><span id="prog-lab">1 / 4</span></div>
+        <div class="bar"><i id="prog-bar"></i></div>
+      </div>
+    </aside>
+
+    <div class="stage-wrap">
+      <div class="stage" id="stage">
+        <div class="toast" id="toast">已复制</div>
+
+        <!-- 00 -->
+        <section class="room is-on" data-ch="00" data-beat="0">
+          <p class="kicker">00 <em>/</em> 讲在前面的</p>
+          <h1>一份 HTML<br>N 种形态</h1>
+          <p class="en">One HTML. Many forms.</p>
+          <p class="lede">这不是产品演示，是一堂课。日常要拿出来的东西——汇报、活动、培训、商品展示、内容传播——先收成一份 HTML，再加一招。</p>
+        </section>
+
+        <section class="room" data-ch="00" data-beat="1">
+          <p class="kicker">00 <em>/</em> HTML 在这里是什么</p>
+          <h2>演示、三维、视频。<br>一套底座，全部覆盖。</h2>
+          <p class="lede">这里的 HTML 不是标签课。它先是一份能打开的文件，再覆盖四种能力：可视化、可互动、可展示、可传播。</p>
+          <div class="quad">
+            <article><div class="tag">可视化</div><h3>能看见</h3><p>内容不再锁在文件夹里的平面图。</p></article>
+            <article><div class="tag">可互动</div><h3>能上手</h3><p>转、点、比——对象自己被观察。</p></article>
+            <article><div class="tag">可展示</div><h3>能站着讲</h3><p>同一份文件，就是演示现场。</p></article>
+            <article><div class="tag">可传播</div><h3>能发出去</h3><p>加上时间轴，它就能播。</p></article>
+          </div>
+        </section>
+
+        <section class="room" data-ch="00" data-beat="2">
+          <p class="kicker">00 <em>/</em> 金句</p>
+          <p class="gold">不是再做一版 <u>PPT</u>、<br>再做一版 <u>海报</u>、<br>再做一版 <u>视频</u>。</p>
+          <p class="lede">课脊就这一句：一份 HTML，N 种形态。后面三章只做三件事——立三招、进三个案例、布置今天的作业。</p>
+        </section>
+
+        <!-- 01 -->
+        <section class="room" data-ch="01" data-beat="0">
+          <p class="kicker">01 <em>/</em> 我们可以做什么？</p>
+          <h2>一份内容 → HTML + 一招</h2>
+          <p class="lede">先有内容，再收成 HTML，然后只加一招。点下面任意一招：只回答「加了什么、多了哪种」。配方以后可以补，今天不教。</p>
+          <div class="moves" id="moves">
+            <button type="button" data-move="demo">
+              <div class="tag">演示招</div>
+              <h3>能翻页讲</h3>
+              <p class="hint" style="margin-top:10px;font-size:13px;color:var(--soft);line-height:1.5;">演示页。同一份内容，站着能讲。</p>
+            </button>
+            <button type="button" data-move="play">
+              <div class="tag">互动招</div>
+              <h3>能转</h3>
+              <p class="hint" style="margin-top:10px;font-size:13px;color:var(--soft);line-height:1.5;">三维页。已有模型，打开就能转。</p>
+            </button>
+            <button type="button" data-move="cast">
+              <div class="tag">传播招</div>
+              <h3>能播</h3>
+              <p class="hint" style="margin-top:10px;font-size:13px;color:var(--soft);line-height:1.5;">简单动态视频。发出去就能播。</p>
+            </button>
+          </div>
+          <div class="answer" id="answer">
+            <div>
+              <div class="q">加了什么</div>
+              <div class="a" id="ans-add">点一招</div>
+            </div>
+            <div>
+              <div class="q">多了哪种</div>
+              <div class="a" id="ans-kind">先看组合，不看产品名</div>
+            </div>
+            <div>
+              <div class="q">这一招只做一件事</div>
+              <div class="a hint" id="ans-line" style="font-weight:500;font-size:15px;">演示 skill / 三维 / 视频插件，三选一加上去。</div>
+            </div>
+          </div>
+          <p class="ghost">可以补充 <b>+ 配方</b>。提到即可，本课不展开。</p>
+        </section>
+
+        <section class="room" data-ch="01" data-beat="1">
+          <p class="kicker">01 <em>/</em> 母版四件套 · 课上立母版，还不是作业</p>
+          <h2>给谁 · 一件事 · 一个证据 · 记住哪句</h2>
+          <p class="lede">先会说这四格，再决定加哪一招。四件套是课脊上的拍子，不是表单作业。</p>
+          <div class="master">
+            <article><div class="n">01</div><h3>给谁</h3><p>谁必须一次听懂。人没对准，后面三格都会飘。</p></article>
+            <article><div class="n">02</div><h3>一件事</h3><p>今天只办这一件。多件事就不是这一份 HTML。</p></article>
+            <article><div class="n">03</div><h3>一个证据</h3><p>拿得出手的那一件物。让人看见，而不是让人想象。</p></article>
+            <article><div class="n">04</div><h3>记住哪句</h3><p>离开房间还记得的那一句。金句不是装饰。</p></article>
+          </div>
+        </section>
+
+        <section class="room" data-ch="01" data-beat="2">
+          <p class="kicker">01 <em>/</em> 三份已经写好的母版</p>
+          <h2>同一套四格，三种日常。</h2>
+          <p class="lede">培训、活动、履约——都先填母版，再谈加哪一招。作业章会锁死其中一份。</p>
+          <div class="trio">
+            <article class="ex">
+              <div class="tag">新人培训</div>
+              <h3>先认得物怎么看真假</h3>
+              <p class="who">给谁 · 入职第一周</p>
+              <p>一件事 · 先认得物怎么看真假<br>一个证据 · 防伪五件套</p>
+              <p class="line">记住哪句 · 鉴别为真</p>
+            </article>
+            <article class="ex">
+              <div class="tag">活动</div>
+              <h3>11 周年</h3>
+              <p class="who">给谁 · 进场的人</p>
+              <p>一件事 · 11周年<br>一个证据 · 周年 T 恤</p>
+              <p class="line">记住哪句 · CAN'T STOP WON'T STOP</p>
+            </article>
+            <article class="ex">
+              <div class="tag">履约</div>
+              <h3>箱子也是品牌</h3>
+              <p class="who">给谁 · 内部复盘</p>
+              <p>一件事 · 箱子也是品牌<br>一个证据 · 物流箱</p>
+              <p class="line">记住哪句 · 未开箱前品牌已经开始</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- 02 lobby -->
+        <section class="room" data-ch="02" data-beat="0">
+          <p class="kicker">02 <em>/</em> 怎么做的？ · 实际案例</p>
+          <h2>三个房间。从课里进，从课里回。</h2>
+          <p class="lede">不要跳到外部产品。进房间看故事和示意，再回到这条课脊。</p>
+          <div class="doors">
+            <button type="button" data-case="1">
+              <div class="no">案例 01</div>
+              <h3>一套 HTML，多个对象</h3>
+              <p>11周年 T恤、物流箱、奖杯、防伪物料。不是另做四份设计网站。</p>
+              <div class="go">进入房间 →</div>
+            </button>
+            <button type="button" data-case="2">
+              <div class="no">案例 02</div>
+              <h3>网页里 9 款 NONO</h3>
+              <p>盲盒九款进同一个三维编辑页。对象一多，HTML 就是操作台。</p>
+              <div class="go">进入房间 →</div>
+            </button>
+            <button type="button" data-case="3">
+              <div class="no">案例 03</div>
+              <h3>HTML + 视频插件</h3>
+              <p>《得物业务知多少》VOL.06。传播招：给已有 HTML 加上能播。</p>
+              <div class="go">进入房间 →</div>
+            </button>
+          </div>
+        </section>
+
+        <section class="room" data-case="1">
+          <button class="back" type="button" data-back><i></i>返回课程</button>
+          <p class="kicker" style="margin-top:14px;">02 <em>/</em> 案例 01 · 沟通工具，不是服装设计替代</p>
+          <p class="value">HTML 不是替代服装设计，而是把静态设计稿升级成能被观察和比较的沟通工具。</p>
+          <div class="schema">
+            <div class="board">
+              <div class="tag" style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);">课上示意 · 拖 / 换标 / 看面料</div>
+              <div class="tee" aria-hidden="true">
+                <span class="sl"></span><span class="sr"></span>
+                <span class="body"></span>
+                <span class="print">CAN'T<br>STOP</span>
+              </div>
+              <div class="acts">
+                <span>拖动观察</span>
+                <span>换袖标</span>
+                <span>看面料</span>
+              </div>
+              <div class="samebase">
+                <span><b>同一底座</b>周年 T 恤</span>
+                <span><b>同一底座</b>物流箱</span>
+                <span><b>同一底座</b>奖杯 AR</span>
+                <span><b>同一底座</b>防伪变色油墨</span>
+              </div>
+            </div>
+            <div class="thumb">
+              <div class="quote-mini">
+                <div>
+                  <div class="who">进场的人</div>
+                  <div class="big">11</div>
+                </div>
+                <div class="line">CAN'T STOP WON'T STOP</div>
+              </div>
+              <div class="cap">旧沟通页 · 证据缩略 · 人留在课里</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="room" data-case="2">
+          <button class="back" type="button" data-back><i></i>返回课程</button>
+          <p class="kicker" style="margin-top:14px;">02 <em>/</em> 案例 02 · 网页里 9 款 NONO</p>
+          <p class="value">对象多时，HTML 是统一管理和比较资产的操作台。</p>
+          <p class="lede">九款盲盒进同一个三维编辑页。不是九个文件、九套讲解。人在这一页里切换、并排、比较。</p>
+          <div class="nono-grid" aria-hidden="true">
+            <div class="nono">01</div><div class="nono">02</div><div class="nono">03</div>
+            <div class="nono">04</div><div class="nono">05</div><div class="nono">06</div>
+            <div class="nono">07</div><div class="nono">08</div><div class="nono">09</div>
+          </div>
+          <div class="desk">同一页 = 资产台。选一款、转一款、比一款。课上只讲这件事，不讲引擎名字。</div>
+        </section>
+
+        <section class="room" data-case="3">
+          <button class="back" type="button" data-back><i></i>返回课程</button>
+          <p class="kicker" style="margin-top:14px;">02 <em>/</em> 案例 03 · 传播招 · 视频插件</p>
+          <p class="value">不是重写内容。是给已有 HTML 加入出现时间、转场、声音和自动播放。</p>
+          <div class="player">
+            <div class="t">《得物业务知多少》VOL.06 · 3:42</div>
+            <div class="ch3">第三章 · 我们相信什么，决定了我们是谁</div>
+            <div class="meta">先有那份 HTML，再加视频插件。这一招叫传播招。</div>
+          </div>
+          <div class="steps">
+            <div class="step"><div class="n">01</div><h3>一句话任务</h3></div>
+            <div class="step"><div class="n">02</div><h3>品牌资产与文档</h3></div>
+            <div class="step"><div class="n">03</div><h3>AI 分镜</h3></div>
+            <div class="step"><div class="n">04</div><h3>生成视频</h3></div>
+          </div>
+          <p class="credit">案例制作 credit · HyperFrames</p>
+        </section>
+
+        <!-- 03 -->
+        <section class="room" data-ch="03" data-beat="0">
+          <div class="hw">
+            <div class="banner">
+              <div><strong>今天只要互动招。</strong> 不要三招一起做。</div>
+              <div>入口只开 <strong>蓝龙虾</strong></div>
+            </div>
+            <div class="lock">
+              <div class="chip"><b>给谁</b><span>进场的人</span></div>
+              <div class="chip"><b>一件事</b><span>11周年</span></div>
+              <div class="chip"><b>一个证据</b><span>周年 T 恤</span></div>
+              <div class="chip"><b>记住哪句</b><span>CAN'T STOP WON'T STOP</span></div>
+            </div>
+            <div class="prompt">
+              <div class="kicker" style="margin:0;">可复制提示词 · 沟通页，不是作品集</div>
+              <pre id="prompt-text">做一份沟通页，不要作品集，不要个人站点。
+
+对象：得物 11 周年 T 恤。英文品牌写 POIZON，不要写 DEWU。
+给谁：进场的人
+一件事：11周年
+一个证据：周年 T 恤——要能看前胸字、袖标、吊牌三处细节
+记住哪句：CAN'T STOP WON'T STOP
+
+只要互动招：打开这一份 HTML，衣服能被转、细节能被点开比较。
+不要做成能翻页的演示，不要做成能自动播放的视频，不要再做一版海报。
+
+技术：单文件 HTML，CSS/JS 写在文件里，用浏览器直接打开即可。深色工作室，中文为主。
+这是给同事观察和比较静态设计的沟通页。</pre>
+              <button class="copy" type="button" id="copy-btn">复制提示词</button>
+            </div>
+            <div>
+              <div class="rounds">
+                <div class="kicker" style="margin:0;">人话改三轮</div>
+                <ol>
+                  <li><b>第一轮 · 粗说。</b> 我想做个得物十一周年 T 恤的页面，让人看看这件衣服。</li>
+                  <li><b>第二轮 · 收成沟通。</b> 别做成作品集。给进场的人看 11 周年，证据是这件 T 恤，要能看前胸字、袖标和吊牌。</li>
+                  <li><b>第三轮 · 锁死。</b> 四件套锁死。今天只要互动招：能转、能点、能比。一份 HTML。品牌写 POIZON。用蓝龙虾做。</li>
+                </ol>
+              </div>
+              <div class="checks">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                  <div class="kicker" style="margin:0;">十项清单</div>
+                  <div class="count" id="check-count">0 / 10</div>
+                </div>
+                <div class="check" id="checks"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="notes" id="notes">
+          <div class="h">讲稿 · 希皓</div>
+          <p id="notes-p"></p>
+        </aside>
+      </div>
+    </div>
+
+    <div class="dock">
+      <div><kbd>←</kbd><kbd>→</kbd> 翻页　<kbd>F</kbd> 全屏　<kbd>S</kbd> 讲稿　<kbd>Esc</kbd> 回课</div>
+      <div class="beats" id="beats"></div>
+      <div id="dock-ch">第 00 章 · 讲在前面的</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var CHAPTERS = [
+        { id: "00", name: "讲在前面的", beats: 3 },
+        { id: "01", name: "我们可以做什么？", beats: 3 },
+        { id: "02", name: "怎么做的？", beats: 1 },
+        { id: "03", name: "大家一起Html ！", beats: 1 }
+      ];
+      var MOVES = {
+        demo: { add: "演示 skill", kind: "能翻页讲的演示页", line: "同一份内容，站着能讲。加的是演示，多的是演示页。" },
+        play: { add: "三维 · 已有模型", kind: "能转的三维页", line: "同一份内容，转着能看。加的是三维，多的是互动页。" },
+        cast: { add: "视频插件", kind: "能播的简单动态视频", line: "同一份内容，发出去能播。加的是插件，多的是传播形态。" }
+      };
+      var NOTES = {
+        "00-0": "先立课脊，不要开场介绍工具。念：一份 HTML，N 种形态。日常的汇报、活动、培训、商品展示、内容传播，都先收成一份 HTML，再加一招。这是课，不是产品预览。",
+        "00-1": "HTML 在这里是底座。演示、三维、视频——可视化、可互动、可展示、可传播，一套文件全部覆盖。别把这页讲成前端入门。",
+        "00-2": "金句停住：不是再做一版 PPT、再做一版海报、再做一版视频。停两秒。下一章立三招。",
+        "01-0": "公式只写一遍：一份内容 → HTML + 一招。点三招，让现场看见「加了什么、多了哪种」。配方只点名，不教。",
+        "01-1": "母版四件套是课上的拍子，还不是作业。给谁、一件事、一个证据、记住哪句。人没对准，招会空转。",
+        "01-2": "三份母版读格子，不要发挥。培训：入职第一周 / 看真假 / 防伪五件套 / 鉴别为真。活动：进场的人 / 11周年 / 周年T恤 / CAN'T STOP WON'T STOP。履约：内部复盘 / 箱子也是品牌 / 物流箱 / 未开箱前品牌已经开始。",
+        "02-0": "三个房间从课里进、从课里回。不要把人带去外部产品。箭头也可一间接一间走。",
+        "02-c1": "价值句先说：HTML 不是替代服装设计，而是把静态设计稿升级成能被观察和比较的沟通工具。示意拖、换标、看面料。同一底座还有物流箱、奖杯 AR、防伪变色油墨。旧页只当缩略证据。",
+        "02-c2": "九款 NONO 进同一页。价值：对象多时，HTML 是统一管理和比较资产的操作台。说「网页里 9 款 NONO」，不要讲引擎名字。",
+        "02-c3": "《得物业务知多少》VOL.06，3:42，第三章「我们相信什么，决定了我们是谁」。四步：一句话任务 → 品牌资产与文档 → AI 分镜 → 生成视频。传播招 / 视频插件。HyperFrames 只在 credit。",
+        "03-0": "布置作业。四件套锁死 11 周年。入口只有蓝龙虾。今天只要互动招。复制提示词，人话改三轮，十项清单自检。做沟通页，能看细节，不是作品集。"
+      };
+      var CHECKS = [
+        "给谁写清了：进场的人",
+        "一件事写清了：11周年",
+        "一个证据写清了：周年 T 恤",
+        "记住哪句写清了：CAN'T STOP WON'T STOP",
+        "今天只用互动招，没有做成翻页演示",
+        "没有做成自动播的视频",
+        "这是沟通页，能看细节，不是作品集",
+        "前胸字 / 袖标 / 吊牌 能被观察和比较",
+        "英文品牌只有 POIZON",
+        "一份 HTML，浏览器直接能开；10 秒能说清加了三维、多了能转"
+      ];
+
+      var ch = 0, beat = 0, caseId = null, notesOn = false, seen = { "00": true };
+      var checkState = {};
+
+      try {
+        checkState = JSON.parse(localStorage.getItem("html-dafa-checks") || "{}") || {};
+        var seenSaved = JSON.parse(localStorage.getItem("html-dafa-seen") || "{}");
+        if (seenSaved && typeof seenSaved === "object") seen = seenSaved;
+      } catch (e) {}
+
+      var notesEl = document.getElementById("notes");
+      var notesP = document.getElementById("notes-p");
+      var beatsEl = document.getElementById("beats");
+      var dockCh = document.getElementById("dock-ch");
+      var progLab = document.getElementById("prog-lab");
+      var progBar = document.getElementById("prog-bar");
+      var toast = document.getElementById("toast");
+      var checkRoot = document.getElementById("checks");
+      var checkCount = document.getElementById("check-count");
+
+      function noteKey() {
+        if (caseId) return "02-c" + caseId;
+        return CHAPTERS[ch].id + "-" + beat;
+      }
+
+      function renderChecks() {
+        checkRoot.innerHTML = CHECKS.map(function (t, i) {
+          var on = checkState[i] ? " checked" : "";
+          return '<label><input type="checkbox" data-i="' + i + '"' + on + " /><span>" + t + "</span></label>";
+        }).join("");
+        var n = CHECKS.reduce(function (s, _, i) { return s + (checkState[i] ? 1 : 0); }, 0);
+        checkCount.textContent = n + " / 10";
+      }
+
+      function applyMove(id) {
+        document.querySelectorAll("#moves button").forEach(function (b) {
+          b.classList.toggle("is-on", b.getAttribute("data-move") === id);
+        });
+        var m = MOVES[id];
+        if (!m) return;
+        document.getElementById("ans-add").textContent = m.add;
+        document.getElementById("ans-kind").textContent = m.kind;
+        document.getElementById("ans-line").textContent = m.line;
+      }
+
+      function syncHash() {
+        var h = "#" + CHAPTERS[ch].id;
+        if (caseId) h += "/case" + caseId;
+        else if (beat) h += "/" + beat;
+        if (location.hash !== h) history.replaceState(null, "", h);
+      }
+
+      function show() {
+        seen[CHAPTERS[ch].id] = true;
+        try { localStorage.setItem("html-dafa-seen", JSON.stringify(seen)); } catch (e) {}
+
+        document.querySelectorAll(".room").forEach(function (el) {
+          var on = caseId
+            ? el.getAttribute("data-case") === String(caseId)
+            : !el.getAttribute("data-case") && el.getAttribute("data-ch") === CHAPTERS[ch].id && Number(el.getAttribute("data-beat")) === beat;
+          el.classList.toggle("is-on", on);
+        });
+
+        document.querySelectorAll(".rail button.ch").forEach(function (b) {
+          var id = b.getAttribute("data-go");
+          b.classList.toggle("is-on", id === CHAPTERS[ch].id);
+          b.classList.toggle("is-seen", !!seen[id]);
+        });
+
+        var n = CHAPTERS[ch].beats;
+        beatsEl.innerHTML = "";
+        if (!caseId && n > 1) {
+          for (var i = 0; i < n; i++) {
+            var d = document.createElement("i");
+            if (i === beat) d.className = "on";
+            beatsEl.appendChild(d);
+          }
+        } else if (caseId) {
+          beatsEl.textContent = "房间 0" + caseId;
+        }
+
+        dockCh.textContent = caseId
+          ? "第 02 章 · 案例 0" + caseId
+          : "第 " + CHAPTERS[ch].id + " 章 · " + CHAPTERS[ch].name;
+
+        var seenN = CHAPTERS.filter(function (c) { return seen[c.id]; }).length;
+        progLab.textContent = seenN + " / 4";
+        progBar.style.width = (seenN / 4 * 100) + "%";
+
+        notesP.textContent = NOTES[noteKey()] || "";
+        notesEl.classList.toggle("is-on", notesOn);
+        syncHash();
+      }
+
+      function goChapter(id) {
+        var i = CHAPTERS.findIndex(function (c) { return c.id === id; });
+        if (i < 0) return;
+        ch = i;
+        beat = 0;
+        caseId = null;
+        show();
+      }
+
+      function next() {
+        if (caseId) {
+          if (caseId < 3) caseId += 1;
+          else caseId = null;
+          show();
+          return;
+        }
+        if (beat < CHAPTERS[ch].beats - 1) beat += 1;
+        else if (ch < CHAPTERS.length - 1) { ch += 1; beat = 0; }
+        show();
+      }
+
+      function prev() {
+        if (caseId) {
+          if (caseId > 1) caseId -= 1;
+          else caseId = null;
+          show();
+          return;
+        }
+        if (beat > 0) beat -= 1;
+        else if (ch > 0) { ch -= 1; beat = CHAPTERS[ch].beats - 1; }
+        show();
+      }
+
+      function enterCase(n) {
+        ch = 2;
+        beat = 0;
+        caseId = n;
+        show();
+      }
+
+      function parseHash() {
+        var raw = (location.hash || "").replace(/^#/, "");
+        if (!raw) return;
+        var parts = raw.split("/");
+        var i = CHAPTERS.findIndex(function (c) { return c.id === parts[0]; });
+        if (i < 0) return;
+        ch = i;
+        beat = 0;
+        caseId = null;
+        if (parts[1] && parts[1].indexOf("case") === 0) {
+          var n = Number(parts[1].slice(4));
+          if (n >= 1 && n <= 3) caseId = n;
+        } else if (parts[1] && !isNaN(Number(parts[1]))) {
+          var b = Number(parts[1]);
+          if (b >= 0 && b < CHAPTERS[ch].beats) beat = b;
+        }
+      }
+
+      document.querySelectorAll(".rail button.ch").forEach(function (b) {
+        b.addEventListener("click", function () { goChapter(b.getAttribute("data-go")); });
+      });
+      document.querySelectorAll("[data-case]").forEach(function (b) {
+        if (b.tagName !== "BUTTON") return;
+        b.addEventListener("click", function () { enterCase(Number(b.getAttribute("data-case"))); });
+      });
+      document.querySelectorAll("[data-back]").forEach(function (b) {
+        b.addEventListener("click", function () { caseId = null; ch = 2; beat = 0; show(); });
+      });
+      document.querySelectorAll("#moves button").forEach(function (b) {
+        b.addEventListener("click", function () { applyMove(b.getAttribute("data-move")); });
+      });
+
+      checkRoot.addEventListener("change", function (e) {
+        var t = e.target;
+        if (!t || t.type !== "checkbox") return;
+        checkState[t.getAttribute("data-i")] = t.checked;
+        try { localStorage.setItem("html-dafa-checks", JSON.stringify(checkState)); } catch (err) {}
+        renderChecks();
+      });
+
+      document.getElementById("copy-btn").addEventListener("click", function () {
+        var text = document.getElementById("prompt-text").textContent;
+        function ok() {
+          var btn = document.getElementById("copy-btn");
+          btn.textContent = "已复制";
+          btn.classList.add("is-ok");
+          toast.classList.add("is-on");
+          setTimeout(function () {
+            btn.textContent = "复制提示词";
+            btn.classList.remove("is-ok");
+            toast.classList.remove("is-on");
+          }, 1400);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(ok).catch(fallback);
+        } else fallback();
+        function fallback() {
+          var ta = document.createElement("textarea");
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand("copy"); } catch (err) {}
+          ta.remove();
+          ok();
+        }
+      });
+
+      document.addEventListener("keydown", function (e) {
+        var k = e.key;
+        var typing = e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName);
+        if (typing && k === " ") return;
+        if (k === "ArrowRight" || k === "PageDown" || (k === " " && !typing)) { e.preventDefault(); next(); }
+        else if (k === "ArrowLeft" || k === "PageUp") { e.preventDefault(); prev(); }
+        else if (k === "0" || k === "1" || k === "2" || k === "3") goChapter("0" + k);
+        else if (k === "f" || k === "F") {
+          if (!document.fullscreenElement) document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+          else document.exitFullscreen && document.exitFullscreen();
+        } else if (k === "s" || k === "S") { notesOn = !notesOn; show(); }
+        else if (k === "Escape") {
+          if (notesOn) notesOn = false;
+          else caseId = null;
+          show();
+        }
+      });
+
+      parseHash();
+      renderChecks();
+      show();
+    })();
+  </script>
+</body>
+</html>
