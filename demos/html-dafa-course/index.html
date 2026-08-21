@@ -335,12 +335,12 @@
     .back {
       appearance: none;
       background: transparent;
-      border: 0;
-      padding: 0;
+      border: 1px solid var(--line);
+      padding: 6px 10px;
       cursor: pointer;
       font-size: 12px;
       letter-spacing: 0.12em;
-      color: var(--soft);
+      color: var(--ink);
     }
     .back i {
       display: inline-block;
@@ -350,6 +350,7 @@
       margin-right: 8px;
       vertical-align: middle;
     }
+    .back:hover { border-color: var(--cyan); }
 
     .value {
       margin-top: 16px;
@@ -362,16 +363,39 @@
 
     .schema {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 18px;
-      margin-top: 18px;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+      margin-top: 16px;
     }
     .board {
       border: 1px solid var(--line);
-      min-height: 220px;
-      padding: 16px;
-      position: relative;
+      padding: 16px 16px 14px;
     }
+    .teach-steps {
+      list-style: none;
+      margin: 14px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+    .teach-steps li {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 10px;
+      align-items: baseline;
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+      font-size: 14px;
+      color: var(--soft);
+    }
+    .teach-steps b { color: var(--ink); font-weight: 650; }
+    .reuse {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--soft);
+      line-height: 1.55;
+    }
+    .reuse b { color: var(--ink); font-weight: 650; }
     .thumb {
       border: 1px solid var(--line);
       padding: 14px;
@@ -490,14 +514,14 @@
       border: 1px solid var(--line);
       padding: 14px 14px 16px;
     }
-    .prompt pre {
+      .prompt pre {
       margin: 10px 0 0;
       white-space: pre-wrap;
       font-family: inherit;
-      font-size: 12.5px;
-      line-height: 1.55;
+      font-size: 12px;
+      line-height: 1.5;
       color: var(--soft);
-      max-height: 210px;
+      max-height: 188px;
       overflow: auto;
     }
     .copy {
@@ -516,7 +540,7 @@
     .rounds li { margin: 8px 0; font-size: 12.5px; line-height: 1.5; color: var(--soft); }
     .rounds li b { color: var(--ink); font-weight: 650; }
     .checks { margin-top: 10px; }
-    .check { display: flex; flex-direction: column; gap: 5px; margin-top: 8px; max-height: 196px; overflow: auto; }
+    .check { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; max-height: none; overflow: visible; }
     .check label {
       display: grid;
       grid-template-columns: 14px 1fr;
@@ -531,50 +555,10 @@
     .check input { margin-top: 2px; accent-color: var(--cyan); }
     .count { font-size: 11px; color: var(--dim); letter-spacing: 0.1em; }
 
-    .tee {
-      width: 92px;
-      height: 108px;
-      margin: 8px auto 0;
-      position: relative;
-    }
-    .tee .body {
-      position: absolute;
-      left: 22px; right: 22px; top: 22px; bottom: 8px;
-      background: #161616;
-      border: 1px solid rgba(226, 26, 26, 0.55);
-    }
-    .tee .sl, .tee .sr {
-      position: absolute;
-      top: 24px;
-      width: 26px;
-      height: 18px;
-      background: #161616;
-      border: 1px solid rgba(226, 26, 26, 0.55);
-    }
-    .tee .sl { left: 2px; transform: skewY(-18deg); }
-    .tee .sr { right: 2px; transform: skewY(18deg); }
-    .tee .print {
-      position: absolute;
-      left: 30px; right: 30px; top: 40px;
-      font-size: 8px;
-      letter-spacing: 0.02em;
-      color: #E21A1A;
-      text-align: center;
-      line-height: 1.15;
-    }
-    .acts {
-      display: flex;
-      gap: 8px;
-      margin-top: 16px;
-    }
-    .acts span {
-      flex: 1;
-      border: 1px solid var(--line);
-      padding: 8px;
-      font-size: 12px;
-      text-align: center;
-      color: var(--soft);
-    }
+    .media-row { margin-top: 18px; }
+    .media-row article { min-height: 0; }
+    .quad { margin-top: 14px; }
+    .quad article { min-height: 0; padding: 12px 14px 14px; }
 
     .quote-mini {
       height: 100%;
@@ -719,7 +703,12 @@
         <section class="room" data-ch="00" data-beat="1">
           <p class="kicker">00 <em>/</em> HTML 在这里是什么</p>
           <h2>演示、三维、视频。<br>一套底座，全部覆盖。</h2>
-          <p class="lede">这里的 HTML 不是标签课。它先是一份能打开的文件，再覆盖四种能力：可视化、可互动、可展示、可传播。</p>
+          <p class="lede">这里的 HTML 不是标签课。它先是一份能打开的文件。演示、三维、视频三种介质，覆盖四种能力：可视化、可互动、可展示、可传播。</p>
+          <div class="trio media-row">
+            <article><div class="tag">介质</div><h3>演示</h3><p>能翻页讲的那一种。</p></article>
+            <article><div class="tag">介质</div><h3>三维</h3><p>能转着看的那一种。</p></article>
+            <article><div class="tag">介质</div><h3>视频</h3><p>能发出去播的那一种。</p></article>
+          </div>
           <div class="quad">
             <article><div class="tag">可视化</div><h3>能看见</h3><p>内容不再锁在文件夹里的平面图。</p></article>
             <article><div class="tag">可互动</div><h3>能上手</h3><p>转、点、比——对象自己被观察。</p></article>
@@ -738,7 +727,7 @@
         <section class="room" data-ch="01" data-beat="0">
           <p class="kicker">01 <em>/</em> 我们可以做什么？</p>
           <h2>一份内容 → HTML + 一招</h2>
-          <p class="lede">先有内容，再收成 HTML，然后只加一招。点下面任意一招：只回答「加了什么、多了哪种」。配方以后可以补，今天不教。</p>
+          <p class="lede">先有内容，再收成 HTML，然后只加一招：演示 skill / Three.js / 视频插件。点下面任意一招，只回答「加了什么、多了哪种」。配方以后可以补，今天不教。</p>
           <div class="moves" id="moves">
             <button type="button" data-move="demo">
               <div class="tag">演示招</div>
@@ -767,7 +756,7 @@
             </div>
             <div>
               <div class="q">这一招只做一件事</div>
-              <div class="a hint" id="ans-line" style="font-weight:500;font-size:15px;">演示 skill / 三维 / 视频插件，三选一加上去。</div>
+              <div class="a hint" id="ans-line" style="font-weight:500;font-size:15px;">演示 skill / Three.js / 视频插件，三选一加上去。</div>
             </div>
           </div>
           <p class="ghost">可以补充 <b>+ 配方</b>。提到即可，本课不展开。</p>
@@ -843,27 +832,18 @@
 
         <section class="room" data-case="1">
           <button class="back" type="button" data-back><i></i>返回课程</button>
-          <p class="kicker" style="margin-top:14px;">02 <em>/</em> 案例 01 · 沟通工具，不是服装设计替代</p>
+          <p class="kicker" style="margin-top:12px;">02 <em>/</em> 案例 01 · 一套 HTML 编辑器复用多个对象</p>
           <p class="value">HTML 不是替代服装设计，而是把静态设计稿升级成能被观察和比较的沟通工具。</p>
+          <p class="lede" style="margin-top:10px;">课上只讲这件事。下面是示意，不是把编辑器打开。</p>
           <div class="schema">
             <div class="board">
-              <div class="tag" style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);">课上示意 · 拖 / 换标 / 看面料</div>
-              <div class="tee" aria-hidden="true">
-                <span class="sl"></span><span class="sr"></span>
-                <span class="body"></span>
-                <span class="print">CAN'T<br>STOP</span>
-              </div>
-              <div class="acts">
-                <span>拖动观察</span>
-                <span>换袖标</span>
-                <span>看面料</span>
-              </div>
-              <div class="samebase">
-                <span><b>同一底座</b>周年 T 恤</span>
-                <span><b>同一底座</b>物流箱</span>
-                <span><b>同一底座</b>奖杯 AR</span>
-                <span><b>同一底座</b>防伪变色油墨</span>
-              </div>
+              <div class="tag" style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);">示意三步 · 拖 / 换标 / 看面料</div>
+              <ol class="teach-steps">
+                <li><b>1 · 拖动</b><span>把一件静态稿转起来，先观察。</span></li>
+                <li><b>2 · 换贴标</b><span>袖标开 / 关，两态才能比较。</span></li>
+                <li><b>3 · 看面料</b><span>针织、油墨、箱板——证据要被看清。</span></li>
+              </ol>
+              <p class="reuse">同一套底座接着复用：<b>物流箱</b> · <b>奖杯 AR</b> · <b>防伪变色油墨</b></p>
             </div>
             <div class="thumb">
               <div class="quote-mini">
@@ -873,7 +853,7 @@
                 </div>
                 <div class="line">CAN'T STOP WON'T STOP</div>
               </div>
-              <div class="cap">旧沟通页 · 证据缩略 · 人留在课里</div>
+              <div class="cap">旧沟通页缩略 · 只作证据 · 人留在课里</div>
             </div>
           </div>
         </section>
@@ -983,7 +963,7 @@
       ];
       var MOVES = {
         demo: { add: "演示 skill", kind: "能翻页讲的演示页", line: "同一份内容，站着能讲。加的是演示，多的是演示页。" },
-        play: { add: "三维 · 已有模型", kind: "能转的三维页", line: "同一份内容，转着能看。加的是三维，多的是互动页。" },
+        play: { add: "Three.js · 已有模型", kind: "能转的三维页", line: "同一份内容，转着能看。加的是三维，多的是互动页。" },
         cast: { add: "视频插件", kind: "能播的简单动态视频", line: "同一份内容，发出去能播。加的是插件，多的是传播形态。" }
       };
       var NOTES = {
@@ -1214,9 +1194,9 @@
 
       document.addEventListener("keydown", function (e) {
         var k = e.key;
-        var typing = e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName);
-        if (typing && k === " ") return;
-        if (k === "ArrowRight" || k === "PageDown" || (k === " " && !typing)) { e.preventDefault(); next(); }
+        var onControl = e.target && e.target.closest && e.target.closest("input, textarea, select, button, label");
+        if (onControl && (k === " " || k === "Enter")) return;
+        if (k === "ArrowRight" || k === "PageDown" || k === " ") { e.preventDefault(); next(); }
         else if (k === "ArrowLeft" || k === "PageUp") { e.preventDefault(); prev(); }
         else if (k === "0" || k === "1" || k === "2" || k === "3") goChapter("0" + k);
         else if (k === "f" || k === "F") {
@@ -1233,6 +1213,7 @@
       parseHash();
       renderChecks();
       show();
+      if (/[?&]qa=play(?:&|$)/.test(location.search)) applyMove("play");
     })();
   </script>
 </body>
