@@ -235,7 +235,7 @@ body.reduced-motion #scroll-cue span { animation: none; }
   .hud-btn { padding: 5px 8px; font-size: 10px; }
   #chapter-nav { right: 12px; }
   .chapter-inner { max-width: 78vw; }
-  .pos-left, .pos-bottom-left { left: 6vw; top: auto; bottom: 9vh; transform: none; }
+  .pos-left, .pos-bottom-left, .pos-top-right { left: 6vw; right: auto; top: auto; bottom: 9vh; transform: none; }
   .pos-right { right: 6vw; left: 6vw; top: auto; bottom: 9vh; transform: none; }
   .ch-title { font-size: 24px; }
   .ch-body { font-size: 13px; line-height: 1.8; }

@@ -130,8 +130,16 @@ export function createEnvironment(scene, quality) {
     );
     base.position.set(lg.position.x, -LH / 2 - 0.35, 0);
     htmlGroup.add(base);
+    // 支承桅杆（托座落到地面的结构，避免悬空）
+    const mastMat = new THREE.MeshStandardMaterial({ color: 0x191c1f, metalness: 0.6, roughness: 0.5 });
+    for (const mx of [-LH * 0.24, LH * 0.24]) {
+      const mast = new THREE.Mesh(new THREE.BoxGeometry(1.1, LH / 2 + 20, 1.6), mastMat);
+      mast.position.set(lg.position.x + mx, -LH / 2 - (LH / 2 + 20) / 2, 0);
+      htmlGroup.add(mast);
+    }
   });
-  htmlGroup.position.set(0, LH / 2 + 10, -132);
+  // 抬高至与主楼同高：外景中从楼后耸出，屋顶终幕越过女儿墙可见
+  htmlGroup.position.set(0, LH / 2 + 20, -132);
   group.add(htmlGroup);
 
   // HTML 字后方的冷色轮廓光
