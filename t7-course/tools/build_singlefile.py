@@ -47,6 +47,7 @@ def main():
     # --- 处理各模块 ---
     module_uris = {}
     module_uris['three'] = 'data:text/javascript;base64,' + b64('assets/vendor/three.module.js')
+    module_uris['gltfloader'] = 'data:text/javascript;base64,' + b64('assets/vendor/GLTFLoader.js')
     for name in MODULES:
         src = read(f'js/{name}.js')
         # 相对导入 → 裸标识符（由 import map 解析）

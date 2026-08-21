@@ -59,6 +59,10 @@ export function createBuilding() {
     return curtainCache[key];
   }
 
+  // 真实窗格：每层每跨一块实例化发光玻璃板（不依赖贴图，窗户在任何设备上清晰可读）
+  const paneGeo = new THREE.PlaneGeometry(1, 1);
+  const paneMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
   function brickBox(w, h, d, x, y, z, mat = matBrick) {
     const g = worldUV(new THREE.BoxGeometry(w, h, d), w, h, d);
     const m = new THREE.Mesh(g, mat);
@@ -85,9 +89,10 @@ export function createBuilding() {
     const visFloors = Math.max(1, Math.round(fh / B.FLOOR_H));
 
     // 内核体（防止缝隙漏光；从内部看因背面剔除而不可见）
+    // 注意：必须比幕墙玻璃（内凹 0.55）更靠内，否则会挡住整片窗户
     if (!hollow) {
       const core = new THREE.Mesh(
-        worldUV(new THREE.BoxGeometry(w - 0.4, fh, d - 0.4), w, fh, d),
+        worldUV(new THREE.BoxGeometry(w - 2.4, fh, d - 2.4), w, fh, d),
         matBrick
       );
       core.position.y = lift + fh / 2;
@@ -112,6 +117,7 @@ export function createBuilding() {
       faceG.rotation.y = f.rot;
 
       let cursor = -f.len / 2;
+      const stripCenters = [];
       for (let i = 0; i <= n; i++) {
         // 壁柱（凸出）
         const pil = new THREE.Mesh(
@@ -149,8 +155,42 @@ export function createBuilding() {
               faceG.add(tr);
             }
           }
+          stripCenters.push(cursor + glassW / 2);
           cursor += glassW;
         }
+      }
+
+      /* --- 实例化窗格：每层每跨一块，暖光/熄灯随机，窗户清晰可读 --- */
+      if (stripCenters.length) {
+        const glassW2 = stripCenters.length ? (f.len - pilW * (n + 1)) / n : 0;
+        const floorPitch = (fh - 1.6) / visFloors;
+        const paneW = Math.max(0.8, glassW2 - 0.42);
+        const paneH = Math.max(1.0, floorPitch - 0.6);
+        const inst = new THREE.InstancedMesh(paneGeo, paneMat, stripCenters.length * visFloors);
+        const m4 = new THREE.Matrix4();
+        const colC = new THREE.Color();
+        let k = 0;
+        for (const sx of stripCenters) {
+          for (let fl = 0; fl < visFloors; fl++) {
+            const y = lift + 0.4 + (fl + 0.5) * floorPitch;
+            m4.makeScale(paneW, paneH, 1);
+            m4.setPosition(sx, y, -GLASS_RECESS + 0.30);
+            inst.setMatrixAt(k, m4);
+            if (Math.random() < litRatio) {
+              const wv = Math.random();
+              // 暖色办公灯光为主，混少量冷白
+              if (Math.random() < 0.22) colC.setRGB(0.75 + wv * 0.15, 0.82 + wv * 0.12, 0.88);
+              else colC.setRGB(1.0, 0.66 + wv * 0.2, 0.36 + wv * 0.28);
+              colC.multiplyScalar(0.75 + Math.random() * 0.45);
+            } else {
+              colC.setRGB(0.045, 0.075, 0.1);
+            }
+            inst.setColorAt(k, colC);
+            k++;
+          }
+        }
+        inst.instanceMatrix.needsUpdate = true;
+        faceG.add(inst);
       }
       block.add(faceG);
     }

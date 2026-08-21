@@ -1,7 +1,7 @@
 // 走进 HTML：一份内容，三种交付 —— 得物 T7 沉浸式课程
 // 主控：渲染器 / 滚动时间轴 / 场景装配 / 逐帧同步
 import * as THREE from 'three';
-import { COLORS, CHAPTERS, chapterAt, span, smooth } from './config.js';
+import { COLORS, CHAPTERS, B, chapterAt, span, smooth } from './config.js';
 import { createBuilding } from './building.js';
 import { createEnvironment } from './environment.js';
 import { createTrain } from './train.js';
@@ -263,6 +263,15 @@ function tick() {
     interiors.updateVisibility(chIdx);
   }
 
+  // 外部 GLB 外观：仅外景章节显示，入楼前切回程序化楼体（保证门与室内衔接）
+  if (glbExterior) {
+    const outside = p < 0.124;
+    if (glbExterior.visible !== outside) {
+      glbExterior.visible = outside;
+      building.visible = !outside;
+    }
+  }
+
   // 入口玻璃门
   building.userData.setDoorOpen(smooth(windowSpan(p, TIMES.door)));
 
@@ -325,6 +334,35 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
   applyQuality();
 });
+
+/* ================= 可选：外部 GLB 外观替换（图转 3D 工作流） =================
+   把 Tripo / TRELLIS / Hunyuan3D 等生成的模型放到 assets/models/t7-exterior.glb，
+   外景章节将显示该模型；进入建筑后自动切回程序化楼体以保证室内叙事。 */
+let glbExterior = null;
+(async () => {
+  try {
+    const head = await fetch('assets/models/t7-exterior.glb', { method: 'HEAD' });
+    if (!head.ok) return;
+    const { GLTFLoader } = await import('gltfloader');
+    const gltf = await new GLTFLoader().loadAsync('assets/models/t7-exterior.glb');
+    const model = gltf.scene;
+    // 自动归一化：以主楼高度为准缩放并落地居中
+    const box = new THREE.Box3().setFromObject(model);
+    const size = box.getSize(new THREE.Vector3());
+    const scale = (B.TOWER_H + 2) / size.y;
+    model.scale.setScalar(scale);
+    box.setFromObject(model);
+    const center = box.getCenter(new THREE.Vector3());
+    model.position.x -= center.x;
+    model.position.z -= center.z;
+    model.position.y -= box.min.y;
+    scene.add(model);
+    model.visible = scroll.value < 0.124;
+    building.visible = !model.visible;
+    glbExterior = model;
+    console.info('[T7] 已加载外部建筑模型 assets/models/t7-exterior.glb');
+  } catch (e) { /* 无外部模型时静默使用程序化楼体 */ }
+})();
 
 /* ================= 深链：#p=0.42 或 #ch=3 直达（讲师上课可用） ================= */
 function applyHash() {
