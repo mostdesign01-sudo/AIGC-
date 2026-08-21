@@ -884,8 +884,7 @@ export function createInteriors(scene, videoEl) {
         x.fillStyle = SCREEN_AURORA;
         x.fillRect(40, h - 80, 60, 4);
       }, { pw: 340, ph: 640 });
-      totem.position.set(tx, Y + 1.75, tz);
-      totem.rotation.y = Math.PI;   // 面向南侧镜头
+      totem.position.set(tx, Y + 1.75, tz);   // 屏面朝 +z（南侧镜头方向）
       g.add(totem);
       const baseM = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.14, 0.7), mats.metal);
       baseM.position.set(tx, Y + 0.07, tz);
