@@ -24,7 +24,7 @@ export const B = {
   WING_W: 11.5,
   WING_D: 23,
   PODIUM_FLOORS: 2,
-  PODIUM_W: 70,
+  PODIUM_W: 54,
   PODIUM_D: 36,
   PARAPET: 1.4,
 };
@@ -32,8 +32,8 @@ B.TOWER_H = B.TOWER_FLOORS * B.FLOOR_H;          // 58.8
 B.WING_H = B.WING_FLOORS * B.FLOOR_H;            // 42
 B.PODIUM_H = B.PODIUM_FLOORS * B.FLOOR_H + 1.2;  // 9.6
 
-// 列车轨道
-export const TRACK = { RADIUS: 56, HEIGHT: 27.5, TILT: 0 };
+// 列车轨道（参考图：更低更近，列车从楼前掠过）
+export const TRACK = { RADIUS: 50, HEIGHT: 21, TILT: 0 };
 
 // 章节进度区间（滚动 0-1）；anchor 为章节跳转的落位点
 export const CHAPTERS = [
