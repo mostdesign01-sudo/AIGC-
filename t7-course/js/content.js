@@ -51,7 +51,7 @@ export const CHAPTER_DOM = [
   {
     key: 'lab', show: [0.62, 0.70],
     html: `
-    <div class="chapter-inner pos-right">
+    <div class="chapter-inner pos-top-right">
       <div class="ch-kicker">CHAPTER 05 · 互动实验室 · 9F</div>
       <h2 class="ch-title">Three.js <span class="hl">互动模型</span></h2>
       <p class="ch-body">当内容需要被<strong>观察、探索和操作</strong>，<br>把 HTML 升级成三维互动体验。<br><br>试试展台上的案例：<span class="hl">拖动旋转、滚轮缩放、点击切换</span>。<br>依然不需要写一行代码。</p>

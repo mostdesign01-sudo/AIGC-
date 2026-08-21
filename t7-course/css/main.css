@@ -155,6 +155,7 @@ body.started #chapter-nav { opacity: 1; }
 .pos-right { right: 6vw; top: 50%; transform: translateY(-50%); text-align: left; }
 .pos-bottom-left { left: 6vw; bottom: 10vh; }
 .pos-top-center { left: 50%; top: 12vh; transform: translateX(-50%); text-align: center; }
+.pos-top-right { right: 5vw; top: 13vh; max-width: 360px; }
 
 /* 屋顶终章 */
 .finale-inner { left: 50%; top: 48%; transform: translate(-50%, -50%); text-align: center; max-width: 760px; }

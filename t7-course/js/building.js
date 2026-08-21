@@ -143,19 +143,28 @@ export function createBuilding() {
       block.add(faceG);
     }
 
-    // 檐口 + 女儿墙（顶部收头，照片中的线脚）
+    // 檐口（顶部收头，照片中的线脚；顶面即屋面）
     const cornice = new THREE.Mesh(
       worldUV(new THREE.BoxGeometry(w + 1.0, 0.5, d + 1.0), w + 1, 0.5, d + 1),
       matBrickDark
     );
     cornice.position.y = h + 0.25;
     block.add(cornice);
-    const parapet = new THREE.Mesh(
-      worldUV(new THREE.BoxGeometry(w + 0.4, B.PARAPET, d + 0.4), w, B.PARAPET, d),
-      matBrick
-    );
-    parapet.position.y = h + 0.5 + B.PARAPET / 2;
-    block.add(parapet);
+    // 女儿墙：沿四边的环形矮墙（不能封顶，屋面必须露出）
+    const PT = 0.45, PY = h + 0.5 + B.PARAPET / 2;
+    for (const [px, pz, pw2, pd2] of [
+      [0, (d + 0.4) / 2 - PT / 2, w + 0.4, PT],
+      [0, -(d + 0.4) / 2 + PT / 2, w + 0.4, PT],
+      [(w + 0.4) / 2 - PT / 2, 0, PT, d + 0.4 - PT * 2],
+      [-(w + 0.4) / 2 + PT / 2, 0, PT, d + 0.4 - PT * 2],
+    ]) {
+      const seg = new THREE.Mesh(
+        worldUV(new THREE.BoxGeometry(pw2, B.PARAPET, pd2), pw2, B.PARAPET, pd2),
+        matBrick
+      );
+      seg.position.set(px, PY, pz);
+      block.add(seg);
+    }
 
     // 勒脚（底部石材基座，仅落地体块）
     if (lift === 0) {
@@ -167,10 +176,6 @@ export function createBuilding() {
       block.add(plinth);
     }
 
-    // 楼板顶面（屋面）
-    const roofSlab = new THREE.Mesh(new THREE.BoxGeometry(w - 0.6, 0.3, d - 0.6), matConcrete);
-    roofSlab.position.y = h + 0.15;
-    block.add(roofSlab);
 
     group.add(block);
     return { block, h, w, d, x, z };
