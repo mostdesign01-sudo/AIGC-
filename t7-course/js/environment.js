@@ -114,7 +114,7 @@ export function createEnvironment(scene, quality) {
   /* ---------- 巨型 HTML 立体字（建筑背后，比楼体更宽更高可见） ---------- */
   const letterMat = new THREE.MeshStandardMaterial({
     color: 0x181c1f, metalness: 0.55, roughness: 0.4,
-    emissive: 0xe6eff1, emissiveIntensity: 0.85,
+    emissive: 0xe6eff1, emissiveIntensity: 1.1,
   });
   const htmlGroup = new THREE.Group();
   const letters = ['H', 'T', 'M', 'L'];
@@ -133,8 +133,8 @@ export function createEnvironment(scene, quality) {
     // 支承桅杆（托座落到地面的结构，避免悬空）
     const mastMat = new THREE.MeshStandardMaterial({ color: 0x191c1f, metalness: 0.6, roughness: 0.5 });
     for (const mx of [-LH * 0.24, LH * 0.24]) {
-      const mast = new THREE.Mesh(new THREE.BoxGeometry(1.1, LH / 2 + 20, 1.6), mastMat);
-      mast.position.set(lg.position.x + mx, -LH / 2 - (LH / 2 + 20) / 2, 0);
+      const mast = new THREE.Mesh(new THREE.BoxGeometry(1.1, 20.4, 1.6), mastMat);
+      mast.position.set(lg.position.x + mx, -LH / 2 - 10, 0);
       htmlGroup.add(mast);
     }
   });
