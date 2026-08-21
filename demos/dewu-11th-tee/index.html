@@ -3,21 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>得物 11 周年 — 周年 T 恤</title>
+  <title>得物 11 周年 — 周年 T 恤 · 物料沟通</title>
   <style>
     :root {
       --bg: #070707;
       --ink: #F3EEE4;
-      --ink-dim: rgba(243, 238, 228, 0.22);
       --ink-soft: rgba(243, 238, 228, 0.55);
+      --ink-dim: rgba(243, 238, 228, 0.22);
       --red: #E21A1A;
       --cyan: #00DBDB;
       --card: #101010;
-      --rule: rgba(243, 238, 228, 0.08);
+      --panel: #0c0c0c;
+      --rule: rgba(243, 238, 228, 0.1);
       --sans: "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", ui-sans-serif, system-ui, sans-serif;
       --serif: "Songti SC", "STSong", "Noto Serif SC", "Times New Roman", ui-serif, Georgia, serif;
-      --pad: clamp(1.5rem, 5vw, 4.5rem);
+      --pad: clamp(1.25rem, 4vw, 3.5rem);
       --grid: 72px;
+      --light: 1;
     }
 
     * { box-sizing: border-box; }
@@ -29,20 +31,11 @@
       color: var(--ink);
       font-family: var(--sans);
       -webkit-font-smoothing: antialiased;
-      text-rendering: geometricPrecision;
     }
 
-    html { scroll-behavior: smooth; }
+    body { min-height: 100vh; overflow-x: hidden; }
 
-    body {
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    ::selection {
-      background: var(--red);
-      color: var(--ink);
-    }
+    ::selection { background: var(--red); color: var(--ink); }
 
     .grid {
       position: fixed;
@@ -53,14 +46,13 @@
         linear-gradient(to right, var(--rule) 1px, transparent 1px),
         linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
       background-size: var(--grid) var(--grid);
-      background-position: 0 0;
     }
 
     .frame {
       position: relative;
       z-index: 1;
       padding: var(--pad);
-      padding-bottom: clamp(4rem, 10vw, 8rem);
+      padding-bottom: 4rem;
     }
 
     header.top {
@@ -68,165 +60,498 @@
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
       gap: 1rem;
-      min-height: 2.5rem;
-      margin-bottom: clamp(1.8rem, 5vh, 3.5rem);
+      margin-bottom: 1.6rem;
     }
 
     header.top .brand,
-    header.top .kicker {
+    header.top .kicker,
+    header.top .job {
       font-size: 11px;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       font-weight: 500;
     }
 
     header.top .brand { justify-self: start; }
+    header.top .job { justify-self: center; color: var(--ink-soft); }
     header.top .kicker { justify-self: end; }
 
     .tick {
-      width: 28px;
-      height: 1px;
-      background: var(--cyan);
-      justify-self: center;
-    }
-
-    .hero {
-      padding-top: clamp(0.6rem, 2.4vh, 1.8rem);
-      padding-bottom: clamp(2.5rem, 8vh, 5.5rem);
-    }
-
-    .meta {
-      margin: 0 0 1.1rem;
-      font-size: 10px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-      font-weight: 500;
-    }
-
-    .meta .dot {
       display: inline-block;
       width: 16px;
       height: 1px;
       background: var(--cyan);
       vertical-align: middle;
-      margin-right: 10px;
+      margin-right: 8px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: 1.5rem 2rem;
+      align-items: end;
+      margin-bottom: 1.75rem;
     }
 
     .who {
-      margin: 0 0 0.12em;
-      font-size: clamp(3.2rem, 14vw, 22rem);
+      margin: 0 0 0.15em;
+      font-size: clamp(2.1rem, 7vw, 5.4rem);
       font-weight: 800;
-      line-height: 0.86;
-      letter-spacing: -0.05em;
-      max-width: 100%;
-      overflow: visible;
+      line-height: 0.88;
+      letter-spacing: -0.045em;
     }
 
     .one {
       display: flex;
       align-items: flex-end;
-      gap: clamp(0.8rem, 2.4vw, 2rem);
-      flex-wrap: wrap;
-      margin-top: -0.06em;
+      gap: 0.7rem;
     }
 
     .eleven {
       margin: 0;
-      font-size: clamp(6.4rem, min(40vw, 52vh), 40rem);
+      font-size: clamp(3.4rem, 12vw, 7.2rem);
       font-weight: 800;
-      line-height: 0.74;
-      letter-spacing: -0.08em;
+      line-height: 0.76;
+      letter-spacing: -0.07em;
       color: var(--red);
-      overflow: visible;
     }
-
-    .one-side {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding-bottom: 0.18em;
-    }
-
-    .one-side .meta { margin-bottom: 0.45rem; }
 
     .zhounian {
-      margin: 0;
+      margin: 0 0 0.18em;
       font-family: var(--serif);
-      font-size: clamp(2.2rem, 6.8vw, 6.5rem);
-      font-weight: 400;
-      line-height: 0.92;
+      font-size: clamp(1.4rem, 3.4vw, 2.4rem);
       letter-spacing: 0.12em;
-    }
-
-    .glyph {
-      display: inline-block;
-      will-change: transform;
-      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .remember {
-      padding: clamp(2rem, 8vh, 5rem) 0 clamp(3rem, 8vh, 5.5rem);
-      max-width: 58rem;
+      font-weight: 400;
     }
 
     .line {
       margin: 0;
       font-family: var(--serif);
-      font-size: clamp(1.85rem, 4.8vw, 3.8rem);
+      font-size: clamp(1.15rem, 2.4vw, 1.85rem);
       font-weight: 400;
-      line-height: 1.42;
-      letter-spacing: 0.11em;
+      letter-spacing: 0.1em;
+      line-height: 1.35;
     }
 
-    .line .word {
-      display: inline-block;
-      margin-right: 0.42em;
+    .how {
+      margin: 0.7rem 0 0;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--ink-soft);
+    }
+
+    .work {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 1rem;
+    }
+
+    .stage {
+      background: var(--card);
+      border: 1px solid var(--rule);
+      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stage-label {
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      z-index: 3;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .tee-stage { cursor: grab; touch-action: none; }
+    .tee-stage.is-drag { cursor: grabbing; }
+
+    .tee-world {
+      position: absolute;
+      inset: 36px 12px 28px;
+      display: grid;
+      place-items: center;
+      perspective: 900px;
+    }
+
+    .tee-spin {
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .tee {
+      width: 250px;
+      height: 300px;
+      position: relative;
+      filter: brightness(var(--light)) contrast(calc(0.92 + (var(--light) - 1) * 0.35));
+    }
+
+    .knit {
+      background-color: #161616;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(243, 238, 228, 0.07) 0 1px, transparent 1px 3px),
+        repeating-linear-gradient(90deg, rgba(243, 238, 228, 0.045) 0 1px, transparent 1px 2px);
+    }
+
+    .sleeve {
+      position: absolute;
+      top: 38px;
+      width: 78px;
+      height: 92px;
+      border-radius: 18px 18px 22px 22px;
+    }
+
+    .sleeve.l { left: -2px; transform: rotate(28deg); }
+    .sleeve.r { right: -2px; transform: rotate(-28deg); }
+
+    .body {
+      position: absolute;
+      left: 46px;
+      top: 28px;
+      width: 158px;
+      height: 250px;
+      clip-path: polygon(18% 0, 82% 0, 100% 14%, 94% 100%, 6% 100%, 0 14%);
+    }
+
+    .collar {
+      position: absolute;
+      left: 96px;
+      top: 22px;
+      width: 58px;
+      height: 28px;
+      border: 7px solid #101010;
+      border-bottom: 0;
+      border-radius: 50% 50% 0 0;
+      z-index: 2;
+    }
+
+    .chest {
+      position: absolute;
+      left: 50%;
+      top: 86px;
+      transform: translateX(-50%);
+      width: 118px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 15px;
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      cursor: pointer;
+    }
+
+    .chest span { display: block; }
+    .chest span:nth-child(even) { color: var(--red); }
+
+    .patch {
+      position: absolute;
+      left: 16px;
+      top: 28px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px dashed rgba(243, 238, 228, 0.45);
+      display: grid;
+      place-items: center;
+      color: var(--red);
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: -0.06em;
+      cursor: pointer;
+      background: rgba(7, 7, 7, 0.35);
+    }
+
+    .tee[data-patch="off"] .patch {
+      color: transparent;
+      background: transparent;
+    }
+
+    .tee[data-patch="off"] .patch::after {
+      content: "";
+      width: 18px;
+      height: 1px;
+      background: rgba(243, 238, 228, 0.25);
+    }
+
+    .hang {
+      position: absolute;
+      left: 132px;
+      top: 8px;
+      width: 28px;
+      height: 44px;
+      background: var(--ink);
+      color: var(--bg);
+      z-index: 3;
+      transform: rotate(-8deg);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 6px 3px 4px;
+    }
+
+    .hang i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--bg);
+      display: block;
+    }
+
+    .hang b {
+      margin-top: 4px;
+      font-size: 7px;
+      letter-spacing: 0.04em;
+      font-style: normal;
+      font-weight: 800;
+      color: var(--red);
+    }
+
+    .hot {
+      outline: none;
+    }
+
+    .hot.is-on,
+    .chest.is-on,
+    .patch.is-on,
+    .hang.is-on {
+      box-shadow: 0 0 0 1px var(--cyan);
+    }
+
+    .inspect-well {
+      position: absolute;
+      inset: 42px 18px 18px;
+    }
+
+    .swatch {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.28s ease;
+      overflow: hidden;
+    }
+
+    .swatch.is-on { opacity: 1; }
+
+    .swatch-knit {
+      position: absolute;
+      inset: 0;
+      filter: brightness(var(--light));
+    }
+
+    .swatch-print {
+      position: absolute;
+      inset: 18%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+    }
+
+    .swatch-print span { display: block; }
+    .swatch-print span:nth-child(even) { color: var(--red); }
+
+    .swatch-badge {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+    }
+
+    .ring {
+      width: min(220px, 56%);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 1px dashed rgba(243, 238, 228, 0.4);
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .ring::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border-radius: 50%;
+      border: 1px solid rgba(243, 238, 228, 0.16);
+    }
+
+    .ring strong {
+      font-size: 4.2rem;
+      font-weight: 800;
+      color: var(--red);
+      line-height: 0.8;
+      letter-spacing: -0.06em;
+    }
+
+    .ring em {
+      display: block;
+      margin-top: 0.4rem;
+      font-family: var(--serif);
+      font-style: normal;
+      letter-spacing: 0.28em;
+      text-align: center;
+    }
+
+    .ring.is-empty strong,
+    .ring.is-empty em { display: none; }
+
+    .ring.is-empty::after {
+      content: "未上标";
+      letter-spacing: 0.28em;
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+
+    .swatch-tag {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+    }
+
+    .paper {
+      width: 148px;
+      height: 220px;
+      background: var(--ink);
+      color: var(--bg);
+      padding: 26px 16px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: rotate(-4deg);
+      filter: brightness(var(--light));
+    }
+
+    .paper .hole {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg);
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .paper .hole::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 14px;
+      width: 1px;
+      height: 28px;
+      background: var(--cyan);
+      transform: translateX(-50%);
+    }
+
+    .paper b { letter-spacing: 0.22em; font-size: 1.05rem; }
+    .paper .n {
+      margin: 12px 0 14px;
+      font-size: 3.4rem;
+      font-weight: 800;
+      color: var(--red);
+      line-height: 0.8;
+    }
+    .paper i {
+      margin-top: auto;
+      font-style: normal;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+    }
+
+    .panel {
+      margin-top: 1rem;
+      padding: 14px 16px;
+      background: var(--panel);
+      border: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      gap: 12px 22px;
+      align-items: center;
+    }
+
+    .panel .now {
+      grid-column: 1 / -1;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--ink-soft);
+    }
+
+    .panel .now b { color: var(--ink); font-weight: 600; }
+
+    .panel label,
+    .tog-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .panel input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: min(280px, 36vw);
+      height: 1px;
+      background: rgba(243, 238, 228, 0.28);
+      outline: none;
+    }
+
+    .panel input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 0;
+      cursor: pointer;
+    }
+
+    .togs { display: flex; gap: 0; }
+
+    .togs button {
+      appearance: none;
+      background: transparent;
+      color: var(--ink-soft);
+      border: 1px solid var(--rule);
+      font: inherit;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      padding: 6px 14px;
+      cursor: pointer;
+    }
+
+    .togs button:first-child { border-right: 0; }
+    .togs button.is-on {
       color: var(--ink);
-      opacity: 0.18;
-      transform: translateY(0.35em);
-      transition:
-        opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: inset 0 -1px 0 var(--cyan);
     }
 
-    .line.is-in .word { opacity: 1; transform: none; }
-    .line.is-in .word:nth-child(1) { transition-delay: 0ms; }
-    .line.is-in .word:nth-child(2) { transition-delay: 90ms; }
-    .line.is-in .word:nth-child(3) { transition-delay: 180ms; }
-    .line.is-in .word:nth-child(4) { transition-delay: 270ms; }
-
-    .evidence {
-      padding-top: clamp(1rem, 4vh, 3rem);
-    }
+    .evidence { margin-top: 1.6rem; }
 
     .evidence-head {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      gap: 1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .evidence-head .hint {
+      margin-bottom: 0.6rem;
       font-size: 10px;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--ink-soft);
     }
 
     .ribbon-stage {
       position: relative;
-      height: clamp(420px, 58vh, 560px);
-      perspective: 1280px;
-      perspective-origin: 50% 46%;
-      margin: 0 calc(var(--pad) * -0.25);
+      height: 340px;
+      perspective: 1200px;
     }
 
     .ribbon {
       position: absolute;
       left: 50%;
-      top: 50%;
+      top: 52%;
       width: 0;
       height: 0;
       transform-style: preserve-3d;
@@ -234,38 +559,42 @@
 
     .card {
       position: absolute;
-      width: min(268px, 72vw);
-      height: 372px;
-      margin-left: calc(min(268px, 72vw) / -2);
-      margin-top: -186px;
-      padding: 22px 22px 24px;
+      width: 220px;
+      height: 292px;
+      margin-left: -110px;
+      margin-top: -146px;
+      padding: 16px 16px 18px;
       background: var(--card);
       border: 1px solid rgba(243, 238, 228, 0.12);
-      color: var(--ink);
-      transform-style: preserve-3d;
-      backface-visibility: hidden;
       display: flex;
       flex-direction: column;
-      cursor: default;
+      cursor: pointer;
+      text-align: left;
+      color: inherit;
+      font: inherit;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
     }
+
+    .card.is-on { border-color: rgba(0, 219, 219, 0.55); }
 
     .card-index {
       font-size: 10px;
-      letter-spacing: 0.24em;
+      letter-spacing: 0.22em;
       color: var(--ink-soft);
     }
 
     .card-face {
       flex: 1;
-      margin: 18px 0 20px;
+      margin: 12px 0 14px;
       position: relative;
       overflow: hidden;
       background: #0b0b0b;
     }
 
     .card h3 {
-      margin: 0 0 6px;
-      font-size: 1.15rem;
+      margin: 0 0 4px;
+      font-size: 1.05rem;
       font-weight: 600;
       letter-spacing: 0.06em;
     }
@@ -273,264 +602,220 @@
     .card p {
       margin: 0;
       font-size: 12px;
-      letter-spacing: 0.04em;
       color: var(--ink-soft);
     }
 
-    /* 前胸字 */
-    .print {
+    .mini-print {
       position: absolute;
-      inset: 16px;
+      inset: 12px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 0.05em;
       font-weight: 800;
-      font-size: clamp(1.6rem, 3.4vw, 2.05rem);
+      font-size: 1.15rem;
       line-height: 0.92;
-      letter-spacing: -0.03em;
     }
 
-    .print span:nth-child(odd) { color: var(--ink); }
-    .print span:nth-child(even) { color: var(--red); }
+    .mini-print span:nth-child(even) { color: var(--red); }
 
-    /* 袖标 */
-    .badge {
+    .mini-badge {
       position: absolute;
       inset: 0;
       display: grid;
       place-items: center;
     }
 
-    .badge-ring {
-      width: 168px;
-      height: 168px;
+    .mini-badge i {
+      width: 88px;
+      height: 88px;
       border-radius: 50%;
       border: 1px dashed rgba(243, 238, 228, 0.35);
       display: grid;
       place-items: center;
-      position: relative;
-    }
-
-    .badge-ring::before {
-      content: "";
-      position: absolute;
-      inset: 10px;
-      border-radius: 50%;
-      border: 1px solid rgba(243, 238, 228, 0.14);
-    }
-
-    .badge-core {
-      text-align: center;
-    }
-
-    .badge-core strong {
-      display: block;
-      font-size: 4.4rem;
-      font-weight: 800;
-      line-height: 0.8;
-      letter-spacing: -0.06em;
       color: var(--red);
-    }
-
-    .badge-core em {
-      display: block;
-      margin-top: 0.45rem;
-      font-family: var(--serif);
       font-style: normal;
-      font-size: 0.95rem;
-      letter-spacing: 0.28em;
+      font-weight: 800;
+      font-size: 1.8rem;
     }
 
-    /* 吊牌 */
-    .tag {
+    .mini-tag {
       position: absolute;
       left: 50%;
       top: 18px;
-      width: 132px;
-      height: 196px;
+      width: 78px;
+      height: 118px;
       transform: translateX(-50%) rotate(-6deg);
       background: var(--ink);
       color: var(--bg);
-      padding: 22px 14px 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: 12px 8px;
+      font-size: 10px;
+      letter-spacing: 0.16em;
     }
 
-    .tag-hole {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: var(--bg);
-      margin-bottom: 16px;
-      position: relative;
-    }
-
-    .tag-hole::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: 12px;
-      width: 1px;
-      height: 28px;
-      background: var(--cyan);
-      transform: translateX(-50%);
-    }
-
-    .tag b {
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-    }
-
-    .tag .n {
-      margin: 10px 0 12px;
-      font-size: 3.1rem;
-      font-weight: 800;
-      line-height: 0.8;
-      letter-spacing: -0.06em;
-      color: var(--red);
-    }
-
-    .tag i {
-      margin-top: auto;
-      font-style: normal;
-      font-size: 9px;
-      letter-spacing: 0.28em;
-    }
+    .mini-tag b { color: var(--red); font-size: 1.4rem; margin-top: 8px; }
 
     footer.foot {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-top: clamp(3rem, 8vh, 5rem);
-      padding-top: 1.25rem;
+      margin-top: 2rem;
+      padding-top: 1rem;
       border-top: 1px solid var(--rule);
       font-size: 10px;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--ink-soft);
     }
 
-    @media (max-width: 720px) {
-      header.top {
-        grid-template-columns: 1fr auto;
-      }
-      header.top .tick { display: none; }
+    @media (max-width: 900px) {
+      .hero, .work, .panel { grid-template-columns: 1fr; }
+      header.top { grid-template-columns: 1fr 1fr; }
+      header.top .job { display: none; }
+      .panel input[type="range"] { width: 100%; }
+      .ribbon-stage { height: 280px; }
       .card {
-        width: 176px;
-        height: 268px;
-        margin-left: -88px;
-        margin-top: -134px;
-        padding: 16px 16px 18px;
+        width: 168px;
+        height: 230px;
+        margin-left: -84px;
+        margin-top: -115px;
       }
-      .card h3 { font-size: 1rem; }
-      .ribbon-stage { height: 340px; }
-      .badge-ring { width: 118px; height: 118px; }
-      .badge-core strong { font-size: 3rem; }
-      .tag { width: 96px; height: 154px; top: 14px; padding: 16px 10px 12px; }
-      .tag .n { font-size: 2.2rem; }
-      .print { font-size: 1.15rem; inset: 12px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .glyph { transition: none; }
-      .line .word {
-        opacity: 1;
-        transform: none;
-        transition: none;
-      }
+      .swatch { transition: none; }
+      .tee-spin { transition: none; }
     }
   </style>
 </head>
 <body>
   <div class="grid" aria-hidden="true"></div>
-
   <div class="frame">
     <header class="top">
       <span class="brand">POIZON</span>
-      <span class="tick" aria-hidden="true"></span>
+      <span class="job"><span class="tick"></span>物料沟通</span>
       <span class="kicker">得物 11 周年</span>
     </header>
 
-    <main>
-      <section class="hero" id="hero">
-        <p class="meta"><span class="dot"></span>Who</p>
-        <h1 class="who" data-kinetic>进场的人</h1>
-
+    <section class="hero">
+      <div>
+        <h1 class="who">进场的人</h1>
         <div class="one">
-          <h2 class="eleven" data-kinetic>11</h2>
-          <div class="one-side">
-            <p class="meta"><span class="dot"></span>One</p>
-            <p class="zhounian" data-kinetic>周年</p>
+          <p class="eleven">11</p>
+          <p class="zhounian">周年</p>
+        </div>
+      </div>
+      <div>
+        <p class="line">CAN'T STOP WON'T STOP</p>
+        <p class="how">拖衣服看针织。点卡片切换 前胸字 / 袖标 / 吊牌。这是静态设计怎么被看、被比。</p>
+      </div>
+    </section>
+
+    <section class="work" aria-label="周年 T 恤">
+      <div class="stage tee-stage" id="teeStage">
+        <div class="stage-label">周年 T 恤 · 拖动</div>
+        <div class="tee-world">
+          <div class="tee-spin" id="teeSpin">
+            <div class="tee" id="tee" data-patch="on">
+              <div class="sleeve l knit">
+                <button type="button" class="patch hot" data-part="patch" aria-label="袖标">11</button>
+              </div>
+              <div class="sleeve r knit"></div>
+              <div class="body knit"></div>
+              <div class="collar"></div>
+              <button type="button" class="chest hot" data-part="print" aria-label="前胸字">
+                <span>CAN'T</span><span>STOP</span><span>WON'T</span><span>STOP</span>
+              </button>
+              <button type="button" class="hang hot" data-part="tag" aria-label="吊牌">
+                <i></i><b>11</b>
+              </button>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section class="remember">
-        <p class="meta"><span class="dot"></span>Line</p>
-        <h2 class="line" id="line">
-          <span class="word">CAN'T</span><span class="word">STOP</span><span class="word">WON'T</span><span class="word">STOP</span>
-        </h2>
-      </section>
-
-      <section class="evidence">
-        <div class="evidence-head">
-          <p class="meta"><span class="dot"></span>Evid. · 周年 T 恤</p>
-          <span class="hint">01 — 03</span>
-        </div>
-
-        <div class="ribbon-stage" id="stage">
-          <div class="ribbon" id="ribbon">
-            <article class="card" data-card>
-              <div class="card-index">01</div>
-              <div class="card-face" aria-hidden="true">
-                <div class="print">
-                  <span>CAN'T</span>
-                  <span>STOP</span>
-                  <span>WON'T</span>
-                  <span>STOP</span>
+      <div class="stage" id="inspect">
+        <div class="stage-label" id="inspectLabel">特写 · 前胸字</div>
+        <div class="inspect-well">
+          <div class="swatch is-on" data-swatch="print">
+            <div class="swatch-knit knit"></div>
+            <div class="swatch-print">
+              <span>CAN'T</span><span>STOP</span><span>WON'T</span><span>STOP</span>
+            </div>
+          </div>
+          <div class="swatch" data-swatch="patch">
+            <div class="swatch-knit knit"></div>
+            <div class="swatch-badge">
+              <div class="ring" id="patchRing">
+                <div>
+                  <strong>11</strong>
+                  <em>周年</em>
                 </div>
               </div>
-              <h3>前胸字</h3>
-              <p>胸口的句子</p>
-            </article>
-
-            <article class="card" data-card>
-              <div class="card-index">02</div>
-              <div class="card-face" aria-hidden="true">
-                <div class="badge">
-                  <div class="badge-ring">
-                    <div class="badge-core">
-                      <strong>11</strong>
-                      <em>周年</em>
-                    </div>
-                  </div>
-                </div>
+            </div>
+          </div>
+          <div class="swatch" data-swatch="tag">
+            <div class="swatch-tag">
+              <div class="paper">
+                <span class="hole"></span>
+                <b>得物</b>
+                <span class="n">11</span>
+                <i>POIZON</i>
               </div>
-              <h3>袖标</h3>
-              <p>袖口的十一年</p>
-            </article>
-
-            <article class="card" data-card>
-              <div class="card-index">03</div>
-              <div class="card-face" aria-hidden="true">
-                <div class="tag">
-                  <span class="tag-hole"></span>
-                  <b>得物</b>
-                  <span class="n">11</span>
-                  <i>POIZON</i>
-                </div>
-              </div>
-              <h3>吊牌</h3>
-              <p>领下的证明</p>
-            </article>
+            </div>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
+
+    <aside class="panel" aria-label="沟通面板">
+      <div class="now">正在看 <b id="nowName">前胸字</b> · <span id="nowRead">针织正面 · 印字</span></div>
+      <label for="light">亮度</label>
+      <input id="light" type="range" min="55" max="140" value="100" />
+      <span class="tog-label">袖标</span>
+      <div class="togs">
+        <button type="button" id="patchOn" class="is-on">开</button>
+        <button type="button" id="patchOff">关</button>
+      </div>
+    </aside>
+
+    <section class="evidence">
+      <div class="evidence-head">
+        <span><span class="tick"></span>周年 T 恤 · 三处细节</span>
+        <span>点选比较</span>
+      </div>
+      <div class="ribbon-stage" id="stage">
+        <div class="ribbon" id="ribbon">
+          <button type="button" class="card is-on" data-card data-part="print">
+            <div class="card-index">01</div>
+            <div class="card-face" aria-hidden="true">
+              <div class="mini-print">
+                <span>CAN'T</span><span>STOP</span><span>WON'T</span><span>STOP</span>
+              </div>
+            </div>
+            <h3>前胸字</h3>
+            <p>胸口的句子</p>
+          </button>
+          <button type="button" class="card" data-card data-part="patch">
+            <div class="card-index">02</div>
+            <div class="card-face" aria-hidden="true">
+              <div class="mini-badge"><i>11</i></div>
+            </div>
+            <h3>袖标</h3>
+            <p>袖口的十一年</p>
+          </button>
+          <button type="button" class="card" data-card data-part="tag">
+            <div class="card-index">03</div>
+            <div class="card-face" aria-hidden="true">
+              <div class="mini-tag">得物<b>11</b>POIZON</div>
+            </div>
+            <h3>吊牌</h3>
+            <p>领下的证明</p>
+          </button>
+        </div>
+      </div>
+    </section>
 
     <footer class="foot">
       <span>周年 T 恤</span>
@@ -541,94 +826,127 @@
   <script>
     (function () {
       var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var parts = {
+        print: { name: "前胸字", read: "针织正面 · 印字" },
+        patch: { name: "袖标", read: "袖口贴标 · 可开关" },
+        tag: { name: "吊牌", read: "纸质吊牌 · 领下" }
+      };
+      var order = ["print", "patch", "tag"];
+      var current = "print";
+      var patchOn = true;
 
-      function splitKinetic(root) {
-        var nodes = root.querySelectorAll("[data-kinetic]");
-        for (var i = 0; i < nodes.length; i++) {
-          var el = nodes[i];
-          var text = el.textContent;
-          el.textContent = "";
-          el.setAttribute("aria-label", text);
-          var chars = Array.from(text);
-          for (var j = 0; j < chars.length; j++) {
-            var span = document.createElement("span");
-            span.className = "glyph";
-            span.textContent = chars[j];
-            span.setAttribute("aria-hidden", "true");
-            el.appendChild(span);
-          }
-        }
-      }
-
-      splitKinetic(document);
-
-      var hero = document.getElementById("hero");
-      var glyphs = hero.querySelectorAll(".glyph");
-
-      function resetGlyphs() {
-        for (var i = 0; i < glyphs.length; i++) {
-          glyphs[i].style.transform = "translate3d(0,0,0)";
-        }
-      }
-
-      if (!reduce) {
-        hero.addEventListener("pointermove", function (e) {
-          var cx = e.clientX;
-          var cy = e.clientY;
-          for (var i = 0; i < glyphs.length; i++) {
-            var g = glyphs[i];
-            var r = g.getBoundingClientRect();
-            var lx = r.left + r.width / 2;
-            var ly = r.top + r.height / 2;
-            var dx = lx - cx;
-            var dy = ly - cy;
-            var dist = Math.hypot(dx, dy);
-            var t = Math.max(0, 1 - dist / 280);
-            var ease = t * t * (3 - 2 * t);
-            var push = 34 * ease;
-            var ang = Math.atan2(dy, dx);
-            g.style.transform =
-              "translate3d(" +
-              (Math.cos(ang) * push).toFixed(2) +
-              "px," +
-              (Math.sin(ang) * push).toFixed(2) +
-              "px,0)";
-          }
-        });
-        hero.addEventListener("pointerleave", resetGlyphs);
-      }
-
-      var line = document.getElementById("line");
-      if ("IntersectionObserver" in window) {
-        var io = new IntersectionObserver(
-          function (entries) {
-            for (var i = 0; i < entries.length; i++) {
-              if (entries[i].isIntersecting) {
-                entries[i].target.classList.add("is-in");
-              }
-            }
-          },
-          { threshold: 0.2, rootMargin: "0px 0px -8% 0px" }
-        );
-        io.observe(line);
-        if (line.getBoundingClientRect().top < window.innerHeight * 0.9) {
-          line.classList.add("is-in");
-        }
-      } else {
-        line.classList.add("is-in");
-      }
-
+      var tee = document.getElementById("tee");
+      var teeStage = document.getElementById("teeStage");
+      var teeSpin = document.getElementById("teeSpin");
+      var nowName = document.getElementById("nowName");
+      var nowRead = document.getElementById("nowRead");
+      var inspectLabel = document.getElementById("inspectLabel");
+      var patchRing = document.getElementById("patchRing");
       var cards = document.querySelectorAll("[data-card]");
-      var stage = document.getElementById("stage");
-      var paused = false;
+      var hots = document.querySelectorAll("[data-part].hot");
+      var swatches = document.querySelectorAll("[data-swatch]");
+
+      function setPart(part, fromHover) {
+        if (!parts[part]) return;
+        current = part;
+        nowName.textContent = parts[part].name;
+        nowRead.textContent = part === "patch" && !patchOn ? "袖口 · 未上标" : parts[part].read;
+        inspectLabel.textContent = "特写 · " + parts[part].name;
+        for (var i = 0; i < swatches.length; i++) {
+          swatches[i].classList.toggle("is-on", swatches[i].getAttribute("data-swatch") === part);
+        }
+        for (var j = 0; j < cards.length; j++) {
+          cards[j].classList.toggle("is-on", cards[j].getAttribute("data-part") === part);
+        }
+        for (var k = 0; k < hots.length; k++) {
+          hots[k].classList.toggle("is-on", hots[k].getAttribute("data-part") === part);
+        }
+        if (!fromHover) target = -order.indexOf(part) * ((Math.PI * 2) / 3);
+      }
+
+      function setPatch(on) {
+        patchOn = on;
+        tee.setAttribute("data-patch", on ? "on" : "off");
+        patchRing.classList.toggle("is-empty", !on);
+        document.getElementById("patchOn").classList.toggle("is-on", on);
+        document.getElementById("patchOff").classList.toggle("is-on", !on);
+        if (current === "patch") {
+          nowRead.textContent = on ? parts.patch.read : "袖口 · 未上标";
+        }
+      }
+
+      document.getElementById("light").addEventListener("input", function (e) {
+        document.documentElement.style.setProperty("--light", String(Number(e.target.value) / 100));
+      });
+      document.getElementById("patchOn").addEventListener("click", function () { setPatch(true); });
+      document.getElementById("patchOff").addEventListener("click", function () { setPatch(false); });
+
+      for (var c = 0; c < cards.length; c++) {
+        (function (el) {
+          var part = el.getAttribute("data-part");
+          el.addEventListener("mouseenter", function () { setPart(part, true); });
+          el.addEventListener("focus", function () { setPart(part, true); });
+          el.addEventListener("click", function () { setPart(part, false); });
+        })(cards[c]);
+      }
+
+      for (var h = 0; h < hots.length; h++) {
+        hots[h].addEventListener("click", function (e) {
+          e.stopPropagation();
+          setPart(this.getAttribute("data-part"), false);
+        });
+      }
+
+      var dragging = false;
+      var moved = false;
+      var lastX = 0;
+      var lastY = 0;
+      var ry = -16;
+      var rx = 8;
+      var vy = ry;
+      var vx = rx;
+
+      function onDown(e) {
+        dragging = true;
+        moved = false;
+        teeStage.classList.add("is-drag");
+        lastX = e.clientX;
+        lastY = e.clientY;
+      }
+
+      function onMove(e) {
+        if (!dragging) return;
+        var dx = e.clientX - lastX;
+        var dy = e.clientY - lastY;
+        if (Math.abs(dx) + Math.abs(dy) > 4) moved = true;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        ry += dx * 0.45;
+        rx = Math.max(-24, Math.min(24, rx - dy * 0.28));
+      }
+
+      function onUp() {
+        dragging = false;
+        teeStage.classList.remove("is-drag");
+      }
+
+      teeStage.addEventListener("pointerdown", function (e) {
+        if (e.target.closest && e.target.closest("button")) return;
+        teeStage.setPointerCapture(e.pointerId);
+        onDown(e);
+      });
+      teeStage.addEventListener("pointermove", onMove);
+      teeStage.addEventListener("pointerup", onUp);
+      teeStage.addEventListener("pointercancel", onUp);
+
       var angle = 0;
-      var last = performance.now();
+      var target = 0;
 
       function radii() {
         var w = window.innerWidth;
-        if (w < 720) return { rx: 118, rz: 130 };
-        if (w < 1100) return { rx: 280, rz: 190 };
-        return { rx: 400, rz: 210 };
+        if (w < 720) return { rx: 110, rz: 120 };
+        if (w < 1100) return { rx: 240, rz: 160 };
+        return { rx: 320, rz: 180 };
       }
 
       function place(a) {
@@ -638,36 +956,32 @@
           var theta = a + (i * Math.PI * 2) / n;
           var x = Math.sin(theta) * r.rx;
           var z = Math.cos(theta) * r.rz;
-          var rot = -Math.sin(theta) * 38;
+          var rot = -Math.sin(theta) * 32;
           var depth = (z + r.rz) / (2 * r.rz);
           cards[i].style.transform =
-            "translate3d(" +
-            x.toFixed(2) +
-            "px,0," +
-            z.toFixed(2) +
-            "px) rotateY(" +
-            rot.toFixed(2) +
-            "deg)";
+            "translate3d(" + x.toFixed(2) + "px,0," + z.toFixed(2) + "px) rotateY(" + rot.toFixed(2) + "deg)";
           cards[i].style.zIndex = String(Math.round(depth * 100));
-          cards[i].style.opacity = (0.42 + depth * 0.58).toFixed(3);
+          cards[i].style.opacity = (0.46 + depth * 0.54).toFixed(3);
         }
       }
 
-      function tick(now) {
-        var dt = Math.min(32, now - last);
-        last = now;
-        if (!reduce && !paused) angle += dt * 0.00028;
+      function tick() {
+        if (!reduce) {
+          vy += (ry - vy) * 0.12;
+          vx += (rx - vx) * 0.12;
+          angle += (target - angle) * 0.08;
+        } else {
+          vy = ry;
+          vx = rx;
+          angle = target;
+        }
+        teeSpin.style.transform = "rotateY(" + vy.toFixed(2) + "deg) rotateX(" + vx.toFixed(2) + "deg)";
         place(angle);
         requestAnimationFrame(tick);
       }
 
-      if (reduce) {
-        place(0.15);
-      } else {
-        stage.addEventListener("pointerenter", function () { paused = true; });
-        stage.addEventListener("pointerleave", function () { paused = false; });
-        requestAnimationFrame(tick);
-      }
+      setPart("print", false);
+      requestAnimationFrame(tick);
     })();
   </script>
 </body>
