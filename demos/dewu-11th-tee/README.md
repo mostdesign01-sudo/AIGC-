@@ -1,19 +1,23 @@
-# 得物 11 周年 T 恤 · 物料页
+# 得物 11 周年 T 恤 · 物料沟通
 
-内部全员 AI 课的 look-and-feel 演示，不是产品应用。单页、无构建。
+内部全员 AI 课案例。这不是个人站点，是一份可打开的 **服装/物料沟通工具**：把静态周年 T 恤变成可以观察、比较的 HTML。
+
+方法来自飞书「Html大法」案例 01：用单页 HTML 代替平面图，让同事自己看、自己比。
 
 ## 打开
 
-用浏览器直接打开本目录里的 `index.html`。`file://` 即可，不需要安装依赖或启动服务。
+用浏览器直接打开本目录的 `index.html`。`file://` 即可，无需构建。
 
 ```bash
-# macOS
 open demos/dewu-11th-tee/index.html
-
-# Linux
-xdg-open demos/dewu-11th-tee/index.html
 ```
 
-也可以把 `index.html` 拖进 Chrome / Safari / Edge。
+或把文件拖进 Chrome / Safari / Edge。也可上传到飞书云空间做内部预览。
 
-系统字体优先：`PingFang SC` / `Noto Sans SC` / `ui-sans-serif`，展示句用系统宋体。
+## 怎么比
+
+1. **拖衣服** — 看针织面料怎么走光。
+2. **点卡片或衣服上的点** — 切换 前胸字 / 袖标 / 吊牌，右侧是特写。
+3. **沟通面板** — 调亮度看织纹；袖标开/关，比较上标前后。
+
+文案锁定：进场的人 / 11 周年 / 周年 T 恤 / CAN'T STOP WON'T STOP。英文品牌只有 POIZON。
