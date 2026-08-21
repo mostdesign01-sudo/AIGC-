@@ -360,6 +360,14 @@ export function createLab(scene, pedestals, camera, dom) {
   window.addEventListener('pointermove', onMove);
   window.addEventListener('pointerup', onUp);
   dom.addEventListener('wheel', onWheel, { passive: false });
+  // 触屏：手指落在模型上时，该手势用于旋转模型而不是滚动页面
+  dom.addEventListener('touchstart', (e) => {
+    if (!state.enabled || !e.touches.length) return;
+    if (pick(e.touches[0]) !== null) e.preventDefault();
+  }, { passive: false });
+  dom.addEventListener('touchmove', (e) => {
+    if (state.dragging) e.preventDefault();
+  }, { passive: false });
 
   const listeners = { select: [] };
 

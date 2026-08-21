@@ -75,6 +75,11 @@
 
 <div id="scroll-cue">滚动 进入 T7<span></span></div>
 
+<script>
+window.addEventListener('error', function (e) {
+  document.title = 'ERR: ' + (e.message || 'unknown') + ' @' + (e.filename || '').split('/').pop() + ':' + e.lineno;
+});
+</script>
 <script type="importmap">
 { "imports": { "three": "./assets/vendor/three.module.js" } }
 </script>
