@@ -128,25 +128,38 @@ const labVariantsEl = document.getElementById('lab-variants');
 const labTip = document.getElementById('lab-tip');
 
 const labScene = new THREE.Scene();
-const labCam = new THREE.PerspectiveCamera(32, 1, 0.1, 40);
-labCam.position.set(0, 0.95, 3.4);
-labCam.lookAt(0, 0.55, 0);
-const labRenderer = new THREE.WebGLRenderer({ canvas: labCanvas, alpha: true, antialias: true });
+const labCam = new THREE.PerspectiveCamera(28, 1, 0.1, 40);
+labCam.position.set(0, 0.72, 2.55);
+labCam.lookAt(0, 0.42, 0);
+const labRenderer = new THREE.WebGLRenderer({ canvas: labCanvas, alpha: false, antialias: true });
 labRenderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-labRenderer.setClearColor(0x000000, 0);
+labRenderer.setClearColor(0x00153d, 1);
 labRenderer.outputColorSpace = THREE.SRGBColorSpace;
 labRenderer.toneMapping = THREE.ACESFilmicToneMapping;
-labRenderer.toneMappingExposure = 1.15;
-labScene.add(new THREE.HemisphereLight(0xd8dee4, 0x1a1410, 0.85));
-const key = new THREE.SpotLight(0xffffff, 28, 14, 0.55, 0.45, 1.4);
-key.position.set(1.1, 3.4, 2.6);
+labRenderer.toneMappingExposure = 1.2;
+labScene.add(new THREE.HemisphereLight(0xe8eef4, 0x0a1228, 0.95));
+const key = new THREE.SpotLight(0xffffff, 36, 14, 0.5, 0.4, 1.3);
+key.position.set(1.0, 2.8, 2.2);
 labScene.add(key, key.target);
-const fill = new THREE.PointLight(0xffe0b8, 8, 8, 1.8);
-fill.position.set(-1.6, 1.8, 1.8);
+const fill = new THREE.PointLight(0xffe0b8, 10, 8, 1.6);
+fill.position.set(-1.4, 1.5, 1.6);
 labScene.add(fill);
-const rim = new THREE.PointLight(0x7aa7ff, 6, 8, 1.6);
-rim.position.set(0.2, 1.2, -1.8);
+const rim = new THREE.PointLight(0x7aa7ff, 8, 8, 1.4);
+rim.position.set(0.2, 1.0, -1.6);
 labScene.add(rim);
+const board = new THREE.Mesh(
+  new THREE.PlaneGeometry(6, 3.4),
+  new THREE.MeshBasicMaterial({ color: 0x002fa7 })
+);
+board.position.set(0, 0.55, -1.35);
+labScene.add(board);
+const ground = new THREE.Mesh(
+  new THREE.CircleGeometry(0.85, 40),
+  new THREE.MeshBasicMaterial({ color: 0x000814, transparent: true, opacity: 0.35 })
+);
+ground.rotation.x = -Math.PI / 2;
+ground.position.y = -0.02;
+labScene.add(ground);
 
 const lab = createLab(labScene, [new THREE.Vector3(0, 0, 0)], labCam, labCanvas, { single: true });
 

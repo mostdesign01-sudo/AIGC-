@@ -295,7 +295,7 @@ export function createLab(scene, pedestals, camera, dom, opts = {}) {
     } else if (pedestals[i]) {
       c.group.position.add(pedestals[i]);
     }
-    c.baseScale = single ? 1.15 : 1;
+    c.baseScale = single ? 1.55 : 1;
     c.group.userData.caseIndex = i;
     group.add(c.group);
   });
