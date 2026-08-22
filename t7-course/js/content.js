@@ -2,7 +2,7 @@
 // 每章有独立的显示窗口（比章节区间略窄，转场时收起）
 export const CHAPTER_DOM = [
   {
-    key: 'exterior', show: [0.0, 0.095],
+    key: 'exterior', show: [0.0, 0.10],
     html: `
     <div class="chapter-inner hero-inner">
       <div class="hero-eyebrow">DEWU · 互联宝地 T7 · AI 通识课</div>
@@ -11,7 +11,7 @@ export const CHAPTER_DOM = [
     </div>`,
   },
   {
-    key: 'lobby', show: [0.165, 0.24],
+    key: 'lobby', show: [0.20, 0.30],
     html: `
     <div class="chapter-inner pos-right">
       <div class="ch-kicker">CHAPTER 02 · 入口大厅</div>
@@ -20,7 +20,7 @@ export const CHAPTER_DOM = [
     </div>`,
   },
   {
-    key: 'infohall', show: [0.295, 0.385],
+    key: 'infohall', show: [0.36, 0.46],
     html: `
     <div class="chapter-inner pos-right">
       <div class="ch-kicker">CHAPTER 03 · 信息大厅 · 3F</div>
@@ -35,7 +35,7 @@ export const CHAPTER_DOM = [
     </div>`,
   },
   {
-    key: 'meeting', show: [0.475, 0.545],
+    key: 'meeting', show: [0.50, 0.60],
     html: `
     <div class="chapter-inner pos-right">
       <div class="ch-kicker">CHAPTER 04 · 会议层 · 6F</div>
@@ -49,7 +49,7 @@ export const CHAPTER_DOM = [
     </div>`,
   },
   {
-    key: 'lab', show: [0.62, 0.70],
+    key: 'lab', show: [0.63, 0.74],
     html: `
     <div class="chapter-inner pos-top-right">
       <div class="ch-kicker">CHAPTER 05 · 互动实验室 · 9F</div>
@@ -58,7 +58,7 @@ export const CHAPTER_DOM = [
     </div>`,
   },
   {
-    key: 'cinema', show: [0.748, 0.83],
+    key: 'cinema', show: [0.76, 0.86],
     html: `
     <div class="chapter-inner pos-top-center" style="max-width:640px">
       <div class="ch-kicker" style="justify-content:center">CHAPTER 06 · 放映厅 · 11F</div>
@@ -67,7 +67,7 @@ export const CHAPTER_DOM = [
     </div>`,
   },
   {
-    key: 'roof', show: [0.895, 1.01],
+    key: 'roof', show: [0.88, 1.01],
     html: `
     <div class="chapter-inner finale-inner">
       <div class="ch-kicker" style="justify-content:center">CHAPTER 07 · 屋顶 · 最终作业</div>

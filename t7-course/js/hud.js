@@ -30,7 +30,7 @@ export function createHUD(scroll, audio, settings) {
     btnAudio.textContent = on ? '声音 开' : '声音 关';
     btnAudio.classList.toggle('on', on);
   });
-  btnPerf.addEventListener('click', () => {
+  if (btnPerf) btnPerf.addEventListener('click', () => {
     settings.lowPerf = !settings.lowPerf;
     btnPerf.textContent = settings.lowPerf ? '画质 低' : '画质 高';
     btnPerf.classList.toggle('on', settings.lowPerf);
@@ -45,7 +45,7 @@ export function createHUD(scroll, audio, settings) {
   btnTop.addEventListener('click', () => scroll.goTo(0));
 
   // 初始状态按钮文案
-  if (settings.lowPerf) { btnPerf.textContent = '画质 低'; btnPerf.classList.add('on'); }
+  if (settings.lowPerf && btnPerf) { btnPerf.textContent = '画质 低'; btnPerf.classList.add('on'); }
   if (settings.reducedMotion) { btnMotion.textContent = '动效 少'; btnMotion.classList.add('on'); document.body.classList.add('reduced-motion'); }
 
   // 键盘：↑↓ 微调 / PgUp PgDn 章节 / Home 顶部 / End 屋顶
