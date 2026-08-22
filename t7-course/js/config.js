@@ -19,9 +19,9 @@ export const STILL_SIZE = { w: 1536, h: 864 };
 
 // 把互动嵌进静帧里的屏幕（图内 0–1 UV；cover 映射到视口）
 export const DIEGETIC = {
-  meeting: { rect: [0.355, 0.175, 0.675, 0.455] },
-  lab:     { rect: [0.335, 0.195, 0.705, 0.555] },
-  cinema:  { rect: [0.195, 0.175, 0.805, 0.575] },
+  meeting: { rect: [0.395, 0.235, 0.758, 0.550] },
+  lab:     { rect: [0.418, 0.275, 0.784, 0.675] },
+  cinema:  { rect: [0.205, 0.195, 0.795, 0.620] },
 };
 
 export const B = {
