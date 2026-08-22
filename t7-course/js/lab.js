@@ -284,12 +284,18 @@ function buildNono() {
 }
 
 /* ==================================================================== */
-export function createLab(scene, pedestals, camera, dom) {
+export function createLab(scene, pedestals, camera, dom, opts = {}) {
+  const single = opts.single !== false;
   const cases = [buildShirt(), buildBox(), buildTrophy(), buildNono()];
   const group = new THREE.Group();
   cases.forEach((c, i) => {
-    c.group.position.add(pedestals[i]);
-    c.baseScale = 1;
+    if (single) {
+      c.group.position.set(0, 0.15, 0);
+      c.group.visible = i === 0;
+    } else if (pedestals[i]) {
+      c.group.position.add(pedestals[i]);
+    }
+    c.baseScale = single ? 1.15 : 1;
     c.group.userData.caseIndex = i;
     group.add(c.group);
   });
@@ -391,7 +397,11 @@ export function createLab(scene, pedestals, camera, dom) {
   return {
     cases, group, state, update,
     setEnabled(v) { state.enabled = v; if (!v) { state.dragging = false; dom.style.cursor = ''; } },
-    setActive(i) { state.active = i; listeners.select.forEach(f => f(i)); },
+    setActive(i) {
+      state.active = i;
+      if (single) cases.forEach((c, k) => { c.group.visible = k === i; });
+      listeners.select.forEach(f => f(i));
+    },
     onSelect(f) { listeners.select.push(f); },
     applyVariant(caseIdx, vIdx) {
       const c = cases[caseIdx];
