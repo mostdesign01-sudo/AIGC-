@@ -8,23 +8,27 @@
 <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-<!-- 虚拟滚动轨道：高度决定课程总长度 -->
 <div id="scroll-track" aria-hidden="true"></div>
 
-<!-- WebGL 画布（固定全屏） -->
-<canvas id="gl" aria-label="T7 大楼三维场景"></canvas>
+<!-- 电影级静帧舞台 -->
+<div id="stage" aria-label="T7 课程影像">
+  <div id="stills"></div>
+  <div id="vignette"></div>
+  <div id="grade"></div>
+</div>
 
-<!-- 加载页 -->
+<!-- 实验室三维层（仅第 5 章） -->
+<canvas id="lab-gl" aria-label="互动实验室三维模型"></canvas>
+
 <div id="loader">
   <img src="assets/brand/dewu-logo-app.png" alt="得物" class="loader-logo">
   <div class="loader-title">走进 HTML：一份内容，三种交付</div>
   <div class="loader-sub">上海 · 互联宝地 T7 · 得物</div>
   <div class="loader-bar"><div class="loader-bar-fill" id="loader-fill"></div></div>
-  <button id="enter-btn" class="enter-btn" disabled>正在构建 T7 大楼…</button>
-  <div class="loader-hint">滚动鼠标滚轮推进课程 · ↑↓ / PgUp PgDn 切换章节</div>
+  <button id="enter-btn" class="enter-btn" disabled>正在装入影像…</button>
+  <div class="loader-hint">滚动推进课程 · ↑↓ / PgUp PgDn 切换章节</div>
 </div>
 
-<!-- HUD -->
 <header id="hud-top" class="hud">
   <div class="hud-brand">
     <img src="assets/brand/dewu-logo-app.png" alt="得物">
@@ -36,22 +40,18 @@
     <span id="hud-chapter">01 / T7 外景</span>
   </div>
   <div class="hud-actions">
-    <button id="btn-audio" class="hud-btn" title="声音开关" aria-label="声音开关">声音 关</button>
-    <button id="btn-perf" class="hud-btn" title="性能模式" aria-label="性能模式">画质 高</button>
-    <button id="btn-motion" class="hud-btn" title="减少动画" aria-label="减少动画">动效 全</button>
-    <button id="btn-top" class="hud-btn" title="返回首屏" aria-label="返回首屏">返回顶部</button>
+    <button id="btn-audio" class="hud-btn" title="声音开关">声音 关</button>
+    <button id="btn-motion" class="hud-btn" title="减少动画">动效 全</button>
+    <button id="btn-top" class="hud-btn" title="返回首屏">返回顶部</button>
   </div>
 </header>
 
-<!-- 章节进度导航 -->
 <nav id="chapter-nav" aria-label="章节进度">
   <div class="nav-line"><div id="nav-line-fill"></div></div>
 </nav>
 
-<!-- 章节文字层（DOM overlay，不遮挡建筑主体） -->
 <main id="content"></main>
 
-<!-- 互动实验室控制面板 -->
 <div id="lab-panel" class="panel hidden-panel">
   <div class="panel-head">互动实验室 · 拖动旋转 / 滚轮缩放 / 点击切换</div>
   <div class="lab-cases" id="lab-cases"></div>
@@ -59,7 +59,6 @@
   <div class="panel-tip" id="lab-tip">按住模型拖动即可旋转观察</div>
 </div>
 
-<!-- 放映厅控制面板 -->
 <div id="cinema-panel" class="panel hidden-panel">
   <div class="panel-head">HyperFrames · 同一份内容，获得时间</div>
   <div class="cinema-controls">
@@ -70,8 +69,12 @@
   <div class="cinema-progress"><div id="cinema-progress-fill"></div></div>
 </div>
 
-<!-- 用于全屏播放的原生视频（银幕纹理同源） -->
-<video id="hf-video" src="assets/video/hyperframes-demo.mp4" playsinline preload="auto" loop crossorigin="anonymous"></video>
+<div id="deck-panel" class="panel hidden-panel">
+  <div class="panel-head">HTML Presentation · 主屏随滚动翻页</div>
+  <canvas id="deck-canvas" width="1440" height="752"></canvas>
+</div>
+
+<video id="hf-video" src="assets/video/hyperframes-demo.mp4" playsinline preload="auto" loop></video>
 
 <div id="scroll-cue">滚动 进入 T7<span></span></div>
 
