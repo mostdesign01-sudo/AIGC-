@@ -25,17 +25,19 @@ const STILLS = [
 function overlap(p, a, b) {
   const fade = Math.min(0.035, (b - a) * 0.35);
   if (p < a || p > b) return 0;
-  if (p < a + fade) return (p - a) / fade;
-  if (p > b - fade) return (b - p) / fade;
+  // 首尾两张不从 0 淡入/淡出，避免进入时整屏变黑
+  if (a > 0 && p < a + fade) return (p - a) / fade;
+  if (b < 1 && p > b - fade) return (b - p) / fade;
   return 1;
 }
 function smooth(x) { return x * x * (3 - 2 * x); }
 
 const stillsRoot = document.getElementById('stills');
-const layers = STILLS.map((s) => {
+const layers = STILLS.map((s, i) => {
   const el = document.createElement('div');
   el.className = 'still' + (s.lock ? ' lock' : '');
   el.style.backgroundImage = `url(${s.src})`;
+  if (i === 0) el.style.opacity = '1';
   stillsRoot.appendChild(el);
   return { ...s, el };
 });
