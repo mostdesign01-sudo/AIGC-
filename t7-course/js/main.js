@@ -1,25 +1,25 @@
-// 走进 HTML：电影级静帧叙事 + 滚动转场
-// 三维只出现在第 5 章互动实验室
+// 走进 HTML：电影静帧走楼 + 克莱因蓝克制 HUD
+// 三维 / 真实产品只出现在 19F 工位屏上
 import * as THREE from 'three';
-import { CHAPTERS, chapterAt } from './config.js';
+import { CHAPTERS, chapterAt, floorAt, DIEGETIC, STILL_SIZE } from './config.js';
 import { mountContent } from './content.js';
 import { createHUD } from './hud.js';
 import { createAudio } from './audio.js';
 import { createLab } from './lab.js';
 import { createSlides } from './slides.js';
+import { loadDemos, placeDiegetic } from './products.js';
 
-/* ---------- 十个统一调性的核心镜头 ---------- */
+/* 无扶梯。大厅 → 直梯 → 19F */
 const STILLS = [
-  { src: 'assets/stills/01-exterior.jpg',   from: 0.00, to: 0.13, pan: [50, 50] },
-  { src: 'assets/stills/02-entrance.jpg',   from: 0.10, to: 0.22, pan: [50, 50] },
-  { src: 'assets/stills/03-lobby.jpg',      from: 0.19, to: 0.31, pan: [48, 50] },
-  { src: 'assets/stills/03b-escalator.jpg', from: 0.28, to: 0.37, pan: [50, 50] },
-  { src: 'assets/stills/04-infohall.jpg',   from: 0.34, to: 0.47, pan: [50, 50] },
-  { src: 'assets/stills/04b-elevator.jpg',  from: 0.44, to: 0.53, pan: [50, 50] },
-  { src: 'assets/stills/05-meeting.jpg',    from: 0.50, to: 0.62, pan: [48, 50] },
-  { src: 'assets/stills/06-lab.jpg',        from: 0.59, to: 0.75, pan: [52, 50] },
-  { src: 'assets/stills/07-cinema.jpg',     from: 0.72, to: 0.87, pan: [50, 50] },
-  { src: 'assets/stills/08-roof.jpg',       from: 0.84, to: 1.01, pan: [50, 50] },
+  { src: 'assets/stills/01-exterior.jpg',  from: 0.00, to: 0.14, pan: [50, 50] },
+  { src: 'assets/stills/02-entrance.jpg',  from: 0.11, to: 0.24, pan: [50, 50] },
+  { src: 'assets/stills/03-lobby.jpg',     from: 0.21, to: 0.34, pan: [48, 50] },
+  { src: 'assets/stills/04b-elevator.jpg', from: 0.31, to: 0.44, pan: [50, 50], lock: true },
+  { src: 'assets/stills/04-infohall.jpg',  from: 0.41, to: 0.54, pan: [50, 50] },
+  { src: 'assets/stills/05-meeting.jpg',   from: 0.51, to: 0.64, pan: [48, 50], lock: true },
+  { src: 'assets/stills/06-studio.jpg',    from: 0.61, to: 0.76, pan: [50, 50], lock: true },
+  { src: 'assets/stills/07-cinema.jpg',    from: 0.73, to: 0.87, pan: [50, 50], lock: true },
+  { src: 'assets/stills/08-roof.jpg',      from: 0.84, to: 1.01, pan: [50, 50] },
 ];
 
 function overlap(p, a, b) {
@@ -31,11 +31,10 @@ function overlap(p, a, b) {
 }
 function smooth(x) { return x * x * (3 - 2 * x); }
 
-/* ---------- 预载静帧 ---------- */
 const stillsRoot = document.getElementById('stills');
 const layers = STILLS.map((s) => {
   const el = document.createElement('div');
-  el.className = 'still';
+  el.className = 'still' + (s.lock ? ' lock' : '');
   el.style.backgroundImage = `url(${s.src})`;
   stillsRoot.appendChild(el);
   return { ...s, el };
@@ -74,7 +73,6 @@ enterBtn.addEventListener('click', () => {
   window.scrollTo(0, 0);
 });
 
-/* ---------- 滚动 ---------- */
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const settings = { reducedMotion: prefersReduced, lowPerf: false, onQualityChange() {} };
 const scroll = {
@@ -93,15 +91,14 @@ const audio = createAudio();
 const hud = createHUD(scroll, audio, settings);
 const content = mountContent(document.getElementById('content'));
 
-/* ---------- 会议层 PPT（叠在静帧上的真实画布） ---------- */
+/* ---------- 会议主屏（嵌进 19F 墙面） ---------- */
+const deckSlot = document.getElementById('deck-slot');
 const deckCanvas = document.getElementById('deck-canvas');
-const agendaCanvas = document.createElement('canvas');
-agendaCanvas.width = 560; agendaCanvas.height = 528;
 const fakeScreen = (c) => ({ userData: { ctx: c.getContext('2d'), canvas: c, texture: { needsUpdate: false } } });
-const slides = createSlides(fakeScreen(deckCanvas), fakeScreen(agendaCanvas));
-const deckPanel = document.getElementById('deck-panel');
+const slides = createSlides(fakeScreen(deckCanvas));
 
-/* ---------- 放映厅 ---------- */
+/* ---------- 放映厅银幕 ---------- */
+const cinemaSlot = document.getElementById('cinema-slot');
 const cinemaPanel = document.getElementById('cinema-panel');
 const btnPlay = document.getElementById('video-play');
 const btnRestart = document.getElementById('video-restart');
@@ -121,56 +118,59 @@ btnFs.addEventListener('click', () => {
 videoEl.addEventListener('play', () => { btnPlay.textContent = '暂停'; });
 videoEl.addEventListener('pause', () => { btnPlay.textContent = '播放'; });
 
-/* ---------- 实验室三维（仅此章使用 Three.js） ---------- */
+/* ---------- 19F 工位屏：真实 HTML 或 Three.js 回退 ---------- */
+const productSlot = document.getElementById('product-slot');
+const productFrame = document.getElementById('product-frame');
 const labCanvas = document.getElementById('lab-gl');
-const labScene = new THREE.Scene();
-const labCam = new THREE.PerspectiveCamera(38, 1, 0.1, 40);
-labCam.position.set(0, 1.6, 5.2);
-labCam.lookAt(0, 0.9, 0);
-const labRenderer = new THREE.WebGLRenderer({ canvas: labCanvas, alpha: true, antialias: true });
-labRenderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-labRenderer.outputColorSpace = THREE.SRGBColorSpace;
-labRenderer.toneMapping = THREE.ACESFilmicToneMapping;
-labRenderer.toneMappingExposure = 1.1;
-labScene.add(new THREE.HemisphereLight(0xc8d4dc, 0x1a1410, 0.7));
-const key = new THREE.SpotLight(0xffffff, 40, 16, 0.5, 0.5, 1.6);
-key.position.set(1.2, 4.2, 3.2);
-labScene.add(key, key.target);
-const fill = new THREE.PointLight(0xffe0b8, 12, 10, 1.8);
-fill.position.set(-2, 2.2, 2);
-labScene.add(fill);
-const pedestals = [
-  new THREE.Vector3(-1.65, 0, 0.15),
-  new THREE.Vector3(-0.5, 0, -0.25),
-  new THREE.Vector3(0.65, 0, -0.25),
-  new THREE.Vector3(1.8, 0, 0.15),
-];
-const ringMat = new THREE.MeshStandardMaterial({ color: 0x022a2a, emissive: 0x01c2c3, emissiveIntensity: 1.6 });
-const pedMat = new THREE.MeshStandardMaterial({ color: 0x585d63, metalness: 0.75, roughness: 0.35 });
-pedestals.forEach((p) => {
-  const ped = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.62, 0.16, 28), pedMat);
-  ped.position.copy(p);
-  const ring = new THREE.Mesh(new THREE.TorusGeometry(0.58, 0.018, 8, 36), ringMat);
-  ring.rotation.x = Math.PI / 2;
-  ring.position.set(p.x, p.y + 0.09, p.z);
-  labScene.add(ped, ring);
-});
-const lab = createLab(labScene, pedestals, labCam, labCanvas);
-
 const labPanel = document.getElementById('lab-panel');
 const labCasesEl = document.getElementById('lab-cases');
 const labVariantsEl = document.getElementById('lab-variants');
 const labTip = document.getElementById('lab-tip');
-lab.cases.forEach((c, i) => {
-  const btn = document.createElement('button');
-  btn.className = 'lab-case-btn' + (i === 0 ? ' active' : '');
-  btn.innerHTML = `${c.name}<small>${c.en}</small>`;
-  btn.addEventListener('click', () => lab.setActive(i));
-  labCasesEl.appendChild(btn);
-});
+
+const labScene = new THREE.Scene();
+const labCam = new THREE.PerspectiveCamera(32, 1, 0.1, 40);
+labCam.position.set(0, 0.95, 3.4);
+labCam.lookAt(0, 0.55, 0);
+const labRenderer = new THREE.WebGLRenderer({ canvas: labCanvas, alpha: true, antialias: true });
+labRenderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+labRenderer.setClearColor(0x000000, 0);
+labRenderer.outputColorSpace = THREE.SRGBColorSpace;
+labRenderer.toneMapping = THREE.ACESFilmicToneMapping;
+labRenderer.toneMappingExposure = 1.15;
+labScene.add(new THREE.HemisphereLight(0xd8dee4, 0x1a1410, 0.85));
+const key = new THREE.SpotLight(0xffffff, 28, 14, 0.55, 0.45, 1.4);
+key.position.set(1.1, 3.4, 2.6);
+labScene.add(key, key.target);
+const fill = new THREE.PointLight(0xffe0b8, 8, 8, 1.8);
+fill.position.set(-1.6, 1.8, 1.8);
+labScene.add(fill);
+const rim = new THREE.PointLight(0x7aa7ff, 6, 8, 1.6);
+rim.position.set(0.2, 1.2, -1.8);
+labScene.add(rim);
+
+const lab = createLab(labScene, [new THREE.Vector3(0, 0, 0)], labCam, labCanvas, { single: true });
+
+let demos = { title: '19F · PRODUCT', demos: [] };
+let activeDemo = 0;
+let iframeOn = false;
+
+function showThree() {
+  iframeOn = false;
+  productFrame.hidden = true;
+  productFrame.src = 'about:blank';
+  labCanvas.style.display = 'block';
+}
+function showIframe(src) {
+  iframeOn = true;
+  labCanvas.style.display = 'none';
+  productFrame.hidden = false;
+  productFrame.src = src;
+}
+
 function renderVariants(idx) {
   labVariantsEl.innerHTML = '';
   const c = lab.cases[idx];
+  if (!c) return;
   labTip.textContent = c.tip;
   c.variants.forEach((v, vi) => {
     const b = document.createElement('button');
@@ -181,7 +181,8 @@ function renderVariants(idx) {
     } else {
       b.style.background = '#e8e6e1';
       b.textContent = v.label;
-      b.style.width = 'auto'; b.style.borderRadius = '15px';
+      b.style.width = 'auto';
+      b.style.borderRadius = '15px';
     }
     b.addEventListener('click', () => {
       lab.applyVariant(idx, vi);
@@ -190,11 +191,44 @@ function renderVariants(idx) {
     labVariantsEl.appendChild(b);
   });
 }
-lab.onSelect((i) => {
+
+function setDemo(i) {
+  activeDemo = i;
+  const d = demos.demos[i];
   [...labCasesEl.children].forEach((el, k) => el.classList.toggle('active', k === i));
-  renderVariants(i);
+  if (d && d.mode === 'iframe' && d.src) {
+    showIframe(d.src);
+    lab.setEnabled(false);
+    labVariantsEl.innerHTML = '';
+    labTip.textContent = '工位屏上的真实产品页 · 可在画面里直接操作';
+  } else {
+    showThree();
+    const caseIdx = d ? d.case : i;
+    lab.setActive(caseIdx);
+    renderVariants(caseIdx);
+  }
+}
+
+loadDemos().then((pack) => {
+  demos = pack;
+  labCasesEl.innerHTML = '';
+  pack.demos.forEach((d, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'lab-case-btn' + (i === 0 ? ' active' : '');
+    btn.innerHTML = `${d.name}${d.en ? `<small>${d.en}</small>` : ''}`;
+    btn.addEventListener('click', () => setDemo(i));
+    labCasesEl.appendChild(btn);
+  });
+  setDemo(0);
 });
-renderVariants(0);
+
+lab.onSelect((i) => {
+  const mapped = demos.demos.findIndex((d) => d.mode !== 'iframe' && d.case === i);
+  if (mapped >= 0) {
+    [...labCasesEl.children].forEach((el, k) => el.classList.toggle('active', k === mapped));
+    renderVariants(i);
+  }
+});
 
 function sizeLab() {
   const r = labCanvas.getBoundingClientRect();
@@ -204,7 +238,6 @@ function sizeLab() {
   labCam.updateProjectionMatrix();
 }
 
-/* ---------- 深链 ---------- */
 function applyHash() {
   const h = location.hash;
   let target = null;
@@ -227,7 +260,6 @@ function applyHash() {
 }
 window.addEventListener('hashchange', applyHash);
 
-/* ---------- 逐帧 ---------- */
 let last = performance.now();
 function tick(now) {
   requestAnimationFrame(tick);
@@ -243,8 +275,13 @@ function tick(now) {
     const raw = overlap(p, L.from, L.to);
     const a = smooth(raw);
     L.el.style.opacity = a;
+    if (L.lock || rm) {
+      L.el.style.transform = 'none';
+      L.el.style.backgroundPosition = '50% 50%';
+      return;
+    }
     const local = (p - L.from) / (L.to - L.from);
-    const ken = rm ? 1 : 1.03 - 0.03 * Math.min(1, Math.max(0, local));
+    const ken = 1.03 - 0.03 * Math.min(1, Math.max(0, local));
     const px = L.pan[0] + (i % 2 === 0 ? -0.8 : 0.8) * (local - 0.5);
     const py = L.pan[1] + 0.9 * (local - 0.5);
     L.el.style.transform = `scale(${ken})`;
@@ -252,37 +289,56 @@ function tick(now) {
   });
 
   content.update(p);
-  hud.update(p, null);
+  hud.update(p, floorAt(p));
 
   const ch = chapterAt(p);
+
   const meetingOn = ch.key === 'meeting';
-  deckPanel.classList.toggle('hidden-panel', !meetingOn);
-  if (meetingOn) slides.update((p - ch.from) / (ch.to - ch.from));
+  deckSlot.classList.toggle('on', meetingOn);
+  if (meetingOn) {
+    placeDiegetic(deckSlot, DIEGETIC.meeting.rect, STILL_SIZE);
+    slides.update((p - ch.from) / (ch.to - ch.from));
+  }
 
   const labOn = ch.key === 'lab';
-  labCanvas.classList.toggle('on', labOn);
+  productSlot.classList.toggle('on', labOn);
   labPanel.classList.toggle('hidden-panel', !labOn);
-  lab.setEnabled(labOn);
   if (labOn) {
-    sizeLab();
-    lab.update(dt, rm);
-    const focus = pedestals[lab.state.active];
-    labCam.position.lerp(new THREE.Vector3(focus.x * 0.35, 1.55, 5.0), 0.04);
-    labCam.lookAt(focus.x * 0.4, 0.95, focus.z);
-    labRenderer.render(labScene, labCam);
+    placeDiegetic(productSlot, DIEGETIC.lab.rect, STILL_SIZE);
+    if (!iframeOn) {
+      lab.setEnabled(true);
+      sizeLab();
+      lab.update(dt, rm);
+      labRenderer.render(labScene, labCam);
+    } else {
+      lab.setEnabled(false);
+    }
+  } else {
+    lab.setEnabled(false);
   }
 
   const cinemaOn = ch.key === 'cinema';
+  cinemaSlot.classList.toggle('on', cinemaOn);
   cinemaPanel.classList.toggle('hidden-panel', !cinemaOn);
-  if (cinemaOn && videoEl.paused && !userPaused && document.body.classList.contains('started')) {
-    videoEl.play().catch(() => {});
-  } else if (!cinemaOn && !videoEl.paused) {
+  if (cinemaOn) {
+    placeDiegetic(cinemaSlot, DIEGETIC.cinema.rect, STILL_SIZE);
+    if (videoEl.paused && !userPaused && document.body.classList.contains('started')) {
+      videoEl.play().catch(() => {});
+    }
+  } else if (!videoEl.paused) {
     videoEl.pause();
   }
   if (videoEl.duration) cineFill.style.width = `${(videoEl.currentTime / videoEl.duration) * 100}%`;
 }
 
-window.addEventListener('resize', sizeLab);
+window.addEventListener('resize', () => {
+  sizeLab();
+  const p = scroll.value;
+  const ch = chapterAt(p);
+  if (ch.key === 'meeting') placeDiegetic(deckSlot, DIEGETIC.meeting.rect, STILL_SIZE);
+  if (ch.key === 'lab') placeDiegetic(productSlot, DIEGETIC.lab.rect, STILL_SIZE);
+  if (ch.key === 'cinema') placeDiegetic(cinemaSlot, DIEGETIC.cinema.rect, STILL_SIZE);
+});
 applyHash();
 sizeLab();
 requestAnimationFrame(tick);

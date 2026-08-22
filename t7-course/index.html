@@ -10,23 +10,31 @@
 <body>
 <div id="scroll-track" aria-hidden="true"></div>
 
-<!-- 电影级静帧舞台 -->
 <div id="stage" aria-label="T7 课程影像">
   <div id="stills"></div>
   <div id="vignette"></div>
-  <div id="grade"></div>
 </div>
 
-<!-- 实验室三维层（仅第 5 章） -->
-<canvas id="lab-gl" aria-label="互动实验室三维模型"></canvas>
+<div id="deck-slot" class="diegetic" aria-label="19F 会议室主屏">
+  <canvas id="deck-canvas" width="1440" height="752"></canvas>
+</div>
+
+<div id="product-slot" class="diegetic" aria-label="19F 工位产品演示">
+  <iframe id="product-frame" title="产品演示" hidden></iframe>
+  <canvas id="lab-gl" aria-label="互动产品模型"></canvas>
+</div>
+
+<div id="cinema-slot" class="diegetic" aria-label="19F 放映银幕">
+  <video id="hf-video" src="assets/video/hyperframes-demo.mp4" playsinline preload="auto" loop></video>
+</div>
 
 <div id="loader">
   <img src="assets/brand/dewu-logo-app.png" alt="得物" class="loader-logo">
-  <div class="loader-title">走进 HTML：一份内容，三种交付</div>
-  <div class="loader-sub">上海 · 互联宝地 T7 · 得物</div>
+  <div class="loader-title">走进 HTML</div>
+  <div class="loader-sub">一份内容，三种交付 · T7 · 19F</div>
   <div class="loader-bar"><div class="loader-bar-fill" id="loader-fill"></div></div>
   <button id="enter-btn" class="enter-btn" disabled>正在装入影像…</button>
-  <div class="loader-hint">滚动推进课程 · ↑↓ / PgUp PgDn 切换章节</div>
+  <div class="loader-hint">滚动推进 · 只有直梯 · 设计部与 CEO 在 19F</div>
 </div>
 
 <header id="hud-top" class="hud">
@@ -53,28 +61,19 @@
 <main id="content"></main>
 
 <div id="lab-panel" class="panel hidden-panel">
-  <div class="panel-head">互动实验室 · 拖动旋转 / 滚轮缩放 / 点击切换</div>
   <div class="lab-cases" id="lab-cases"></div>
   <div class="lab-variants" id="lab-variants"></div>
-  <div class="panel-tip" id="lab-tip">按住模型拖动即可旋转观察</div>
+  <div class="panel-tip" id="lab-tip">工位屏里的产品可拖转 / 换色</div>
 </div>
 
 <div id="cinema-panel" class="panel hidden-panel">
-  <div class="panel-head">HyperFrames · 同一份内容，获得时间</div>
   <div class="cinema-controls">
     <button id="video-play" class="cine-btn">播放</button>
-    <button id="video-restart" class="cine-btn">重新播放</button>
+    <button id="video-restart" class="cine-btn">重播</button>
     <button id="video-fs" class="cine-btn">全屏</button>
   </div>
   <div class="cinema-progress"><div id="cinema-progress-fill"></div></div>
 </div>
-
-<div id="deck-panel" class="panel hidden-panel">
-  <div class="panel-head">HTML Presentation · 主屏随滚动翻页</div>
-  <canvas id="deck-canvas" width="1440" height="752"></canvas>
-</div>
-
-<video id="hf-video" src="assets/video/hyperframes-demo.mp4" playsinline preload="auto" loop></video>
 
 <div id="scroll-cue">滚动 进入 T7<span></span></div>
 
