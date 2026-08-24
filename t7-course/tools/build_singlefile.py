@@ -3,7 +3,7 @@
 import base64, os, re
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-MODULES = ['config', 'textures', 'lab', 'slides', 'content', 'hud', 'audio', 'products', 'main']
+MODULES = ['config', 'textures', 'lab', 'slides', 'content', 'hud', 'audio', 'products', 'atmosphere', 'main']
 
 
 def read(p):

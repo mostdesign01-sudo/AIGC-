@@ -37,10 +37,21 @@ body {
   will-change: opacity, transform, background-position;
 }
 .still.lock { will-change: opacity; }
-#vignette {
-  position: absolute; inset: 0; pointer-events: none; z-index: 2;
-  background: linear-gradient(to top, rgba(5,6,8,0.28) 0%, transparent 18%, transparent 88%, rgba(5,6,8,0.16) 100%);
+#atmosphere {
+  position: absolute; inset: 0; z-index: 2;
+  pointer-events: none; opacity: 0;
 }
+#vignette {
+  position: absolute; inset: 0; pointer-events: none; z-index: 3;
+  background: linear-gradient(to top, rgba(5,6,8,0.34) 0%, transparent 22%, transparent 86%, rgba(5,6,8,0.18) 100%);
+}
+#enter-veil {
+  position: absolute; inset: 0; z-index: 4; pointer-events: none;
+  background: radial-gradient(ellipse at 42% 58%, rgba(5,8,14,0.15) 0%, rgba(5,8,14,0.72) 78%);
+  opacity: 1;
+  transition: opacity 1.6s ease;
+}
+body.started #enter-veil { opacity: 0; }
 
 /* 嵌进静帧屏幕的互动层 */
 .diegetic {
@@ -86,8 +97,12 @@ body {
 }
 #loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
 .loader-logo { width: 48px; height: 48px; border-radius: 10px; }
-.loader-title { font-size: 22px; letter-spacing: 0.28em; font-weight: 500; color: #fff; }
-.loader-sub { font-family: var(--font-en); font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.28em; }
+.loader-kicker {
+  font-family: var(--font-en); font-size: 10px; letter-spacing: 0.36em;
+  color: rgba(255,255,255,0.5);
+}
+.loader-title { font-size: 28px; letter-spacing: 0.22em; font-weight: 500; color: #fff; }
+.loader-sub { font-family: var(--font-en); font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.24em; }
 .loader-bar { width: 200px; height: 1px; background: rgba(255,255,255,0.2); overflow: hidden; }
 .loader-bar-fill { width: 0%; height: 100%; background: #fff; transition: width 0.3s ease; }
 .enter-btn {
@@ -156,6 +171,7 @@ body.started #chapter-nav { opacity: 1; }
 #content { position: fixed; inset: 0; z-index: 20; pointer-events: none; }
 .chapter { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s; }
 .chapter.visible { opacity: 1; visibility: visible; }
+.chapter[data-key="exterior"] { transition: none; }
 
 .klein-bar {
   position: absolute;
@@ -169,6 +185,31 @@ body.started #chapter-nav { opacity: 1; }
   color: #fff;
 }
 .klein-bar.hero { left: 50%; right: auto; transform: translateX(-50%); text-align: left; }
+
+.threshold {
+  position: absolute;
+  left: 4.5vw; bottom: 8vh;
+  max-width: min(640px, 86vw);
+  color: #fff;
+  text-shadow: 0 8px 28px rgba(0,0,0,0.45);
+}
+.th-kicker {
+  font-family: var(--font-en); font-size: 11px; letter-spacing: 0.34em;
+  color: rgba(255,255,255,0.62); margin-bottom: 14px;
+}
+.th-title {
+  font-size: clamp(36px, 5.4vw, 72px);
+  font-weight: 500; letter-spacing: 0.08em;
+  line-height: 1.05; margin-bottom: 12px;
+}
+.th-sub {
+  font-size: 14px; letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.72); margin-bottom: 22px;
+}
+.th-cue {
+  font-family: var(--font-en); font-size: 10px; letter-spacing: 0.42em;
+  color: var(--aurora);
+}
 .kb-kicker {
   font-family: var(--font-en); font-size: 10px; letter-spacing: 0.28em;
   color: rgba(255,255,255,0.62); white-space: nowrap;
@@ -240,6 +281,8 @@ body.started #scroll-cue.show { opacity: 1; }
 #scroll-cue span { width: 1px; height: 28px; background: linear-gradient(to bottom, var(--aurora), transparent); animation: cue 2s ease-in-out infinite; }
 @keyframes cue { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
 body.reduced-motion #scroll-cue span { animation: none; }
+body.reduced-motion #enter-veil { transition: none; }
+body.reduced-motion #atmosphere { display: none; }
 
 @media (max-width: 820px) {
   .hud { padding: 10px 12px; }
@@ -247,6 +290,8 @@ body.reduced-motion #scroll-cue span { animation: none; }
   #chapter-nav { right: 10px; }
   .klein-bar { left: 4vw; right: 4vw; max-width: none; bottom: 4.5vh; }
   .klein-bar.hero { left: 4vw; transform: none; }
+  .threshold { left: 5vw; bottom: 10vh; }
+  .th-title { font-size: 34px; }
   #lab-panel { left: 4vw; right: 4vw; width: auto; bottom: 16vh; }
   #cinema-panel { width: auto; left: 50%; }
 }

@@ -8,6 +8,7 @@ import { createAudio } from './audio.js';
 import { createLab } from './lab.js';
 import { createSlides } from './slides.js';
 import { loadDemos, placeDiegetic } from './products.js';
+import { createAtmosphere } from './atmosphere.js';
 
 /* 无扶梯。大厅 → 直梯 → 19F */
 const STILLS = [
@@ -43,17 +44,23 @@ const layers = STILLS.map((s, i) => {
 });
 
 const loaderFill = document.getElementById('loader-fill');
+const loaderSub = document.getElementById('loader-sub');
 const enterBtn = document.getElementById('enter-btn');
 const loader = document.getElementById('loader');
 let loaded = 0;
 const total = STILLS.length + 1;
+let enterT = 0;
+let entering = false;
 
 function bump() {
   loaded++;
-  loaderFill.style.width = `${Math.min(100, (loaded / total) * 100)}%`;
+  const pct = Math.min(100, Math.round((loaded / total) * 100));
+  loaderFill.style.width = `${pct}%`;
+  if (loaderSub) loaderSub.textContent = `正在升起 T7 · ${pct}%`;
   if (loaded >= total) {
     enterBtn.disabled = false;
-    enterBtn.textContent = '进入 T7';
+    enterBtn.textContent = '滚动进入';
+    if (loaderSub) loaderSub.textContent = '门已打开 · 互联宝地 T7';
   }
 }
 
@@ -69,11 +76,16 @@ videoEl.muted = true;
 videoEl.addEventListener('canplaythrough', bump, { once: true });
 setTimeout(bump, 2500);
 
-enterBtn.addEventListener('click', () => {
+function beginWalk(skipRitual) {
   loader.classList.add('done');
   document.body.classList.add('started');
   window.scrollTo(0, 0);
-});
+  entering = !skipRitual;
+  enterT = skipRitual ? 1 : 0;
+  audio.doorChime();
+}
+
+enterBtn.addEventListener('click', () => beginWalk(false));
 
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const settings = { reducedMotion: prefersReduced, lowPerf: false, onQualityChange() {} };
@@ -92,6 +104,7 @@ window.addEventListener('scroll', () => {
 const audio = createAudio();
 const hud = createHUD(scroll, audio, settings);
 const content = mountContent(document.getElementById('content'));
+const atmosphere = createAtmosphere(document.getElementById('atmosphere'));
 
 /* ---------- 会议主屏（嵌进 19F 墙面） ---------- */
 const deckSlot = document.getElementById('deck-slot');
@@ -268,10 +281,7 @@ function applyHash() {
   scroll.goTo(target);
   scroll.target = target;
   scroll.value = target;
-  if (h.includes('auto')) {
-    loader.classList.add('done');
-    document.body.classList.add('started');
-  }
+  if (h.includes('auto')) beginWalk(true);
 }
 window.addEventListener('hashchange', applyHash);
 
@@ -285,6 +295,10 @@ function tick(now) {
   scroll.value += (scroll.target - scroll.value) * k;
   if (Math.abs(scroll.target - scroll.value) < 0.00004) scroll.value = scroll.target;
   const p = scroll.value;
+  if (entering) {
+    enterT = Math.min(1, enterT + dt / 1.8);
+    if (enterT >= 1) entering = false;
+  }
 
   layers.forEach((L, i) => {
     const raw = overlap(p, L.from, L.to);
@@ -296,13 +310,18 @@ function tick(now) {
       return;
     }
     const local = (p - L.from) / (L.to - L.from);
-    const ken = 1.03 - 0.03 * Math.min(1, Math.max(0, local));
-    const px = L.pan[0] + (i % 2 === 0 ? -0.8 : 0.8) * (local - 0.5);
-    const py = L.pan[1] + 0.9 * (local - 0.5);
-    L.el.style.transform = `scale(${ken})`;
+    const walk = i === 0
+      ? 1.18 - 0.10 * Math.min(1, Math.max(0, local)) - 0.05 * enterT
+      : i === 1
+        ? 1.09 - 0.06 * Math.min(1, Math.max(0, local))
+        : 1.03 - 0.03 * Math.min(1, Math.max(0, local));
+    const px = i === 0 ? 46 + 11 * local : L.pan[0] + (i % 2 === 0 ? -0.8 : 0.8) * (local - 0.5);
+    const py = i === 0 ? 56 - 8 * local : L.pan[1] + 0.9 * (local - 0.5);
+    L.el.style.transform = `scale(${walk})`;
     L.el.style.backgroundPosition = `${px}% ${py}%`;
   });
 
+  atmosphere.update(p, dt, rm, enterT);
   content.update(p);
   hud.update(p, floorAt(p));
 

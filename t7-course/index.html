@@ -12,7 +12,9 @@
 
 <div id="stage" aria-label="T7 课程影像">
   <div id="stills"></div>
+  <canvas id="atmosphere" aria-hidden="true"></canvas>
   <div id="vignette"></div>
+  <div id="enter-veil"></div>
 </div>
 
 <div id="deck-slot" class="diegetic" aria-label="19F 会议室主屏">
@@ -33,11 +35,12 @@
 
 <div id="loader">
   <img src="assets/brand/dewu-logo-app.png" alt="得物" class="loader-logo">
+  <div class="loader-kicker">CHAPTER 00 · 门前</div>
   <div class="loader-title">走进 HTML</div>
-  <div class="loader-sub">一份内容，三种交付 · T7 · 19F</div>
+  <div class="loader-sub" id="loader-sub">正在升起 T7 · 0%</div>
   <div class="loader-bar"><div class="loader-bar-fill" id="loader-fill"></div></div>
-  <button id="enter-btn" class="enter-btn" disabled>正在装入影像…</button>
-  <div class="loader-hint">滚动推进 · 只有直梯 · 设计部与 CEO 在 19F</div>
+  <button id="enter-btn" class="enter-btn" disabled>正在升起…</button>
+  <div class="loader-hint">滚动走进广场 · 只有直梯 · 设计部与 CEO 在 19F</div>
 </div>
 
 <header id="hud-top" class="hud">
@@ -78,7 +81,7 @@
   <div class="cinema-progress"><div id="cinema-progress-fill"></div></div>
 </div>
 
-<div id="scroll-cue">滚动 进入 T7<span></span></div>
+<div id="scroll-cue">滚动进入<span></span></div>
 
 <script type="importmap">
 { "imports": {

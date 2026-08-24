@@ -1,11 +1,13 @@
 // 克制克莱因蓝条：一行 kicker + 一句，贴底，不压画面
 export const CHAPTER_DOM = [
   {
-    key: 'exterior', show: [0.0, 0.11],
+    key: 'exterior', show: [0.0, 0.09],
     html: `
-    <div class="chapter-inner klein-bar hero">
-      <div class="kb-kicker">DEWU · T7</div>
-      <div class="kb-line">走进 HTML<span>一份内容，三种交付</span></div>
+    <div class="chapter-inner threshold">
+      <div class="th-kicker">CHAPTER 00 — 门前</div>
+      <h1 class="th-title">走进 HTML</h1>
+      <p class="th-sub">一份内容，三种交付 · 互联宝地 T7</p>
+      <div class="th-cue">滚动进入</div>
     </div>`,
   },
   {
@@ -85,6 +87,16 @@ export function mountContent(container) {
       for (const c of els) {
         const vis = p >= c.show[0] && p <= c.show[1];
         c.el.classList.toggle('visible', vis);
+        if (c.key === 'exterior' && vis) {
+          const t = 1 - Math.min(1, p / 0.085);
+          c.el.style.opacity = String(t);
+          c.el.style.filter = `blur(${(1 - t) * 10}px)`;
+          c.el.style.transform = `translateY(${(1 - t) * -18}px)`;
+        } else {
+          c.el.style.opacity = '';
+          c.el.style.filter = '';
+          c.el.style.transform = '';
+        }
       }
     },
   };
