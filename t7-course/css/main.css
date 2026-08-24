@@ -41,17 +41,25 @@ body {
   position: absolute; inset: 0; z-index: 2;
   pointer-events: none; opacity: 0;
 }
+#fg-layers { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+.fg {
+  position: absolute; opacity: 0;
+  will-change: transform, opacity, filter;
+}
+#fg-branch { top: -5%; left: -7%; width: 46vw; min-width: 380px; }
+#fg-shrub { bottom: -3%; right: -4%; width: 64vw; min-width: 480px; }
 #vignette {
-  position: absolute; inset: 0; pointer-events: none; z-index: 3;
+  position: absolute; inset: 0; pointer-events: none; z-index: 4;
   background: linear-gradient(to top, rgba(5,6,8,0.34) 0%, transparent 22%, transparent 86%, rgba(5,6,8,0.18) 100%);
 }
 #enter-veil {
-  position: absolute; inset: 0; z-index: 4; pointer-events: none;
+  position: absolute; inset: 0; z-index: 5; pointer-events: none;
   background: radial-gradient(ellipse at 42% 58%, rgba(5,8,14,0.15) 0%, rgba(5,8,14,0.72) 78%);
   opacity: 1;
   transition: opacity 1.6s ease;
 }
 body.started #enter-veil { opacity: 0; }
+body.reduced-motion .fg { display: none; }
 
 /* 嵌进静帧屏幕的互动层 */
 .diegetic {
@@ -169,47 +177,75 @@ body.started #chapter-nav { opacity: 1; }
 .nav-item.active .nav-label { opacity: 1; transform: translateX(0); color: #fff; }
 
 #content { position: fixed; inset: 0; z-index: 20; pointer-events: none; }
-.chapter { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s; }
-.chapter.visible { opacity: 1; visibility: visible; }
-.chapter[data-key="exterior"] { transition: none; }
+.chapter {
+  position: absolute; inset: 0; opacity: 0; visibility: hidden;
+  filter: blur(7px); transform: translateY(16px);
+  transition: opacity 0.65s ease, visibility 0.65s, filter 0.65s ease, transform 0.65s ease;
+}
+.chapter.visible { opacity: 1; visibility: visible; filter: blur(0); transform: translateY(0); }
+.chapter[data-key="exterior"] { transition: none; filter: none; transform: none; }
 
 .klein-bar {
   position: absolute;
   left: 3.5vw; right: auto; bottom: 5.5vh;
   max-width: min(720px, 88vw);
   display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px 22px;
-  padding: 12px 18px 12px 16px;
+  padding: 13px 20px 13px 18px;
   background: var(--klein-ink);
-  border-left: 3px solid var(--aurora);
+  border-left: 2px solid var(--aurora);
   backdrop-filter: blur(12px);
   color: #fff;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
 }
 .klein-bar.hero { left: 50%; right: auto; transform: translateX(-50%); text-align: left; }
 
 .threshold {
   position: absolute;
   left: 4.5vw; bottom: 8vh;
-  max-width: min(640px, 86vw);
+  max-width: min(680px, 86vw);
   color: #fff;
   text-shadow: 0 8px 28px rgba(0,0,0,0.45);
 }
 .th-kicker {
   font-family: var(--font-en); font-size: 11px; letter-spacing: 0.34em;
   color: rgba(255,255,255,0.62); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 14px;
+}
+.th-kicker::after {
+  content: ""; flex: 0 0 64px; height: 1px;
+  background: linear-gradient(to right, var(--aurora), transparent);
 }
 .th-title {
-  font-size: clamp(36px, 5.4vw, 72px);
+  font-size: clamp(38px, 5.6vw, 76px);
   font-weight: 500; letter-spacing: 0.08em;
   line-height: 1.05; margin-bottom: 12px;
 }
+.th-title .w {
+  display: inline-block; opacity: 0;
+  transform: translateY(0.45em);
+}
+body.started .th-title .w {
+  animation: wordUp 0.85s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  animation-delay: calc(0.7s + var(--i) * 0.09s);
+}
+@keyframes wordUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+body.reduced-motion .th-title .w { opacity: 1; transform: none; animation: none; }
 .th-sub {
   font-size: 14px; letter-spacing: 0.12em;
   color: rgba(255,255,255,0.72); margin-bottom: 22px;
+  opacity: 0; transition: opacity 1s ease 1.6s;
 }
+body.started .th-sub { opacity: 1; }
+body.reduced-motion .th-sub { opacity: 1; transition: none; }
 .th-cue {
   font-family: var(--font-en); font-size: 10px; letter-spacing: 0.42em;
   color: var(--aurora);
+  opacity: 0; transition: opacity 1s ease 2.1s;
 }
+body.started .th-cue { opacity: 1; }
+body.reduced-motion .th-cue { opacity: 1; transition: none; }
 .kb-kicker {
   font-family: var(--font-en); font-size: 10px; letter-spacing: 0.28em;
   color: rgba(255,255,255,0.62); white-space: nowrap;

@@ -106,6 +106,38 @@ const hud = createHUD(scroll, audio, settings);
 const content = mountContent(document.getElementById('content'));
 const atmosphere = createAtmosphere(document.getElementById('atmosphere'));
 
+/* ---------- Kage 式前景图层：树枝 + 灌木剪影，走近时让开 ---------- */
+const fgBranch = document.getElementById('fg-branch');
+const fgShrub = document.getElementById('fg-shrub');
+const fgPointer = { x: 0, y: 0 };
+window.addEventListener('pointermove', (e) => {
+  fgPointer.x = (e.clientX / innerWidth) * 2 - 1;
+  fgPointer.y = (e.clientY / innerHeight) * 2 - 1;
+}, { passive: true });
+
+function fgFade(p, hold, out) {
+  if (p <= hold) return 1;
+  if (p >= out) return 0;
+  return 1 - (p - hold) / (out - hold);
+}
+
+function updateForeground(p, enter, rm) {
+  if (rm) { fgBranch.style.opacity = '0'; fgShrub.style.opacity = '0'; return; }
+  const bA = fgFade(p, 0.045, 0.115) * enter;
+  const sA = fgFade(p, 0.10, 0.20) * enter;
+
+  const drift = p * 100;
+  fgBranch.style.opacity = String(bA * 0.92);
+  fgBranch.style.filter = `blur(${(1 - bA) * 9}px)`;
+  fgBranch.style.transform =
+    `translate(${-drift * 2.4 + fgPointer.x * 14}px, ${-drift * 3.4 + fgPointer.y * 9}px) scale(${1 + p * 0.9})`;
+
+  fgShrub.style.opacity = String(sA * 0.96);
+  fgShrub.style.filter = `blur(${(1 - sA) * 7}px)`;
+  fgShrub.style.transform =
+    `translate(${drift * 1.6 + fgPointer.x * 22}px, ${drift * 4.2 + fgPointer.y * 12}px) scale(${1 + p * 1.4})`;
+}
+
 /* ---------- 会议主屏（嵌进 19F 墙面） ---------- */
 const deckSlot = document.getElementById('deck-slot');
 const deckCanvas = document.getElementById('deck-canvas');
@@ -322,6 +354,7 @@ function tick(now) {
   });
 
   atmosphere.update(p, dt, rm, enterT);
+  updateForeground(p, enterT, rm);
   content.update(p);
   hud.update(p, floorAt(p));
 

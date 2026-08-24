@@ -4,9 +4,9 @@ export const CHAPTER_DOM = [
     key: 'exterior', show: [0.0, 0.09],
     html: `
     <div class="chapter-inner threshold">
-      <div class="th-kicker">CHAPTER 00 — 门前</div>
-      <h1 class="th-title">走进 HTML</h1>
-      <p class="th-sub">一份内容，三种交付 · 互联宝地 T7</p>
+      <div class="th-kicker">CHAPTER 00 — 门前 · DEWU T7</div>
+      <h1 class="th-title"><span class="w" style="--i:0">走</span><span class="w" style="--i:1">进</span><span class="w" style="--i:2">&nbsp;</span><span class="w" style="--i:3">H</span><span class="w" style="--i:4">T</span><span class="w" style="--i:5">M</span><span class="w" style="--i:6">L</span></h1>
+      <p class="th-sub">一份内容，三种交付 · 互联宝地 T7 · 19F</p>
       <div class="th-cue">滚动进入</div>
     </div>`,
   },

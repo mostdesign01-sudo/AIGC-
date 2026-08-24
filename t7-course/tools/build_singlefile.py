@@ -51,6 +51,8 @@ def main():
     html = html.replace('<link rel="icon" href="assets/brand/dewu-logo-app.png">', f'<link rel="icon" href="{logo_app}">')
     html = html.replace('src="assets/brand/dewu-logo-app.png"', f'src="{logo_app}"')
     html = html.replace('src="assets/video/hyperframes-demo.mp4"', f'src="{video}"')
+    for fg in ('branch', 'shrub'):
+        html = html.replace(f'src="assets/fg/{fg}.png"', f'src="{data_uri(f"assets/fg/{fg}.png", "image/png")}"')
     html = re.sub(r'<script type="importmap">.*?</script>', '<script type="importmap">\n' + importmap + '\n</script>', html, flags=re.S)
     html = html.replace('<script type="module" src="js/main.js"></script>', "<script type=\"module\">import 'main';</script>")
 
