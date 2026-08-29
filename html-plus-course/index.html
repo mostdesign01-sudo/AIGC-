@@ -16,7 +16,7 @@
       --cyan: #00dbdb;
       --cyan-dim: rgba(0, 219, 219, 0.16);
       --cyan-glow: rgba(0, 219, 219, 0.28);
-      --sans: "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+      --sans: "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", "Droid Sans Fallback", ui-sans-serif, system-ui, sans-serif;
       --rail: 208px;
     }
 
@@ -525,24 +525,24 @@
       justify-content: center;
     }
     .shirt {
-      width: 92px;
-      height: 108px;
-      background: #1a1d20;
-      border: 1px solid rgba(238, 244, 246, 0.16);
-      clip-path: polygon(28% 8%, 72% 8%, 88% 22%, 88% 100%, 12% 100%, 12% 22%);
+      width: 118px;
+      height: 124px;
       position: relative;
       cursor: grab;
-      transform: perspective(400px) rotateY(var(--ry, 0deg));
+      transform: perspective(480px) rotateY(var(--ry, 0deg));
+      filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45));
     }
+    .shirt svg { width: 100%; height: 100%; display: block; }
     .shirt .mark {
       position: absolute;
       left: 50%;
-      top: 38%;
+      top: 44%;
       transform: translateX(-50%);
-      font-size: 9px;
+      font-size: 11px;
       letter-spacing: 0.08em;
       color: var(--cyan);
       white-space: nowrap;
+      font-weight: 700;
     }
     .tee-tools { display: flex; gap: 6px; position: absolute; left: 10px; bottom: 10px; }
     .tee-tools button {
@@ -622,8 +622,7 @@
       display: none;
       margin-top: 8px;
       font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+      letter-spacing: 0.08em;
       color: var(--dim);
     }
     .hf.is-on { display: block; }
@@ -995,7 +994,13 @@
             <div class="case-extra">
               <p class="value-line"><b>价值</b>　静态设计稿变成能观察比较的沟通工具。可用 AI Coding 把已有物料收进同一页。</p>
               <div class="tee" id="tee" title="拖一拖，换一换">
-                <div class="shirt" id="shirt"><span class="mark" id="shirt-mark">11</span></div>
+                <div class="shirt" id="shirt">
+                  <svg viewBox="0 0 120 130" aria-hidden="true">
+                    <path fill="#1c2126" stroke="rgba(238,244,246,0.22)" stroke-width="1.2" d="M24 18 L48 10 H72 L96 18 L110 38 L92 46 V118 H28 V46 L10 38 Z"/>
+                    <path fill="none" stroke="rgba(0,219,219,0.25)" stroke-width="1" d="M48 12 C54 22 66 22 72 12"/>
+                  </svg>
+                  <span class="mark" id="shirt-mark">11</span>
+                </div>
                 <div class="tee-tools">
                   <button class="is-on" data-decal="11">字标</button>
                   <button data-decal="POIZON">贴花</button>
