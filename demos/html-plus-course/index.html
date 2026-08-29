@@ -881,6 +881,84 @@
     }
     .toast.is-on { opacity: 1; }
 
+    /* T7 door — Klein field only. Not the campus. */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: var(--klein);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      text-align: center;
+      padding: 32px 24px;
+      transition: opacity 0.9s ease, visibility 0.9s;
+    }
+    #loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-kicker {
+      font-size: 10px;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .loader-title {
+      font-size: clamp(28px, 5vw, 40px);
+      letter-spacing: 0.18em;
+      font-weight: 500;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .loader-sub {
+      max-width: 28em;
+      margin: 0;
+      font-size: clamp(14px, 1.7vw, 16px);
+      font-weight: 300;
+      line-height: 1.65;
+      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.72);
+    }
+    .loader-bar {
+      width: min(200px, 50vw);
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+      overflow: hidden;
+    }
+    .loader-bar-fill {
+      width: 0;
+      height: 100%;
+      background: var(--aurora);
+      box-shadow: 0 0 10px rgba(1, 194, 195, 0.55);
+      transition: width 1s ease;
+    }
+    .loader-bar-fill.is-ready { width: 100%; }
+    .enter-btn {
+      margin-top: 8px;
+      padding: 10px 36px;
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      font-size: 12px;
+      letter-spacing: 0.32em;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .enter-btn:hover { border-color: #fff; background: rgba(255, 255, 255, 0.08); }
+    .enter-btn:focus-visible { outline: 1px solid #fff; outline-offset: 3px; }
+    .loader-hint {
+      margin: 0;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.45);
+    }
+    body:not(.started) .rail,
+    body:not(.started) .hud,
+    body:not(.started) .dock {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
     .hud { display: none; }
     .notes-btn {
       border: 1px solid var(--line);
@@ -984,6 +1062,7 @@
       }
       .beat i { display: none; }
       .beat b { min-width: 0; width: 100%; padding: 10px 8px; font-size: 14px; }
+      .demo { padding-bottom: 48px; }
       .device { width: 100%; }
       .hint.desk { display: none; }
       .dock {
@@ -1007,6 +1086,14 @@
   </style>
 </head>
 <body>
+  <div id="loader" role="dialog" aria-modal="true" aria-label="门前">
+    <div class="loader-kicker">CHAPTER 00 · 门前</div>
+    <div class="loader-title">走进 HTML+</div>
+    <p class="loader-sub">不用学编程，也能做出能讲、能点、能分享的工作成果</p>
+    <div class="loader-bar" aria-hidden="true"><div class="loader-bar-fill" id="loader-bar"></div></div>
+    <button type="button" id="enter-btn" class="enter-btn">进入课堂</button>
+    <p class="loader-hint">点进去，从一份写好的内容开始。</p>
+  </div>
   <div class="app">
     <aside class="rail">
       <div class="rail-brand">POIZON 全员课<b>HTML+</b></div>
@@ -1452,9 +1539,13 @@
       const notesText = document.getElementById("notes-text");
       const toast = document.getElementById("toast");
       const stage = document.getElementById("stage");
+      const loader = document.getElementById("loader");
+      const enterBtn = document.getElementById("enter-btn");
+      const loaderBar = document.getElementById("loader-bar");
       const chStarts = [0, 2, 5, 7, 11, 16];
       let index = 0;
       let notesOn = false;
+      let started = false;
 
       pages.forEach((_, i) => {
         const b = document.createElement("button");
@@ -1467,6 +1558,7 @@
       const dotBtns = [...dots.children];
 
       function go(n) {
+        if (!started) return;
         index = Math.max(0, Math.min(pages.length - 1, n));
         pages.forEach((p, i) => p.classList.toggle("is-on", i === index));
         dotBtns.forEach((d, i) => d.classList.toggle("is-on", i === index));
@@ -1497,6 +1589,13 @@
       notesBtn.addEventListener("click", () => setNotes(!notesOn));
 
       document.addEventListener("keydown", (e) => {
+        if (!started) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            enterClass();
+          }
+          return;
+        }
         if (e.target.closest("textarea, input")) return;
         if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
           e.preventDefault();
@@ -1672,9 +1771,15 @@
         setTimeout(() => toast.classList.remove("is-on"), 1400);
       });
 
-      const hash = (location.hash || "").replace("#p", "");
-      const fromHash = parseInt(hash, 10);
-      go(fromHash >= 1 && fromHash <= pages.length ? fromHash - 1 : 0);
+      function enterClass() {
+        if (started) return;
+        started = true;
+        document.body.classList.add("started");
+        loader.classList.add("done");
+        go(0);
+      }
+      enterBtn.addEventListener("click", enterClass);
+      requestAnimationFrame(() => loaderBar.classList.add("is-ready"));
     })();
   </script>
 </body>
