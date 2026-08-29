@@ -896,7 +896,7 @@
       .app {
         grid-template-columns: 1fr;
         min-height: 100dvh;
-        padding-bottom: var(--hud);
+        padding-bottom: 0;
       }
       .rail { display: none; }
       .hud {
@@ -926,11 +926,12 @@
       .hud .ch.is-on { background: var(--klein); color: #fff; }
       .hud .ch.is-on .num, .hud .ch.is-on .lab { color: #fff; }
       .notes { left: 0; bottom: var(--hud); }
+      .main { min-height: calc(100dvh - var(--hud)); }
       .stage-wrap { padding: 0; align-items: stretch; }
       .stage {
         width: 100%;
         aspect-ratio: auto;
-        min-height: calc(100dvh - var(--hud) - 72px);
+        min-height: calc(100dvh - var(--hud));
         border: 0;
         box-shadow: none;
         overflow: visible;
@@ -941,11 +942,17 @@
         inset: auto;
         display: none;
         overflow: visible;
-        padding: clamp(20px, 5vw, 32px) 4vw 28px;
+        padding: clamp(20px, 5vw, 32px) 4vw calc(var(--hud) + 68px);
         max-width: 40rem;
         margin: 0 auto;
       }
       .page.is-on { display: flex; }
+      .page.cover.is-on {
+        min-height: calc(100dvh - var(--hud));
+        max-width: none;
+        width: 100%;
+        box-sizing: border-box;
+      }
       .klein-bar {
         white-space: normal;
         position: absolute;
@@ -957,9 +964,29 @@
       .grid3, .grid4, .compare, .beats4, .qs, .list4, .jobs, .dims, .doors, .actions { grid-template-columns: 1fr; }
       .grid6, .nono-grid { grid-template-columns: repeat(3, 1fr); }
       .split, .decide, .case-extra, .sum3 article, .vs { grid-template-columns: 1fr; }
-      .flow, .chain, .beat { flex-wrap: wrap; }
+      .flow, .chain { flex-wrap: wrap; }
+      .beat {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 24px;
+      }
+      .beat i { display: none; }
+      .beat b { min-width: 0; width: 100%; padding: 10px 8px; font-size: 14px; }
       .device { width: 100%; }
       .hint.desk { display: none; }
+      .dock {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: var(--hud);
+        z-index: 24;
+        background: rgba(10, 11, 13, 0.92);
+        padding: 6px 12px;
+        gap: 10px;
+      }
+      .dots { display: none; }
+      .toast { bottom: calc(var(--hud) + 60px); }
       .nav-btns button, .copy-row button, .roles button, .notes-btn { min-height: 44px; }
     }
     @media (min-width: 600px) and (max-width: 979px) {
@@ -1437,7 +1464,7 @@
         chBtns.forEach((r) => r.classList.toggle("is-on", Number(r.dataset.go) === start));
         window.scrollTo(0, 0);
         const label = "P" + String(index + 1).padStart(2, "0");
-        pageLabel.textContent = label;
+        pageLabel.textContent = label + " / 20";
         progLabel.textContent = label + " / 20";
         bar.style.width = ((index + 1) / pages.length * 100) + "%";
         notesText.textContent = pages[index].dataset.note || "";
