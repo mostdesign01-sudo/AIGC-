@@ -6,31 +6,38 @@
   <title>HTML+：AI 时代的工作表达新方式</title>
   <style>
     :root {
-      --bg: #07090b;
-      --stage: #0b0e11;
-      --ink: #eef4f6;
-      --soft: rgba(238, 244, 246, 0.64);
-      --dim: rgba(238, 244, 246, 0.38);
-      --faint: rgba(238, 244, 246, 0.12);
-      --line: rgba(238, 244, 246, 0.1);
-      --cyan: #00dbdb;
-      --cyan-dim: rgba(0, 219, 219, 0.16);
-      --cyan-glow: rgba(0, 219, 219, 0.28);
+      --bg: #0a0b0d;
+      --stage: #0a0b0d;
+      --klein: #002fa7;
+      --klein-ink: rgba(0, 47, 167, 0.72);
+      --aurora: #01c2c3;
+      --ink: #e8e6e1;
+      --text: #e8e6e1;
+      --soft: rgba(232, 230, 225, 0.64);
+      --dim: #8d9296;
+      --faint: rgba(232, 230, 225, 0.12);
+      --line: rgba(232, 230, 225, 0.14);
       --sans: "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", "Droid Sans Fallback", ui-sans-serif, system-ui, sans-serif;
       --rail: 208px;
+      --hud: 64px;
     }
 
     * { box-sizing: border-box; }
     html, body {
       margin: 0;
-      height: 100%;
+      min-height: 100%;
       background: var(--bg);
-      color: var(--ink);
+      color: var(--text);
       font-family: var(--sans);
       -webkit-font-smoothing: antialiased;
     }
-    body { overflow: hidden; }
-    ::selection { background: var(--cyan-dim); color: var(--ink); }
+    @media (min-width: 980px) {
+      html, body { height: 100%; overflow: hidden; }
+    }
+    @media (max-width: 979px) {
+      html, body { height: auto; overflow-x: hidden; overflow-y: auto; }
+    }
+    ::selection { background: var(--klein); color: #fff; }
     button, textarea { font-family: inherit; color: inherit; }
     button { appearance: none; background: none; border: 0; }
 
@@ -67,9 +74,8 @@
     .rail-tick {
       width: 18px;
       height: 2px;
-      background: var(--cyan);
+      background: var(--aurora);
       margin: 16px 0 18px;
-      box-shadow: 0 0 12px var(--cyan-glow);
     }
     .rail nav { display: flex; flex-direction: column; gap: 2px; }
     .rail .ch {
@@ -95,9 +101,13 @@
       color: var(--soft);
     }
     .rail .ch:hover .lab { color: var(--ink); }
-    .rail .ch.is-on { border-left-color: var(--cyan); }
-    .rail .ch.is-on .num { color: var(--cyan); }
-    .rail .ch.is-on .lab { color: var(--ink); font-weight: 650; }
+    .rail .ch.is-on {
+      border-left-color: var(--aurora);
+      background: var(--klein);
+      color: #fff;
+    }
+    .rail .ch.is-on .num { color: #fff; }
+    .rail .ch.is-on .lab { color: #fff; font-weight: 650; }
 
     .rail-progress { margin-top: auto; padding-top: 16px; }
     .rail-progress .meta {
@@ -114,8 +124,7 @@
       position: absolute;
       inset: 0 auto 0 0;
       width: 0;
-      background: var(--cyan);
-      box-shadow: 0 0 10px var(--cyan-glow);
+      background: var(--klein);
     }
 
     .main {
@@ -136,8 +145,7 @@
       width: min(100%, calc((100vh - 92px) * 16 / 9));
       aspect-ratio: 16 / 9;
       background:
-        radial-gradient(ellipse 70% 55% at 78% 0%, rgba(0, 219, 219, 0.08), transparent 55%),
-        radial-gradient(ellipse 50% 40% at 8% 100%, rgba(0, 219, 219, 0.05), transparent 50%),
+        radial-gradient(ellipse 70% 55% at 82% -10%, rgba(0, 47, 167, 0.28), transparent 55%),
         var(--stage);
       border: 1px solid var(--line);
       position: relative;
@@ -180,7 +188,7 @@
       color: var(--dim);
       flex: none;
     }
-    .kicker em { font-style: normal; color: var(--cyan); margin: 0 8px; }
+    .kicker em { font-style: normal; color: var(--aurora); margin: 0 8px; }
 
     h1, h2, h3, p { margin: 0; }
     h1 {
@@ -213,7 +221,7 @@
     }
     .punch u, .gold u {
       text-decoration: none;
-      box-shadow: inset 0 -2px 0 var(--cyan);
+      box-shadow: inset 0 -2px 0 var(--aurora);
     }
     .gold {
       font-size: clamp(1.55rem, 3.1vw, 2.45rem);
@@ -226,11 +234,27 @@
       justify-content: center;
       text-align: left;
     }
+    .cover.klein-field, .center-page.klein-field, .close-page.klein-field {
+      background: var(--klein);
+      color: #fff;
+    }
+    .cover.klein-field .sub,
+    .cover.klein-field .ask { color: rgba(255, 255, 255, 0.78); }
+    .klein-field .flow-step,
+    .klein-field .chain span,
+    .klein-field .door,
+    .klein-field .qs article,
+    .klein-field .beat b {
+      background: rgba(0, 0, 0, 0.18);
+      border-color: rgba(255, 255, 255, 0.22);
+      color: #fff;
+    }
+    .klein-field .door p, .klein-field .flow p { color: rgba(255, 255, 255, 0.75); }
     .cover .who {
       font-size: 12px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--cyan);
+      color: #fff;
       margin-bottom: 18px;
     }
     .cover .sub {
@@ -256,12 +280,12 @@
       font-weight: 650;
       text-align: center;
     }
-    .beat b.is-last { border-color: rgba(0, 219, 219, 0.45); color: var(--cyan); }
+    .beat b.is-last { border-color: rgba(255, 255, 255, 0.45); color: #fff; }
     .beat i {
       width: 28px;
-      height: 1px;
-      background: var(--cyan);
-      opacity: 0.55;
+      height: 2px;
+      background: var(--aurora);
+      opacity: 0.85;
       flex: none;
     }
     .ask {
@@ -278,7 +302,7 @@
     .center-page .ch-no {
       font-size: 12px;
       letter-spacing: 0.22em;
-      color: var(--cyan);
+      color: rgba(255, 255, 255, 0.7);
       margin-bottom: 16px;
     }
     .watermark {
@@ -288,10 +312,30 @@
       font-size: clamp(5rem, 14vw, 10rem);
       font-weight: 800;
       letter-spacing: -0.06em;
-      color: rgba(0, 219, 219, 0.06);
+      color: rgba(255, 255, 255, 0.08);
       pointer-events: none;
       line-height: 1;
     }
+    .klein-bar {
+      position: absolute;
+      left: 24px;
+      right: auto;
+      bottom: 18px;
+      max-width: min(720px, 88%);
+      padding: 13px 20px 13px 18px;
+      background: var(--klein-ink);
+      border-left: 2px solid var(--aurora);
+      backdrop-filter: blur(12px);
+      color: #fff;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
+      z-index: 2;
+    }
+    .klein-bar.hero { left: 50%; transform: translateX(-50%); }
+    .klein-bar .ask, .klein-bar .gold, .klein-bar .punch {
+      margin: 0;
+      color: #fff;
+    }
+    .page.has-bar { padding-bottom: 92px; }
 
     .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
     .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
@@ -307,24 +351,37 @@
       text-align: left;
     }
     .pick, .job, .scene, .door, .task, .check { cursor: pointer; }
+    .pick, .scene, .task {
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
     .pick:hover, .job:hover, .scene:hover, .door:hover, .task:hover, .card:hover {
-      border-color: rgba(238, 244, 246, 0.22);
+      border-color: rgba(232, 230, 225, 0.28);
+    }
+    .pick:hover, .scene:hover, .task:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.32);
     }
     .pick.is-on, .job.is-on, .scene.is-on, .door.is-on, .task.is-on, .dim.is-on {
-      border-color: var(--cyan);
-      background: var(--cyan-dim);
+      border-color: transparent;
+      background: var(--klein);
+      color: #fff;
     }
+    .pick.is-on p, .scene.is-on p, .task.is-on p, .job.is-on p, .dim.is-on p { color: rgba(255, 255, 255, 0.78); }
     .tag {
       font-size: 10px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--dim);
     }
-    .pick.is-on .tag, .job.is-on .tag, .scene.is-on .tag { color: var(--cyan); }
+    .pick.is-on .tag, .job.is-on .tag, .scene.is-on .tag, .task.is-on .tag { color: #fff; }
     .card h3, .pick h3, .job h3, .scene h3, .dim h3, .door h3, .task h3 {
       margin-top: 8px;
       font-size: clamp(16px, 1.5vw, 20px);
       font-weight: 650;
+      transition: font-size 180ms ease;
+    }
+    .pick.is-on h3, .scene.is-on h3, .task.is-on h3 {
+      font-size: clamp(20px, 2.2vw, 28px);
     }
     .card p, .pick p, .job p, .scene p, .dim p, .door p, .task p {
       margin-top: 8px;
@@ -336,8 +393,9 @@
     .quote {
       margin-top: 8px;
       padding: 16px 18px 16px 20px;
-      border-left: 2px solid var(--cyan);
-      background: rgba(0, 219, 219, 0.05);
+      border-left: 2px solid var(--aurora);
+      background: var(--klein-ink);
+      color: #fff;
       font-size: clamp(15px, 1.55vw, 19px);
       line-height: 1.65;
       max-width: 42em;
@@ -354,9 +412,9 @@
     .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
     .vs article { padding: 14px 16px; border: 1px solid var(--line); }
     .vs .old { color: var(--dim); }
-    .vs .new { border-color: rgba(0, 219, 219, 0.4); }
+    .vs .new { border-color: transparent; background: var(--klein); color: #fff; }
     .vs .lab { font-size: 11px; letter-spacing: 0.14em; color: var(--dim); }
-    .vs .new .lab { color: var(--cyan); }
+    .vs .new .lab { color: #fff; }
     .vs h3 { margin-top: 8px; font-size: 18px; font-weight: 650; }
 
     .jobs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
@@ -367,7 +425,7 @@
       font-size: 14px;
       color: var(--soft);
     }
-    .job-out b { color: var(--cyan); font-weight: 650; }
+    .job-out b { color: #fff; font-weight: 650; }
 
     .compare { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; flex: 1; }
     .compare article {
@@ -378,11 +436,13 @@
       flex-direction: column;
     }
     .compare article.is-html {
-      border-color: rgba(0, 219, 219, 0.5);
-      background: var(--cyan-dim);
+      border-color: transparent;
+      background: var(--klein);
+      color: #fff;
     }
     .compare .kind { font-size: 11px; letter-spacing: 0.14em; color: var(--dim); }
-    .compare article.is-html .kind { color: var(--cyan); }
+    .compare article.is-html .kind { color: #fff; }
+    .compare article.is-html .more { color: rgba(255, 255, 255, 0.75); }
     .compare h3 { margin-top: 10px; font-size: 22px; }
     .compare .use { margin-top: 12px; font-size: 15px; font-weight: 650; line-height: 1.4; }
     .compare .more { margin-top: auto; padding-top: 14px; font-size: 13px; color: var(--soft); line-height: 1.5; }
@@ -396,11 +456,11 @@
       width: 14px;
       align-self: center;
       height: 1px;
-      background: var(--cyan);
-      opacity: 0.5;
+      background: var(--aurora);
+      opacity: 0.85;
       flex: none;
     }
-    .flow .n { font-size: 11px; color: var(--cyan); letter-spacing: 0.12em; }
+    .flow .n { font-size: 11px; color: var(--aurora); letter-spacing: 0.12em; }
     .flow h3 { margin-top: 8px; font-size: 17px; }
     .flow p { margin-top: 6px; font-size: 12px; color: var(--soft); line-height: 1.45; }
 
@@ -422,7 +482,7 @@
       font-size: 13px;
       background: rgba(255, 255, 255, 0.02);
     }
-    .roles button.is-on { border-color: var(--cyan); color: var(--cyan); }
+    .roles button.is-on { border-color: transparent; background: var(--klein); color: #fff; }
     .next-step {
       margin-top: 16px;
       padding-top: 12px;
@@ -441,7 +501,7 @@
       font-size: 16px;
       font-weight: 650;
     }
-    .chain i { width: 22px; height: 1px; background: var(--cyan); opacity: 0.55; }
+    .chain i { width: 22px; height: 2px; background: var(--aurora); opacity: 0.85; }
 
     .scene .more { display: none; margin-top: 10px; }
     .scene.is-on .more { display: block; }
@@ -457,7 +517,7 @@
       font-size: 13px;
       background: rgba(255, 255, 255, 0.02);
     }
-    .scene-mini button.is-on { border-color: var(--cyan); color: var(--cyan); }
+    .scene-mini button.is-on { border-color: transparent; background: var(--klein); color: #fff; }
 
     .decide { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 16px; margin-top: 16px; flex: 1; }
     .rows { display: grid; gap: 8px; }
@@ -472,7 +532,8 @@
       font-size: 14px;
     }
     .rows { margin: 0; padding: 0; }
-    .rows b { color: var(--cyan); font-weight: 650; }
+    .rows li:last-child { background: var(--klein); color: #fff; border-color: transparent; }
+    .rows b { color: #fff; font-weight: 650; }
     .checks { display: grid; gap: 8px; }
     .check {
       display: grid;
@@ -483,9 +544,9 @@
       font-size: 14px;
       line-height: 1.45;
     }
-    .check .n { color: var(--cyan); font-weight: 700; }
-    .check.is-stop { border-color: rgba(0, 219, 219, 0.5); }
-    .check.is-stop .hint { display: block; margin-top: 6px; font-size: 12px; color: var(--cyan); }
+    .check .n { color: #fff; font-weight: 700; }
+    .check.is-on, .check.is-stop { background: var(--klein); color: #fff; border-color: transparent; }
+    .check.is-stop .hint { display: block; margin-top: 6px; font-size: 12px; color: #fff; }
 
     .doors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 22px; }
     .door { min-height: 210px; display: flex; flex-direction: column; }
@@ -500,8 +561,40 @@
       cursor: pointer;
       min-height: 132px;
     }
-    .beats4 button.is-on { border-color: var(--cyan); background: var(--cyan-dim); }
-    .beats4 .n { font-size: 11px; letter-spacing: 0.14em; color: var(--cyan); }
+    .beats4 button.is-on { border-color: transparent; background: var(--klein); color: #fff; }
+    .beats4 button.is-on p { color: rgba(255, 255, 255, 0.78); }
+    .beats4 .n { font-size: 11px; letter-spacing: 0.14em; color: var(--aurora); }
+    .beats4 button.is-on .n { color: #fff; }
+
+    .device {
+      background: #00153d;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      flex-direction: column;
+      aspect-ratio: 16 / 9;
+      min-height: 0;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    }
+    .device-chrome {
+      height: 22px;
+      flex: none;
+      background: var(--klein);
+      color: #fff;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+    .device-view {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+      background: #07080a;
+      overflow: hidden;
+    }
     .beats4 h3 { margin-top: 8px; font-size: 16px; }
     .beats4 p { margin-top: 8px; font-size: 13px; color: var(--soft); line-height: 1.45; }
 
@@ -515,14 +608,14 @@
     .value-line b { color: var(--ink); }
 
     .tee {
-      border: 1px solid var(--line);
-      background: #0a0c0e;
-      min-height: 168px;
+      height: 100%;
+      min-height: 0;
       position: relative;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
+      background: #07080a;
     }
     .shirt {
       width: 118px;
@@ -540,7 +633,7 @@
       transform: translateX(-50%);
       font-size: 11px;
       letter-spacing: 0.08em;
-      color: var(--cyan);
+      color: #fff;
       white-space: nowrap;
       font-weight: 700;
     }
@@ -551,7 +644,7 @@
       font-size: 11px;
       cursor: pointer;
     }
-    .tee-tools button.is-on { border-color: var(--cyan); color: var(--cyan); }
+    .tee-tools button.is-on { border-color: transparent; background: var(--klein); color: #fff; }
     .tee-cap { position: absolute; right: 10px; bottom: 10px; font-size: 11px; color: var(--dim); }
 
     .nono-grid {
@@ -571,13 +664,17 @@
       color: var(--soft);
       cursor: pointer;
     }
-    .nono.is-on { border-color: var(--cyan); color: var(--cyan); }
+    .nono-grid { height: 100%; align-content: center; padding: 10px; }
+    .nono.is-on { border-color: transparent; background: var(--klein); color: #fff; }
     .nono b { font-size: 12px; }
 
     .timeline-box {
-      border: 1px solid var(--line);
+      height: 100%;
       padding: 12px;
-      background: #0a0c0e;
+      background: #07080a;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .fake-page {
       height: 88px;
@@ -606,7 +703,7 @@
       top: -3px;
       width: 2px;
       height: 12px;
-      background: var(--cyan);
+      background: var(--aurora);
       opacity: 0;
     }
     .tl.is-on > i { opacity: 1; }
@@ -617,7 +714,7 @@
       font-size: 12px;
       cursor: pointer;
     }
-    .tl-btns button.is-on { border-color: var(--cyan); color: var(--cyan); }
+    .tl-btns button.is-on { border-color: transparent; background: var(--klein); color: #fff; }
     .hf {
       display: none;
       margin-top: 8px;
@@ -637,7 +734,7 @@
       padding: 12px 14px;
       font-size: 14px;
     }
-    .sum3 .who { color: var(--cyan); font-weight: 700; }
+    .sum3 .who { color: #fff; font-weight: 700; background: var(--klein); padding: 8px 10px; }
     .sum3 b { color: var(--dim); font-weight: 500; font-size: 11px; letter-spacing: 0.1em; display: block; margin-bottom: 4px; }
 
     .qs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 24px; }
@@ -646,8 +743,9 @@
 
     .prompt {
       margin-top: 12px;
-      border: 1px solid rgba(0, 219, 219, 0.35);
-      background: rgba(0, 219, 219, 0.05);
+      border-left: 2px solid var(--aurora);
+      background: var(--klein-ink);
+      color: #fff;
       padding: 14px 14px 12px;
     }
     .prompt pre {
@@ -659,12 +757,13 @@
     }
     .copy-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
     .copy-row button {
-      border: 1px solid var(--cyan);
-      background: var(--cyan-dim);
-      color: var(--cyan);
-      padding: 7px 12px;
+      border: 0;
+      background: var(--klein);
+      color: #fff;
+      padding: 10px 14px;
       cursor: pointer;
       font-size: 13px;
+      min-height: 44px;
     }
     .copy-row span { font-size: 12px; color: var(--dim); }
     .list4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
@@ -683,7 +782,7 @@
     .close-page .who {
       font-size: 12px;
       letter-spacing: 0.2em;
-      color: var(--cyan);
+      color: #fff;
       margin-bottom: 18px;
     }
 
@@ -705,8 +804,8 @@
       cursor: pointer;
       padding: 0;
     }
-    .dots button.is-on { background: var(--cyan); box-shadow: 0 0 8px var(--cyan-glow); }
-    .dots button.is-ch { outline: 1px solid rgba(0, 219, 219, 0.35); outline-offset: 2px; }
+    .dots button.is-on { background: var(--klein); }
+    .dots button.is-ch { outline: 2px solid var(--aurora); outline-offset: 2px; }
     .nav-btns { display: flex; gap: 6px; }
     .nav-btns button {
       border: 1px solid var(--line);
@@ -715,7 +814,8 @@
       font-size: 12px;
       color: var(--soft);
     }
-    .nav-btns button:hover { border-color: var(--cyan); color: var(--ink); }
+    .nav-btns button:hover { border-color: var(--aurora); color: var(--ink); }
+    .nav-btns button { min-height: 44px; }
     .hint { white-space: nowrap; }
 
     .notes {
@@ -730,16 +830,16 @@
       z-index: 20;
     }
     .notes.is-on { display: block; }
-    .notes .lab { font-size: 10px; letter-spacing: 0.16em; color: var(--cyan); }
+    .notes .lab { font-size: 10px; letter-spacing: 0.16em; color: #fff; }
     .notes p { margin-top: 6px; font-size: 14px; color: var(--soft); line-height: 1.5; }
 
     .toast {
       position: fixed;
       right: 24px;
       bottom: 24px;
-      background: #0e1517;
-      border: 1px solid var(--cyan);
-      color: var(--cyan);
+      background: var(--klein);
+      border: 0;
+      color: #fff;
       padding: 8px 12px;
       font-size: 13px;
       opacity: 0;
@@ -749,13 +849,94 @@
     }
     .toast.is-on { opacity: 1; }
 
-    @media (max-width: 980px) {
-      .app { grid-template-columns: 1fr; }
+    .hud { display: none; }
+    .notes-btn {
+      border: 1px solid var(--line);
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      color: var(--soft);
+      min-height: 44px;
+    }
+    .notes-btn.is-on { background: var(--klein); color: #fff; border-color: transparent; }
+
+    @media (max-width: 979px) {
+      .app {
+        grid-template-columns: 1fr;
+        min-height: 100dvh;
+        padding-bottom: var(--hud);
+      }
       .rail { display: none; }
-      .notes { left: 0; }
-      .grid4, .compare, .beats4, .qs, .list4, .jobs { grid-template-columns: repeat(2, 1fr); }
+      .hud {
+        display: flex;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 25;
+        background: #08090c;
+        border-top: 1px solid var(--line);
+        min-height: var(--hud);
+      }
+      .hud .ch {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        min-height: 44px;
+        padding: 8px 2px;
+        cursor: pointer;
+      }
+      .hud .ch .num { font-size: 10px; letter-spacing: 0.08em; color: var(--dim); }
+      .hud .ch .lab { font-size: 10px; color: var(--soft); line-height: 1.2; }
+      .hud .ch.is-on { background: var(--klein); color: #fff; }
+      .hud .ch.is-on .num, .hud .ch.is-on .lab { color: #fff; }
+      .notes { left: 0; bottom: var(--hud); }
+      .stage-wrap { padding: 0; align-items: stretch; }
+      .stage {
+        width: 100%;
+        aspect-ratio: auto;
+        min-height: calc(100dvh - var(--hud) - 72px);
+        border: 0;
+        box-shadow: none;
+        overflow: visible;
+      }
+      .stage::after { display: none; }
+      .page {
+        position: relative;
+        inset: auto;
+        display: none;
+        overflow: visible;
+        padding: clamp(20px, 5vw, 32px) 4vw 28px;
+        max-width: 40rem;
+        margin: 0 auto;
+      }
+      .page.is-on { display: flex; }
+      .page.has-bar { padding-bottom: 28px; }
+      .klein-bar {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        transform: none;
+        max-width: none;
+        margin: 22px 0 0;
+        width: 100%;
+      }
+      .watermark { display: none; }
+      .grid3, .grid4, .compare, .beats4, .qs, .list4, .jobs, .dims, .doors, .actions { grid-template-columns: 1fr; }
       .grid6, .nono-grid { grid-template-columns: repeat(3, 1fr); }
-      .split, .decide, .case-extra, .sum3 article { grid-template-columns: 1fr; }
+      .split, .decide, .case-extra, .sum3 article, .vs { grid-template-columns: 1fr; }
+      .flow, .chain, .beat { flex-wrap: wrap; }
+      .device { width: 100%; }
+      .hint.desk { display: none; }
+      .nav-btns button, .copy-row button, .roles button, .notes-btn { min-height: 44px; }
+    }
+    @media (min-width: 600px) and (max-width: 979px) {
+      .grid4, .compare, .beats4, .qs, .list4, .jobs, .actions { grid-template-columns: repeat(2, 1fr); }
+      .grid3, .dims, .doors { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -778,21 +959,32 @@
       </div>
     </aside>
 
+    <nav class="hud" aria-label="章节">
+      <button class="ch is-on" data-go="0"><span class="num">00</span><span class="lab">开场</span></button>
+      <button class="ch" data-go="2"><span class="num">01</span><span class="lab">什么是 HTML</span></button>
+      <button class="ch" data-go="5"><span class="num">02</span><span class="lab">可以做什么</span></button>
+      <button class="ch" data-go="7"><span class="num">03</span><span class="lab">怎么选择</span></button>
+      <button class="ch" data-go="11"><span class="num">04</span><span class="lab">我们的案例</span></button>
+      <button class="ch" data-go="16"><span class="num">05</span><span class="lab">轮到你了</span></button>
+    </nav>
+
     <div class="main">
       <div class="stage-wrap">
         <div class="stage" id="stage">
 
-          <section class="page cover is-on" data-ch="0" data-note="先停在开场问题上：内容写好了，别人却看不懂、不想看、不会用。四个拍子只点一下：文档变成页面，再变成能点、能分享。">
+          <section class="page cover klein-field has-bar is-on" data-ch="0" data-note="先停在开场问题上：内容写好了，别人却看不懂、不想看、不会用。四个拍子只点一下：文档变成页面，再变成能点、能分享。">
             <p class="who">POIZON 全员课</p>
             <h1>《HTML+：AI 时代的<br>工作表达新方式》</h1>
             <p class="sub">不用学编程，也能做出能讲、能点、能分享的工作成果</p>
             <div class="beat" aria-hidden="true">
               <b>文档</b><i></i><b>页面</b><i></i><b>交互</b><i></i><b class="is-last">分享</b>
             </div>
-            <p class="ask">你有没有遇到过：内容已经写好了，但别人还是看不懂、不想看、不会用？</p>
+            <div class="klein-bar">
+              <p class="ask">你有没有遇到过：内容已经写好了，但别人还是看不懂、不想看、不会用？</p>
+            </div>
           </section>
 
-          <section class="page" data-ch="0" data-note="点四件事，跳进对应章。结课状态只读一句：找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。">
+          <section class="page has-bar" data-ch="0" data-note="点四件事，跳进对应章。结课状态只读一句：找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。">
             <p class="kicker">P02<em>·</em>总览</p>
             <h2>今天不学代码，学会四件事</h2>
             <div class="grid4" style="flex:1">
@@ -801,12 +993,16 @@
               <button class="pick" data-jump="7"><span class="tag">03</span><h3>学会判断和选择</h3><p>先问谁要用它完成什么，再选交付形式。</p></button>
               <button class="pick" data-jump="16"><span class="tag">04</span><h3>完成自己的作品</h3><p>选一个真实场景，和 AI 一起做出能打开的一版。</p></button>
             </div>
-            <p class="punch">找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。</p>
+            <div class="klein-bar">
+              <p class="punch">找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。</p>
+            </div>
           </section>
 
-          <section class="page center-page" data-ch="1" data-note="章封面只立一句。看见、理解、操作——三件事同时需要时，内容就可以变成 HTML。">
+          <section class="page center-page klein-field has-bar" data-ch="1" data-note="章封面只立一句。看见、理解、操作——三件事同时需要时，内容就可以变成 HTML。">
             <p class="ch-no">01  什么是 HTML</p>
-            <p class="gold">当内容需要被看见、被理解、被操作时，<br>它就可以变成一个 HTML。</p>
+            <div class="klein-bar">
+              <p class="gold">当内容需要被看见、被理解、被操作时，<br>它就可以变成一个 HTML。</p>
+            </div>
             <span class="watermark">01</span>
           </section>
 
@@ -862,19 +1058,21 @@
             </div>
           </section>
 
-          <section class="page center-page" data-ch="2" data-note="先立对比：文件把内容交给你；HTML 还会回应。下一页用活动通知当场试。">
+          <section class="page center-page klein-field has-bar" data-ch="2" data-note="先立对比：文件把内容交给你；HTML 还会回应。下一页用活动通知当场试。">
             <p class="ch-no">02  HTML 可以做什么</p>
-            <p class="gold">普通文件把内容交给你，<br>HTML 还可以回应你的操作。</p>
             <div class="flow">
               <div class="flow-step"><div class="n">01</div><h3>文档</h3><p>活动资料写在一处</p></div><i></i>
               <div class="flow-step"><div class="n">02</div><h3>清晰页</h3><p>打开就能看懂结构</p></div><i></i>
               <div class="flow-step"><div class="n">03</div><h3>可选择</h3><p>按身份点进去</p></div><i></i>
               <div class="flow-step"><div class="n">04</div><h3>给出结果</h3><p>拿到自己的下一步</p></div>
             </div>
+            <div class="klein-bar">
+              <p class="gold">普通文件把内容交给你，<br>HTML 还可以回应你的操作。</p>
+            </div>
             <span class="watermark">02</span>
           </section>
 
-          <section class="page" data-ch="2" data-note="四个动作不是等级。点动作，再让现场选一个身份——让人感觉到：内容因为操作变了。">
+          <section class="page has-bar" data-ch="2" data-note="四个动作不是等级。点动作，再让现场选一个身份——让人感觉到：内容因为操作变了。">
             <p class="kicker">P07<em>·</em>四个基础动作</p>
             <div class="split">
               <div>
@@ -899,14 +1097,18 @@
                 <p class="next-step" id="next-step">还没选。点一个身份，看内容怎么变。</p>
               </div>
             </div>
-            <p class="punch">HTML 最特别的地方，不是内容更多，而是<u>内容可以根据人的操作发生变化</u>。</p>
+            <div class="klein-bar">
+              <p class="punch">HTML 最特别的地方，不是内容更多，而是<u>内容可以根据人的操作发生变化</u>。</p>
+            </div>
           </section>
 
-          <section class="page center-page" data-ch="3" data-note="先改问题，再谈形式。链式四步：任务 → 使用者 → 使用方式 → 交付形式。">
+          <section class="page center-page klein-field has-bar" data-ch="3" data-note="先改问题，再谈形式。链式四步：任务 → 使用者 → 使用方式 → 交付形式。">
             <p class="ch-no">03  工作中怎么选择</p>
-            <p class="gold">不要先问「能不能做成 HTML」，<br>先问「谁要用它完成什么」。</p>
             <div class="chain">
               <span>任务</span><i></i><span>使用者</span><i></i><span>使用方式</span><i></i><span>交付形式</span>
+            </div>
+            <div class="klein-bar">
+              <p class="gold">不要先问「能不能做成 HTML」，<br>先问「谁要用它完成什么」。</p>
             </div>
             <span class="watermark">03</span>
           </section>
@@ -971,13 +1173,15 @@
             </div>
           </section>
 
-          <section class="page center-page" data-ch="4" data-note="点门进房间。口播只讲动作，不讲实现配方。">
+          <section class="page center-page klein-field has-bar" data-ch="4" data-note="点门进房间。口播只讲动作，不讲实现配方。">
             <p class="ch-no">04  我们的 HTML 案例</p>
-            <p class="gold">同一种能力，解决不同类型的内容。</p>
             <div class="doors">
               <button class="door" data-jump="12"><span class="tag">案例一 · 比较 / 体验</span><h3>11 周年物料</h3><p>T恤、物流箱、奖杯、防伪。平面稿看不出结构。</p><span class="go">进入房间 →</span></button>
               <button class="door" data-jump="13"><span class="tag">案例二 · 比较选择</span><h3>NONO 九款</h3><p>九款进同一页，把分散确认收起来。</p><span class="go">进入房间 →</span></button>
               <button class="door" data-jump="14"><span class="tag">案例三 · 讲清楚 / 体验</span><h3>业务知多少</h3><p>已有 HTML，再给页加上时间。现场叫它视频插件。</p><span class="go">进入房间 →</span></button>
+            </div>
+            <div class="klein-bar">
+              <p class="gold">同一种能力，解决不同类型的内容。</p>
             </div>
             <span class="watermark">04</span>
           </section>
@@ -993,11 +1197,14 @@
             </div>
             <div class="case-extra">
               <p class="value-line"><b>价值</b>　静态设计稿变成能观察比较的沟通工具。可用 AI Coding 把已有物料收进同一页。</p>
+              <div class="device">
+                <div class="device-chrome"><span>HTML</span><span>16:9</span></div>
+                <div class="device-view">
               <div class="tee" id="tee" title="拖一拖，换一换">
                 <div class="shirt" id="shirt">
                   <svg viewBox="0 0 120 130" aria-hidden="true">
                     <path fill="#1c2126" stroke="rgba(238,244,246,0.22)" stroke-width="1.2" d="M24 18 L48 10 H72 L96 18 L110 38 L92 46 V118 H28 V46 L10 38 Z"/>
-                    <path fill="none" stroke="rgba(0,219,219,0.25)" stroke-width="1" d="M48 12 C54 22 66 22 72 12"/>
+                    <path fill="none" stroke="rgba(1,194,195,0.35)" stroke-width="1" d="M48 12 C54 22 66 22 72 12"/>
                   </svg>
                   <span class="mark" id="shirt-mark">11</span>
                 </div>
@@ -1007,6 +1214,8 @@
                   <button data-decal="吊牌">吊牌</button>
                 </div>
                 <span class="tee-cap">拖一拖 · 换贴花</span>
+              </div>
+                </div>
               </div>
             </div>
           </section>
@@ -1021,8 +1230,10 @@
               <button><span class="n">交付给谁</span><h3>要对齐的人</h3><p>自己点两款，当场看差别。</p></button>
             </div>
             <div class="case-extra">
-              <p class="value-line"><b>价值</b>　把比较收进一页。可用 AI Coding 先出能打开的操作台，再用人话改到能用。</p>
-              <div>
+              <p class="value-line"><b>价值</b>　把比较收进一页。可用 AI Coding 先出能打开的操作台，再用人话改到能用。<span class="job-out" id="nono-out">点两款，看「比较」怎么发生。</span></p>
+              <div class="device">
+                <div class="device-chrome"><span>HTML</span><span>16:9</span></div>
+                <div class="device-view">
                 <div class="nono-grid" id="nono">
                   <button class="nono"><b>01</b>高帮</button>
                   <button class="nono"><b>02</b>低帮</button>
@@ -1034,7 +1245,7 @@
                   <button class="nono"><b>08</b>袜套</button>
                   <button class="nono"><b>09</b>高帮</button>
                 </div>
-                <p class="job-out" id="nono-out" style="margin-top:8px">点两款，看「比较」怎么发生。</p>
+                </div>
               </div>
             </div>
           </section>
@@ -1051,6 +1262,9 @@
             </div>
             <div class="case-extra">
               <p class="value-line"><b>对照</b>　固定节奏传播仍可用视频；这里看的是页怎么被加上时间。</p>
+              <div class="device">
+                <div class="device-chrome"><span>HTML</span><span>16:9</span></div>
+                <div class="device-view">
               <div class="timeline-box" id="vol06">
                 <div class="fake-page" id="fake-page">
                   <div class="layer">我们相信什么，决定了我们是谁</div>
@@ -1062,6 +1276,8 @@
                   <button data-add="sound">加上声音</button>
                 </div>
                 <div class="hf" id="hf">HyperFrames</div>
+              </div>
+                </div>
               </div>
             </div>
           </section>
@@ -1091,14 +1307,16 @@
             </div>
           </section>
 
-          <section class="page center-page" data-ch="5" data-note="把野心收小。从少解释一次什么开始。四问只点到现场有共鸣的那一个。">
+          <section class="page center-page klein-field has-bar" data-ch="5" data-note="把野心收小。从少解释一次什么开始。四问只点到现场有共鸣的那一个。">
             <p class="ch-no">05  轮到你了</p>
-            <p class="gold">不要从「我要做一个很厉害的网站」开始。<br>从「我想少解释一次什么」开始。</p>
             <div class="qs">
               <article><span class="tag">01</span><h3>重复解释</h3></article>
               <article><span class="tag">02</span><h3>找不到重点</h3></article>
               <article><span class="tag">03</span><h3>文字说不清</h3></article>
               <article><span class="tag">04</span><h3>能变成小工具</h3></article>
+            </div>
+            <div class="klein-bar">
+              <p class="gold">不要从「我要做一个很厉害的网站」开始。<br>从「我想少解释一次什么」开始。</p>
             </div>
             <span class="watermark">05</span>
           </section>
@@ -1144,9 +1362,11 @@
             </ul>
           </section>
 
-          <section class="page close-page" data-ch="5" data-note="结课句一字不改。停住，把房间还给他们。">
+          <section class="page close-page klein-field has-bar" data-ch="5" data-note="结课句一字不改。停住，把房间还给他们。">
             <p class="who">结课</p>
-            <p class="gold">未来真正重要的，不是每个人都会写代码，而是每个人都能把自己的专业判断，变成别人可以直接使用的成果。</p>
+            <div class="klein-bar hero">
+              <p class="gold">未来真正重要的，不是每个人都会写代码，而是每个人都能把自己的专业判断，变成别人可以直接使用的成果。</p>
+            </div>
           </section>
 
         </div>
@@ -1159,7 +1379,8 @@
           <button type="button" id="next">下一页</button>
         </div>
         <span class="hint" id="page-label">P01</span>
-        <span class="hint">← → 空格 · F 全屏 · S 讲稿</span>
+        <button type="button" class="notes-btn" id="notes-btn">讲稿</button>
+        <span class="hint desk">← → 空格 · F 全屏</span>
       </div>
     </div>
   </div>
@@ -1173,7 +1394,7 @@
   <script>
     (function () {
       const pages = [...document.querySelectorAll(".page")];
-      const rail = [...document.querySelectorAll(".rail .ch")];
+      const chBtns = [...document.querySelectorAll(".ch[data-go]")];
       const dots = document.getElementById("dots");
       const bar = document.getElementById("prog-bar");
       const progLabel = document.getElementById("prog-label");
@@ -1201,7 +1422,9 @@
         pages.forEach((p, i) => p.classList.toggle("is-on", i === index));
         dotBtns.forEach((d, i) => d.classList.toggle("is-on", i === index));
         const ch = Number(pages[index].dataset.ch || 0);
-        rail.forEach((r, i) => r.classList.toggle("is-on", i === ch));
+        const start = chStarts[ch];
+        chBtns.forEach((r) => r.classList.toggle("is-on", Number(r.dataset.go) === start));
+        window.scrollTo(0, 0);
         const label = "P" + String(index + 1).padStart(2, "0");
         pageLabel.textContent = label;
         progLabel.textContent = label + " / 20";
@@ -1213,9 +1436,16 @@
       function next() { go(index + 1); }
       function prev() { go(index - 1); }
 
-      rail.forEach((btn) => btn.addEventListener("click", () => go(Number(btn.dataset.go))));
+      chBtns.forEach((btn) => btn.addEventListener("click", () => go(Number(btn.dataset.go))));
       document.getElementById("next").addEventListener("click", next);
       document.getElementById("prev").addEventListener("click", prev);
+      const notesBtn = document.getElementById("notes-btn");
+      function setNotes(on) {
+        notesOn = on;
+        notes.classList.toggle("is-on", notesOn);
+        notesBtn.classList.toggle("is-on", notesOn);
+      }
+      notesBtn.addEventListener("click", () => setNotes(!notesOn));
 
       document.addEventListener("keydown", (e) => {
         if (e.target.closest("textarea, input")) return;
@@ -1229,16 +1459,28 @@
           if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
           else document.exitFullscreen().catch(() => {});
         } else if (e.key === "s" || e.key === "S") {
-          notesOn = !notesOn;
-          notes.classList.toggle("is-on", notesOn);
+          setNotes(!notesOn);
         } else if (e.key === "Escape") {
-          notesOn = false;
-          notes.classList.remove("is-on");
+          setNotes(false);
         }
       });
 
+      let sx = 0, sy = 0;
+      stage.addEventListener("touchstart", (e) => {
+        const t = e.changedTouches[0];
+        sx = t.clientX; sy = t.clientY;
+      }, { passive: true });
+      stage.addEventListener("touchend", (e) => {
+        if (e.target.closest("button, a, .tee, .shirt, .nono-grid, .prompt, .roles, .scene-mini, .beats4, .timeline-box, .jobs, .actions, .checks")) return;
+        const t = e.changedTouches[0];
+        const dx = t.clientX - sx;
+        const dy = t.clientY - sy;
+        if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy)) return;
+        if (dx < 0) next(); else prev();
+      }, { passive: true });
+
       stage.addEventListener("click", (e) => {
-        if (e.target.closest("button, a, .tee, .nono-grid, .prompt, .roles, .scene-mini, .beats4, .timeline-box, .jobs, .actions, .checks")) return;
+        if (e.target.closest("button, a, .tee, .nono-grid, .prompt, .roles, .scene-mini, .beats4, .timeline-box, .jobs, .actions, .checks, .device")) return;
         const rect = stage.getBoundingClientRect();
         if (e.clientX < rect.left + rect.width * 0.22) prev();
         else if (e.clientX > rect.right - rect.width * 0.22) next();
