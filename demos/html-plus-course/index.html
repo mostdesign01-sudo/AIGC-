@@ -318,24 +318,24 @@
     }
     .klein-bar {
       position: absolute;
-      left: 24px;
-      right: auto;
-      bottom: 18px;
-      max-width: min(720px, 88%);
-      padding: 13px 20px 13px 18px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      max-width: none;
+      padding: 8px 12px;
       background: var(--klein-ink);
       border-left: 2px solid var(--aurora);
       backdrop-filter: blur(12px);
       color: #fff;
-      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
+      font-size: 13px;
+      line-height: 1.35;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       z-index: 2;
     }
-    .klein-bar.hero { left: 50%; transform: translateX(-50%); }
-    .klein-bar .ask, .klein-bar .gold, .klein-bar .punch {
-      margin: 0;
-      color: #fff;
-    }
-    .page.has-bar { padding-bottom: 92px; }
+    .klein-bar .punch, .klein-bar .ask, .klein-bar .gold { margin: 0; color: #fff; font-size: inherit; font-weight: 500; }
+    .klein-bar u { text-decoration: none; box-shadow: inset 0 -2px 0 var(--aurora); }
 
     .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
     .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
@@ -468,10 +468,12 @@
     .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .demo {
       border: 1px solid var(--line);
-      padding: 16px 16px 14px;
+      padding: 16px 16px 42px;
       background: rgba(0, 0, 0, 0.2);
       display: flex;
       flex-direction: column;
+      position: relative;
+      overflow: hidden;
     }
     .demo h3 { font-size: 18px; }
     .roles { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
@@ -571,7 +573,7 @@
       border: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
       flex-direction: column;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 3 / 2;
       min-height: 0;
       overflow: hidden;
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
@@ -595,10 +597,39 @@
       background: #07080a;
       overflow: hidden;
     }
+    .device-view > .tee,
+    .device-view > .nono-grid,
+    .device-view > .timeline-box {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 118%;
+      object-fit: cover;
+      object-position: top center;
+    }
     .beats4 h3 { margin-top: 8px; font-size: 16px; }
     .beats4 p { margin-top: 8px; font-size: 13px; color: var(--soft); line-height: 1.45; }
 
-    .case-extra { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; min-height: 0; flex: 1; }
+    .case-extra {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      min-height: 0;
+      flex: 1;
+    }
+    .case-extra .device { width: min(100%, 560px); }
+    .device-view .job-out {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 36px;
+      margin: 0;
+      z-index: 1;
+      font-size: 12px;
+    }
     .value-line {
       font-size: 15px;
       line-height: 1.55;
@@ -613,8 +644,9 @@
       position: relative;
       overflow: hidden;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
+      padding-top: 10%;
       background: #07080a;
     }
     .shirt {
@@ -914,16 +946,12 @@
         margin: 0 auto;
       }
       .page.is-on { display: flex; }
-      .page.has-bar { padding-bottom: 28px; }
       .klein-bar {
-        position: relative;
-        left: auto;
-        right: auto;
-        bottom: auto;
-        transform: none;
-        max-width: none;
-        margin: 22px 0 0;
-        width: 100%;
+        white-space: normal;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
       }
       .watermark { display: none; }
       .grid3, .grid4, .compare, .beats4, .qs, .list4, .jobs, .dims, .doors, .actions { grid-template-columns: 1fr; }
@@ -972,19 +1000,17 @@
       <div class="stage-wrap">
         <div class="stage" id="stage">
 
-          <section class="page cover klein-field has-bar is-on" data-ch="0" data-note="先停在开场问题上：内容写好了，别人却看不懂、不想看、不会用。四个拍子只点一下：文档变成页面，再变成能点、能分享。">
+          <section class="page cover klein-field is-on" data-ch="0" data-note="先停在开场问题上：内容写好了，别人却看不懂、不想看、不会用。四个拍子只点一下：文档变成页面，再变成能点、能分享。">
             <p class="who">POIZON 全员课</p>
             <h1>《HTML+：AI 时代的<br>工作表达新方式》</h1>
             <p class="sub">不用学编程，也能做出能讲、能点、能分享的工作成果</p>
             <div class="beat" aria-hidden="true">
               <b>文档</b><i></i><b>页面</b><i></i><b>交互</b><i></i><b class="is-last">分享</b>
             </div>
-            <div class="klein-bar">
-              <p class="ask">你有没有遇到过：内容已经写好了，但别人还是看不懂、不想看、不会用？</p>
-            </div>
+            <p class="ask">你有没有遇到过：内容已经写好了，但别人还是看不懂、不想看、不会用？</p>
           </section>
 
-          <section class="page has-bar" data-ch="0" data-note="点四件事，跳进对应章。结课状态只读一句：找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。">
+          <section class="page" data-ch="0" data-note="点四件事，跳进对应章。结课状态只读一句：找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。">
             <p class="kicker">P02<em>·</em>总览</p>
             <h2>今天不学代码，学会四件事</h2>
             <div class="grid4" style="flex:1">
@@ -993,16 +1019,12 @@
               <button class="pick" data-jump="7"><span class="tag">03</span><h3>学会判断和选择</h3><p>先问谁要用它完成什么，再选交付形式。</p></button>
               <button class="pick" data-jump="16"><span class="tag">04</span><h3>完成自己的作品</h3><p>选一个真实场景，和 AI 一起做出能打开的一版。</p></button>
             </div>
-            <div class="klein-bar">
-              <p class="punch">找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。</p>
-            </div>
+            <p class="punch">找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。</p>
           </section>
 
-          <section class="page center-page klein-field has-bar" data-ch="1" data-note="章封面只立一句。看见、理解、操作——三件事同时需要时，内容就可以变成 HTML。">
+          <section class="page center-page klein-field" data-ch="1" data-note="章封面只立一句。看见、理解、操作——三件事同时需要时，内容就可以变成 HTML。">
             <p class="ch-no">01  什么是 HTML</p>
-            <div class="klein-bar">
-              <p class="gold">当内容需要被看见、被理解、被操作时，<br>它就可以变成一个 HTML。</p>
-            </div>
+            <p class="gold">当内容需要被看见、被理解、被操作时，<br>它就可以变成一个 HTML。</p>
             <span class="watermark">01</span>
           </section>
 
@@ -1058,21 +1080,19 @@
             </div>
           </section>
 
-          <section class="page center-page klein-field has-bar" data-ch="2" data-note="先立对比：文件把内容交给你；HTML 还会回应。下一页用活动通知当场试。">
+          <section class="page center-page klein-field" data-ch="2" data-note="先立对比：文件把内容交给你；HTML 还会回应。下一页用活动通知当场试。">
             <p class="ch-no">02  HTML 可以做什么</p>
+            <p class="gold">普通文件把内容交给你，<br>HTML 还可以回应你的操作。</p>
             <div class="flow">
               <div class="flow-step"><div class="n">01</div><h3>文档</h3><p>活动资料写在一处</p></div><i></i>
               <div class="flow-step"><div class="n">02</div><h3>清晰页</h3><p>打开就能看懂结构</p></div><i></i>
               <div class="flow-step"><div class="n">03</div><h3>可选择</h3><p>按身份点进去</p></div><i></i>
               <div class="flow-step"><div class="n">04</div><h3>给出结果</h3><p>拿到自己的下一步</p></div>
             </div>
-            <div class="klein-bar">
-              <p class="gold">普通文件把内容交给你，<br>HTML 还可以回应你的操作。</p>
-            </div>
             <span class="watermark">02</span>
           </section>
 
-          <section class="page has-bar" data-ch="2" data-note="四个动作不是等级。点动作，再让现场选一个身份——让人感觉到：内容因为操作变了。">
+          <section class="page" data-ch="2" data-note="四个动作不是等级。点动作，再让现场选一个身份——让人感觉到：内容因为操作变了。">
             <p class="kicker">P07<em>·</em>四个基础动作</p>
             <div class="split">
               <div>
@@ -1095,20 +1115,16 @@
                   <button data-role="org">组织者</button>
                 </div>
                 <p class="next-step" id="next-step">还没选。点一个身份，看内容怎么变。</p>
+                <div class="klein-bar">HTML 最特别的地方，不是内容更多，而是<u>内容可以根据人的操作发生变化</u>。</div>
               </div>
-            </div>
-            <div class="klein-bar">
-              <p class="punch">HTML 最特别的地方，不是内容更多，而是<u>内容可以根据人的操作发生变化</u>。</p>
             </div>
           </section>
 
-          <section class="page center-page klein-field has-bar" data-ch="3" data-note="先改问题，再谈形式。链式四步：任务 → 使用者 → 使用方式 → 交付形式。">
+          <section class="page center-page klein-field" data-ch="3" data-note="先改问题，再谈形式。链式四步：任务 → 使用者 → 使用方式 → 交付形式。">
             <p class="ch-no">03  工作中怎么选择</p>
+            <p class="gold">不要先问「能不能做成 HTML」，<br>先问「谁要用它完成什么」。</p>
             <div class="chain">
               <span>任务</span><i></i><span>使用者</span><i></i><span>使用方式</span><i></i><span>交付形式</span>
-            </div>
-            <div class="klein-bar">
-              <p class="gold">不要先问「能不能做成 HTML」，<br>先问「谁要用它完成什么」。</p>
             </div>
             <span class="watermark">03</span>
           </section>
@@ -1173,15 +1189,13 @@
             </div>
           </section>
 
-          <section class="page center-page klein-field has-bar" data-ch="4" data-note="点门进房间。口播只讲动作，不讲实现配方。">
+          <section class="page center-page klein-field" data-ch="4" data-note="点门进房间。口播只讲动作，不讲实现配方。">
             <p class="ch-no">04  我们的 HTML 案例</p>
+            <p class="gold">同一种能力，解决不同类型的内容。</p>
             <div class="doors">
               <button class="door" data-jump="12"><span class="tag">案例一 · 比较 / 体验</span><h3>11 周年物料</h3><p>T恤、物流箱、奖杯、防伪。平面稿看不出结构。</p><span class="go">进入房间 →</span></button>
               <button class="door" data-jump="13"><span class="tag">案例二 · 比较选择</span><h3>NONO 九款</h3><p>九款进同一页，把分散确认收起来。</p><span class="go">进入房间 →</span></button>
               <button class="door" data-jump="14"><span class="tag">案例三 · 讲清楚 / 体验</span><h3>业务知多少</h3><p>已有 HTML，再给页加上时间。现场叫它视频插件。</p><span class="go">进入房间 →</span></button>
-            </div>
-            <div class="klein-bar">
-              <p class="gold">同一种能力，解决不同类型的内容。</p>
             </div>
             <span class="watermark">04</span>
           </section>
@@ -1196,9 +1210,8 @@
               <button><span class="n">交付给谁</span><h3>活动 / 履约 / 防伪</h3><p>给沟通对象自己观察、自己比较。</p></button>
             </div>
             <div class="case-extra">
-              <p class="value-line"><b>价值</b>　静态设计稿变成能观察比较的沟通工具。可用 AI Coding 把已有物料收进同一页。</p>
               <div class="device">
-                <div class="device-chrome"><span>HTML</span><span>16:9</span></div>
+                <div class="device-chrome"><span>HTML</span><span>3:2</span></div>
                 <div class="device-view">
               <div class="tee" id="tee" title="拖一拖，换一换">
                 <div class="shirt" id="shirt">
@@ -1215,6 +1228,7 @@
                 </div>
                 <span class="tee-cap">拖一拖 · 换贴花</span>
               </div>
+              <div class="klein-bar"><b>价值</b>　静态设计稿变成能观察比较的沟通工具。可用 AI Coding 把已有物料收进同一页。</div>
                 </div>
               </div>
             </div>
@@ -1230,9 +1244,8 @@
               <button><span class="n">交付给谁</span><h3>要对齐的人</h3><p>自己点两款，当场看差别。</p></button>
             </div>
             <div class="case-extra">
-              <p class="value-line"><b>价值</b>　把比较收进一页。可用 AI Coding 先出能打开的操作台，再用人话改到能用。<span class="job-out" id="nono-out">点两款，看「比较」怎么发生。</span></p>
               <div class="device">
-                <div class="device-chrome"><span>HTML</span><span>16:9</span></div>
+                <div class="device-chrome"><span>HTML</span><span>3:2</span></div>
                 <div class="device-view">
                 <div class="nono-grid" id="nono">
                   <button class="nono"><b>01</b>高帮</button>
@@ -1245,6 +1258,8 @@
                   <button class="nono"><b>08</b>袜套</button>
                   <button class="nono"><b>09</b>高帮</button>
                 </div>
+                <p class="job-out" id="nono-out">点两款，看「比较」怎么发生。</p>
+                <div class="klein-bar"><b>价值</b>　把比较收进一页。可用 AI Coding 先出能打开的操作台，再用人话改到能用。</div>
                 </div>
               </div>
             </div>
@@ -1261,9 +1276,8 @@
               <button><span class="n">交付给谁</span><h3>要讲这一章的人</h3><p>按时间走，而不是干翻页。</p></button>
             </div>
             <div class="case-extra">
-              <p class="value-line"><b>对照</b>　固定节奏传播仍可用视频；这里看的是页怎么被加上时间。</p>
               <div class="device">
-                <div class="device-chrome"><span>HTML</span><span>16:9</span></div>
+                <div class="device-chrome"><span>HTML</span><span>3:2</span></div>
                 <div class="device-view">
               <div class="timeline-box" id="vol06">
                 <div class="fake-page" id="fake-page">
@@ -1277,6 +1291,7 @@
                 </div>
                 <div class="hf" id="hf">HyperFrames</div>
               </div>
+              <div class="klein-bar"><b>对照</b>　固定节奏传播仍可用视频；这里看的是页怎么被加上时间。</div>
                 </div>
               </div>
             </div>
@@ -1307,16 +1322,14 @@
             </div>
           </section>
 
-          <section class="page center-page klein-field has-bar" data-ch="5" data-note="把野心收小。从少解释一次什么开始。四问只点到现场有共鸣的那一个。">
+          <section class="page center-page klein-field" data-ch="5" data-note="把野心收小。从少解释一次什么开始。四问只点到现场有共鸣的那一个。">
             <p class="ch-no">05  轮到你了</p>
+            <p class="gold">不要从「我要做一个很厉害的网站」开始。<br>从「我想少解释一次什么」开始。</p>
             <div class="qs">
               <article><span class="tag">01</span><h3>重复解释</h3></article>
               <article><span class="tag">02</span><h3>找不到重点</h3></article>
               <article><span class="tag">03</span><h3>文字说不清</h3></article>
               <article><span class="tag">04</span><h3>能变成小工具</h3></article>
-            </div>
-            <div class="klein-bar">
-              <p class="gold">不要从「我要做一个很厉害的网站」开始。<br>从「我想少解释一次什么」开始。</p>
             </div>
             <span class="watermark">05</span>
           </section>
@@ -1362,11 +1375,9 @@
             </ul>
           </section>
 
-          <section class="page close-page klein-field has-bar" data-ch="5" data-note="结课句一字不改。停住，把房间还给他们。">
+          <section class="page close-page klein-field" data-ch="5" data-note="结课句一字不改。停住，把房间还给他们。">
             <p class="who">结课</p>
-            <div class="klein-bar hero">
-              <p class="gold">未来真正重要的，不是每个人都会写代码，而是每个人都能把自己的专业判断，变成别人可以直接使用的成果。</p>
-            </div>
+            <p class="gold">未来真正重要的，不是每个人都会写代码，而是每个人都能把自己的专业判断，变成别人可以直接使用的成果。</p>
           </section>
 
         </div>
