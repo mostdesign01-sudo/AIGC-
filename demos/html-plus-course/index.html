@@ -948,10 +948,21 @@
       }
       .page.is-on { display: flex; }
       .page.cover.is-on {
+        min-height: calc(100svh - var(--hud));
         min-height: calc(100dvh - var(--hud));
         max-width: none;
         width: 100%;
         box-sizing: border-box;
+        background: var(--klein);
+      }
+      .main:has(.cover.is-on),
+      .stage:has(.cover.is-on) {
+        background: var(--klein);
+        min-height: calc(100dvh - var(--hud));
+      }
+      .main:has(.cover.is-on) .dock {
+        background: var(--klein);
+        border-top: 0;
       }
       .klein-bar {
         white-space: normal;
@@ -985,7 +996,7 @@
         padding: 6px 12px;
         gap: 10px;
       }
-      .dots { display: none; }
+      .dock .dots { display: none; }
       .toast { bottom: calc(var(--hud) + 60px); }
       .nav-btns button, .copy-row button, .roles button, .notes-btn { min-height: 44px; }
     }
