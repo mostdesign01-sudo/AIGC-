@@ -277,20 +277,30 @@
     .cover {
       justify-content: center;
       text-align: left;
+      overflow: hidden;
     }
     .cover.klein-field, .center-page.klein-field, .close-page.klein-field {
       background: var(--klein);
       color: #fff;
     }
+    .cover > :not(.cine) { position: relative; z-index: 3; }
+    .cover .who,
+    .cover h1,
+    .cover .sub,
+    .cover .ask { max-width: 18em; }
     .cover.klein-field .sub,
     .cover.klein-field .ask { color: rgba(255, 255, 255, 0.78); }
     .klein-field .flow-step,
     .klein-field .chain span,
     .klein-field .door,
-    .klein-field .qs article,
-    .klein-field .beat b {
+    .klein-field .qs article {
       background: rgba(255, 255, 255, 0.08);
       border-color: rgba(255, 255, 255, 0.16);
+      color: #fff;
+    }
+    .cover.klein-field .beat b {
+      background: transparent;
+      border: 0;
       color: #fff;
     }
     .klein-field .door p, .klein-field .flow p { color: rgba(255, 255, 255, 0.75); }
@@ -320,16 +330,19 @@
       flex-wrap: wrap;
     }
     .beat b {
-      min-width: 92px;
-      padding: 8px 14px;
-      border: 1px solid var(--line);
-      border-radius: var(--r-md);
-      background: var(--surface-1);
-      font-size: 14px;
+      min-width: 0;
+      padding: 0 2px;
+      border: 0;
+      background: transparent;
+      font-size: 15px;
       font-weight: 500;
-      text-align: center;
+      text-align: left;
     }
-    .beat b.is-last { border-color: transparent; background: rgba(255, 255, 255, 0.16); color: #fff; }
+    .cover .beat b.is-last {
+      box-shadow: inset 0 -2px 0 var(--aurora);
+      background: transparent;
+      color: #fff;
+    }
     .beat i {
       width: 24px;
       height: 2px;
@@ -996,23 +1009,94 @@
     }
     .toast.is-on { opacity: 1; }
 
-    /* T7 door — Klein field only. Not the campus. */
+    /* Cinematic 门前 — Klein wash + architecture in landscape. Not campus, not Galaxy Home. */
     #loader {
       position: fixed;
       inset: 0;
       z-index: 200;
       background: var(--klein);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      text-align: center;
-      padding: 32px 24px;
+      overflow: hidden;
+      --mx: 72%;
+      --my: 22%;
       transition: opacity 0.9s ease, visibility 0.9s;
     }
     #loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
-    #loader.done > * { opacity: 0; transition: opacity 0.15s ease; }
+    #loader.done .loader-copy { opacity: 0; transition: opacity 0.15s ease; }
+
+    .cine {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .cine-sky {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 78% 16%, rgba(255, 255, 255, 0.18), transparent 58%),
+        radial-gradient(ellipse 55% 45% at 12% 88%, rgba(0, 10, 40, 0.28), transparent 55%),
+        var(--klein);
+    }
+    .cine-glow {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      left: var(--mx);
+      top: var(--my);
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.16), transparent 70%);
+      mix-blend-mode: screen;
+      opacity: 0.85;
+    }
+    .cine-word {
+      position: absolute;
+      left: 5vw;
+      top: 14vh;
+      z-index: 1;
+      margin: 0;
+      font-size: clamp(5.5rem, 18vw, 13.5rem);
+      font-weight: 600;
+      letter-spacing: -0.07em;
+      line-height: 0.82;
+      color: rgba(255, 255, 255, 0.94);
+      text-transform: none;
+    }
+    .cine-land {
+      position: absolute;
+      right: -6%;
+      bottom: -4%;
+      z-index: 2;
+      width: min(78vw, 1080px);
+      height: auto;
+      filter: drop-shadow(0 24px 60px rgba(0, 10, 40, 0.28));
+    }
+    .cover { --mx: 78%; --my: 28%; }
+    .cover .cine-word {
+      left: auto;
+      right: 2%;
+      top: 6%;
+      font-size: clamp(4.2rem, 13vw, 9.5rem);
+      color: rgba(255, 255, 255, 0.42);
+    }
+    .cover .cine-land {
+      width: min(58%, 640px);
+      right: -4%;
+      bottom: -8%;
+      opacity: 0.95;
+    }
+
+    .loader-copy {
+      position: absolute;
+      left: clamp(24px, 6vw, 88px);
+      bottom: clamp(28px, 9vh, 80px);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      text-align: left;
+      max-width: 28em;
+    }
     .loader-kicker {
       font-size: 13px;
       font-weight: 500;
@@ -1022,23 +1106,23 @@
       line-height: 1.3;
     }
     .loader-title {
-      font-size: clamp(28px, 5vw, 40px);
-      letter-spacing: -1px;
+      font-size: clamp(22px, 3.2vw, 32px);
+      letter-spacing: -0.6px;
       font-weight: 600;
       color: #fff;
-      line-height: 1.15;
+      line-height: 1.2;
     }
     .loader-sub {
-      max-width: 28em;
+      max-width: 26em;
       margin: 0;
-      font-size: clamp(14px, 1.6vw, 16px);
+      font-size: clamp(14px, 1.5vw, 16px);
       font-weight: 400;
       line-height: 1.5;
       letter-spacing: -0.05px;
-      color: rgba(255, 255, 255, 0.78);
+      color: rgba(255, 255, 255, 0.72);
     }
     .loader-bar {
-      width: min(200px, 50vw);
+      width: 48px;
       height: 2px;
       background: rgba(255, 255, 255, 0.2);
       overflow: hidden;
@@ -1051,7 +1135,7 @@
     }
     .loader-bar-fill.is-ready { width: 100%; }
     .enter-btn {
-      margin-top: 8px;
+      margin-top: 4px;
       padding: 8px 14px;
       min-height: 40px;
       min-width: 120px;
@@ -1064,9 +1148,12 @@
       letter-spacing: 0;
       line-height: 1.2;
       cursor: pointer;
-      transition: background 0.16s ease;
+      transition: background 0.16s ease, box-shadow 0.16s ease;
     }
-    .enter-btn:hover { background: #f5f6f6; }
+    .enter-btn:hover {
+      background: #f5f6f6;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35), 0 0 28px rgba(255, 255, 255, 0.18);
+    }
     .enter-btn:active { background: #eef0f1; }
     .enter-btn:focus-visible { outline: 2px solid rgba(255, 255, 255, 0.5); outline-offset: 2px; }
     .loader-hint {
@@ -1074,6 +1161,9 @@
       font-size: 12px;
       letter-spacing: 0;
       color: rgba(255, 255, 255, 0.5);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cine-glow { display: none; }
     }
     body:not(.started) .rail,
     body:not(.started) .hud,
@@ -1197,7 +1287,51 @@
         margin-top: 24px;
       }
       .beat i { display: none; }
-      .beat b { min-width: 0; width: 100%; padding: 10px 8px; font-size: 14px; }
+      .cover .beat b {
+        min-width: 0;
+        width: 100%;
+        padding: 10px 8px;
+        font-size: 14px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .cover .beat b.is-last {
+        box-shadow: none;
+        border-color: transparent;
+        background: rgba(255, 255, 255, 0.16);
+      }
+      .cine-word {
+        left: 6vw;
+        top: 7vh;
+        font-size: clamp(4.4rem, 22vw, 6.4rem);
+      }
+      .cine-land {
+        width: 130%;
+        right: -28%;
+        bottom: -6%;
+        opacity: 0.88;
+      }
+      .loader-copy {
+        left: 24px;
+        right: 24px;
+        bottom: 10vh;
+        max-width: none;
+      }
+      .cover .cine-word {
+        right: 4%;
+        top: auto;
+        bottom: 22%;
+        font-size: clamp(3.2rem, 28vw, 5rem);
+        color: rgba(255, 255, 255, 0.2);
+      }
+      .cover .cine-land {
+        width: 90%;
+        opacity: 0.4;
+        right: -20%;
+        bottom: -4%;
+      }
+      .cover h1 { max-width: 14em; }
       .demo { padding-bottom: 48px; }
       .device { width: 100%; }
       .hint.desk { display: none; }
@@ -1224,12 +1358,63 @@
 </head>
 <body>
   <div id="loader" role="dialog" aria-modal="true" aria-label="门前">
-    <div class="loader-kicker">CHAPTER 00 · 门前</div>
-    <div class="loader-title">走进 HTML+</div>
-    <p class="loader-sub">不用学编程，也能做出能讲、能点、能分享的工作成果</p>
-    <div class="loader-bar" aria-hidden="true"><div class="loader-bar-fill" id="loader-bar"></div></div>
-    <button type="button" id="enter-btn" class="enter-btn">进入课堂</button>
-    <p class="loader-hint">点进去，从一份写好的内容开始。</p>
+    <div class="cine" aria-hidden="true">
+      <div class="cine-sky"></div>
+      <div class="cine-glow"></div>
+      <div class="cine-word">HTML+</div>
+      <svg class="cine-land" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="180" cy="640" rx="260" ry="46" fill="#fff" opacity="0.05"/>
+        <ellipse cx="520" cy="658" rx="340" ry="52" fill="#fff" opacity="0.07"/>
+        <ellipse cx="860" cy="636" rx="240" ry="40" fill="#fff" opacity="0.05"/>
+        <path d="M0 530C160 500 300 548 460 470C620 392 780 430 1000 360V700H0Z" fill="#0036b8"/>
+        <path d="M140 700L320 430L410 510L560 250L690 410L820 160L960 340L1000 300V700Z" fill="#00175a"/>
+        <path d="M560 250L690 410L640 422L520 310Z" fill="#2a56c8" opacity="0.55"/>
+        <path d="M820 160L960 340L900 350L780 220Z" fill="#4a6fd4" opacity="0.28"/>
+        <path d="M0 700V620C80 600 140 610 200 590C280 564 340 580 420 600C520 624 640 590 760 610C860 626 930 600 1000 618V700Z" fill="#001044" opacity="0.35"/>
+        <g fill="#fff">
+          <rect x="704" y="268" width="28" height="118" rx="2" opacity="0.14"/>
+          <rect x="738" y="214" width="46" height="176" rx="2" opacity="0.2"/>
+          <rect x="790" y="292" width="22" height="96" rx="2" opacity="0.12"/>
+          <rect x="736" y="214" width="2" height="176" fill="#01c2c3" opacity="1"/>
+          <rect x="746" y="228" width="6" height="10" opacity="0.42"/>
+          <rect x="756" y="228" width="6" height="10" opacity="0.22"/>
+          <rect x="766" y="228" width="6" height="10" opacity="0.38"/>
+          <rect x="746" y="246" width="6" height="10" opacity="0.2"/>
+          <rect x="756" y="246" width="6" height="10" opacity="0.48"/>
+          <rect x="766" y="246" width="6" height="10" opacity="0.18"/>
+          <rect x="746" y="264" width="6" height="10" opacity="0.36"/>
+          <rect x="756" y="264" width="6" height="10" opacity="0.2"/>
+          <rect x="766" y="264" width="6" height="10" opacity="0.4"/>
+          <rect x="746" y="282" width="6" height="10" opacity="0.18"/>
+          <rect x="756" y="282" width="6" height="10" opacity="0.34"/>
+          <rect x="766" y="282" width="6" height="10" opacity="0.5"/>
+          <rect x="746" y="300" width="6" height="10" opacity="0.28"/>
+          <rect x="756" y="300" width="6" height="10" opacity="0.16"/>
+          <rect x="766" y="300" width="6" height="10" opacity="0.32"/>
+          <rect x="746" y="318" width="6" height="10" opacity="0.44"/>
+          <rect x="756" y="318" width="6" height="10" opacity="0.2"/>
+          <rect x="766" y="318" width="6" height="10" opacity="0.26"/>
+          <rect x="746" y="336" width="6" height="10" opacity="0.16"/>
+          <rect x="756" y="336" width="6" height="10" opacity="0.4"/>
+          <rect x="766" y="336" width="6" height="10" opacity="0.22"/>
+          <rect x="710" y="280" width="5" height="8" opacity="0.28"/>
+          <rect x="718" y="280" width="5" height="8" opacity="0.16"/>
+          <rect x="710" y="294" width="5" height="8" opacity="0.36"/>
+          <rect x="718" y="294" width="5" height="8" opacity="0.2"/>
+          <rect x="710" y="308" width="5" height="8" opacity="0.18"/>
+          <rect x="718" y="308" width="5" height="8" opacity="0.3"/>
+        </g>
+        <ellipse cx="760" cy="420" rx="90" ry="16" fill="#fff" opacity="0.06"/>
+      </svg>
+    </div>
+    <div class="loader-copy">
+      <div class="loader-kicker">CHAPTER 00 · 门前</div>
+      <div class="loader-title">走进 HTML+</div>
+      <p class="loader-sub">不用学编程，也能做出能讲、能点、能分享的工作成果</p>
+      <div class="loader-bar" aria-hidden="true"><div class="loader-bar-fill" id="loader-bar"></div></div>
+      <button type="button" id="enter-btn" class="enter-btn">进入课堂</button>
+      <p class="loader-hint">点进去，从一份写好的内容开始。</p>
+    </div>
   </div>
   <div class="app">
     <aside class="rail">
@@ -1917,6 +2102,22 @@
       }
       enterBtn.addEventListener("click", enterClass);
       requestAnimationFrame(() => loaderBar.classList.add("is-ready"));
+
+      const cine = loader.querySelector(".cine");
+      const cover = document.querySelector(".cover");
+      if (cine && cover && !cover.querySelector(".cine")) {
+        cover.insertBefore(cine.cloneNode(true), cover.firstChild);
+      }
+      function bindGlow(el) {
+        if (!el) return;
+        el.addEventListener("pointermove", (e) => {
+          const r = el.getBoundingClientRect();
+          el.style.setProperty("--mx", (e.clientX - r.left) + "px");
+          el.style.setProperty("--my", (e.clientY - r.top) + "px");
+        });
+      }
+      bindGlow(loader);
+      bindGlow(cover);
     })();
   </script>
 </body>
