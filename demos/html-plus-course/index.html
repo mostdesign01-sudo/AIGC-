@@ -283,7 +283,7 @@
       background: var(--klein);
       color: #fff;
     }
-    .cover > :not(.cine) { position: relative; z-index: 3; }
+    .cover > :not(.door-field) { position: relative; z-index: 3; }
     .cover .who,
     .cover h1,
     .cover .sub,
@@ -1009,80 +1009,83 @@
     }
     .toast.is-on { opacity: 1; }
 
-    /* Cinematic 门前 — Klein wash + architecture in landscape. Not campus, not Galaxy Home. */
+    /* 门前 — generated landscape + IP first/last frames. */
     #loader {
       position: fixed;
       inset: 0;
       z-index: 200;
       background: var(--klein);
       overflow: hidden;
-      --mx: 72%;
-      --my: 22%;
       transition: opacity 0.9s ease, visibility 0.9s;
     }
     #loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
     #loader.done .loader-copy { opacity: 0; transition: opacity 0.15s ease; }
+    #loader.leaving .door-still { transform: scale(1.045); }
 
-    .cine {
+    .door-field {
       position: absolute;
       inset: 0;
-      pointer-events: none;
       overflow: hidden;
+      pointer-events: none;
+      background: var(--klein);
+      perspective: 900px;
     }
-    .cine-sky {
+    .door-still {
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 78% 16%, rgba(255, 255, 255, 0.18), transparent 58%),
-        radial-gradient(ellipse 55% 45% at 12% 88%, rgba(0, 10, 40, 0.28), transparent 55%),
-        var(--klein);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 72% 46%;
+      transform: scale(1);
+      transition: transform 1.2s ease-out;
     }
-    .cine-glow {
+    .door-field::after {
+      content: "";
       position: absolute;
-      width: 220px;
-      height: 220px;
-      left: var(--mx);
-      top: var(--my);
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.16), transparent 70%);
-      mix-blend-mode: screen;
-      opacity: 0.85;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0, 47, 167, 0.42) 0%, rgba(0, 47, 167, 0.12) 48%, transparent 72%);
+      pointer-events: none;
     }
+    .ip {
+      position: absolute;
+      right: 7%;
+      bottom: 0;
+      z-index: 2;
+      height: min(74vh, 680px);
+      width: calc(min(74vh, 680px) * 0.43);
+      transform-origin: 50% 80%;
+      will-change: transform;
+      filter: drop-shadow(0 16px 28px rgba(0, 8, 28, 0.4));
+    }
+    .ip img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: bottom center;
+    }
+    .ip-walk { opacity: 0; }
+    .ip.is-walk .ip-idle { opacity: 0; }
+    .ip.is-walk .ip-walk { opacity: 1; }
+
     .cine-word {
       position: absolute;
       left: 5vw;
-      top: 18vh;
-      z-index: 1;
+      top: 16vh;
+      z-index: 3;
       margin: 0;
-      font-size: clamp(5.5rem, 20vw, 14.5rem);
+      font-size: clamp(5.5rem, 18vw, 13rem);
       font-weight: 600;
       letter-spacing: -0.07em;
       line-height: 0.82;
       color: rgba(255, 255, 255, 0.94);
-      text-transform: none;
+      pointer-events: none;
     }
-    .cine-land {
-      position: absolute;
-      right: -10%;
-      bottom: -8%;
-      z-index: 2;
-      width: min(92vw, 1320px);
-      height: auto;
-    }
-    .cover { --mx: 78%; --my: 28%; }
-    .cover .cine-word {
-      left: auto;
-      right: 1%;
-      top: 4%;
-      font-size: clamp(5rem, 15vw, 11rem);
-      color: rgba(255, 255, 255, 0.5);
-    }
-    .cover .cine-land {
-      width: min(74%, 880px);
-      right: -8%;
-      bottom: -12%;
-      opacity: 1;
-    }
+    .cover > .door-field { z-index: 0; }
+    .cover.is-push .door-still { transform: scale(1.08); }
+    .cover .cine-word { display: none; }
 
     .loader-copy {
       position: absolute;
@@ -1162,7 +1165,8 @@
       color: rgba(255, 255, 255, 0.5);
     }
     @media (prefers-reduced-motion: reduce) {
-      .cine-glow { display: none; }
+      .ip { transform: none !important; }
+      .door-still, #loader.leaving .door-still, .cover.is-push .door-still { transform: none !important; transition: none; }
     }
     body:not(.started) .rail,
     body:not(.started) .hud,
@@ -1305,30 +1309,16 @@
         top: 7vh;
         font-size: clamp(4.4rem, 22vw, 6.4rem);
       }
-      .cine-land {
-        width: 145%;
-        right: -32%;
-        bottom: -8%;
-        opacity: 1;
+      .ip {
+        right: 2%;
+        height: min(48vh, 420px);
+        width: calc(min(48vh, 420px) * 0.43);
       }
       .loader-copy {
         left: 24px;
         right: 24px;
         bottom: 10vh;
         max-width: none;
-      }
-      .cover .cine-word {
-        right: 4%;
-        top: auto;
-        bottom: 22%;
-        font-size: clamp(3.2rem, 28vw, 5rem);
-        color: rgba(255, 255, 255, 0.2);
-      }
-      .cover .cine-land {
-        width: 90%;
-        opacity: 0.4;
-        right: -20%;
-        bottom: -4%;
       }
       .cover h1 { max-width: 14em; }
       .demo { padding-bottom: 48px; }
@@ -1357,36 +1347,14 @@
 </head>
 <body>
   <div id="loader" role="dialog" aria-modal="true" aria-label="门前">
-    <div class="cine" aria-hidden="true">
-      <div class="cine-sky"></div>
-      <div class="cine-glow"></div>
-      <div class="cine-word">HTML+</div>
-      <svg class="cine-land" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 540C200 500 360 560 560 470C760 380 940 440 1200 360V800H0Z" fill="#1a4bc4"/>
-        <path d="M180 800C280 480 400 360 540 160C620 40 720 20 800 8L870 88L980 0L1120 150L1200 70V800Z" fill="#000d3a"/>
-        <path d="M800 8L980 0L1120 150L1020 186L870 88Z" fill="#6b8aee" opacity="0.38"/>
-        <path d="M540 160L700 40L800 8L870 88L760 230L580 250Z" fill="#3d68d8" opacity="0.4"/>
-        <path d="M360 800L500 390L600 460L720 220L850 370L1000 150L1160 310L1200 250V800Z" fill="#000617"/>
-        <path d="M720 220L850 370L790 392L670 270Z" fill="#4e76e0" opacity="0.48"/>
-        <rect x="628" y="352" width="248" height="10" rx="1" fill="#fff" opacity="0.1"/>
-        <rect x="648" y="268" width="196" height="86" rx="2" fill="#fff" opacity="0.14"/>
-        <rect x="786" y="228" width="78" height="48" rx="2" fill="#fff" opacity="0.1"/>
-        <rect x="646" y="268" width="2" height="86" fill="#01c2c3"/>
-        <rect x="660" y="280" width="54" height="28" fill="#fff" opacity="0.5"/>
-        <rect x="720" y="280" width="54" height="28" fill="#fff" opacity="0.18"/>
-        <rect x="780" y="280" width="50" height="28" fill="#fff" opacity="0.36"/>
-        <rect x="660" y="314" width="54" height="28" fill="#fff" opacity="0.2"/>
-        <rect x="720" y="314" width="54" height="28" fill="#fff" opacity="0.44"/>
-        <rect x="780" y="314" width="50" height="28" fill="#fff" opacity="0.16"/>
-        <rect x="798" y="238" width="24" height="16" fill="#fff" opacity="0.34"/>
-        <rect x="826" y="238" width="24" height="16" fill="#fff" opacity="0.16"/>
-        <ellipse cx="140" cy="708" rx="320" ry="58" fill="#fff" opacity="0.07"/>
-        <ellipse cx="540" cy="742" rx="460" ry="70" fill="#fff" opacity="0.1"/>
-        <ellipse cx="920" cy="720" rx="340" ry="56" fill="#fff" opacity="0.08"/>
-        <ellipse cx="720" cy="668" rx="240" ry="40" fill="#fff" opacity="0.09"/>
-        <path d="M0 800V700C140 678 240 710 370 684C520 654 650 710 820 676C960 648 1100 698 1200 670V800Z" fill="#00040f" opacity="0.32"/>
-      </svg>
+    <div class="door-field" aria-hidden="true">
+      <img class="door-still" src="door-still.webp" alt="">
+      <div class="ip" id="ip">
+        <img class="ip-idle" src="ip-idle.webp" alt="">
+        <img class="ip-walk" src="ip-walk.webp" alt="">
+      </div>
     </div>
+    <div class="cine-word">HTML+</div>
     <div class="loader-copy">
       <div class="loader-kicker">CHAPTER 00 · 门前</div>
       <div class="loader-title">走进 HTML+</div>
@@ -1428,6 +1396,9 @@
         <div class="stage" id="stage">
 
           <section class="page cover klein-field is-on" data-ch="0" data-note="先停在开场问题上：内容写好了，别人却看不懂、不想看、不会用。四个拍子只点一下：文档变成页面，再变成能点、能分享。">
+            <div class="door-field" aria-hidden="true">
+              <img class="door-still" src="door-still.webp" alt="">
+            </div>
             <p class="who">POIZON 全员课</p>
             <h1>《HTML+：AI 时代的<br>工作表达新方式》</h1>
             <p class="sub">不用学编程，也能做出能讲、能点、能分享的工作成果</p>
@@ -2073,31 +2044,44 @@
         setTimeout(() => toast.classList.remove("is-on"), 1400);
       });
 
+      const cover = document.querySelector(".cover");
+      const ip = document.getElementById("ip");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
       function enterClass() {
         if (started) return;
         started = true;
-        document.body.classList.add("started");
-        loader.classList.add("done");
-        go(0);
+        if (ip) ip.classList.add("is-walk");
+        loader.classList.add("leaving");
+        const finish = () => {
+          document.body.classList.add("started");
+          loader.classList.add("done");
+          if (cover) cover.classList.add("is-push");
+          go(0);
+        };
+        setTimeout(finish, reduceMotion ? 0 : 500);
       }
       enterBtn.addEventListener("click", enterClass);
       requestAnimationFrame(() => loaderBar.classList.add("is-ready"));
 
-      const cine = loader.querySelector(".cine");
-      const cover = document.querySelector(".cover");
-      if (cine && cover && !cover.querySelector(".cine")) {
-        cover.insertBefore(cine.cloneNode(true), cover.firstChild);
-      }
-      function bindGlow(el) {
-        if (!el) return;
-        el.addEventListener("pointermove", (e) => {
-          const r = el.getBoundingClientRect();
-          el.style.setProperty("--mx", (e.clientX - r.left) + "px");
-          el.style.setProperty("--my", (e.clientY - r.top) + "px");
+      if (ip && !reduceMotion) {
+        let tx = 0, ty = 0, x = 0, y = 0;
+        const maxX = 36, maxY = 16;
+        loader.addEventListener("pointermove", (e) => {
+          if (started) return;
+          const r = loader.getBoundingClientRect();
+          const nx = ((e.clientX - r.left) / r.width - 0.58) * 2;
+          const ny = ((e.clientY - r.top) / r.height - 0.55) * 2;
+          tx = Math.max(-1, Math.min(1, nx)) * maxX;
+          ty = Math.max(-1, Math.min(1, ny)) * maxY;
         });
+        (function follow() {
+          x += (tx - x) * 0.1;
+          y += (ty - y) * 0.1;
+          ip.style.transform = "translate3d(" + x.toFixed(2) + "px," + y.toFixed(2) + "px,0) rotateY(" + (x * 0.22).toFixed(2) + "deg)";
+          requestAnimationFrame(follow);
+        })();
       }
-      bindGlow(loader);
-      bindGlow(cover);
     })();
   </script>
 </body>
