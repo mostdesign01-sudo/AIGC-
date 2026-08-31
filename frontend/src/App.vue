@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Home from './views/Home.vue'
+import IssuePage from './views/IssuePage.vue'
 </script>
 
 <template>
-  <Home />
+  <IssuePage />
 </template>
