@@ -85,10 +85,12 @@ VOL.11 已用文件名：
 02-wan30-src.mp4
 02-wan30-a.gif
 02-wan30-b.gif
-03-houxiyouji-src.mp4
-03-houxiyouji-a.gif
-03-houxiyouji-b.gif
+03-zephyr-src.mp4
+03-zephyr-a.gif
+03-zephyr-b.gif
 ```
+
+简报横版只叠 `*-a.gif` / `*-b.gif`。Release 里若还有 `03-zephyr-c.gif`–`f.gif` 或 `03-houxiyouji-*`，不要排进三条简报。
 
 页面下载按钮写死为：
 
@@ -116,9 +118,9 @@ gh release upload vol11-gifs \
   02-wan30-src.mp4 \
   02-wan30-a.gif \
   02-wan30-b.gif \
-  03-houxiyouji-src.mp4 \
-  03-houxiyouji-a.gif \
-  03-houxiyouji-b.gif
+  03-zephyr-src.mp4 \
+  03-zephyr-a.gif \
+  03-zephyr-b.gif
 ```
 
 VOL.12 把 `vol11-gifs` 换成 `vol12-gifs`，文件名按上面的规则改。

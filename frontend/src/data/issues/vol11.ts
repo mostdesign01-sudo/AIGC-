@@ -11,7 +11,7 @@ export const vol11: Issue = {
   windowStart: '2026-08-17',
   windowEnd: '2026-08-31',
   summary:
-    '这一窗看三件能直接换进工作的事：短片把 Seedance 2.5 和 GPT Image 2 撑到约 26 分钟；通义万相 3.0 从 8/20 预览走到约 8/24 正式开放；芒果 TV《后西游记》按 30 集 × 40 分钟上星，8/31 开播。简报只抽这三条。九类里广告、工具各有两条值得点进去的样本，AR/物料本期空。窗口外的旧片不收录。',
+    '这一窗看三件能直接换进工作的事：短片把 Seedance 2.5 和 GPT Image 2 撑到约 26 分钟；通义万相 3.0 从 8/20 预览走到约 8/24 正式开放；Higgsfield《Zephyr: Special》用 Seedance 2.5 做机甲女团。简报只抽这三条。九类里广告、工具各有两条值得点进去的样本，AR/物料本期空。窗口外的旧片不收录。',
   brief: [
     {
       id: 'wencangsheng',
@@ -46,20 +46,20 @@ export const vol11: Issue = {
       },
     },
     {
-      id: 'houxiyouji',
+      id: 'zephyr',
       category: 'ip-character',
-      title: '芒果TV《后西游记》',
-      why: '上星长剧的 AIGC 体量（30 集 × 40 分钟），看连续剧怎么撑满单集，而不是短片技法。',
-      credit: '芒果TV · 8/31 开播 · 30×40 分钟 · 上星 AIGC',
+      title: 'Higgsfield《Zephyr: Special》',
+      why: '机甲女团的角色成片，Seedance 2.5 撑造型和群像。看 IP/角色怎么被做成可传播的一支，而不是单人特写。',
+      credit: 'Higgsfield · 机甲女团 · Seedance 2.5',
       sources: [
-        { label: '预告片', url: 'https://www.mgtv.com/b/900162/24592408.html' },
-        { label: '报道', url: 'https://www.ithome.com/0/996/265.htm' },
+        { label: '原片页', url: 'https://higgsfield.ai/original-series/zephyr-special/full-film' },
+        { label: 'YouTube', url: 'https://www.youtube.com/watch?v=HjXWZ-BdyS0' },
       ],
       orientation: 'landscape',
       media: {
         releaseTag: TAG,
-        video: '03-houxiyouji-src.mp4',
-        gifs: ['03-houxiyouji-a.gif', '03-houxiyouji-b.gif'],
+        video: '03-zephyr-src.mp4',
+        gifs: ['03-zephyr-a.gif', '03-zephyr-b.gif'],
       },
     },
   ],
@@ -192,16 +192,15 @@ export const vol11: Issue = {
       slug: 'ip-character',
       items: [
         {
-          title: '芒果TV《后西游记》',
-          why: '8/31 开播的上星 AIGC 长剧，30 集 × 40 分钟。看 IP 怎么被拉成连续剧体量。',
-          dateLabel: '2026-08-31',
+          title: 'Higgsfield《Zephyr: Special》',
+          why: '机甲女团，Seedance 2.5。IP/角色这一窗的入选成片。',
           sources: [
-            { label: '预告片', url: 'https://www.mgtv.com/b/900162/24592408.html' },
-            { label: '报道', url: 'https://www.ithome.com/0/996/265.htm' },
+            { label: '原片页', url: 'https://higgsfield.ai/original-series/zephyr-special/full-film' },
+            { label: 'YouTube', url: 'https://www.youtube.com/watch?v=HjXWZ-BdyS0' },
           ],
           media: {
             releaseTag: TAG,
-            video: '03-houxiyouji-src.mp4',
+            video: '03-zephyr-src.mp4',
           },
         },
       ],
