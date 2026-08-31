@@ -1065,6 +1065,7 @@
       height: 100%;
       object-fit: contain;
       object-position: bottom center;
+      transition: opacity 160ms ease;
     }
     .ip-walk { opacity: 0; }
     .ip.is-walk .ip-idle { opacity: 0; }
@@ -2059,7 +2060,7 @@
           if (cover) cover.classList.add("is-push");
           go(0);
         };
-        setTimeout(finish, reduceMotion ? 0 : 500);
+        setTimeout(finish, reduceMotion ? 0 : 620);
       }
       enterBtn.addEventListener("click", enterClass);
       requestAnimationFrame(() => loaderBar.classList.add("is-ready"));
