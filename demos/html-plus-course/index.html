@@ -413,7 +413,17 @@
     .card, .pick, .job, .scene, .dim, .door, .task {
       padding: 16px 16px 20px;
       text-align: left;
+      overflow: hidden;
+      min-width: 0;
     }
+    .page h1, .page h2, .page h3, .page p, .page li, .page .ch-no, .page .klein-bar, .page .prompt pre {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      min-width: 0;
+    }
+    .page [contenteditable] { outline: none; cursor: text; }
+    .page [contenteditable]:focus { outline: 1px dashed rgba(0, 47, 167, 0.22); outline-offset: 3px; }
+    .edit-hint { font-size: 11px; letter-spacing: 0.06em; color: var(--dim); font-weight: 400; }
     .pick, .job, .scene, .door, .task, .check { cursor: pointer; }
     .pick, .scene, .task, .door, .job, .card {
       transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
@@ -1009,7 +1019,7 @@
     }
     .toast.is-on { opacity: 1; }
 
-    /* 门前 — generated landscape + IP first/last frames. */
+    /* 门前 — 临时山体静帧（T7 实拍等 Hao 补）。建筑 + 字，无角色。 */
     #loader {
       position: fixed;
       inset: 0;
@@ -1020,7 +1030,6 @@
     }
     #loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
     #loader.done .loader-copy { opacity: 0; transition: opacity 0.15s ease; }
-    #loader.leaving .door-still { transform: scale(1.045); }
 
     .door-field {
       position: absolute;
@@ -1028,7 +1037,6 @@
       overflow: hidden;
       pointer-events: none;
       background: var(--klein);
-      perspective: 900px;
     }
     .door-still {
       position: absolute;
@@ -1036,9 +1044,10 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 72% 46%;
-      transform: scale(1);
-      transition: transform 1.2s ease-out;
+      object-position: 22% 16%;
+      transform: scale(1.12);
+      transform-origin: 22% 18%;
+      transition: transform 1.35s cubic-bezier(.16, 1, .3, 1);
     }
     .door-field::after {
       content: "";
@@ -1047,29 +1056,6 @@
       background: linear-gradient(90deg, rgba(0, 47, 167, 0.42) 0%, rgba(0, 47, 167, 0.12) 48%, transparent 72%);
       pointer-events: none;
     }
-    .ip {
-      position: absolute;
-      right: 7%;
-      bottom: 0;
-      z-index: 2;
-      height: min(74vh, 680px);
-      width: calc(min(74vh, 680px) * 0.43);
-      transform-origin: 50% 80%;
-      will-change: transform;
-      filter: drop-shadow(0 16px 28px rgba(0, 8, 28, 0.4));
-    }
-    .ip img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: bottom center;
-      transition: opacity 160ms ease;
-    }
-    .ip-walk { opacity: 0; }
-    .ip.is-walk .ip-idle { opacity: 0; }
-    .ip.is-walk .ip-walk { opacity: 1; }
 
     .cine-word {
       position: absolute;
@@ -1085,7 +1071,7 @@
       pointer-events: none;
     }
     .cover > .door-field { z-index: 0; }
-    .cover.is-push .door-still { transform: scale(1.08); }
+    .cover.is-push .door-still { transform: scale(1.2); }
     .cover .cine-word { display: none; }
 
     .loader-copy {
@@ -1166,8 +1152,7 @@
       color: rgba(255, 255, 255, 0.5);
     }
     @media (prefers-reduced-motion: reduce) {
-      .ip { transform: none !important; }
-      .door-still, #loader.leaving .door-still, .cover.is-push .door-still { transform: none !important; transition: none; }
+      .door-still, .cover.is-push .door-still { transform: none !important; transition: none; }
     }
     body:not(.started) .rail,
     body:not(.started) .hud,
@@ -1266,6 +1251,7 @@
         border-top: 0;
         color: rgba(255, 255, 255, 0.7);
       }
+      .main:has(.cover.is-on) .edit-hint { color: rgba(255, 255, 255, 0.45); }
       .main:has(.cover.is-on) .nav-btns button,
       .main:has(.cover.is-on) .notes-btn {
         background: rgba(255, 255, 255, 0.1);
@@ -1310,11 +1296,6 @@
         top: 7vh;
         font-size: clamp(4.4rem, 22vw, 6.4rem);
       }
-      .ip {
-        right: 2%;
-        height: min(48vh, 420px);
-        width: calc(min(48vh, 420px) * 0.43);
-      }
       .loader-copy {
         left: 24px;
         right: 24px;
@@ -1350,10 +1331,6 @@
   <div id="loader" role="dialog" aria-modal="true" aria-label="门前">
     <div class="door-field" aria-hidden="true">
       <img class="door-still" src="door-still.webp" alt="">
-      <div class="ip" id="ip">
-        <img class="ip-idle" src="ip-idle.webp" alt="">
-        <img class="ip-walk" src="ip-walk.webp" alt="">
-      </div>
     </div>
     <div class="cine-word">HTML+</div>
     <div class="loader-copy">
@@ -1789,6 +1766,7 @@
           <button type="button" id="next">下一页</button>
         </div>
         <span class="hint" id="page-label">P01 / 20</span>
+        <span class="hint edit-hint">点字可改</span>
         <button type="button" class="notes-btn" id="notes-btn">讲稿</button>
         <span class="hint desk">← → 空格 · F 全屏</span>
       </div>
@@ -1863,6 +1841,10 @@
       notesBtn.addEventListener("click", () => setNotes(!notesOn));
 
       document.addEventListener("keydown", (e) => {
+        if (e.target.closest("[contenteditable], textarea, input")) {
+          if (e.key === "Escape") e.target.blur();
+          return;
+        }
         if (!started) {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
@@ -1870,7 +1852,6 @@
           }
           return;
         }
-        if (e.target.closest("textarea, input")) return;
         if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
           e.preventDefault();
           next();
@@ -1887,13 +1868,14 @@
         }
       });
 
-      let sx = 0, sy = 0;
+      let sx = 0, sy = 0, swipeIgnore = false;
       stage.addEventListener("touchstart", (e) => {
+        swipeIgnore = !!e.target.closest("[contenteditable]");
         const t = e.changedTouches[0];
         sx = t.clientX; sy = t.clientY;
       }, { passive: true });
       stage.addEventListener("touchend", (e) => {
-        if (e.target.closest("button, a, .tee, .shirt, .nono-grid, .prompt, .roles, .scene-mini, .beats4, .timeline-box, .jobs, .actions, .checks")) return;
+        if (swipeIgnore || e.target.closest("[contenteditable], button, a, .tee, .shirt, .nono-grid, .prompt, .roles, .scene-mini, .beats4, .timeline-box, .jobs, .actions, .checks")) return;
         const t = e.changedTouches[0];
         const dx = t.clientX - sx;
         const dy = t.clientY - sy;
@@ -1902,7 +1884,7 @@
       }, { passive: true });
 
       stage.addEventListener("click", (e) => {
-        if (e.target.closest("button, a, .tee, .nono-grid, .prompt, .roles, .scene-mini, .beats4, .timeline-box, .jobs, .actions, .checks, .device")) return;
+        if (e.target.closest("[contenteditable], button, a, .tee, .nono-grid, .prompt, .roles, .scene-mini, .beats4, .timeline-box, .jobs, .actions, .checks, .device")) return;
         const rect = stage.getBoundingClientRect();
         if (e.clientX < rect.left + rect.width * 0.22) prev();
         else if (e.clientX > rect.right - rect.width * 0.22) next();
@@ -1910,6 +1892,7 @@
 
       document.querySelectorAll("[data-jump]").forEach((el) => {
         el.addEventListener("click", (e) => {
+          if (e.target.closest("[contenteditable]")) return;
           e.stopPropagation();
           go(Number(el.dataset.jump));
         });
@@ -1917,10 +1900,12 @@
 
       const jobOut = document.getElementById("job-out");
       document.getElementById("jobs").addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable]")) return;
         const btn = e.target.closest(".job");
         if (!btn) return;
         document.querySelectorAll("#jobs .job").forEach((j) => j.classList.toggle("is-on", j === btn));
         jobOut.innerHTML = "<b>" + btn.querySelector("h3").textContent + "</b>　" + btn.dataset.job;
+        persistEdits();
       });
 
       const roles = {
@@ -1931,6 +1916,7 @@
       };
       const nextStep = document.getElementById("next-step");
       document.getElementById("roles").addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable]")) return;
         const btn = e.target.closest("button");
         if (!btn) return;
         document.querySelectorAll("#roles button").forEach((b) => b.classList.toggle("is-on", b === btn));
@@ -1938,8 +1924,10 @@
           p.classList.toggle("is-on", p.dataset.act === "recv" || p.dataset.act === "reply");
         });
         nextStep.innerHTML = roles[btn.dataset.role];
+        persistEdits();
       });
       document.getElementById("actions").addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable]")) return;
         const btn = e.target.closest(".pick");
         if (!btn) return;
         document.querySelectorAll("#actions .pick").forEach((p) => p.classList.toggle("is-on", p === btn));
@@ -1947,9 +1935,11 @@
         if (btn.dataset.act === "org") nextStep.innerHTML = "信息被<b>组织</b>成：先选身份，再看对应流程。";
         if (btn.dataset.act === "recv") nextStep.innerHTML = "现在轮到人操作。点上面的身份，页才知道你是谁。";
         if (btn.dataset.act === "reply") nextStep.innerHTML = "选完身份，页<b>给出回应</b>：每个人拿到自己的下一步。";
+        persistEdits();
       });
 
       document.getElementById("scenes").addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable]")) return;
         const btn = e.target.closest(".scene");
         if (!btn) return;
         const on = btn.classList.contains("is-on");
@@ -1958,12 +1948,14 @@
       });
 
       document.getElementById("one-scene").addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable]")) return;
         const btn = e.target.closest("button");
         if (!btn) return;
         document.querySelectorAll("#one-scene button").forEach((b) => b.classList.toggle("is-on", b === btn));
       });
 
       document.getElementById("checks").addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable]")) return;
         const btn = e.target.closest(".check");
         if (!btn) return;
         document.querySelectorAll("#checks .check").forEach((c) => c.classList.toggle("is-on", c === btn));
@@ -1971,6 +1963,7 @@
 
       document.querySelectorAll("[data-beats]").forEach((box) => {
         box.addEventListener("click", (e) => {
+          if (e.target.closest("[contenteditable]")) return;
           const btn = e.target.closest("button");
           if (!btn) return;
           box.querySelectorAll("button").forEach((b) => b.classList.toggle("is-on", b === btn));
@@ -1997,6 +1990,7 @@
 
       const nonoOut = document.getElementById("nono-out");
       document.getElementById("nono").addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable]")) return;
         const btn = e.target.closest(".nono");
         if (!btn) return;
         btn.classList.toggle("is-on");
@@ -2004,6 +1998,7 @@
         if (picked.length === 0) nonoOut.textContent = "点两款，看「比较」怎么发生。";
         else if (picked.length === 1) nonoOut.textContent = "已选 " + picked[0] + "。再点一款。";
         else nonoOut.textContent = "正在比较：" + picked.slice(0, 2).join("  /  ");
+        persistEdits();
       });
 
       document.getElementById("vol06").addEventListener("click", (e) => {
@@ -2022,14 +2017,17 @@
 
       const taskOut = document.getElementById("task-out");
       document.getElementById("tasks").addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable]")) return;
         const btn = e.target.closest(".task");
         if (!btn) return;
         document.querySelectorAll("#tasks .task").forEach((t) => t.classList.toggle("is-on", t === btn));
         taskOut.innerHTML = btn.dataset.hint;
+        persistEdits();
       });
 
-      const promptText = document.getElementById("prompt").textContent;
+      const promptEl = document.getElementById("prompt");
       document.getElementById("copy-btn").addEventListener("click", async () => {
+        const promptText = (promptEl.innerText || promptEl.textContent || "").replace(/\u00a0/g, " ").trim();
         try {
           await navigator.clipboard.writeText(promptText);
         } catch {
@@ -2045,44 +2043,47 @@
         setTimeout(() => toast.classList.remove("is-on"), 1400);
       });
 
+      const EDIT_KEY = "htmlplus-course-edits-v1";
+      const editSel = ".page h1, .page h2, .page h3, .page p:not(.kicker), .page li, .page .ch-no, .page .prompt pre, .page .klein-bar, .page .sum3 article > div";
+      function persistEdits() {
+        const data = {};
+        document.querySelectorAll("[data-edit]").forEach((el) => {
+          data[el.getAttribute("data-edit")] = el.innerHTML;
+        });
+        try { localStorage.setItem(EDIT_KEY, JSON.stringify(data)); } catch (err) {}
+      }
+      (function bindEdits() {
+        let saved = {};
+        try { saved = JSON.parse(localStorage.getItem(EDIT_KEY) || "{}") || {}; } catch (err) { saved = {}; }
+        document.querySelectorAll(editSel).forEach((el, i) => {
+          el.setAttribute("contenteditable", "true");
+          el.setAttribute("spellcheck", "false");
+          el.setAttribute("data-edit", String(i));
+          if (saved[i] != null) el.innerHTML = saved[i];
+          el.addEventListener("input", persistEdits);
+          el.addEventListener("blur", persistEdits);
+          el.addEventListener("click", (e) => e.stopPropagation());
+          el.addEventListener("mousedown", (e) => e.stopPropagation());
+          el.addEventListener("paste", (e) => {
+            e.preventDefault();
+            const t = (e.clipboardData || window.clipboardData).getData("text/plain");
+            document.execCommand("insertText", false, t);
+          });
+        });
+      })();
+
       const cover = document.querySelector(".cover");
-      const ip = document.getElementById("ip");
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       function enterClass() {
         if (started) return;
         started = true;
-        if (ip) ip.classList.add("is-walk");
-        loader.classList.add("leaving");
-        const finish = () => {
-          document.body.classList.add("started");
-          loader.classList.add("done");
-          if (cover) cover.classList.add("is-push");
-          go(0);
-        };
-        setTimeout(finish, reduceMotion ? 0 : 620);
+        document.body.classList.add("started");
+        if (cover) cover.classList.add("is-push");
+        loader.classList.add("done");
+        go(0);
       }
       enterBtn.addEventListener("click", enterClass);
       requestAnimationFrame(() => loaderBar.classList.add("is-ready"));
-
-      if (ip && !reduceMotion) {
-        let tx = 0, ty = 0, x = 0, y = 0;
-        const maxX = 36, maxY = 16;
-        loader.addEventListener("pointermove", (e) => {
-          if (started) return;
-          const r = loader.getBoundingClientRect();
-          const nx = ((e.clientX - r.left) / r.width - 0.58) * 2;
-          const ny = ((e.clientY - r.top) / r.height - 0.55) * 2;
-          tx = Math.max(-1, Math.min(1, nx)) * maxX;
-          ty = Math.max(-1, Math.min(1, ny)) * maxY;
-        });
-        (function follow() {
-          x += (tx - x) * 0.1;
-          y += (ty - y) * 0.1;
-          ip.style.transform = "translate3d(" + x.toFixed(2) + "px," + y.toFixed(2) + "px,0) rotateY(" + (x * 0.22).toFixed(2) + "deg)";
-          requestAnimationFrame(follow);
-        })();
-      }
     })();
   </script>
 </body>
