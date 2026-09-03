@@ -1264,7 +1264,20 @@
     }
     .notes.is-on { display: block; }
     .notes .lab { font-size: 12px; font-weight: 500; letter-spacing: 0.4px; color: var(--klein); }
-    .notes p { margin-top: 6px; font-size: 14px; color: var(--soft); line-height: 1.5; }
+    .notes .note-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 14px;
+      color: var(--soft);
+      line-height: 1.45;
+    }
+    .notes .note-row b {
+      flex: 0 0 2.5em;
+      font-weight: 500;
+      color: var(--klein);
+    }
+    .notes .note-row span { flex: 1; min-width: 0; }
 
     .toast {
       position: fixed;
@@ -1693,7 +1706,7 @@
       <div class="stage-wrap">
         <div class="stage" id="stage">
 
-          <section class="page cover klein-field is-on" data-ch="0" data-note="先停在开场问题上：内容写好了，别人却看不懂、不想看、不会用。四个拍子只点一下：文档变成页面，再变成能点、能分享。">
+          <section class="page cover klein-field is-on" data-ch="0" data-note="口播：先停在开场问题上：内容写好了，别人却看不懂、不想看、不会用。｜操作：停在封面，四个拍子只过一眼。｜过渡：下一页看今天要学会的四件事。">
             <p class="who">POIZON 全员课</p>
             <h1 data-frozen>《HTML+：AI 时代的<br>工作表达新方式》</h1>
             <p class="sub" data-frozen>不用学编程，也能做出能讲、能点、能分享的工作成果</p>
@@ -1703,7 +1716,7 @@
             <p class="ask">你有没有遇到过：内容已经写好了，但别人还是看不懂、不想看、不会用？</p>
           </section>
 
-          <section class="page" data-ch="0" data-note="点四件事，跳进对应章。结课状态只读一句：找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。">
+          <section class="page" data-ch="0" data-note="口播：不学代码，学会四件事。结课只读：找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。｜操作：点四张卡，跳进对应章。｜过渡：先走进「什么是 HTML」。">
             <p class="kicker">P02<em>·</em>总览</p>
             <h2>今天不学代码，学会四件事</h2>
             <div class="grid4 overview-grid">
@@ -1715,13 +1728,13 @@
             <p class="punch">找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。</p>
           </section>
 
-          <section class="page center-page klein-field" data-ch="1" data-note="章封面只立一句。看见、理解、操作——三件事同时需要时，内容就可以变成 HTML。">
+          <section class="page center-page klein-field" data-ch="1" data-note="口播：当内容需要被看见、被理解、被操作时，它就可以变成一个 HTML。｜操作：停在章封面，只立这一句。｜过渡：下一页是定义，一字不改。">
             <p class="ch-no">01  什么是 HTML</p>
             <p class="gold">当内容需要被看见、被理解、被操作时，<br>它就可以变成一个 HTML。</p>
             <span class="watermark">01</span>
           </section>
 
-          <section class="page def-page" data-ch="1" data-note="先读定义，一字不改。再点岗位卡：每个岗位都能借 AI 做轻量工作界面。">
+          <section class="page def-page" data-ch="1" data-note="口播：先读定义，一字不改。每个岗位都能借 AI 做轻量工作界面。｜操作：点六张岗位卡，看各自装哪类工作。｜过渡：同一份内容，还可以用别的方式打开。">
             <p class="kicker">P04<em>·</em>定义</p>
             <p class="quote" data-frozen>HTML 是一种可以被浏览器直接打开的内容容器。借助 AI，我们可以把文字、图片、数据和流程，快速变成一个可查看、可点击、可演示的工作界面。</p>
             <div class="pills" aria-label="装得下的工作内容">
@@ -1744,7 +1757,7 @@
             </div>
           </section>
 
-          <section class="page" data-ch="1" data-note="四列对照：共同改稿用文档表格，现场线性讲用 PPT，固定节奏用视频。HTML 负责查看、选择、互动、复用。">
+          <section class="page" data-ch="1" data-note="口播：共同改稿用文档表格，现场线性讲用 PPT，固定节奏用视频。HTML 负责查看、选择、互动、复用。｜操作：四列只对照读，不点。｜过渡：那 HTML 到底多了什么能力？">
             <p class="kicker">P05<em>·</em>对照</p>
             <h2>同一份内容，四种打开方式</h2>
             <div class="compare">
@@ -1775,7 +1788,7 @@
             </div>
           </section>
 
-          <section class="page center-page klein-field" data-ch="2" data-note="先立对比：文件把内容交给你；HTML 还会回应。下一页用活动通知当场试。">
+          <section class="page center-page klein-field" data-ch="2" data-note="口播：文件把内容交给你；HTML 还会回应。四个动作下一页当场试。｜操作：停在章封面，读四步。｜过渡：下一页用活动通知试一遍。">
             <p class="ch-no">02  HTML 可以做什么</p>
             <p class="gold">普通文件把内容交给你，<br>HTML 还可以回应你的操作。</p>
             <div class="flow">
@@ -1787,7 +1800,7 @@
             <span class="watermark">02</span>
           </section>
 
-          <section class="page" data-ch="2" data-note="四个动作不是等级。点动作，再让现场选一个身份——让人感觉到：内容因为操作变了。">
+          <section class="page" data-ch="2" data-note="口播：不是更多内容，是会回应的内容。选完身份，页给出下一步。｜操作：依次点「装下内容」「组织信息」「接收操作」「给出回应」，再点「新同学」。等金句出现、四卡全亮。｜过渡：所以接下来问，谁要用它完成什么？">
             <p class="kicker">P07<em>·</em>四个基础动作</p>
             <div class="split">
               <div>
@@ -1819,7 +1832,7 @@
             </div>
           </section>
 
-          <section class="page center-page klein-field" data-ch="3" data-note="先改问题，再谈形式。链式四步：任务 → 使用者 → 使用方式 → 交付形式。">
+          <section class="page center-page klein-field" data-ch="3" data-note="口播：不要先问能不能做成 HTML，先问谁要用它完成什么。｜操作：停在章封面，过链式四步。｜过渡：下一页先认四种高频场景。">
             <p class="ch-no">03  工作中怎么选择</p>
             <p class="gold">不要先问「能不能做成 HTML」，<br>先问「谁要用它完成什么」。</p>
             <div class="chain">
@@ -1828,7 +1841,7 @@
             <span class="watermark">03</span>
           </section>
 
-          <section class="page" data-ch="3" data-note="四种高频场景，点开只看交付形态。现场只展开一个，避免四张一起念。">
+          <section class="page" data-ch="3" data-note="口播：四种高频场景：讲清楚、走完流程、比较和选择、让想法被体验。点开只看交付形态。｜操作：现场只点开一张，其余三张一行还在。｜过渡：做之前，只看使用者、任务、是否复用。">
             <p class="kicker">P09<em>·</em>四种高频场景</p>
             <h2>先认场景，再谈做成什么样</h2>
             <div class="grid4 scene-grid" id="scenes" style="margin-top:22px">
@@ -1839,7 +1852,7 @@
             </div>
           </section>
 
-          <section class="page" data-ch="3" data-note="三个维度一起看。任务只许选一个场景。复用：一次会不要过度；长期用先确认负责人。">
+          <section class="page" data-ch="3" data-note="口播：三个维度一起看。任务只许选一个场景。一次会不要过度；长期用先确认负责人。｜操作：点中间「讲清楚 / 走完流程 / 比较和选择 / 让想法被体验」，只留一个。｜过渡：能用更轻的形式，就不要上 HTML。">
             <p class="kicker">P10<em>·</em>三维度</p>
             <h2>做之前，只看这三件事</h2>
             <div class="dims">
@@ -1867,7 +1880,7 @@
             </div>
           </section>
 
-          <section class="page" data-ch="3" data-note="最轻有效：能用文档表格 / PPT / 视频解决就不要上 HTML。三自检第三问否定，当场不做。">
+          <section class="page" data-ch="3" data-note="口播：最轻有效：文档表格、PPT、视频够用就停下。三自检第三问否定，当场不做。｜操作：左栏只读。右栏可点「谁会使用？」「他要完成什么？」；第 3 条常亮。｜过渡：下面用三个得物案例看这套判断。">
             <p class="kicker">P11<em>·</em>最轻有效方案</p>
             <h2>价值不是看起来像网站，<br>是减少解释和重复劳动</h2>
             <div class="decide">
@@ -1888,7 +1901,7 @@
             </div>
           </section>
 
-          <section class="page center-page klein-field" data-ch="4" data-note="点门进房间。口播只讲动作，不讲实现配方。">
+          <section class="page center-page klein-field" data-ch="4" data-note="口播：同一种能力，解决不同类型的内容。只讲动作，不讲实现配方。｜操作：点「进入房间 →」进案例一、二或三。｜过渡：先看 11 周年物料怎么被操作。">
             <p class="ch-no">04  我们的 HTML 案例</p>
             <p class="gold">同一种能力，解决不同类型的内容。</p>
             <div class="doors">
@@ -1899,7 +1912,7 @@
             <span class="watermark">04</span>
           </section>
 
-          <section class="page" data-ch="4" data-note="房间四拍：原来 / 不够 / 多了哪个动作 / 交付给谁。右侧可拖衣服、换贴花。可写 AI Coding。">
+          <section class="page" data-ch="4" data-note="口播：平面稿看不出结构。多了接收操作、给出回应。｜操作：依次点四拍「原来 / 旧形式不够 / 多了哪个动作 / 交付给谁」；再点「T恤 / 物流箱 / 奖杯 / 防伪」；T恤上点「字标 / 贴花 / 吊牌」并拖。｜过渡：下一页收九款来比。">
             <p class="kicker">P13<em>·</em>案例一 · 比较 / 体验</p>
             <h2>11 周年 T恤 + 物流箱 + 奖杯 + 防伪</h2>
             <div class="beats4" data-beats>
@@ -1941,7 +1954,7 @@
             </div>
           </section>
 
-          <section class="page" data-ch="4" data-note="九款进一页。口播只说组织信息 + 接收操作。不要点配方名词。可写 AI Coding。">
+          <section class="page" data-ch="4" data-note="口播：九款散在不同文件。多了组织信息、接收操作：同一页里筛、点、比。｜操作：依次点四拍「原来 / 旧形式不够 / 多了哪个动作 / 交付给谁」。再点「01」「02」，看对比卡；再点可取消。｜过渡：下一页看页怎么被加上时间。">
             <p class="kicker">P14<em>·</em>案例二 · 比较选择</p>
             <h2>NONO 九款，进同一页</h2>
             <div class="beats4" data-beats>
@@ -1986,7 +1999,7 @@
             </div>
           </section>
 
-          <section class="page" data-ch="4" data-note="口播说视频插件。固定节奏传播仍可用视频；这里看的是页怎么被加上时间。">
+          <section class="page" data-ch="4" data-note="口播：页能看，但不能按时间讲。加上时间、转场、声音，现场叫它视频插件。｜操作：点四拍「原来 / 旧形式不够 / 多了哪个动作 / 交付给谁」。再点「加上时间」「加上转场」「加上声音」。转场只闪一次，立刻看。｜过渡：三个案例只记三行。">
             <p class="kicker">P15<em>·</em>案例三 · 讲清楚 / 体验</p>
             <h2>《得物业务知多少》VOL.06</h2>
             <p class="lede" style="margin-top:8px">第三章「我们相信什么，决定了我们是谁」。页能看，但不能按时间讲。给页加上时间、转场、声音——现场叫它<b style="color:var(--ink)">视频插件</b>。</p>
@@ -2019,7 +2032,7 @@
             </div>
           </section>
 
-          <section class="page" data-ch="4" data-note="只留三行。原来 / 不够 / 多了哪个动作。不要再展开故事。">
+          <section class="page" data-ch="4" data-note="口播：只留三行。原来、不够、多了哪个动作。不要再展开故事。｜操作：三行只读，不点。｜过渡：轮到他们自己做一件能打开的事。">
             <p class="kicker">P16<em>·</em>三案对照</p>
             <h2>三个案例，只记三行</h2>
             <div class="sum3">
@@ -2044,7 +2057,7 @@
             </div>
           </section>
 
-          <section class="page center-page klein-field" data-ch="5" data-note="把野心收小。从少解释一次什么开始。四问只点到现场有共鸣的那一个。">
+          <section class="page center-page klein-field" data-ch="5" data-note="口播：不要从「我要做一个很厉害的网站」开始。从「我想少解释一次什么」开始。｜操作：四问只点到现场有共鸣的那一个。｜过渡：下一页三选一，锁在得物三例。">
             <p class="ch-no">05  轮到你了</p>
             <p class="gold">不要从「我要做一个很厉害的网站」开始。<br>从「我想少解释一次什么」开始。</p>
             <div class="qs">
@@ -2056,7 +2069,7 @@
             <span class="watermark">05</span>
           </section>
 
-          <section class="page" data-ch="5" data-note="三选一，点一个就停。作业锁在得物三个例子上，不要改题。">
+          <section class="page" data-ch="5" data-note="口播：三选一，做一件能打开的事。作业锁在得物三个例子上，不要改题。｜操作：点「11 周年活动页」或「入职鉴别指引」或「一页可点方案」，点一个就停。｜过渡：下一页打开蓝龙虾，把提示词贴进去。">
             <p class="kicker">P18<em>·</em>小任务</p>
             <h2>三选一，做一件能打开的事</h2>
             <div class="grid3" id="tasks" style="margin-top:22px">
@@ -2079,7 +2092,7 @@
             <p class="job-out" id="task-out">点一个任务。下一页打开蓝龙虾。</p>
           </section>
 
-          <section class="page" data-ch="5" data-note="入口只有蓝龙虾。提示词整段复制，不要改。人话改到能用就停，再过三自检。">
+          <section class="page" data-ch="5" data-note="口播：入口只有蓝龙虾。提示词整段复制，不要改。人话改到能用就停，再过三自检。｜操作：点「复制提示词」，到蓝龙虾里贴上。｜过渡：最后停在结课句。">
             <p class="kicker">P19<em>·</em>打开蓝龙虾</p>
             <h2>先填谁、什么事，再生成能打开的一版</h2>
             <div class="prompt">
@@ -2097,7 +2110,7 @@
             </ul>
           </section>
 
-          <section class="page close-page klein-field" data-ch="5" data-note="结课句一字不改。停住，把房间还给他们。">
+          <section class="page close-page klein-field" data-ch="5" data-note="口播：未来真正重要的，不是每个人都会写代码，而是每个人都能把自己的专业判断，变成别人可以直接使用的成果。｜操作：停住，一字不改。｜过渡：把房间还给他们。">
             <p class="who">结课</p>
             <p class="gold" data-frozen>未来真正重要的，不是每个人都会写代码，而是每个人都能把自己的专业判断，变成别人可以直接使用的成果。</p>
           </section>
@@ -2122,7 +2135,7 @@
 
   <div class="notes" id="notes">
     <div class="lab">讲稿</div>
-    <p id="notes-text"></p>
+    <div id="notes-body"></div>
   </div>
   <div class="toast" id="toast">已复制</div>
 
@@ -2135,7 +2148,8 @@
       const progLabel = document.getElementById("prog-label");
       const pageLabel = document.getElementById("page-label");
       const notes = document.getElementById("notes");
-      const notesText = document.getElementById("notes-text");
+      const notesBody = document.getElementById("notes-body");
+      const NOTE_LABELS = ["口播", "操作", "过渡"];
       const toast = document.getElementById("toast");
       const stage = document.getElementById("stage");
       const loader = document.getElementById("loader");
@@ -2173,7 +2187,7 @@
         pageLabel.textContent = label + " / 20";
         progLabel.textContent = label + " / 20";
         bar.style.width = ((index + 1) / pages.length * 100) + "%";
-        notesText.textContent = pages[index].dataset.note || "";
+        renderNotes();
         history.replaceState(null, "", "#p" + String(index + 1).padStart(2, "0"));
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
@@ -2183,6 +2197,23 @@
         });
       }
 
+      function renderNotes() {
+        const raw = pages[index].dataset.note || "";
+        const parts = raw.split("｜").map((s) => s.trim());
+        notesBody.replaceChildren();
+        NOTE_LABELS.forEach((lab, i) => {
+          const row = document.createElement("p");
+          row.className = "note-row";
+          const k = document.createElement("b");
+          k.textContent = lab;
+          const v = document.createElement("span");
+          let text = parts[i] || "";
+          if (text.indexOf(lab + "：") === 0) text = text.slice(lab.length + 1);
+          v.textContent = text;
+          row.append(k, v);
+          notesBody.appendChild(row);
+        });
+      }
       function next() { go(index + 1); }
       function prev() { go(index - 1); }
 
