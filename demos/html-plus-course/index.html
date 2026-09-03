@@ -1328,6 +1328,8 @@
       overflow-y: auto;
       overscroll-behavior: contain;
       scrollbar-width: none;
+      scroll-timeline-name: --door;
+      scroll-timeline-axis: block;
     }
     .door-scroller::-webkit-scrollbar { width: 0; height: 0; }
     .door-track { height: 150vh; position: relative; }
@@ -1336,7 +1338,7 @@
       top: 0;
       height: 100vh;
       height: 100dvh;
-      overflow: hidden;
+      overflow: clip;
     }
     .door-layer {
       position: absolute;
@@ -1354,7 +1356,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 50%;
+      object-position: center 56%;
     }
     .door-l3::before {
       content: "";
@@ -1545,15 +1547,15 @@
     @supports (animation-timeline: scroll()) {
       .door-l1 {
         animation: door-l1 linear both;
-        animation-timeline: scroll(nearest);
+        animation-timeline: --door;
       }
       .door-l2 {
         animation: door-l2 linear both;
-        animation-timeline: scroll(nearest);
+        animation-timeline: --door;
       }
       .door-title-float {
         animation: door-l3 linear both;
-        animation-timeline: scroll(nearest);
+        animation-timeline: --door;
       }
     }
     @keyframes door-l1 {
@@ -1566,7 +1568,7 @@
     }
     @keyframes door-l3 {
       from { transform: translateY(0); }
-      to { transform: translateY(-28%); }
+      to { transform: translateY(-12vh); }
     }
     @media (prefers-reduced-motion: reduce) {
       .door-scroller { overflow: hidden; }
@@ -2836,12 +2838,13 @@
         if (!doorL1 || !doorL2 || !doorTitle) return;
         doorL1.style.transform = "scale(" + (1 + t * 0.06) + ") translateY(" + (t * -2) + "%)";
         doorL2.style.transform = "translateY(" + (t * -18) + "%)";
-        doorTitle.style.transform = "translateY(" + (t * -28) + "%)";
+        doorTitle.style.transform = "translateY(" + (t * -12) + "vh)";
       }
       function onDoorScroll() {
-        if (started) return;
+        if (started || reduceMotion) return;
         const t = doorProgress();
-        if (!supportsSDA && !reduceMotion) applyDoorParallax(t);
+        const live = doorL1 ? getComputedStyle(doorL1).transform : "none";
+        if (!supportsSDA || live === "none") applyDoorParallax(t);
         if (t >= 0.88) enterClass();
       }
 
