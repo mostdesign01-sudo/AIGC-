@@ -47,6 +47,7 @@
       --focus: 0 0 0 2px rgba(0, 47, 167, 0.5);
       --rail: 208px;
       --hud: 64px;
+      --dock: 56px;
     }
 
     * { box-sizing: border-box; }
@@ -213,6 +214,9 @@
       flex-direction: column;
       animation: in 240ms ease;
     }
+    .page.is-short {
+      justify-content: center;
+    }
     @keyframes in {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: none; }
@@ -255,7 +259,7 @@
       color: var(--soft);
     }
     .punch {
-      margin-top: auto;
+      margin-top: 20px;
       padding-top: 16px;
       font-size: clamp(16px, 1.6vw, 18px);
       font-weight: 500;
@@ -705,8 +709,46 @@
     }
     .chain i { width: 22px; height: 2px; background: var(--aurora); opacity: 1; }
 
-    .scene .more { display: none; margin-top: 10px; }
-    .scene.is-on .more { display: block; }
+    .overview-grid {
+      flex: none;
+      align-content: start;
+    }
+    .overview-grid .pick {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      max-height: 220px;
+    }
+    .scene-grid {
+      flex: 1;
+      align-content: stretch;
+      min-height: 0;
+    }
+    .scene-grid .scene {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      height: 100%;
+    }
+    .scene .more {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.4;
+      overflow: hidden;
+    }
+    .scene.is-on .more { -webkit-line-clamp: 2; }
+    .scene .ex {
+      display: none;
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 1.4;
+      color: var(--dim);
+    }
+    .scene.is-on .ex { display: block; color: rgba(255, 255, 255, 0.7); }
 
     .dims { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 24px; }
     .dim { padding: 16px; }
@@ -1413,6 +1455,10 @@
     .notes-btn.is-on { background: var(--klein); color: #fff; border-color: transparent; }
 
     @media (max-width: 979px) {
+      :root {
+        --hud: 40px;
+        --dock: 44px;
+      }
       .app {
         grid-template-columns: 1fr;
         min-height: 100dvh;
@@ -1428,7 +1474,9 @@
         z-index: 25;
         background: var(--klein);
         border-top: 0;
+        height: var(--hud);
         min-height: var(--hud);
+        max-height: var(--hud);
       }
       .hud .ch {
         flex: 1;
@@ -1436,22 +1484,33 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 2px;
-        min-height: 44px;
-        padding: 8px 2px;
+        gap: 0;
+        min-height: 0;
+        min-width: 0;
+        padding: 2px 2px 3px;
         cursor: pointer;
       }
-      .hud .ch .num { font-size: 10px; letter-spacing: 0.4px; color: rgba(255, 255, 255, 0.5); }
-      .hud .ch .lab { font-size: 10px; color: rgba(255, 255, 255, 0.78); line-height: 1.2; }
+      .hud .ch .num { font-size: 10px; letter-spacing: 0.4px; color: rgba(255, 255, 255, 0.5); line-height: 1.1; }
+      .hud .ch .lab {
+        display: none;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.78);
+        line-height: 1.15;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .hud .ch.is-on .lab { display: block; }
       .hud .ch.is-on { background: rgba(255, 255, 255, 0.12); box-shadow: inset 0 2px 0 var(--aurora); color: #fff; }
       .hud .ch.is-on .num, .hud .ch.is-on .lab { color: #fff; }
-      .notes { left: 0; bottom: var(--hud); }
-      .main { min-height: calc(100dvh - var(--hud)); }
+      .notes { left: 0; bottom: calc(var(--hud) + var(--dock)); }
+      .main { min-height: calc(100dvh - var(--hud) - var(--dock)); }
       .stage-wrap { padding: 0; align-items: stretch; }
       .stage {
         width: 100%;
         aspect-ratio: auto;
-        min-height: calc(100dvh - var(--hud));
+        min-height: calc(100dvh - var(--hud) - var(--dock));
         border: 0;
         border-radius: 0;
         box-shadow: none;
@@ -1463,14 +1522,15 @@
         inset: auto;
         display: none;
         overflow: visible;
-        padding: clamp(20px, 5vw, 32px) 4vw calc(var(--hud) + 68px);
+        padding: clamp(20px, 5vw, 32px) 4vw calc(var(--hud) + var(--dock) + 24px);
         max-width: 40rem;
         margin: 0 auto;
       }
       .page.is-on { display: flex; }
+      .page.is-short { justify-content: flex-start; }
       .page.cover.is-on {
-        min-height: calc(100svh - var(--hud));
-        min-height: calc(100dvh - var(--hud));
+        min-height: calc(100svh - var(--hud) - var(--dock));
+        min-height: calc(100dvh - var(--hud) - var(--dock));
         max-width: none;
         width: 100%;
         box-sizing: border-box;
@@ -1479,7 +1539,7 @@
       .main:has(.cover.is-on),
       .stage:has(.cover.is-on) {
         background: var(--klein);
-        min-height: calc(100dvh - var(--hud));
+        min-height: calc(100dvh - var(--hud) - var(--dock));
       }
       .main:has(.cover.is-on) .dock {
         background: var(--klein);
@@ -1501,7 +1561,9 @@
         bottom: 0;
       }
       .watermark { display: none; }
-      .grid3, .grid4, .compare, .beats4, .qs, .list4, .jobs, .dims, .doors, .actions { grid-template-columns: 1fr; }
+      .grid3, .grid4, .compare, .qs, .list4, .jobs, .dims, .doors, .actions { grid-template-columns: 1fr; }
+      .beats4 { grid-template-columns: 1fr 1fr; }
+      .beats4 button { min-height: 0; padding: 10px 10px 12px; }
       .grid6, .nono-grid, .cognition .jobs { grid-template-columns: repeat(3, 1fr); }
       .split, .decide, .case-extra, .sum3 article, .vs { grid-template-columns: 1fr; }
       .def-page .pills { flex-wrap: wrap; }
@@ -1557,14 +1619,27 @@
         right: 0;
         bottom: var(--hud);
         z-index: 24;
+        height: var(--dock);
+        min-height: var(--dock);
+        max-height: var(--dock);
+        box-sizing: border-box;
         background: rgba(245, 246, 246, 0.94);
         border-top: 1px solid var(--line);
-        padding: 6px 12px;
-        gap: 10px;
+        padding: 4px 8px;
+        gap: 6px;
+        flex-wrap: nowrap;
+        overflow: hidden;
       }
       .dock .dots { display: none; }
-      .toast { bottom: calc(var(--hud) + 60px); }
-      .nav-btns button, .copy-row button, .roles button, .notes-btn { min-height: 44px; }
+      .dock #edit-btn { display: none; }
+      .toast { bottom: calc(var(--hud) + var(--dock) + 8px); }
+      .nav-btns button, .notes-btn {
+        min-height: 36px;
+        padding: 6px 10px;
+        font-size: 13px;
+      }
+      .copy-row button, .roles button { min-height: 44px; }
+      .hint { font-size: 11px; }
     }
     @media (min-width: 600px) and (max-width: 979px) {
       .grid4, .compare, .beats4, .qs, .list4, .jobs, .actions { grid-template-columns: repeat(2, 1fr); }
@@ -1630,7 +1705,7 @@
           <section class="page" data-ch="0" data-note="点四件事，跳进对应章。结课状态只读一句：找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。">
             <p class="kicker">P02<em>·</em>总览</p>
             <h2>今天不学代码，学会四件事</h2>
-            <div class="grid4" style="flex:1">
+            <div class="grid4 overview-grid">
               <button class="pick" data-jump="2"><span class="tag">01</span><h3>重新认识 HTML</h3><p>它不是程序员的网页课，是工作内容的容器。</p></button>
               <button class="pick" data-jump="5"><span class="tag">02</span><h3>看见 HTML 的能力</h3><p>普通文件交给你内容，HTML 还能回应操作。</p></button>
               <button class="pick" data-jump="7"><span class="tag">03</span><h3>学会判断和选择</h3><p>先问谁要用它完成什么，再选交付形式。</p></button>
@@ -1755,11 +1830,11 @@
           <section class="page" data-ch="3" data-note="四种高频场景，点开只看交付形态。现场只展开一个，避免四张一起念。">
             <p class="kicker">P09<em>·</em>四种高频场景</p>
             <h2>先认场景，再谈做成什么样</h2>
-            <div class="grid4" id="scenes" style="margin-top:22px">
-              <button class="scene"><span class="tag">01</span><h3>讲清楚</h3><p class="more">结构化页面、翻页演示。别人按自己的节奏看完一件事。</p></button>
-              <button class="scene"><span class="tag">02</span><h3>走完流程</h3><p class="more">步骤导航、清单、进度。自己走完，少问一句「然后呢」。</p></button>
-              <button class="scene"><span class="tag">03</span><h3>比较和选择</h3><p class="more">筛选、对比、计算。把分散确认收进同一页。</p></button>
-              <button class="scene"><span class="tag">04</span><h3>让想法被体验</h3><p class="more">可点原型、动态叙事、三维互动。让人先感受到，再讨论。</p></button>
+            <div class="grid4 scene-grid" id="scenes" style="margin-top:22px">
+              <button class="scene"><span class="tag">01</span><h3>讲清楚</h3><p class="more">结构化页面、翻页演示。别人按自己的节奏看完一件事。</p><span class="ex">例：业务知多少 VOL.06，自己翻完一章。</span></button>
+              <button class="scene"><span class="tag">02</span><h3>走完流程</h3><p class="more">步骤导航、清单、进度。自己走完，少问一句「然后呢」。</p><span class="ex">例：入职鉴别，按防伪五件套走完。</span></button>
+              <button class="scene"><span class="tag">03</span><h3>比较和选择</h3><p class="more">筛选、对比、计算。把分散确认收进同一页。</p><span class="ex">例：NONO 九款，点两款当场看差别。</span></button>
+              <button class="scene"><span class="tag">04</span><h3>让想法被体验</h3><p class="more">可点原型、动态叙事、三维互动。让人先感受到，再讨论。</p><span class="ex">例：11 周年物料，拖一拖、换贴花。</span></button>
             </div>
           </section>
 
@@ -2037,8 +2112,9 @@
         </div>
         <span class="hint" id="page-label">P01 / 20</span>
         <button type="button" class="notes-btn edit-hint" id="edit-btn" aria-pressed="false">改字</button>
+        <button type="button" class="notes-btn" id="reset-btn">重置</button>
         <button type="button" class="notes-btn" id="notes-btn">讲稿</button>
-        <span class="hint desk">← → 空格 · F 全屏</span>
+        <span class="hint desk">← → 空格 · F 全屏 · R 重置</span>
       </div>
     </div>
   </div>
@@ -2098,6 +2174,12 @@
         bar.style.width = ((index + 1) / pages.length * 100) + "%";
         notesText.textContent = pages[index].dataset.note || "";
         history.replaceState(null, "", "#p" + String(index + 1).padStart(2, "0"));
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            applyRhythm();
+            revealAboveChrome();
+          });
+        });
       }
 
       function next() { go(index + 1); }
@@ -2162,6 +2244,9 @@
         } else if (e.key === "e" || e.key === "E") {
           e.preventDefault();
           setEdit(!document.body.classList.contains("is-edit"));
+        } else if (e.key === "r" || e.key === "R") {
+          e.preventDefault();
+          resetCourse();
         } else if (e.key === "Escape") {
           setNotes(false);
           setEdit(false);
@@ -2205,7 +2290,6 @@
         if (!btn) return;
         document.querySelectorAll("#jobs .job").forEach((j) => j.classList.toggle("is-on", j === btn));
         jobOut.innerHTML = "<b>" + btn.querySelector("h3").textContent + "</b>　" + btn.dataset.job;
-        persistEdits();
       });
 
       const roles = {
@@ -2257,7 +2341,6 @@
         nextStep.innerHTML = roles[btn.dataset.role];
         revealPunch();
         highlightAct("reply");
-        persistEdits();
       });
       document.getElementById("actions").addEventListener("click", (e) => {
         if (e.target.closest("[contenteditable='true']")) return;
@@ -2273,7 +2356,6 @@
           if (btn.dataset.act === "reply") nextStep.innerHTML = "选完身份，页<b>给出回应</b>：每个人拿到自己的下一步。";
         }
         highlightAct(btn.dataset.act);
-        persistEdits();
       });
 
       document.getElementById("scenes").addEventListener("click", (e) => {
@@ -2369,7 +2451,6 @@
         if (!btn) return;
         btn.classList.toggle("is-on");
         renderNonoCompare();
-        persistEdits();
       });
 
       document.getElementById("vol06").addEventListener("click", (e) => {
@@ -2395,7 +2476,6 @@
         if (!btn) return;
         document.querySelectorAll("#tasks .task").forEach((t) => t.classList.toggle("is-on", t === btn));
         taskOut.innerHTML = btn.dataset.hint;
-        persistEdits();
       });
 
       document.getElementById("copy-btn").addEventListener("click", async () => {
@@ -2416,10 +2496,16 @@
       });
 
       const EDIT_KEY = "htmlplus-course-edits-v1";
+      const DEMO_OUT_IDS = { "job-out": 1, "next-step": 1, "nono-out": 1, "task-out": 1 };
       const editSel = ".page h1:not([data-frozen]), .page h2:not([data-frozen]), .page h3:not([data-frozen]), .page p:not(.kicker):not([data-frozen]), .page li:not([data-frozen]), .page .ch-no:not([data-frozen]), .page .prompt pre:not([data-frozen]), .page .klein-bar:not([data-frozen]), .page .sum3 article > div:not([data-frozen])";
+      const editOriginals = new Map();
+      const defaultOn = new Set();
+      function isDemoOut(el) { return !!(el && el.id && DEMO_OUT_IDS[el.id]); }
       function persistEdits() {
+        if (!document.body.classList.contains("is-edit")) return;
         const data = {};
-        document.querySelectorAll("[data-edit]").forEach((el) => {
+        document.querySelectorAll("[data-edit][data-dirty]").forEach((el) => {
+          if (isDemoOut(el)) return;
           data[el.getAttribute("data-edit")] = el.innerHTML;
         });
         try { localStorage.setItem(EDIT_KEY, JSON.stringify(data)); } catch (err) {}
@@ -2431,8 +2517,16 @@
           el.setAttribute("contenteditable", "false");
           el.setAttribute("spellcheck", "false");
           el.setAttribute("data-edit", String(i));
-          if (saved[i] != null) el.innerHTML = saved[i];
-          el.addEventListener("input", persistEdits);
+          editOriginals.set(el, el.innerHTML);
+          if (!isDemoOut(el) && saved[i] != null) {
+            el.innerHTML = saved[i];
+            el.setAttribute("data-dirty", "");
+          }
+          el.addEventListener("input", () => {
+            if (!document.body.classList.contains("is-edit") || isDemoOut(el)) return;
+            el.setAttribute("data-dirty", "");
+            persistEdits();
+          });
           el.addEventListener("blur", persistEdits);
           el.addEventListener("click", (e) => {
             if (document.body.classList.contains("is-edit")) e.stopPropagation();
@@ -2446,7 +2540,75 @@
             document.execCommand("insertText", false, t);
           });
         });
+        document.querySelectorAll(".is-on").forEach((el) => defaultOn.add(el));
       })();
+
+      function applyRhythm() {
+        const page = pages[index];
+        page.classList.remove("is-short");
+        if (window.matchMedia("(max-width: 979px)").matches) return;
+        const kids = [...page.children];
+        let h = 0;
+        kids.forEach((el) => {
+          const s = getComputedStyle(el);
+          h += el.offsetHeight + parseFloat(s.marginTop) + parseFloat(s.marginBottom);
+        });
+        if (h < stage.clientHeight * 0.55) page.classList.add("is-short");
+      }
+      function revealAboveChrome() {
+        if (!window.matchMedia("(max-width: 979px)").matches) return;
+        const page = pages[index];
+        const dockEl = document.querySelector(".dock");
+        if (!dockEl || !page) return;
+        const limit = dockEl.getBoundingClientRect().top;
+        const sel = ".tee-tools, .tee-cap, #nono, .tl-btns, .hf, .klein-bar, .copy-row, #tasks, #scenes, .mat-tab";
+        let lowest = 0;
+        page.querySelectorAll(sel).forEach((el) => {
+          const r = el.getBoundingClientRect();
+          if (r.height && r.bottom > lowest) lowest = r.bottom;
+        });
+        if (lowest > limit - 8) {
+          window.scrollBy(0, Math.ceil(lowest - limit + 12));
+        }
+      }
+      function resetCourse() {
+        if (!started) return;
+        try { localStorage.removeItem(EDIT_KEY); } catch (err) {}
+        document.querySelectorAll("[data-dirty]").forEach((el) => el.removeAttribute("data-dirty"));
+        editOriginals.forEach((html, el) => { el.innerHTML = html; });
+        document.querySelectorAll(".is-on").forEach((el) => {
+          if (!defaultOn.has(el)) el.classList.remove("is-on");
+        });
+        defaultOn.forEach((el) => el.classList.add("is-on"));
+        setEdit(false);
+        setNotes(false);
+        rolePicked = false;
+        if (punchline) {
+          punchline.classList.remove("is-in");
+          punchline.setAttribute("aria-hidden", "true");
+        }
+        if (typeof clearDemoHL === "function") clearDemoHL();
+        if (shirt) shirt.style.setProperty("--ry", "0deg");
+        if (mark) mark.textContent = "11";
+        if (teeView) teeView.classList.remove("is-off");
+        document.querySelectorAll(".mat-ph").forEach((ph) => ph.classList.remove("is-on"));
+        if (nonoCompare) nonoCompare.classList.remove("is-on");
+        if (nonoOut) nonoOut.classList.remove("is-off");
+        const fakePage = document.getElementById("fake-page");
+        if (fakePage) fakePage.classList.remove("is-play", "is-sound");
+        const tl = document.getElementById("tl");
+        if (tl) tl.classList.remove("is-on");
+        const hf = document.getElementById("hf");
+        if (hf) hf.classList.remove("is-on");
+        go(0);
+      }
+      const resetBtn = document.getElementById("reset-btn");
+      if (resetBtn) resetBtn.addEventListener("click", resetCourse);
+      window.addEventListener("resize", () => {
+        if (!started) return;
+        applyRhythm();
+        revealAboveChrome();
+      });
 
       function enterClass() {
         if (started) return;
