@@ -25,7 +25,7 @@
 
 ## 门前封面 · `cover-poster.webp`
 
-只接受 Hao 指定的课程海报。转 webp、q≈85、宽边 ≤ 2400，与 `index.html` 同目录。
+只接受 Hao 指定的课程海报（横版整图转 webp、q≈85、宽边 ≤ 2400），与 `index.html` 同目录。
 
 - 门页必须铺这张整图，不用纯 CSS 仿海报当主视觉，不用假建筑替代。
 - 进入前短距分层视差（约 1.5 屏）；`prefers-reduced-motion` 为静态封面。
