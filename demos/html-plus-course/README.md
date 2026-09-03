@@ -1,8 +1,10 @@
 # HTML+：AI 时代的工作表达新方式
 
-用浏览器直接打开本目录的 `index.html`（双击或拖进 Chrome / Edge / Safari，`file://` 即可）。无需安装、无需构建、无需网络。单文件，无外链、无字体 CDN。
+用浏览器直接打开本目录的 `index.html`（双击或拖进 Chrome / Edge / Safari，`file://` 即可）。无需安装、无需构建、无需网络。单文件，无外链、无字体 CDN。同目录的 `cover-poster.webp`、`assets/` 用相对路径读取。
 
-门页是 Kage 式短距 landing：z 0 海报底景、z 10 阅读层、可选近景 cut-out、z 55 径向 vignette、z 60 canvas grain。进入前可下滑约 1.8 屏；`file://` 无网络可开。点「进入课堂」、滚到阈值或按 `Enter` / 空格，一层到 P01。课堂里桌面可「改字」，刷新后仍在；演示输出（身份、比较、任务）不入库，刷新或 `R` 回到初始。
+门页是 Kage 式短距 landing：z 0 海报底景、z 10 阅读层、可选近景 cut-out、z 55 径向 vignette、z 60 canvas grain。进入前可下滑约 1.8 屏；`file://` 无网络可开。点「进入课堂」、滚到阈值或按 `Enter` / 空格，一层到 P01。
+
+进课后不是 16:9 白板翻卡片。海报留作整幅中景，文字和 HUD 压在画面上；章首（P01 / P03 / P06 / P08 / P12 / P17）走短距暗场 + 章标 + 文案从边缘入场；讲解页换洗，不瞬移切模块。桌面可「改字」，刷新后仍在；演示输出（身份、比较、任务）不入库，刷新或 `R` 回到初始。
 
 ## 快捷键
 
@@ -23,13 +25,23 @@
 
 **改字只在桌面。**
 
+## 场景流
+
+- 氛围层固定：海报 + 暗角 + 噪点。中景按 `open / talk / case` 换洗。前景是窄栏文案和细线 HUD。
+- 章首 300–900ms：暗场 → 章标 → 标题从左侧入场。普通页短距 opacity / translate。
+- 背景 / 中景 / 前景三速率：门页跟短距滚动；课堂桌面跟指针轻微平移。
+- `prefers-reduced-motion`：无入场、无暗场、无指针视差、无 ring cursor，轨道收成一屏。
+- 桌面轻量 ring cursor（22px 细圈，hover 略放大并微磁吸）。手机和 reduced-motion 关闭，不抢内容。
+
+视觉 token 见 [`DESIGN.md`](./DESIGN.md)。真实素材状态见 [`ASSETS.md`](./ASSETS.md)（当前仅 `cover-poster.webp` 已落盘；`assets/poizon/` 为待接入目录）。
+
 ## 门前封面 · `cover-poster.webp`
 
 只接受 Hao 指定的课程海报（横版整图转 webp、q≈85、宽边 ≤ 2400），与 `index.html` 同目录。
 
 - 门页必须铺这张整图，不用纯 CSS 仿海报当主视觉，不用假建筑替代。
+- 进课后同一张图继续做场景底，不当按钮背景。
 - 进入前短距分层视差（约 1.8 屏）；`prefers-reduced-motion` 为静态封面。
-- 视觉 token 与门页规则见 [`DESIGN.md`](./DESIGN.md)。
 
 ## 冻结句
 
