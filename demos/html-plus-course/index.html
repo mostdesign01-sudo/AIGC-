@@ -951,6 +951,7 @@
     .tee-tools button.is-on { border-color: transparent; background: var(--klein); color: #fff; }
     .tee-cap { position: absolute; right: 10px; bottom: calc(var(--klein-bar-space) + 8px); font-size: 12px; color: var(--dim); }
 
+    .case-extra .device:has(.nono-stage) { min-height: 304px; }
     .nono-stage {
       display: flex;
       flex-direction: column;
@@ -1503,10 +1504,6 @@
       .grid3, .grid4, .compare, .beats4, .qs, .list4, .jobs, .dims, .doors, .actions { grid-template-columns: 1fr; }
       .grid6, .nono-grid, .cognition .jobs { grid-template-columns: repeat(3, 1fr); }
       .split, .decide, .case-extra, .sum3 article, .vs { grid-template-columns: 1fr; }
-      .device:has(.nono-stage) {
-        aspect-ratio: auto;
-        min-height: 300px;
-      }
       .def-page .pills { flex-wrap: wrap; }
       .cognition { display: flex; flex-direction: column; }
       .cognition .vs { display: contents; }
