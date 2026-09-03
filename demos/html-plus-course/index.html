@@ -1845,6 +1845,16 @@
       .door-hero-top { max-width: 18em; }
       .door-mark { font-size: clamp(1.65rem, 8vw, 2.05rem); }
       .door-lede { max-width: 16em; }
+      /* 手机：细描边保留，只补半透明黑场垫底，不回到实心 Klein 块 */
+      .enter-btn {
+        background: rgba(7, 9, 13, .62);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .enter-btn:hover,
+      .enter-btn:active {
+        background: rgba(7, 9, 13, .62);
+      }
       .cover h1 { max-width: 14em; }
       .demo { padding-bottom: 16px; }
       .device { width: 100%; }
