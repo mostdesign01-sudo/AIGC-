@@ -6,27 +6,30 @@
   <title>HTML+：AI 时代的工作表达新方式</title>
   <style>
     :root {
-      /* Klein brand — overrides Linear lavender */
+      /* Klein brand — buttons, bars, door accent */
       --klein: #002FA7;
       --klein-deep: #002fa7;
       --klein-hover: #1a4bc4;
       --klein-pressed: #00268c;
       --klein-ink: #002FA7;
+      --klein-on-dark: #7aa2ff;
       --aurora: #01c2c3;
 
-      /* Linear inverse ladder → light classroom */
-      --bg: #f5f6f6;
-      --stage: #ffffff;
-      --surface-1: #ffffff;
-      --surface-2: #f6f7f7;
-      --surface-3: #eef0f1;
-      --ink: #0a0b0d;
-      --text: #0a0b0d;
-      --soft: #3c4043;
-      --dim: #62666d;
-      --faint: rgba(10, 11, 13, 0.06);
-      --line: #e4e6e8;
-      --line-strong: #d0d3d6;
+      /* Poster black field — near-black, cold navy */
+      --bg: #07090d;
+      --stage: #0c0f14;
+      --surface-1: #12161d;
+      --surface-2: #181d26;
+      --surface-3: #1f2530;
+      --ink: #f5f7fa;
+      --text: #f5f7fa;
+      --soft: #c4c8d0;
+      --dim: #8b909a;
+      --faint: rgba(255, 255, 255, 0.07);
+      --line: rgba(255, 255, 255, 0.12);
+      --line-strong: rgba(255, 255, 255, 0.22);
+      --title-glow: 0 0 18px rgba(255, 255, 255, 0.42), 0 0 48px rgba(255, 255, 255, 0.18);
+      --chrome: rgba(255, 255, 255, 0.38);
 
       /* Linear type / space / radius */
       --sans: "SF Pro Display", "SF Pro Text", "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", "Droid Sans Fallback", Inter, -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
@@ -42,9 +45,9 @@
       --space-md: 16px;
       --space-lg: 24px;
       --space-xl: 32px;
-      --shadow-1: 0 0 0 1px #e4e6e8;
-      --shadow-2: 0 0 0 1px #d0d3d6, 0 1px 2px rgba(10, 11, 13, 0.04);
-      --focus: 0 0 0 2px rgba(0, 47, 167, 0.5);
+      --shadow-1: 0 0 0 1px rgba(255, 255, 255, 0.10);
+      --shadow-2: 0 0 0 1px rgba(255, 255, 255, 0.16), 0 12px 28px rgba(0, 0, 0, 0.35);
+      --focus: 0 0 0 2px rgba(122, 162, 255, 0.55);
       --rail: 208px;
       --hud: 64px;
       --dock: 56px;
@@ -62,7 +65,7 @@
       line-height: 1.5;
       letter-spacing: -0.05px;
       -webkit-font-smoothing: antialiased;
-      color-scheme: light;
+      color-scheme: dark;
     }
     @media (min-width: 980px) {
       html, body { height: 100%; overflow: hidden; }
@@ -78,7 +81,7 @@
     .nav-btns button:focus-visible,
     .notes-btn:focus-visible,
     .roles button:focus-visible {
-      outline: 2px solid rgba(0, 47, 167, 0.5);
+      outline: 2px solid rgba(122, 162, 255, 0.7);
       outline-offset: 2px;
     }
 
@@ -94,8 +97,9 @@
       display: flex;
       flex-direction: column;
       min-width: 0;
-      background: var(--klein);
+      background: var(--bg);
       color: #fff;
+      border-right: 1px solid var(--line);
     }
     .rail-brand {
       font-size: 12px;
@@ -243,6 +247,7 @@
       font-weight: 600;
       letter-spacing: -0.04em;
       line-height: 1.1;
+      text-shadow: var(--title-glow);
     }
     h2 {
       font-size: clamp(1.375rem, 2.6vw, 1.75rem);
@@ -276,6 +281,7 @@
       font-weight: 600;
       letter-spacing: -0.03em;
       line-height: 1.2;
+      text-shadow: var(--title-glow);
     }
 
     .cover {
@@ -426,7 +432,7 @@
     .page [contenteditable] { outline: none; }
     body.is-edit .page [contenteditable="true"] {
       cursor: text;
-      outline: 1px dashed rgba(0, 47, 167, 0.22);
+      outline: 1px dashed rgba(122, 162, 255, 0.45);
       outline-offset: 3px;
     }
     body:not(.is-edit) .page [contenteditable] { cursor: inherit; }
@@ -568,7 +574,7 @@
       font-size: 14px;
       color: var(--soft);
     }
-    .job-out b { color: var(--klein); font-weight: 500; }
+    .job-out b { color: var(--klein-on-dark); font-weight: 500; }
 
     .compare { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 24px; align-items: start; }
     .compare article {
@@ -644,7 +650,7 @@
       color: var(--soft);
     }
     .demo .is-hl {
-      background: #fff;
+      background: rgba(255, 255, 255, 0.08);
       box-shadow: inset 3px 0 0 var(--aurora);
     }
     .demo-punch {
@@ -809,7 +815,7 @@
       line-height: 1.45;
       text-align: left;
     }
-    .check .n { color: var(--klein); font-weight: 600; }
+    .check .n { color: var(--klein-on-dark); font-weight: 600; }
     .check.is-on, .check.is-stop { background: var(--klein); color: #fff; border-color: transparent; }
     .check.is-on .n, .check.is-stop .n { color: #fff; }
     .check.is-stop .hint { display: block; margin-top: 6px; font-size: 12px; color: #fff; }
@@ -907,11 +913,11 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      background: #d4d4d4;
+      background: var(--surface-3);
     }
     .device-view > .mat-ph.is-on { display: flex; }
-    .mat-ph-name { font-size: 16px; font-weight: 500; color: #666; }
-    .mat-ph-wait { font-size: 12px; color: #888; }
+    .mat-ph-name { font-size: 16px; font-weight: 500; color: var(--soft); }
+    .mat-ph-wait { font-size: 12px; color: var(--dim); }
     .device-view > .nono-stage,
     .device-view > .timeline-box {
       position: absolute;
@@ -1263,7 +1269,7 @@
       z-index: 20;
     }
     .notes.is-on { display: block; }
-    .notes .lab { font-size: 12px; font-weight: 500; letter-spacing: 0.4px; color: var(--klein); }
+    .notes .lab { font-size: 12px; font-weight: 500; letter-spacing: 0.4px; color: var(--klein-on-dark); }
     .notes .note-row {
       display: flex;
       gap: 10px;
@@ -1275,7 +1281,7 @@
     .notes .note-row b {
       flex: 0 0 2.5em;
       font-weight: 500;
-      color: var(--klein);
+      color: var(--klein-on-dark);
     }
     .notes .note-row span { flex: 1; min-width: 0; }
 
@@ -1297,12 +1303,12 @@
     }
     .toast.is-on { opacity: 1; }
 
-    /* 门前 — T7 街拍未落盘，纯 Klein。不渲染替代建筑。 */
+    /* 门前 — 黑场电影感。无 t7-3.jpg / door-still.webp 时纯色渐变，不渲染替代建筑。 */
     #loader {
       position: fixed;
       inset: 0;
       z-index: 200;
-      background: var(--klein);
+      background: var(--bg);
       overflow: hidden;
       transition: opacity 0.9s ease, visibility 0.9s;
     }
@@ -1314,7 +1320,10 @@
       inset: 0;
       overflow: hidden;
       pointer-events: none;
-      background: var(--klein);
+      background:
+        radial-gradient(ellipse 90% 55% at 50% 118%, rgba(20, 40, 80, 0.28), transparent 58%),
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0, 0, 0, 0.45), transparent 62%),
+        var(--bg);
     }
     .door-still {
       position: absolute;
@@ -1327,15 +1336,127 @@
       transform-origin: 22% 18%;
       transition: transform 1.35s cubic-bezier(.16, 1, .3, 1);
     }
+    .door-field::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.015) 0 1px, transparent 1px 3px);
+      opacity: 0.55;
+      pointer-events: none;
+    }
     .door-field::after {
       content: "";
       position: absolute;
       left: 0;
       right: 0;
       bottom: 0;
-      height: 40vh;
-      background: linear-gradient(0deg, rgba(0, 47, 167, 0.6) 0%, transparent 100%);
+      height: 42vh;
+      background: linear-gradient(0deg, rgba(7, 9, 13, 0.78) 0%, transparent 100%);
       pointer-events: none;
+    }
+    .door-chrome {
+      position: absolute;
+      left: 50%;
+      top: 38%;
+      transform: translate(-50%, -50%);
+      width: min(46vw, 460px);
+      height: min(32vh, 240px);
+      border: 1px solid var(--chrome);
+      border-radius: 2px;
+      z-index: 2;
+    }
+    .door-chrome-bar {
+      height: 22px;
+      border-bottom: 1px solid var(--chrome);
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      padding: 0 10px;
+    }
+    .door-chrome-bar i {
+      display: block;
+      width: 9px;
+      height: 9px;
+      box-sizing: border-box;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+    }
+    .door-chrome-bar .dc-min { height: 1px; align-self: center; border: 0; background: rgba(255, 255, 255, 0.55); }
+    .door-chrome-bar .dc-x {
+      position: relative;
+      border: 0;
+    }
+    .door-chrome-bar .dc-x::before,
+    .door-chrome-bar .dc-x::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 4px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.55);
+    }
+    .door-chrome-bar .dc-x::before { transform: rotate(45deg); }
+    .door-chrome-bar .dc-x::after { transform: rotate(-45deg); }
+    .door-slash {
+      position: absolute;
+      left: 50%;
+      top: calc(38% + min(18vh, 140px));
+      transform: translateX(-50%);
+      z-index: 2;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.32);
+      white-space: nowrap;
+    }
+    .door-mark {
+      position: absolute;
+      top: 7vh;
+      z-index: 2;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.38);
+      white-space: nowrap;
+    }
+    .door-mark-l { left: 5vw; }
+    .door-mark-l::after {
+      content: " —";
+      letter-spacing: 0;
+    }
+    .door-mark-r { right: 5vw; }
+    .door-mark-r::before {
+      content: "— ";
+      letter-spacing: 0;
+    }
+    .door-approach {
+      position: absolute;
+      left: clamp(28vw, 36vw, 42vw);
+      top: 22vh;
+      z-index: 4;
+      margin: 0;
+      font-family: "Segoe Script", "Apple Chancery", "Palatino Linotype", Palatino, serif;
+      font-style: italic;
+      font-size: clamp(16px, 2.1vw, 28px);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: var(--aurora);
+      opacity: 0.82;
+      transform: rotate(-8deg);
+      pointer-events: none;
+    }
+    .door-klein-tick {
+      position: absolute;
+      left: clamp(24px, 6vw, 88px);
+      bottom: clamp(210px, 38vh, 280px);
+      width: 28px;
+      height: 3px;
+      background: var(--klein);
+      z-index: 3;
     }
 
     .cine-word {
@@ -1349,6 +1470,7 @@
       letter-spacing: -0.07em;
       line-height: 0.82;
       color: rgba(255, 255, 255, 0.94);
+      text-shadow: var(--title-glow);
       pointer-events: none;
     }
     .cover .cine-word { display: none; }
@@ -1372,7 +1494,7 @@
       right: -40vw;
       bottom: -28px;
       height: 40vh;
-      background: linear-gradient(0deg, rgba(0, 47, 167, 0.6) 0%, transparent 100%);
+      background: linear-gradient(0deg, rgba(7, 9, 13, 0.72) 0%, transparent 100%);
       pointer-events: none;
       z-index: -1;
     }
@@ -1390,6 +1512,7 @@
       font-weight: 600;
       color: #fff;
       line-height: 1.2;
+      text-shadow: var(--title-glow);
     }
     .loader-sub {
       max-width: 26em;
@@ -1418,8 +1541,8 @@
       padding: 8px 14px;
       min-height: 40px;
       min-width: 120px;
-      background: #fff;
-      color: var(--klein);
+      background: var(--klein);
+      color: #fff;
       border: 0;
       border-radius: var(--r-md);
       font-size: 14px;
@@ -1430,10 +1553,10 @@
       transition: background 0.16s ease, box-shadow 0.16s ease;
     }
     .enter-btn:hover {
-      background: #f5f6f6;
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35), 0 0 28px rgba(255, 255, 255, 0.18);
+      background: var(--klein-hover);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18), 0 0 28px rgba(0, 47, 167, 0.45);
     }
-    .enter-btn:active { background: #eef0f1; }
+    .enter-btn:active { background: var(--klein-pressed); }
     .enter-btn:focus-visible { outline: 2px solid rgba(255, 255, 255, 0.5); outline-offset: 2px; }
     .loader-hint {
       margin: 0;
@@ -1485,8 +1608,8 @@
         right: 0;
         bottom: 0;
         z-index: 25;
-        background: var(--klein);
-        border-top: 0;
+        background: var(--bg);
+        border-top: 1px solid var(--line);
         height: var(--hud);
         min-height: var(--hud);
         max-height: var(--hud);
@@ -1556,9 +1679,9 @@
         min-height: calc(100dvh - var(--hud) - var(--dock));
       }
       .main:has(.cover.is-on) .dock {
-        background: var(--klein);
-        border-top: 0;
-        color: rgba(255, 255, 255, 0.7);
+        background: var(--bg);
+        border-top: 1px solid var(--line);
+        color: var(--dim);
       }
       .main:has(.cover.is-on) .edit-hint { color: rgba(255, 255, 255, 0.45); }
       .main:has(.cover.is-on) .nav-btns button,
@@ -1617,6 +1740,19 @@
         top: 7vh;
         font-size: clamp(4.4rem, 22vw, 6.4rem);
       }
+      .door-chrome {
+        width: min(72vw, 280px);
+        height: 120px;
+        top: 34%;
+      }
+      .door-slash { display: none; }
+      .door-approach {
+        left: 42vw;
+        top: 12vh;
+        font-size: 18px;
+      }
+      .door-mark { top: 3.5vh; letter-spacing: 0.22em; }
+      .door-klein-tick { display: none; }
       .loader-copy {
         left: 24px;
         right: 24px;
@@ -1637,12 +1773,13 @@
         min-height: var(--dock);
         max-height: var(--dock);
         box-sizing: border-box;
-        background: rgba(245, 246, 246, 0.94);
+        background: var(--bg);
         border-top: 1px solid var(--line);
         padding: 4px 8px;
         gap: 6px;
         flex-wrap: nowrap;
         overflow: hidden;
+        color: var(--dim);
       }
       .dock .dots { display: none; }
       .dock #edit-btn { display: none; }
@@ -1651,6 +1788,12 @@
         min-height: 36px;
         padding: 6px 10px;
         font-size: 13px;
+        background: var(--surface-1);
+        border-color: var(--line);
+        color: var(--ink);
+      }
+      body:has(.notes.is-on) .page {
+        padding-bottom: calc(var(--hud) + var(--dock) + 24px + 200px);
       }
       .copy-row button, .roles button { min-height: 44px; }
       .hint { font-size: 11px; }
@@ -1664,7 +1807,18 @@
 </head>
 <body>
   <div id="loader" role="dialog" aria-modal="true" aria-label="门前">
-    <div class="door-field" aria-hidden="true"></div>
+    <div class="door-field" aria-hidden="true">
+      <div class="door-chrome">
+        <div class="door-chrome-bar">
+          <i class="dc-min"></i><i class="dc-max"></i><i class="dc-x"></i>
+        </div>
+      </div>
+      <div class="door-slash">\ HTML+ /</div>
+      <span class="door-mark door-mark-l">POIZON Design</span>
+      <span class="door-mark door-mark-r">Open Class</span>
+      <span class="door-approach">Approach</span>
+      <span class="door-klein-tick"></span>
+    </div>
     <div class="cine-word">HTML+</div>
     <div class="loader-copy">
       <div class="loader-kicker">CHAPTER 00 · 门前</div>
