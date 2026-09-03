@@ -1,11 +1,115 @@
 # HTML+ 批次 C · 5.1 验收
 
-- 验收对象：`demos/html-plus-course/index.html`，分支 `cursor/html-plus-batch-c-59dc`，HEAD `1d02595`（PR #13，base = `cursor/html-plus-batch-b-b63a` @ `caa1061`，批次 B 已通过）。
+- 验收对象：`demos/html-plus-course/index.html`，分支 `cursor/html-plus-batch-c-59dc`（PR #13，base = `cursor/html-plus-batch-b-b63a` @ `caa1061`，批次 B 已通过）。
+- 首轮：HEAD `1d02595`，打回（P14 桌面第三行压 `.klein-bar`），记录见第 II 部分。
+- 复验：HEAD `48e2852`（`HTML+ 批次C：案例房间（修补 P14 第三行）`，`index.html` +4 / −1），记录见第 I 部分。
 - 验收依据：`OPTIMIZATION-5.1.md` §4 批次 C 成功标准 + §5.4 案例填充规则 + §5.1 / §5.2 / §5.3。
-- 验收方式：通读 `caa1061..1d02595` 全部 diff（`index.html` +227 / −31，另附 `QA-BATCH-B-5.1.md`）；`grep -c -F` 核对冻结句、禁词、`AI Coding`、`HyperFrames`；Chrome 148 无头渲染 1440×900、1280×800、1920×1080 与 390×844，脚本驱动 P13 / P14 / P15 / P16 全部点击路径，读取 `getBoundingClientRect` / `getComputedStyle` / `elementFromPoint`；`localStorage` 每次清空后再测。
-- 验收人：Fable 5.1 QA。本轮不改 `index.html`。
+- 验收方式：通读 diff；`grep -c -F` 核对冻结句、禁词、`AI Coding`、`HyperFrames`；Chrome 148 无头渲染 1440×900、1280×800、1920×1080 与 390×844，脚本驱动 P13 / P14 / P15 / P16 点击路径，读取 `getBoundingClientRect` / `getComputedStyle` / `elementFromPoint`；`localStorage` 每次清空后再测。
+- 验收人：Fable 5.1 QA。两轮均不改 `index.html`。
 
 ---
+
+# I. 复验（HEAD `48e2852`）
+
+## 结论：通过
+
+首轮唯一打回项 C-1（P14 选两款后桌面端第三行 07 / 08 / 09 被 `.klein-bar` 压 17.6px）已修复：`1d02595..48e2852` 的 `index.html` 改动只有两处——L954 新增全宽规则 `.case-extra .device:has(.nono-stage) { min-height: 304px; }`，删除 `@media (max-width: 979px)` 里原来的 `.device:has(.nono-stage) { aspect-ratio: auto; min-height: 300px; }`。与首轮 §2.1 给出的修法一致。
+
+首轮 §2.3 三条实测全部满足（桌面三种分辨率 + 390），P13 / P15 / P16 抽检未回归，冻结句 / 口径 / 禁词计数不变，无越批。
+
+**可以开批次 D。** 批次 D 开工时把第 II 部分 3.1（390 下案例框被 dock 压）、3.3（`#nono-out` 写 `localStorage`）一并带上；「P14 设备框 3:2 → 420×304」已在 PR #13 描述里单列「待 Hao 确认」，不阻塞批次 D。
+
+---
+
+## 1. 复验三条实测（§2.3，选 01 + 04 后）
+
+修补后四个视口的 P14 `.device-view` 都是 280px 高（首轮桌面 256、390 下 276），内部几何完全相同，所以四个视口的余量都是 6.4px。
+
+### 1.1 第一条：`.nono[data-no="07"]`（08 / 09 同）bottom ≤ 同一 `.device-view` 内 `.klein-bar` top
+
+| 视口 | `.device` | `.device-view` 高 | 07 / 08 / 09 top | 07 / 08 / 09 bottom | `.klein-bar` top | 余量 | 结果 |
+|---|---|---|---|---|---|---|---|
+| 1440×900 | 420×304 | 280 | 526.4 | **570.4** | **576.7** | 6.4 | ✓ |
+| 1280×800 | 420×304 | 280 | 517.3 | 561.3 | 567.6 | 6.4 | ✓ |
+| 1920×1080 | 420×304 | 280 | 481.7 | 525.7 | 532.1 | 6.4 | ✓ |
+| 390×844（`scrollY = 0`） | 358.8×304 | 280 | 721.2 | **765.2** | **771.6** | 6.4 | ✓ |
+| 390×844（滚到底 `scrollY = 113`） | 358.8×304 | 280 | 607.9 | 651.9 | 658.3 | 6.4 | ✓ |
+
+首轮桌面为 569.6 vs 552.0（压 17.6px）；现在 570.4 vs 576.7。截图（1440×900）第三行 `07 低帮 / 08 袜套 / 09 高帮` 三个标签完整露出，底栏两行完整。
+
+### 1.2 第二条：`document.elementFromPoint(格中心 x, 格 bottom − 8)` 返回该格本身或其 `<b>`
+
+| 视口 | 07 | 08 | 09 | 结果 |
+|---|---|---|---|---|
+| 1440×900 | `button.nono` | `button.nono` | `button.nono` | ✓ |
+| 1280×800 | `button.nono` | `button.nono` | `button.nono` | ✓ |
+| 1920×1080 | `button.nono` | `button.nono` | `button.nono` | ✓ |
+| 390×844（滚到底） | `button.nono` | `button.nono` | `button.nono` | ✓ |
+| 390×844（`scrollY = 0`） | dock 上一页按钮 | dock `.hint` | dock `.notes-btn` | 见下 |
+
+390 下 `scrollY = 0` 时命中的是 `.dock`（fixed，top 723 / bottom 780；HUD 780–844），不是 `.klein-bar`——格底 765.2 仍在底栏 top 771.6 之上，格中心 (743.2) 也在 dock 之下。这是首轮 3.1 已记录的批次 D 项（P2-4「390 宽全部 20 页无元素被 HUD 遮住」），与 C-1 无关，修补前后性质相同（页面可滚距离 109 → 113px，多的 4px 就是 300 → 304）。滚到底后 `elementFromPoint` 三格均命中格本身；实际 `touchscreen.tap` 在 07 的 (中心 x, bottom − 8) 上，07 被选中（`is-on` = 01 / 04 / 07），`hash` 仍 `#p14`，对比卡仍显示。**第二条按 §2.3 定义（针对 `.klein-bar`）通过**；dock 遮挡归批次 D。
+
+### 1.3 第三条：`#nono-compare` bottom ≤ `#nono` top，九格每格高 ≥ 44px
+
+| 视口 | 卡 `display` / 列数 / 高 | 卡 bottom | `#nono` top | 卡→格间距 | 九格高度 | 结果 |
+|---|---|---|---|---|---|---|
+| 1440×900 | `grid` / 2 / 61.2 | **418.4** | **426.4** | 8 | 9 × 44.0（min 44） | ✓ |
+| 1280×800 | `grid` / 2 / 61.2 | 409.3 | 417.3 | 8 | 9 × 44.0 | ✓ |
+| 1920×1080 | `grid` / 2 / 61.2 | 373.7 | 381.7 | 8 | 9 × 44.0 | ✓ |
+| 390×844 | `grid` / 2 / 61.2 | **613.2** | **621.2** | 8 | 9 × 44.0（min 44） | ✓ |
+
+字段：`no-a = 01 / no-b = 04`，`cut-a / cut-b / diff-a / diff-b` 均 `—`；`#nono-out` `display: none`；未选时格高 51.7（首轮 44 / 50.4，因框放高而增大），卡隐藏，`#nono-out`「点两款，看「比较」怎么发生。」。
+
+备注（不构成打回）：对比卡出现后 `#nono` 盒高 134，内容 `scrollHeight` 144，第三行靠 `overflow: visible` 溢出 `#nono` 10px，但仍在 `.nono-stage`（bottom = `.klein-bar` top）之内，6.4px 余量就是量到 `.nono-stage` 底。批次 D 若要给 `#nono` 加 `overflow`，需先把 `.nono-stage` 内的 `gap / padding` 收 10px，否则会再压回去。
+
+---
+
+## 2. 修法核对
+
+- L954：`.case-extra .device:has(.nono-stage) { min-height: 304px; }`，紧邻 `.nono-stage` 规则之前，不在任何 `@media` 内。`grep -n "nono-stage)"` 全文仅此 1 处，`@media (max-width: 979px)` 里的旧规则已删。
+- 计算样式：四个视口 P14 `.device` `min-height: 304px`、`aspect-ratio: 3 / 2`（390 下不再 `auto`，但 358.8 × 2⁄3 = 239.2 < 304，`min-height` 胜出），实测 304px 高。
+- 选择器带 `:has(.nono-stage)`，同环境对比 `1d02595` 与 `48e2852`：P13 `.device` 420×280 / view 250（390：358.8×239.2 / 209.2）、P15 420×280 / view 256（390：358.8×239.2 / 215.2），两个版本逐像素相同；只有 P14 变化（桌面 280 → 304，390 下 300 → 304）。
+- 未改 `grid-auto-rows: minmax(44px, 1fr)`、未给 `.nono-grid` 加滚动、未叠卡、未隐藏第三行（首轮 §2.2 三个不接受的方案均未出现）。
+
+---
+
+## 3. 回归抽检
+
+### 3.1 grep（`1d02595` → `48e2852`）
+
+| 项 | 计数 | 结果 |
+|---|---|---|
+| §5.3 冻结句 10 个 | `1/1、2/2、1/1、2/2 · 5/5 · 7/7 · 5/5、1/1、2/2、1/1` | 不变 ✓ |
+| `data-frozen` | 7 / 7 | ✓ |
+| `editSel` / `FROZEN` | 2 / 2、2 / 2 | ✓ |
+| `HyperFrames` | **1** | ✓ |
+| `AI Coding` | **4** | ✓（PR #13 仍列「待 Hao 确认」） |
+| `Cursor / Vite / React / vibe / Html大法 / 一份HTML N种形态 / 三招 / PlayCanvas` | 全部 **0** | ✓ |
+| `四级 / 层级` | 0 / 0；`等级` 1（P07 `data-note`，批次 A 前既有） | ✓ |
+| `蓝龙虾 / POIZON / 视频插件` | 5 / 3 / 3 | 不变 ✓ |
+| diff 行中含 `data-frozen / FROZEN / editSel / AI Coding / HyperFrames / data-note` | **0** 行 | ✓ |
+
+### 3.2 P13（桌面 + 390）
+
+四 tab `T恤* / 物流箱 / 奖杯 / 防伪`，默认 `T恤` 亮、`#tee` 可见、无占位显示；点 `物流箱` → `.mat-ph.is-on` 名称「物流箱」、`background: rgb(212,212,212)`、`#tee.is-off`、只亮一个 tab、`hash` 仍 `#p13`；占位 bottom < 底栏 top（1440：546.7 < 555.1；1280：555.2 < 563.7；1920：501.7 < 510.1；390：700.4 < 708.8）；回点 `T恤` 全部还原。**未回归。**
+
+### 3.3 P15（桌面 + 390）
+
+初始 `#hf` `display: none`、`font-size: 10px`、文字 `HyperFrames`；三键 `加上时间 / 加上转场 / 加上声音` 全点后 `#tl.is-on`、`#fake-page.is-sound`、`.wave` `display: block`、3 个按钮 `is-on`、`#hf` `display: block`；关掉「声音」后 `#hf` 回 `none`。**未回归。**
+
+### 3.4 P16（桌面 + 390）
+
+三个 `.who`（`周年物料 / NONO 九款 / 业务知多少`）`white-space: nowrap`，`Range.getClientRects()` 各 1 行，`scrollWidth == clientWidth`；桌面宽 112px，390 下 328.8px；`document.documentElement.scrollWidth == innerWidth`（1440 / 1280 / 1920 / 390 均无横向滚动）。**未回归。**
+
+### 3.5 其他
+
+- 四个视口全程 0 `pageerror` / 0 console error。
+- 提交范围：`48e2852` 只动 `demos/html-plus-course/index.html`（+4 / −1）与 `QA-BATCH-C-5.1.md`；commit 标题与首轮 §4 交接一致。
+- PR #13 描述已追加「P14 device frame 3:2 → ~420×304（≈1.38:1）待 Hao 确认」。PR 里 390 的复测数字（644.4 / 650.8）是滚动后的读数，与本轮 `scrollY = 0` 的 765.2 / 771.6、滚到底的 651.9 / 658.3 余量一致（6.4）。
+
+---
+
+# II. 首轮记录（HEAD `1d02595`，已被第 I 部分复验覆盖）
 
 ## 结论：打回
 
