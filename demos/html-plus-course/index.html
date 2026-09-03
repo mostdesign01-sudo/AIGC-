@@ -484,6 +484,16 @@
       line-height: 1.5;
       max-width: 42em;
     }
+    .def-page .quote {
+      flex: none;
+      max-width: none;
+      padding: clamp(18px, 2.6vw, 32px) clamp(18px, 2.2vw, 28px);
+      border-left-width: 3px;
+      font-size: clamp(20px, 2.2vw, 28px);
+      font-weight: 500;
+      letter-spacing: -0.3px;
+      line-height: 1.4;
+    }
 
     .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
     .pills span {
@@ -495,6 +505,23 @@
       font-weight: 500;
       color: var(--soft);
     }
+    .def-page .pills {
+      flex: none;
+      flex-wrap: nowrap;
+      gap: 12px;
+      margin-top: 10px;
+      overflow-x: auto;
+    }
+    .def-page .pills span {
+      border: 0;
+      background: transparent;
+      padding: 0;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: var(--dim);
+      white-space: nowrap;
+    }
 
     .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
     .vs article { padding: 16px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface-1); }
@@ -504,8 +531,33 @@
     .vs .new .lab { color: rgba(255, 255, 255, 0.78); }
     .vs h3 { margin-top: 8px; font-size: 18px; font-weight: 500; letter-spacing: -0.2px; }
 
+    .cognition {
+      margin-top: 14px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      background: var(--surface-2);
+      min-height: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .cognition .vs { margin-top: 0; gap: 8px; }
+    .cognition .vs article { padding: 10px 12px; }
+    .cognition .vs h3 { margin-top: 4px; font-size: 15px; }
+    .cognition .jobs { margin-top: 8px; }
+    .cognition .job-out { margin-top: 8px; }
+
     .jobs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
     .job { min-height: 72px; }
+    .cognition .job {
+      min-height: 0;
+      padding: 8px 10px 10px;
+    }
+    .cognition .job h3 { margin-top: 2px; font-size: 14px; }
+    .cognition .job:hover h3,
+    .cognition .job.is-on h3 { font-size: 15px; }
     .job-out {
       margin-top: 12px;
       min-height: 28px;
@@ -514,14 +566,15 @@
     }
     .job-out b { color: var(--klein); font-weight: 500; }
 
-    .compare { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 24px; flex: 1; }
+    .compare { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 24px; align-items: start; }
     .compare article {
-      padding: 16px 16px 20px;
+      padding: 14px 14px 16px;
       border: 1px solid var(--line);
       border-radius: var(--r-lg);
       background: var(--surface-1);
       display: flex;
       flex-direction: column;
+      min-height: 0;
     }
     .compare article.is-html {
       border-color: transparent;
@@ -531,9 +584,17 @@
     .compare .kind { font-size: 12px; font-weight: 500; letter-spacing: 0.4px; color: var(--dim); }
     .compare article.is-html .kind { color: rgba(255, 255, 255, 0.78); }
     .compare article.is-html .more { color: rgba(255, 255, 255, 0.75); }
-    .compare h3 { margin-top: 10px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; }
-    .compare .use { margin-top: 12px; font-size: 15px; font-weight: 500; line-height: 1.4; }
-    .compare .more { margin-top: auto; padding-top: 16px; font-size: 13px; color: var(--soft); line-height: 1.5; }
+    .compare h3 { margin-top: 6px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; }
+    .compare .use { margin-top: 8px; font-size: 15px; font-weight: 500; line-height: 1.4; }
+    .compare .more {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--soft);
+      line-height: 1.5;
+    }
+    .compare article.is-html .more { border-top-color: rgba(255, 255, 255, 0.16); }
 
     .flow { display: flex; align-items: stretch; gap: 0; margin-top: 24px; }
     .flow-step {
@@ -558,15 +619,58 @@
     .demo {
       border: 1px solid var(--line);
       border-radius: var(--r-xl);
-      padding: 16px 16px 42px;
+      padding: 16px;
       background: var(--surface-2);
       display: flex;
       flex-direction: column;
       position: relative;
       overflow: hidden;
+      --klein-bar-space: calc(2.8em + 16px);
     }
     .demo h3 { font-size: 18px; font-weight: 500; letter-spacing: -0.2px; }
-    .roles { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .demo-hold, .demo-org {
+      padding: 6px 8px;
+      margin: 0 -8px;
+      border-radius: var(--r-md);
+      transition: background 180ms ease, box-shadow 180ms ease;
+    }
+    .demo-ask {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--soft);
+    }
+    .demo .is-hl {
+      background: #fff;
+      box-shadow: inset 3px 0 0 var(--aurora);
+    }
+    .demo-punch {
+      display: none;
+      margin-top: auto;
+      padding-top: 16px;
+      font-size: clamp(18px, 2vw, 22px);
+      font-weight: 500;
+      letter-spacing: -0.2px;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+    .demo-punch.is-in {
+      display: block;
+      animation: punch-in 420ms ease both;
+    }
+    @keyframes punch-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes role-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0, 47, 167, 0.28); }
+      50% { box-shadow: 0 0 0 6px rgba(0, 47, 167, 0); }
+    }
+    .roles.is-pulse button { animation: role-pulse 560ms ease 2; }
+    @media (prefers-reduced-motion: reduce) {
+      .demo-punch.is-in { animation: none; }
+      .roles.is-pulse button { animation: none; }
+    }
+    .roles { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
     .roles button {
       border: 1px solid var(--line);
       border-radius: var(--r-md);
@@ -625,33 +729,43 @@
     }
     .scene-mini button.is-on { border-color: transparent; background: #fff; color: var(--klein); }
 
-    .decide { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 16px; margin-top: 16px; flex: 1; }
-    .rows { display: grid; gap: 8px; }
+    .decide { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 16px; margin-top: 16px; align-items: start; }
+    .rows { display: grid; gap: 8px; align-content: start; }
     .rows li {
       list-style: none;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items: baseline;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
       border: 1px solid var(--line);
       border-radius: var(--r-lg);
-      background: var(--surface-1);
+      background: var(--surface-2);
+      color: var(--dim);
       padding: 10px 12px;
       font-size: 14px;
+      text-align: left;
     }
     .rows { margin: 0; padding: 0; }
-    .rows b { color: var(--ink); font-weight: 500; }
+    .rows .step { font-size: 12px; font-weight: 500; letter-spacing: 0.4px; }
+    .rows b { color: var(--soft); font-weight: 500; }
+    .rows p { margin: 0; font-size: 13px; line-height: 1.45; }
+    .rows li:nth-child(2) { width: calc(100% - 16px); margin-left: 16px; }
+    .rows li:nth-child(3) { width: calc(100% - 32px); margin-left: 32px; }
+    .rows li:nth-child(4) { width: calc(100% - 48px); margin-left: 48px; }
     .rows li:last-child { background: var(--klein); color: #fff; border-color: transparent; }
-    .rows li:last-child b { color: #fff; }
+    .rows li:last-child b,
+    .rows li:last-child .step { color: #fff; }
     .checks { display: grid; gap: 8px; }
     .check {
       display: grid;
       grid-template-columns: 28px 1fr;
       gap: 8px;
       align-items: start;
+      justify-items: start;
       padding: 10px 12px;
       font-size: 14px;
       line-height: 1.45;
+      text-align: left;
     }
     .check .n { color: var(--klein); font-weight: 600; }
     .check.is-on, .check.is-stop { background: var(--klein); color: #fff; border-color: transparent; }
@@ -1284,8 +1398,18 @@
       }
       .watermark { display: none; }
       .grid3, .grid4, .compare, .beats4, .qs, .list4, .jobs, .dims, .doors, .actions { grid-template-columns: 1fr; }
-      .grid6, .nono-grid { grid-template-columns: repeat(3, 1fr); }
+      .grid6, .nono-grid, .cognition .jobs { grid-template-columns: repeat(3, 1fr); }
       .split, .decide, .case-extra, .sum3 article, .vs { grid-template-columns: 1fr; }
+      .def-page .pills { flex-wrap: wrap; }
+      .cognition { display: flex; flex-direction: column; }
+      .cognition .vs { display: contents; }
+      .cognition .old { display: none; }
+      .cognition .new { order: 1; }
+      .cognition .jobs { order: 2; }
+      .cognition .job-out { order: 3; }
+      .rows li:nth-child(2),
+      .rows li:nth-child(3),
+      .rows li:nth-child(4) { width: auto; margin-left: 0; }
       .flow, .chain { flex-wrap: wrap; }
       .beat {
         display: grid;
@@ -1320,7 +1444,7 @@
         max-width: none;
       }
       .cover h1 { max-width: 14em; }
-      .demo { padding-bottom: 48px; }
+      .demo { padding-bottom: 16px; }
       .device { width: 100%; }
       .hint.desk { display: none; }
       .dock {
@@ -1341,6 +1465,7 @@
     @media (min-width: 600px) and (max-width: 979px) {
       .grid4, .compare, .beats4, .qs, .list4, .jobs, .actions { grid-template-columns: repeat(2, 1fr); }
       .grid3, .dims, .doors { grid-template-columns: repeat(2, 1fr); }
+      .cognition .jobs { grid-template-columns: repeat(3, 1fr); }
     }
   </style>
 </head>
@@ -1390,8 +1515,8 @@
 
           <section class="page cover klein-field is-on" data-ch="0" data-note="先停在开场问题上：内容写好了，别人却看不懂、不想看、不会用。四个拍子只点一下：文档变成页面，再变成能点、能分享。">
             <p class="who">POIZON 全员课</p>
-            <h1>《HTML+：AI 时代的<br>工作表达新方式》</h1>
-            <p class="sub">不用学编程，也能做出能讲、能点、能分享的工作成果</p>
+            <h1 data-frozen>《HTML+：AI 时代的<br>工作表达新方式》</h1>
+            <p class="sub" data-frozen>不用学编程，也能做出能讲、能点、能分享的工作成果</p>
             <div class="beat" aria-hidden="true">
               <b>文档</b><i></i><b>页面</b><i></i><b>交互</b><i></i><b class="is-last">分享</b>
             </div>
@@ -1416,25 +1541,27 @@
             <span class="watermark">01</span>
           </section>
 
-          <section class="page" data-ch="1" data-note="先读定义，一字不改。再点岗位卡：每个岗位都能借 AI 做轻量工作界面。">
+          <section class="page def-page" data-ch="1" data-note="先读定义，一字不改。再点岗位卡：每个岗位都能借 AI 做轻量工作界面。">
             <p class="kicker">P04<em>·</em>定义</p>
-            <p class="quote">HTML 是一种可以被浏览器直接打开的内容容器。借助 AI，我们可以把文字、图片、数据和流程，快速变成一个可查看、可点击、可演示的工作界面。</p>
+            <p class="quote" data-frozen>HTML 是一种可以被浏览器直接打开的内容容器。借助 AI，我们可以把文字、图片、数据和流程，快速变成一个可查看、可点击、可演示的工作界面。</p>
             <div class="pills" aria-label="装得下的工作内容">
               <span>文字图片</span><span>视频动画</span><span>表格图表</span><span>按钮选择</span><span>流程跳转</span><span>简单计算</span>
             </div>
-            <div class="vs">
-              <article class="old"><div class="lab">旧认知</div><h3>程序员做网页</h3></article>
-              <article class="new"><div class="lab">新认知</div><h3>每个岗位都能借 AI 做的轻量工作界面</h3></article>
+            <div class="cognition">
+              <div class="vs">
+                <article class="old"><div class="lab">旧认知</div><h3>程序员做网页</h3></article>
+                <article class="new"><div class="lab">新认知</div><h3>每个岗位都能借 AI 做的轻量工作界面</h3></article>
+              </div>
+              <div class="jobs" id="jobs">
+                <button class="job" data-job="新同学第一天该去哪、找谁、带什么"><span class="tag">HR</span><h3>入职导航</h3></button>
+                <button class="job" data-job="选场次、看名额、当场确认参加"><span class="tag">行政</span><h3>报名指引</h3></button>
+                <button class="job" data-job="按条件筛，留下要跟的那几条"><span class="tag">运营</span><h3>筛选看板</h3></button>
+                <button class="job" data-job="点开关键路径，看卡住的地方"><span class="tag">产品</span><h3>可点原型</h3></button>
+                <button class="job" data-job="换方案、比材质，当场对齐"><span class="tag">设计</span><h3>动态提案</h3></button>
+                <button class="job" data-job="边看边练，而不是只听"><span class="tag">培训</span><h3>可操作课件</h3></button>
+              </div>
+              <p class="job-out" id="job-out">点一张岗位卡，看它装的是哪类工作内容。</p>
             </div>
-            <div class="jobs" id="jobs">
-              <button class="job" data-job="新同学第一天该去哪、找谁、带什么"><span class="tag">HR</span><h3>入职导航</h3></button>
-              <button class="job" data-job="选场次、看名额、当场确认参加"><span class="tag">行政</span><h3>报名指引</h3></button>
-              <button class="job" data-job="按条件筛，留下要跟的那几条"><span class="tag">运营</span><h3>筛选看板</h3></button>
-              <button class="job" data-job="点开关键路径，看卡住的地方"><span class="tag">产品</span><h3>可点原型</h3></button>
-              <button class="job" data-job="换方案、比材质，当场对齐"><span class="tag">设计</span><h3>动态提案</h3></button>
-              <button class="job" data-job="边看边练，而不是只听"><span class="tag">培训</span><h3>可操作课件</h3></button>
-            </div>
-            <p class="job-out" id="job-out">点一张岗位卡，看它装的是哪类工作内容。</p>
           </section>
 
           <section class="page" data-ch="1" data-note="四列对照：共同改稿用文档表格，现场线性讲用 PPT，固定节奏用视频。HTML 负责查看、选择、互动、复用。">
@@ -1472,10 +1599,10 @@
             <p class="ch-no">02  HTML 可以做什么</p>
             <p class="gold">普通文件把内容交给你，<br>HTML 还可以回应你的操作。</p>
             <div class="flow">
-              <div class="flow-step"><div class="n">01</div><h3>文档</h3><p>活动资料写在一处</p></div><i></i>
-              <div class="flow-step"><div class="n">02</div><h3>清晰页</h3><p>打开就能看懂结构</p></div><i></i>
-              <div class="flow-step"><div class="n">03</div><h3>可选择</h3><p>按身份点进去</p></div><i></i>
-              <div class="flow-step"><div class="n">04</div><h3>给出结果</h3><p>拿到自己的下一步</p></div>
+              <div class="flow-step"><div class="n">01</div><h3>装下内容</h3><p>通知、流程、注意在一页</p></div><i></i>
+              <div class="flow-step"><div class="n">02</div><h3>组织信息</h3><p>先选身份再看流程</p></div><i></i>
+              <div class="flow-step"><div class="n">03</div><h3>接收操作</h3><p>点一下，页知道你是谁</p></div><i></i>
+              <div class="flow-step"><div class="n">04</div><h3>给出回应</h3><p>拿到自己的下一步</p></div>
             </div>
             <span class="watermark">02</span>
           </section>
@@ -1493,17 +1620,21 @@
                 </div>
               </div>
               <div class="demo" id="demo">
-                <div class="tag">活动通知</div>
-                <h3>本周六开放日</h3>
-                <p style="margin-top:8px;font-size:13px;color:var(--soft)">请选择你的身份，看对应流程。</p>
-                <div class="roles" id="roles">
-                  <button data-role="new">新同学</button>
-                  <button data-role="vol">志愿者</button>
-                  <button data-role="vip">嘉宾</button>
-                  <button data-role="org">组织者</button>
+                <div class="demo-hold">
+                  <div class="tag">活动通知</div>
+                  <h3>本周六开放日</h3>
+                </div>
+                <div class="demo-org">
+                  <p class="demo-ask">请选择你的身份，看对应流程。</p>
+                  <div class="roles" id="roles">
+                    <button data-role="new">新同学</button>
+                    <button data-role="vol">志愿者</button>
+                    <button data-role="vip">嘉宾</button>
+                    <button data-role="org">组织者</button>
+                  </div>
                 </div>
                 <p class="next-step" id="next-step">还没选。点一个身份，看内容怎么变。</p>
-                <div class="klein-bar">HTML 最特别的地方，不是内容更多，而是<u>内容可以根据人的操作发生变化</u>。</div>
+                <p class="demo-punch" id="punchline" data-frozen aria-hidden="true">HTML 最特别的地方，不是内容更多，而是内容可以根据人的操作发生变化。</p>
               </div>
             </div>
           </section>
@@ -1561,10 +1692,10 @@
             <h2>价值不是看起来像网站，<br>是减少解释和重复劳动</h2>
             <div class="decide">
               <ul class="rows">
-                <li>共同编辑<b>文档表格</b></li>
-                <li>现场线性讲<b>PPT</b></li>
-                <li>固定节奏传播<b>视频</b></li>
-                <li>查看 · 选择 · 互动 · 复用<b>HTML</b></li>
+                <li><span class="step">先排除</span><b>文档表格</b><p>还在一起改文字和数字，这样就够了。</p></li>
+                <li><span class="step">先排除</span><b>PPT</b><p>只要顺着一条线讲完，这样就够了。</p></li>
+                <li><span class="step">先排除</span><b>视频</b><p>只要按固定节奏播出去，这样就够了。</p></li>
+                <li><span class="step">留下</span><b>HTML</b><p>别人要自己看、自己选、自己走下一步。</p></li>
               </ul>
               <div>
                 <p class="tag">三自检</p>
@@ -1749,7 +1880,7 @@
             <p class="kicker">P19<em>·</em>打开蓝龙虾</p>
             <h2>先填谁、什么事，再生成能打开的一版</h2>
             <div class="prompt">
-              <pre id="prompt">我想把这份材料做成一个可以直接打开的 HTML。使用者是【谁】，需要完成【什么事】。请先帮我整理内容结构，再生成一个简单、清楚、容易使用的版本。</pre>
+              <pre id="prompt" data-frozen>我想把这份材料做成一个可以直接打开的 HTML。使用者是【谁】，需要完成【什么事】。请先帮我整理内容结构，再生成一个简单、清楚、容易使用的版本。</pre>
               <div class="copy-row">
                 <button type="button" id="copy-btn">复制提示词</button>
                 <span id="copy-state">整段复制，到蓝龙虾里贴上。</span>
@@ -1765,7 +1896,7 @@
 
           <section class="page close-page klein-field" data-ch="5" data-note="结课句一字不改。停住，把房间还给他们。">
             <p class="who">结课</p>
-            <p class="gold">未来真正重要的，不是每个人都会写代码，而是每个人都能把自己的专业判断，变成别人可以直接使用的成果。</p>
+            <p class="gold" data-frozen>未来真正重要的，不是每个人都会写代码，而是每个人都能把自己的专业判断，变成别人可以直接使用的成果。</p>
           </section>
 
         </div>
@@ -1807,6 +1938,10 @@
       const enterBtn = document.getElementById("enter-btn");
       const loaderBar = document.getElementById("loader-bar");
       const chStarts = [0, 2, 5, 7, 11, 16];
+      const FROZEN = {
+        title: "《HTML+：AI 时代的工作表达新方式》",
+        prompt: "我想把这份材料做成一个可以直接打开的 HTML。使用者是【谁】，需要完成【什么事】。请先帮我整理内容结构，再生成一个简单、清楚、容易使用的版本。"
+      };
       let index = 0;
       let notesOn = false;
       let started = false;
@@ -1953,26 +2088,64 @@
         org: "<b>组织者</b>　打开当日清单，先核对 9:00 节点。"
       };
       const nextStep = document.getElementById("next-step");
-      document.getElementById("roles").addEventListener("click", (e) => {
+      const punchline = document.getElementById("punchline");
+      const demo = document.getElementById("demo");
+      const rolesBox = document.getElementById("roles");
+      let rolePicked = false;
+      function clearDemoHL() {
+        demo.querySelectorAll(".is-hl").forEach((el) => el.classList.remove("is-hl"));
+        rolesBox.classList.remove("is-pulse");
+      }
+      function highlightAct(act) {
+        clearDemoHL();
+        if (act === "hold") demo.querySelector(".demo-hold").classList.add("is-hl");
+        if (act === "org") demo.querySelector(".demo-org").classList.add("is-hl");
+        if (act === "recv") {
+          rolesBox.classList.add("is-hl");
+          void rolesBox.offsetWidth;
+          rolesBox.classList.add("is-pulse");
+        }
+        if (act === "reply") nextStep.classList.add("is-hl");
+      }
+      function revealPunch() {
+        if (punchline.classList.contains("is-in")) return;
+        punchline.classList.add("is-in");
+        punchline.setAttribute("aria-hidden", "false");
+      }
+      function lightActionsInOrder() {
+        const picks = [...document.querySelectorAll("#actions .pick")];
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        picks.forEach((p, i) => {
+          if (reduce) p.classList.add("is-on");
+          else setTimeout(() => p.classList.add("is-on"), i * 80);
+        });
+      }
+      rolesBox.addEventListener("click", (e) => {
         if (e.target.closest("[contenteditable='true']")) return;
         const btn = e.target.closest("button");
         if (!btn) return;
         document.querySelectorAll("#roles button").forEach((b) => b.classList.toggle("is-on", b === btn));
-        document.querySelectorAll("#actions .pick").forEach((p) => {
-          p.classList.toggle("is-on", p.dataset.act === "recv" || p.dataset.act === "reply");
-        });
+        rolePicked = true;
+        lightActionsInOrder();
         nextStep.innerHTML = roles[btn.dataset.role];
+        revealPunch();
+        highlightAct("reply");
         persistEdits();
       });
       document.getElementById("actions").addEventListener("click", (e) => {
         if (e.target.closest("[contenteditable='true']")) return;
         const btn = e.target.closest(".pick");
         if (!btn) return;
-        document.querySelectorAll("#actions .pick").forEach((p) => p.classList.toggle("is-on", p === btn));
-        if (btn.dataset.act === "hold") nextStep.innerHTML = "这一页<b>装下了</b>时间、地点、身份和注意。先保证内容在。";
-        if (btn.dataset.act === "org") nextStep.innerHTML = "信息被<b>组织</b>成：先选身份，再看对应流程。";
-        if (btn.dataset.act === "recv") nextStep.innerHTML = "现在轮到人操作。点上面的身份，页才知道你是谁。";
-        if (btn.dataset.act === "reply") nextStep.innerHTML = "选完身份，页<b>给出回应</b>：每个人拿到自己的下一步。";
+        if (rolePicked) {
+          document.querySelectorAll("#actions .pick").forEach((p) => p.classList.add("is-on"));
+        } else {
+          document.querySelectorAll("#actions .pick").forEach((p) => p.classList.toggle("is-on", p === btn));
+          if (btn.dataset.act === "hold") nextStep.innerHTML = "这一页<b>装下了</b>时间、地点、身份和注意。先保证内容在。";
+          if (btn.dataset.act === "org") nextStep.innerHTML = "信息被<b>组织</b>成：先选身份，再看对应流程。";
+          if (btn.dataset.act === "recv") nextStep.innerHTML = "现在轮到人操作。点上面的身份，页才知道你是谁。";
+          if (btn.dataset.act === "reply") nextStep.innerHTML = "选完身份，页<b>给出回应</b>：每个人拿到自己的下一步。";
+        }
+        highlightAct(btn.dataset.act);
         persistEdits();
       });
 
@@ -1995,8 +2168,8 @@
       document.getElementById("checks").addEventListener("click", (e) => {
         if (e.target.closest("[contenteditable='true']")) return;
         const btn = e.target.closest(".check");
-        if (!btn) return;
-        document.querySelectorAll("#checks .check").forEach((c) => c.classList.toggle("is-on", c === btn));
+        if (!btn || btn.classList.contains("is-stop")) return;
+        document.querySelectorAll("#checks .check:not(.is-stop)").forEach((c) => c.classList.toggle("is-on", c === btn));
       });
 
       document.querySelectorAll("[data-beats]").forEach((box) => {
@@ -2063,9 +2236,8 @@
         persistEdits();
       });
 
-      const promptEl = document.getElementById("prompt");
       document.getElementById("copy-btn").addEventListener("click", async () => {
-        const promptText = (promptEl.innerText || promptEl.textContent || "").replace(/\u00a0/g, " ").trim();
+        const promptText = FROZEN.prompt;
         try {
           await navigator.clipboard.writeText(promptText);
         } catch {
