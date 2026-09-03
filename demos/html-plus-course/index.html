@@ -1318,7 +1318,7 @@
       transition: opacity 0.9s ease, visibility 0.9s;
     }
     #loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
-    #loader.done .loader-copy,
+    #loader.done .door-hero,
     #loader.done .door-cta { opacity: 0; transition: opacity 0.15s ease; }
 
     .door-scroller {
@@ -1332,7 +1332,7 @@
       scroll-timeline-axis: block;
     }
     .door-scroller::-webkit-scrollbar { width: 0; height: 0; }
-    .door-track { height: 150vh; position: relative; }
+    .door-track { height: 185vh; position: relative; }
     .door-sticky {
       position: sticky;
       top: 0;
@@ -1346,9 +1346,9 @@
       pointer-events: none;
       will-change: transform;
     }
-    .door-l1 { z-index: 1; }
-    .door-l2 { z-index: 2; }
-    .door-l3 { z-index: 3; }
+    .door-mid { z-index: 1; }
+    .door-near { z-index: 4; }
+    .door-read { z-index: 3; }
 
     .door-still {
       position: absolute;
@@ -1356,177 +1356,247 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center center;
+      object-position: center 46%;
     }
-    .door-l3::before {
-      content: "";
+
+    .door-vignette,
+    .door-grain {
       position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 36vh;
-      background: linear-gradient(0deg, rgba(7, 9, 13, 0.62) 0%, transparent 100%);
+      inset: 0;
       pointer-events: none;
     }
-    .door-frame-32 {
-      position: absolute;
-      left: 50%;
-      top: 46%;
-      width: min(58vw, 580px);
-      aspect-ratio: 3 / 2;
-      transform: translate(-50%, -50%);
-      border: 1px solid var(--chrome);
-      border-radius: 2px;
-      opacity: 0.42;
+    .door-vignette {
+      z-index: 55;
+      background:
+        linear-gradient(rgba(7, 9, 13, 0.52), rgba(7, 9, 13, 0.18) 28%, transparent 46%),
+        linear-gradient(to top, rgba(7, 9, 13, 0.62), rgba(7, 9, 13, 0.2) 28%, transparent 48%),
+        radial-gradient(125% 95% at 50% 42%, transparent 40%, rgba(7, 9, 13, 0.58) 100%);
     }
-    .door-chrome {
+    .door-grain {
+      z-index: 60;
+      inset: -1px;
+      opacity: 0.055;
+      mix-blend-mode: overlay;
+      background-repeat: repeat;
+      background-size: 180px 180px;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    }
+
+    .door-fg { position: absolute; inset: 0; }
+    .door-tick {
       position: absolute;
-      left: 50%;
-      top: 38%;
-      transform: translate(-50%, -50%);
-      width: min(46vw, 460px);
-      height: min(32vh, 240px);
+      width: 22px;
+      height: 22px;
+      border-color: rgba(255, 255, 255, 0.42);
+      border-style: solid;
+      border-width: 0;
+    }
+    .door-tick-tl { top: 16px; left: 16px; border-top-width: 1px; border-left-width: 1px; }
+    .door-tick-tr { top: 16px; right: 16px; border-top-width: 1px; border-right-width: 1px; }
+    .door-tick-bl { bottom: 16px; left: 16px; border-bottom-width: 1px; border-left-width: 1px; }
+    .door-tick-br { bottom: 16px; right: 16px; border-bottom-width: 1px; border-right-width: 1px; }
+
+    .door-peek {
+      position: absolute;
+      right: clamp(56px, 7vw, 120px);
+      bottom: clamp(96px, 18vh, 168px);
+      width: clamp(148px, 16vw, 228px);
+    }
+    .door-peek-fr {
+      display: block;
+      aspect-ratio: 3 / 2;
       border: 1px solid var(--chrome);
-      border-radius: 2px;
-      z-index: 2;
+      background: transparent;
+      box-shadow: 0 28px 60px -28px rgba(0, 0, 0, 0.7);
     }
     .door-chrome-bar {
-      height: 22px;
+      height: 20px;
       border-bottom: 1px solid var(--chrome);
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      gap: 10px;
-      padding: 0 10px;
+      gap: 8px;
+      padding: 0 8px;
     }
     .door-chrome-bar i {
       display: block;
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       box-sizing: border-box;
-      border: 1px solid rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.5);
     }
-    .door-chrome-bar .dc-min { height: 1px; align-self: center; border: 0; background: rgba(255, 255, 255, 0.55); }
-    .door-chrome-bar .dc-x {
-      position: relative;
-      border: 0;
-    }
+    .door-chrome-bar .dc-min { height: 1px; align-self: center; border: 0; background: rgba(255, 255, 255, 0.5); }
+    .door-chrome-bar .dc-x { position: relative; border: 0; }
     .door-chrome-bar .dc-x::before,
     .door-chrome-bar .dc-x::after {
       content: "";
       position: absolute;
       left: 0;
       right: 0;
-      top: 4px;
+      top: 3px;
       height: 1px;
-      background: rgba(255, 255, 255, 0.55);
+      background: rgba(255, 255, 255, 0.5);
     }
     .door-chrome-bar .dc-x::before { transform: rotate(45deg); }
     .door-chrome-bar .dc-x::after { transform: rotate(-45deg); }
     .door-slash {
       position: absolute;
-      left: 50%;
-      top: calc(38% + min(18vh, 140px));
-      transform: translateX(-50%);
-      z-index: 2;
-      font-size: 11px;
+      right: clamp(56px, 7vw, 120px);
+      bottom: clamp(72px, 14vh, 132px);
+      font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.38em;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.32);
+      color: rgba(255, 255, 255, 0.36);
       white-space: nowrap;
     }
     .cine-word { display: none; }
     .cover .cine-word { display: none; }
 
-    .loader-copy,
-    .door-title-float {
+    .door-hero {
       position: absolute;
-      left: clamp(24px, 6vw, 88px);
-      bottom: clamp(132px, 24vh, 220px);
+      inset: 0;
       z-index: 3;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
-      text-align: left;
-      max-width: 28em;
+      padding: clamp(20px, 3.4vw, 56px);
+      pointer-events: none;
+    }
+    .door-hero-top { position: relative; z-index: 2; max-width: min(560px, 46vw); }
+    .door-hero-spacer { flex: 1 1 auto; min-height: clamp(80px, 18vh, 220px); }
+    .door-hero-foot {
+      position: relative;
+      z-index: 2;
+      max-width: 420px;
+      padding-bottom: 12px;
     }
     .door-cta {
-      position: absolute;
-      left: clamp(24px, 6vw, 88px);
-      bottom: clamp(28px, 8vh, 72px);
-      z-index: 4;
+      position: relative;
+      z-index: 5;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 10px;
+      gap: 14px;
       pointer-events: auto;
     }
-    .door-scroll-cue {
-      width: 10px;
-      height: 10px;
-      margin-top: 2px;
-      border-right: 1px solid rgba(255, 255, 255, 0.45);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.45);
-      transform: rotate(45deg);
-      opacity: 0.7;
-      animation: door-cue 1.6s ease-in-out infinite;
-    }
-    @keyframes door-cue {
-      0%, 100% { opacity: 0.35; transform: rotate(45deg) translateY(0); }
-      50% { opacity: 0.85; transform: rotate(45deg) translateY(4px); }
-    }
-    .loader-kicker {
-      font-size: 13px;
+    .door-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.55);
-      line-height: 1.3;
-    }
-    .loader-title {
-      font-size: clamp(22px, 3.2vw, 32px);
-      letter-spacing: -0.6px;
-      font-weight: 600;
-      color: #fff;
+      color: rgba(255, 255, 255, 0.62);
       line-height: 1.2;
+    }
+    .door-eyebrow .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--aurora);
+      box-shadow: 0 0 10px rgba(1, 194, 195, 0.7);
+      flex: none;
+    }
+    .door-mark {
+      margin: 0 0 12px;
+      font-size: clamp(2.4rem, 7.2vw, 5.4rem);
+      font-weight: 600;
+      letter-spacing: -0.012em;
+      line-height: 0.98;
+      color: #fff;
       text-shadow: var(--title-glow);
     }
-    .loader-sub {
-      max-width: 26em;
+    .door-lede {
       margin: 0;
-      font-size: clamp(14px, 1.5vw, 16px);
-      font-weight: 400;
-      line-height: 1.5;
-      letter-spacing: -0.05px;
-      color: rgba(255, 255, 255, 0.72);
+      max-width: 320px;
+      font-size: clamp(13px, 1.05vw, 16px);
+      font-weight: 300;
+      line-height: 1.7;
+      letter-spacing: 0.01em;
+      color: rgba(255, 255, 255, 0.68);
     }
-    .loader-bar {
-      width: 48px;
-      height: 2px;
-      background: rgba(255, 255, 255, 0.2);
+    [data-rv] { opacity: 0; }
+    [data-rv="up"] { transform: translate3d(0, 26px, 0); }
+    [data-rv="fade"] { transform: none; }
+    [data-rv].rv-in {
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: var(--rv-delay, 0ms);
+    }
+    .mask-line { display: block; overflow: hidden; }
+    .mask-line > span {
+      display: block;
+      transform: translate3d(0, 110%, 0);
+      transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: var(--rv-delay, 0ms);
+    }
+    .rv-in.mask-line > span,
+    .rv-in .mask-line > span { transform: none; }
+
+    .door-cue {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.46);
+    }
+    .door-cue .track {
+      width: 54px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.16);
+      position: relative;
       overflow: hidden;
     }
-    .loader-bar-fill {
-      width: 0;
-      height: 100%;
-      background: var(--aurora);
-      transition: width 1s ease;
+    .door-cue .track i {
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      transform-origin: left;
+      animation: door-cue-sweep 2.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
     }
-    .loader-bar-fill.is-ready { width: 100%; }
+    @keyframes door-cue-sweep {
+      0% { transform: scaleX(0); }
+      42% { transform: scaleX(1); }
+      100% { transform: scaleX(1) translateX(100%); }
+    }
+    .door-side {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+    .door-side-l { left: clamp(10px, 1.6vw, 22px); }
+    .door-side-r { right: clamp(10px, 1.6vw, 22px); }
+    .door-side .v {
+      writing-mode: vertical-rl;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.46em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.42);
+    }
     .enter-btn {
-      margin-top: 4px;
-      padding: 8px 14px;
+      margin-top: 2px;
+      padding: 10px 18px;
       min-height: 40px;
-      min-width: 120px;
+      min-width: 132px;
       background: var(--klein);
       color: #fff;
       border: 0;
       border-radius: var(--r-md);
       font-size: 14px;
       font-weight: 500;
-      letter-spacing: 0;
+      letter-spacing: 0.04em;
       line-height: 1.2;
       cursor: pointer;
       transition: background 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
@@ -1538,49 +1608,53 @@
     }
     .enter-btn:active { background: var(--klein-pressed); }
     .enter-btn:focus-visible { outline: 2px solid rgba(255, 255, 255, 0.5); outline-offset: 2px; }
-    .loader-hint {
-      margin: 0;
-      font-size: 12px;
-      letter-spacing: 0;
-      color: rgba(255, 255, 255, 0.5);
-    }
     @supports (animation-timeline: scroll()) {
-      .door-l1 {
-        animation: door-l1 linear both;
+      .door-mid {
+        animation: door-mid linear both;
         animation-timeline: --door;
       }
-      .door-l2 {
-        animation: door-l2 linear both;
+      .door-near {
+        animation: door-near linear both;
         animation-timeline: --door;
       }
-      .door-title-float {
-        animation: door-l3 linear both;
+      .door-read-shift {
+        animation: door-read linear both;
         animation-timeline: --door;
       }
     }
-    @keyframes door-l1 {
+    @keyframes door-mid {
       from { transform: scale(1) translateY(0); }
-      to { transform: scale(1.06) translateY(-2%); }
+      to { transform: scale(1.08) translateY(-3%); }
     }
-    @keyframes door-l2 {
-      from { transform: translateY(0); }
-      to { transform: translateY(-18%); }
+    @keyframes door-near {
+      from { transform: translateY(0) scale(1); }
+      to { transform: translateY(-22%) scale(1.04); }
     }
-    @keyframes door-l3 {
+    @keyframes door-read {
       from { transform: translateY(0); }
-      to { transform: translateY(-12vh); }
+      to { transform: translateY(-10vh); }
     }
     @media (prefers-reduced-motion: reduce) {
       .door-scroller { overflow: hidden; }
       .door-track { height: 100%; }
       .door-layer,
       .door-still,
-      .door-title-float,
-      .door-scroll-cue {
+      .door-read-shift,
+      .door-cue .track i {
         animation: none !important;
         transform: none !important;
       }
-      .door-scroll-cue { display: none; }
+      [data-rv],
+      .mask-line > span {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      .door-cue { display: none; }
+    }
+    body:not(.started) {
+      overflow: hidden;
+      height: 100%;
     }
     body:not(.started) .rail,
     body:not(.started) .hud,
@@ -1750,31 +1824,18 @@
         border-color: transparent;
         background: rgba(255, 255, 255, 0.16);
       }
-      .door-chrome {
-        width: min(72vw, 280px);
-        height: 120px;
-        top: 34%;
+      .door-still { object-position: center 40%; }
+      .door-peek,
+      .door-slash,
+      .door-tick,
+      .door-side { display: none; }
+      .door-hero {
+        padding: 22px 20px 28px;
       }
-      .door-frame-32 {
-        width: min(78vw, 320px);
-        top: 42%;
-      }
-      .door-slash {
-        top: calc(34% + 88px);
-        letter-spacing: 0.22em;
-      }
-      .loader-copy,
-      .door-title-float {
-        left: 24px;
-        right: 24px;
-        bottom: 22vh;
-        max-width: none;
-      }
-      .door-cta {
-        left: 24px;
-        right: 24px;
-        bottom: 8vh;
-      }
+      .door-hero-top { max-width: none; }
+      .door-hero-foot { max-width: 22em; }
+      .door-mark { font-size: clamp(2rem, 11vw, 2.75rem); }
+      .door-lede { max-width: 18em; }
       .cover h1 { max-width: 14em; }
       .demo { padding-bottom: 16px; }
       .device { width: 100%; }
@@ -1826,31 +1887,55 @@
     <div class="door-scroller" id="door-scroller">
       <div class="door-track">
         <div class="door-sticky">
-          <div class="door-layer door-l1">
+          <div class="door-layer door-mid">
             <img class="door-still" src="cover-poster.webp" alt="" width="1536" height="1024" />
           </div>
-          <div class="door-layer door-l2" aria-hidden="true">
-            <div class="door-frame-32"></div>
-            <div class="door-chrome">
-              <div class="door-chrome-bar">
-                <i class="dc-min"></i><i class="dc-max"></i><i class="dc-x"></i>
+          <div class="door-layer door-read">
+            <div class="door-hero">
+              <div class="door-hero-top" data-rv="up" style="--rv-delay:0ms">
+                <div class="door-eyebrow">
+                  <i class="dot" aria-hidden="true"></i>
+                  <span>00 · 门前</span>
+                </div>
+              </div>
+              <div class="door-hero-spacer"></div>
+              <div class="door-hero-foot door-read-shift">
+                <div class="door-mark mask-line" data-rv="up" style="--rv-delay:90ms"><span>走进 HTML+</span></div>
+                <p class="door-lede" data-rv="up" style="--rv-delay:180ms">点进去，从一份写好的内容开始。</p>
+              </div>
+              <div class="door-cta">
+                <button type="button" id="enter-btn" class="enter-btn">进入课堂</button>
+                <div class="door-cue" data-rv="fade" style="--rv-delay:270ms" aria-hidden="true">
+                  <span>Scroll</span>
+                  <span class="track"><i></i></span>
+                </div>
+              </div>
+              <div class="door-side door-side-l" data-rv="fade" style="--rv-delay:120ms" aria-hidden="true">
+                <span class="v">POIZON DESIGN</span>
+              </div>
+              <div class="door-side door-side-r" data-rv="fade" style="--rv-delay:160ms" aria-hidden="true">
+                <span class="v">OPEN CLASS</span>
               </div>
             </div>
-            <div class="door-slash">\ HTML+ /</div>
           </div>
-          <div class="door-layer door-l3">
-            <div class="loader-copy door-title-float">
-              <div class="loader-kicker">CHAPTER 00 · 门前</div>
-              <div class="loader-title">走进 HTML+</div>
-              <p class="loader-sub">不用学编程，也能做出能讲、能点、能分享的工作成果</p>
-              <div class="loader-bar" aria-hidden="true"><div class="loader-bar-fill" id="loader-bar"></div></div>
-            </div>
-            <div class="door-cta">
-              <button type="button" id="enter-btn" class="enter-btn">进入课堂</button>
-              <p class="loader-hint">点进去，从一份写好的内容开始。</p>
-              <span class="door-scroll-cue" aria-hidden="true"></span>
+          <div class="door-layer door-near" aria-hidden="true">
+            <div class="door-fg">
+              <span class="door-tick door-tick-tl"></span>
+              <span class="door-tick door-tick-tr"></span>
+              <span class="door-tick door-tick-bl"></span>
+              <span class="door-tick door-tick-br"></span>
+              <div class="door-peek">
+                <div class="door-peek-fr">
+                  <div class="door-chrome-bar">
+                    <i class="dc-min"></i><i class="dc-max"></i><i class="dc-x"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="door-slash">\ HTML+ /</div>
             </div>
           </div>
+          <div class="door-vignette" aria-hidden="true"></div>
+          <div class="door-grain" aria-hidden="true"></div>
         </div>
       </div>
     </div>
@@ -2334,7 +2419,6 @@
       const stage = document.getElementById("stage");
       const loader = document.getElementById("loader");
       const enterBtn = document.getElementById("enter-btn");
-      const loaderBar = document.getElementById("loader-bar");
       const chStarts = [0, 2, 5, 7, 11, 16];
       const FROZEN = {
         title: "《HTML+：AI 时代的工作表达新方式》",
@@ -2823,9 +2907,9 @@
       });
 
       const doorScroller = document.getElementById("door-scroller");
-      const doorL1 = document.querySelector(".door-l1");
-      const doorL2 = document.querySelector(".door-l2");
-      const doorTitle = document.querySelector(".door-title-float");
+      const doorMid = document.querySelector(".door-mid");
+      const doorNear = document.querySelector(".door-near");
+      const doorReadShift = document.querySelector(".door-read-shift");
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const supportsSDA = window.CSS && CSS.supports && CSS.supports("animation-timeline", "scroll()");
 
@@ -2835,15 +2919,15 @@
         return max <= 0 ? 0 : doorScroller.scrollTop / max;
       }
       function applyDoorParallax(t) {
-        if (!doorL1 || !doorL2 || !doorTitle) return;
-        doorL1.style.transform = "scale(" + (1 + t * 0.06) + ") translateY(" + (t * -2) + "%)";
-        doorL2.style.transform = "translateY(" + (t * -18) + "%)";
-        doorTitle.style.transform = "translateY(" + (t * -12) + "vh)";
+        if (!doorMid || !doorNear || !doorReadShift) return;
+        doorMid.style.transform = "scale(" + (1 + t * 0.08) + ") translateY(" + (t * -3) + "%)";
+        doorNear.style.transform = "translateY(" + (t * -22) + "%) scale(" + (1 + t * 0.04) + ")";
+        doorReadShift.style.transform = "translateY(" + (t * -10) + "vh)";
       }
       function onDoorScroll() {
         if (started || reduceMotion) return;
         const t = doorProgress();
-        const live = doorL1 ? getComputedStyle(doorL1).transform : "none";
+        const live = doorMid ? getComputedStyle(doorMid).transform : "none";
         if (!supportsSDA || live === "none") applyDoorParallax(t);
         if (t >= 0.88) enterClass();
       }
@@ -2859,7 +2943,10 @@
       if (doorScroller && !reduceMotion) {
         doorScroller.addEventListener("scroll", onDoorScroll, { passive: true });
       }
-      requestAnimationFrame(() => loaderBar.classList.add("is-ready"));
+      const doorReveal = loader ? loader.querySelectorAll("[data-rv], .mask-line") : [];
+      doorReveal.forEach((el, i) => {
+        window.setTimeout(() => el.classList.add("rv-in"), reduceMotion ? 0 : 160 + i * 90);
+      });
     })();
   </script>
 </body>
