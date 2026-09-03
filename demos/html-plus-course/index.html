@@ -818,6 +818,28 @@
       justify-content: space-between;
       padding: 0 10px;
     }
+    .device-chrome.has-tabs {
+      height: 28px;
+      gap: 2px;
+      justify-content: flex-start;
+      padding: 3px 4px;
+    }
+    .device-chrome .mat-tab {
+      height: 22px;
+      padding: 0 8px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0;
+      cursor: pointer;
+    }
+    .device-chrome .mat-tab.is-on {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+    }
     .device-view {
       flex: 1;
       min-height: 0;
@@ -831,7 +853,24 @@
       position: absolute;
       inset: 0;
     }
-    .device-view > .nono-grid,
+    .device-view > .tee.is-off { display: none; }
+    .device-view > .mat-ph {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: var(--klein-bar-space);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #d4d4d4;
+    }
+    .device-view > .mat-ph.is-on { display: flex; }
+    .mat-ph-name { font-size: 16px; font-weight: 500; color: #666; }
+    .mat-ph-wait { font-size: 12px; color: #888; }
+    .device-view > .nono-stage,
     .device-view > .timeline-box {
       position: absolute;
       left: 0;
@@ -912,13 +951,52 @@
     .tee-tools button.is-on { border-color: transparent; background: var(--klein); color: #fff; }
     .tee-cap { position: absolute; right: 10px; bottom: calc(var(--klein-bar-space) + 8px); font-size: 12px; color: var(--dim); }
 
+    .nono-stage {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 8px 10px;
+      min-height: 0;
+    }
+    .nono-compare {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 10px;
+      flex: none;
+      padding: 6px 8px;
+      background: var(--surface-1);
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+    .nono-compare.is-on { display: grid; }
+    .nono-compare .cc-no { font-size: 13px; font-weight: 600; color: var(--ink); }
+    .nono-compare .cc-row { color: var(--soft); }
+    .nono-compare .cc-row i { font-style: normal; color: var(--dim); margin-right: 4px; }
+    .nono-stage > .job-out {
+      position: static;
+      left: auto;
+      right: auto;
+      bottom: auto;
+      flex: none;
+      margin: 0;
+    }
+    .nono-stage > .job-out.is-off { display: none; }
     .nono-grid {
       display: grid;
-      grid-template-columns: repeat(9, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: minmax(44px, 1fr);
       gap: 6px;
+      flex: 1;
+      min-height: 0;
+      height: auto;
+      align-content: stretch;
+      padding: 0;
     }
     .nono {
-      aspect-ratio: 3 / 4;
+      min-height: 44px;
+      height: 100%;
       border: 1px solid var(--line);
       border-radius: var(--r-xs);
       background: var(--surface-1);
@@ -930,20 +1008,19 @@
       color: var(--soft);
       cursor: pointer;
     }
-    .nono-grid { height: 100%; align-content: center; padding: 10px; }
     .nono.is-on { border-color: transparent; background: var(--klein); color: #fff; }
     .nono b { font-size: 12px; }
 
     .timeline-box {
       height: 100%;
-      padding: 12px;
+      padding: 8px 12px;
       background: var(--surface-2);
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
     }
     .fake-page {
-      height: 88px;
+      height: 56px;
       border: 1px solid var(--line);
       border-radius: var(--r-lg);
       background: var(--surface-1);
@@ -956,12 +1033,31 @@
     .fake-page.is-play .layer {
       animation: rise 900ms ease both;
     }
+    .fake-page .wave {
+      display: none;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 12px;
+      height: 12px;
+    }
+    .fake-page.is-sound .wave { display: block; }
+    .fake-page .wave::before {
+      content: "";
+      position: absolute;
+      left: 1px;
+      bottom: 1px;
+      width: 2px;
+      height: 5px;
+      background: var(--ink);
+      box-shadow: 4px -3px 0 0 var(--ink), 8px -1px 0 0 var(--ink);
+    }
     @keyframes rise {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: none; }
     }
     .tl {
-      margin-top: 10px;
+      margin-top: 8px;
       height: 2px;
       background: var(--faint);
       position: relative;
@@ -975,7 +1071,7 @@
       opacity: 0;
     }
     .tl.is-on > i { opacity: 1; }
-    .tl-btns { display: flex; gap: 6px; margin-top: 10px; }
+    .tl-btns { display: flex; gap: 6px; margin-top: 8px; }
     .tl-btns button {
       border: 1px solid var(--line);
       border-radius: var(--r-md);
@@ -988,7 +1084,7 @@
     .tl-btns button.is-on { border-color: transparent; background: var(--klein); color: #fff; }
     .hf {
       display: none;
-      margin-top: 8px;
+      margin-top: 4px;
       font-size: 10px;
       letter-spacing: 0.4px;
       color: var(--dim);
@@ -998,7 +1094,7 @@
     .sum3 { display: grid; gap: 10px; margin-top: 24px; }
     .sum3 article {
       display: grid;
-      grid-template-columns: 88px 1fr 1fr 1.3fr;
+      grid-template-columns: minmax(112px, auto) 1fr 1fr 1.3fr;
       gap: 10px;
       align-items: center;
       border: 1px solid var(--line);
@@ -1007,7 +1103,14 @@
       padding: 12px 14px;
       font-size: 14px;
     }
-    .sum3 .who { color: #fff; font-weight: 600; background: var(--klein); padding: 8px 10px; border-radius: var(--r-xs); }
+    .sum3 .who {
+      color: #fff;
+      font-weight: 600;
+      background: var(--klein);
+      padding: 8px 10px;
+      border-radius: var(--r-xs);
+      white-space: nowrap;
+    }
     .sum3 b { color: var(--dim); font-weight: 500; font-size: 12px; letter-spacing: 0.4px; display: block; margin-bottom: 4px; }
 
     .qs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 24px; }
@@ -1400,6 +1503,10 @@
       .grid3, .grid4, .compare, .beats4, .qs, .list4, .jobs, .dims, .doors, .actions { grid-template-columns: 1fr; }
       .grid6, .nono-grid, .cognition .jobs { grid-template-columns: repeat(3, 1fr); }
       .split, .decide, .case-extra, .sum3 article, .vs { grid-template-columns: 1fr; }
+      .device:has(.nono-stage) {
+        aspect-ratio: auto;
+        min-height: 300px;
+      }
       .def-page .pills { flex-wrap: wrap; }
       .cognition { display: flex; flex-direction: column; }
       .cognition .vs { display: contents; }
@@ -1730,7 +1837,12 @@
             </div>
             <div class="case-extra">
               <div class="device">
-                <div class="device-chrome"><span>HTML</span><span>3:2</span></div>
+                <div class="device-chrome has-tabs">
+                  <button type="button" class="mat-tab is-on" data-mat="tee">T恤</button>
+                  <button type="button" class="mat-tab" data-mat="box">物流箱</button>
+                  <button type="button" class="mat-tab" data-mat="cup">奖杯</button>
+                  <button type="button" class="mat-tab" data-mat="anti">防伪</button>
+                </div>
                 <div class="device-view">
               <div class="tee" id="tee" title="拖一拖，换一换">
                 <div class="shirt" id="shirt">
@@ -1747,6 +1859,9 @@
                 </div>
                 <span class="tee-cap">拖一拖 · 换贴花</span>
               </div>
+              <div class="mat-ph" data-mat-pane="box"><span class="mat-ph-name">物流箱</span><span class="mat-ph-wait">待补图</span></div>
+              <div class="mat-ph" data-mat-pane="cup"><span class="mat-ph-name">奖杯</span><span class="mat-ph-wait">待补图</span></div>
+              <div class="mat-ph" data-mat-pane="anti"><span class="mat-ph-name">防伪</span><span class="mat-ph-wait">待补图</span></div>
               <div class="klein-bar"><b>价值</b>　静态设计稿变成能观察比较的沟通工具。可用 AI Coding 把已有物料收进同一页。</div>
                 </div>
               </div>
@@ -1766,25 +1881,39 @@
               <div class="device">
                 <div class="device-chrome"><span>HTML</span><span>3:2</span></div>
                 <div class="device-view">
-                <div class="nono-grid" id="nono">
-                  <button class="nono"><b>01</b>高帮</button>
-                  <button class="nono"><b>02</b>低帮</button>
-                  <button class="nono"><b>03</b>高帮</button>
-                  <button class="nono"><b>04</b>袜套</button>
-                  <button class="nono"><b>05</b>低帮</button>
-                  <button class="nono"><b>06</b>高帮</button>
-                  <button class="nono"><b>07</b>低帮</button>
-                  <button class="nono"><b>08</b>袜套</button>
-                  <button class="nono"><b>09</b>高帮</button>
+                <div class="nono-stage">
+                  <div class="nono-compare" id="nono-compare">
+                    <div>
+                      <div class="cc-no" data-cc="no-a"></div>
+                      <div class="cc-row"><i>帮型</i><span data-cc="cut-a"></span></div>
+                      <div class="cc-row"><i>差别</i><span data-cc="diff-a"></span></div>
+                    </div>
+                    <div>
+                      <div class="cc-no" data-cc="no-b"></div>
+                      <div class="cc-row"><i>帮型</i><span data-cc="cut-b"></span></div>
+                      <div class="cc-row"><i>差别</i><span data-cc="diff-b"></span></div>
+                    </div>
+                  </div>
+                  <p class="job-out" id="nono-out">点两款，看「比较」怎么发生。</p>
+                  <div class="nono-grid" id="nono">
+                    <button class="nono" data-no="01"><b>01</b>高帮</button>
+                    <button class="nono" data-no="02"><b>02</b>低帮</button>
+                    <button class="nono" data-no="03"><b>03</b>高帮</button>
+                    <button class="nono" data-no="04"><b>04</b>袜套</button>
+                    <button class="nono" data-no="05"><b>05</b>低帮</button>
+                    <button class="nono" data-no="06"><b>06</b>高帮</button>
+                    <button class="nono" data-no="07"><b>07</b>低帮</button>
+                    <button class="nono" data-no="08"><b>08</b>袜套</button>
+                    <button class="nono" data-no="09"><b>09</b>高帮</button>
+                  </div>
                 </div>
-                <p class="job-out" id="nono-out">点两款，看「比较」怎么发生。</p>
                 <div class="klein-bar"><b>价值</b>　把比较收进一页。可用 AI Coding 先出能打开的操作台，再用人话改到能用。</div>
                 </div>
               </div>
             </div>
           </section>
 
-          <section class="page" data-ch="4" data-note="口播说视频插件。固定节奏传播仍可用视频；这里看的是页怎么被加上时间。HyperFrames 只是房间里的小标签。">
+          <section class="page" data-ch="4" data-note="口播说视频插件。固定节奏传播仍可用视频；这里看的是页怎么被加上时间。">
             <p class="kicker">P15<em>·</em>案例三 · 讲清楚 / 体验</p>
             <h2>《得物业务知多少》VOL.06</h2>
             <p class="lede" style="margin-top:8px">第三章「我们相信什么，决定了我们是谁」。页能看，但不能按时间讲。给页加上时间、转场、声音——现场叫它<b style="color:var(--ink)">视频插件</b>。</p>
@@ -1801,6 +1930,7 @@
               <div class="timeline-box" id="vol06">
                 <div class="fake-page" id="fake-page">
                   <div class="layer">我们相信什么，决定了我们是谁</div>
+                  <span class="wave" aria-hidden="true"></span>
                 </div>
                 <div class="tl" id="tl"><i style="left:12%"></i><i style="left:48%"></i><i style="left:78%"></i></div>
                 <div class="tl-btns">
@@ -2048,7 +2178,7 @@
         sx = t.clientX; sy = t.clientY;
       }, { passive: true });
       stage.addEventListener("touchend", (e) => {
-        if (swipeIgnore || e.target.closest("[contenteditable='true'], button, a, .tee, .shirt, .nono-grid, .prompt, .roles, .scene-mini, .beats4, .timeline-box, .jobs, .actions, .checks")) return;
+        if (swipeIgnore || e.target.closest("[contenteditable='true'], button, a, .tee, .shirt, .nono-stage, .nono-grid, .mat-ph, .prompt, .roles, .scene-mini, .beats4, .timeline-box, .jobs, .actions, .checks")) return;
         const t = e.changedTouches[0];
         const dx = t.clientX - sx;
         const dy = t.clientY - sy;
@@ -2199,16 +2329,49 @@
         });
       });
 
+      const teeView = document.getElementById("tee");
+      document.querySelectorAll(".device-chrome [data-mat]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const chrome = btn.closest(".device-chrome");
+          const view = chrome.nextElementSibling;
+          chrome.querySelectorAll("[data-mat]").forEach((b) => b.classList.toggle("is-on", b === btn));
+          const key = btn.dataset.mat;
+          teeView.classList.toggle("is-off", key !== "tee");
+          view.querySelectorAll(".mat-ph").forEach((ph) => {
+            ph.classList.toggle("is-on", ph.dataset.matPane === key);
+          });
+        });
+      });
+
       const nonoOut = document.getElementById("nono-out");
+      const nonoCompare = document.getElementById("nono-compare");
+      function nonoField(el, name) {
+        const v = el.getAttribute("data-" + name);
+        return v == null || v.trim() === "" ? "—" : v.trim();
+      }
+      function renderNonoCompare() {
+        const picked = [...document.querySelectorAll("#nono .nono.is-on")];
+        const labels = picked.map((n) => n.textContent.trim().replace(/\s+/g, " "));
+        const showCard = picked.length >= 2;
+        nonoCompare.classList.toggle("is-on", showCard);
+        nonoOut.classList.toggle("is-off", showCard);
+        if (picked.length === 0) nonoOut.textContent = "点两款，看「比较」怎么发生。";
+        else if (picked.length === 1) nonoOut.textContent = "已选 " + labels[0] + "。再点一款。";
+        if (!showCard) return;
+        const a = picked[0], b = picked[1];
+        nonoCompare.querySelector("[data-cc='no-a']").textContent = nonoField(a, "no");
+        nonoCompare.querySelector("[data-cc='no-b']").textContent = nonoField(b, "no");
+        nonoCompare.querySelector("[data-cc='cut-a']").textContent = nonoField(a, "cut");
+        nonoCompare.querySelector("[data-cc='cut-b']").textContent = nonoField(b, "cut");
+        nonoCompare.querySelector("[data-cc='diff-a']").textContent = nonoField(a, "diff");
+        nonoCompare.querySelector("[data-cc='diff-b']").textContent = nonoField(b, "diff");
+      }
       document.getElementById("nono").addEventListener("click", (e) => {
         if (e.target.closest("[contenteditable='true']")) return;
         const btn = e.target.closest(".nono");
         if (!btn) return;
         btn.classList.toggle("is-on");
-        const picked = [...document.querySelectorAll("#nono .nono.is-on")].map((n) => n.textContent.trim().replace(/\s+/g, " "));
-        if (picked.length === 0) nonoOut.textContent = "点两款，看「比较」怎么发生。";
-        else if (picked.length === 1) nonoOut.textContent = "已选 " + picked[0] + "。再点一款。";
-        else nonoOut.textContent = "正在比较：" + picked.slice(0, 2).join("  /  ");
+        renderNonoCompare();
         persistEdits();
       });
 
@@ -2216,14 +2379,16 @@
         const btn = e.target.closest("[data-add]");
         if (!btn) return;
         btn.classList.toggle("is-on");
-        document.getElementById("hf").classList.add("is-on");
         const page = document.getElementById("fake-page");
         const tl = document.getElementById("tl");
+        const adds = [...document.querySelectorAll("#vol06 [data-add]")];
+        document.getElementById("hf").classList.toggle("is-on", adds.every((b) => b.classList.contains("is-on")));
         if (btn.dataset.add === "time") tl.classList.toggle("is-on", btn.classList.contains("is-on"));
         if (btn.dataset.add === "move") {
           page.classList.remove("is-play");
           if (btn.classList.contains("is-on")) requestAnimationFrame(() => page.classList.add("is-play"));
         }
+        if (btn.dataset.add === "sound") page.classList.toggle("is-sound", btn.classList.contains("is-on"));
       });
 
       const taskOut = document.getElementById("task-out");
