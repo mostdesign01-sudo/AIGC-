@@ -90,6 +90,9 @@
       display: grid;
       grid-template-columns: var(--rail) 1fr;
       grid-template-rows: 1fr;
+      position: relative;
+      z-index: 10;
+      background: transparent;
     }
 
     .rail {
@@ -184,83 +187,124 @@
       flex-direction: column;
       min-width: 0;
       min-height: 0;
-      background: var(--bg);
+      background: transparent;
     }
     .stage-wrap {
       flex: 1;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px 24px 8px;
+      align-items: stretch;
+      justify-content: stretch;
+      padding: 0;
       min-height: 0;
     }
     .stage {
-      width: min(100%, calc((100vh - 92px) * 16 / 9));
-      aspect-ratio: 16 / 9;
-      background: var(--stage);
-      border: 1px solid var(--line);
-      border-radius: var(--r-xl);
+      width: 100%;
+      height: 100%;
+      aspect-ratio: auto;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
       position: relative;
       overflow: hidden;
-      box-shadow: var(--shadow-1);
+      box-shadow: none;
     }
     .stage::after { display: none; }
 
     .page {
-      display: none;
-      position: absolute;
-      inset: 0;
-      padding: clamp(24px, 3.4vw, 48px) clamp(24px, 3.8vw, 48px);
-      overflow: hidden;
-    }
-    .page.is-on {
       display: flex;
       flex-direction: column;
-      animation: in 240ms ease;
+      position: absolute;
+      inset: 0;
+      padding: clamp(28px, 4vw, 56px) clamp(28px, 4.2vw, 64px);
+      overflow: hidden;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate3d(0, 14px, 0) scale(0.992);
+      transition:
+        opacity 420ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 520ms cubic-bezier(0.16, 1, 0.3, 1),
+        visibility 0s linear 420ms;
+    }
+    .page.is-on {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+      transform: none;
+      transition:
+        opacity 560ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 640ms cubic-bezier(0.16, 1, 0.3, 1),
+        visibility 0s;
+    }
+    .page.is-leave {
+      visibility: visible;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate3d(0, -10px, 0) scale(1.01);
+    }
+    .page.is-chapter.is-on .page-fore {
+      animation: scene-fore-in 720ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .page.is-case.is-on .page-fore {
+      animation: scene-fore-side 640ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    @keyframes scene-fore-in {
+      from { opacity: 0; transform: translate3d(-28px, 18px, 0); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes scene-fore-side {
+      from { opacity: 0; transform: translate3d(-22px, 0, 0); }
+      to { opacity: 1; transform: none; }
     }
     .page.is-short {
       justify-content: center;
     }
-    @keyframes in {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: none; }
-    }
     @media (prefers-reduced-motion: reduce) {
-      .page.is-on { animation: none; }
+      .page,
+      .page.is-on,
+      .page.is-leave {
+        transition: none;
+        transform: none;
+        animation: none;
+      }
+      .page.is-chapter.is-on .page-fore,
+      .page.is-case.is-on .page-fore { animation: none; }
     }
 
     .kicker {
-      margin: 0 0 12px;
-      font-size: 13px;
+      margin: 0 0 16px;
+      font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
-      color: var(--dim);
+      color: rgba(255, 255, 255, 0.46);
       line-height: 1.3;
       flex: none;
     }
-    .kicker em { font-style: normal; color: var(--dim); margin: 0 8px; }
+    .kicker em { font-style: normal; color: rgba(255, 255, 255, 0.28); margin: 0 10px; letter-spacing: 0; }
 
     h1, h2, h3, p { margin: 0; }
     h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 600;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-      text-shadow: var(--title-glow);
+      font-size: clamp(2.1rem, 5.2vw, 3.8rem);
+      font-weight: 400;
+      letter-spacing: -0.018em;
+      line-height: 1.05;
+      text-shadow: 0 2px 28px rgba(3, 6, 8, 0.55);
     }
     h2 {
-      font-size: clamp(1.375rem, 2.6vw, 1.75rem);
-      font-weight: 600;
-      letter-spacing: -0.6px;
-      line-height: 1.2;
+      font-size: clamp(1.5rem, 3.1vw, 2.35rem);
+      font-weight: 400;
+      letter-spacing: -0.016em;
+      line-height: 1.06;
+      max-width: 16em;
     }
     .lede {
       margin-top: 16px;
-      max-width: 36em;
-      font-size: clamp(15px, 1.4vw, 16px);
-      line-height: 1.5;
-      letter-spacing: -0.05px;
+      max-width: 28em;
+      font-size: clamp(14px, 1.25vw, 16px);
+      font-weight: 300;
+      line-height: 1.65;
+      letter-spacing: 0;
       color: var(--soft);
     }
     .punch {
@@ -277,11 +321,12 @@
       box-shadow: inset 0 -2px 0 var(--aurora);
     }
     .gold {
-      font-size: clamp(1.375rem, 3vw, 2.5rem);
-      font-weight: 600;
-      letter-spacing: -0.03em;
-      line-height: 1.2;
-      text-shadow: var(--title-glow);
+      font-size: clamp(1.65rem, 3.6vw, 2.85rem);
+      font-weight: 400;
+      letter-spacing: -0.016em;
+      line-height: 1.08;
+      max-width: 18em;
+      text-shadow: 0 2px 28px rgba(3, 6, 8, 0.5);
     }
 
     .cover {
@@ -290,7 +335,7 @@
       overflow: hidden;
     }
     .cover.klein-field, .center-page.klein-field, .close-page.klein-field {
-      background: var(--klein);
+      background: transparent;
       color: #fff;
     }
     .cover .who,
@@ -314,11 +359,11 @@
     }
     .klein-field .door p, .klein-field .flow p { color: rgba(255, 255, 255, 0.75); }
     .cover .who {
-      font-size: 13px;
+      font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
-      color: #fff;
+      color: rgba(255, 255, 255, 0.55);
       margin-bottom: 16px;
       line-height: 1.3;
     }
@@ -371,11 +416,12 @@
       justify-content: center;
     }
     .center-page .ch-no {
-      font-size: 13px;
+      font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.4px;
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 16px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 20px;
       line-height: 1.3;
     }
     .watermark {
@@ -414,9 +460,11 @@
     .grid6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 16px; }
 
     .card, .pick, .job, .scene, .dim, .door, .task, .check, .flow-step {
-      background: var(--surface-1);
-      border: 1px solid var(--line);
-      border-radius: var(--r-lg);
+      background: rgba(7, 9, 13, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--r-md);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
     .card, .pick, .job, .scene, .dim, .door, .task {
       padding: 16px 16px 20px;
@@ -442,24 +490,24 @@
       transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
     }
     .pick:hover, .job:hover, .scene:hover, .door:hover, .task:hover, .card:hover {
-      background: var(--surface-2);
-      border-color: var(--line-strong);
-      box-shadow: var(--shadow-2);
-      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.32);
+      box-shadow: none;
+      transform: translateY(-2px);
     }
     .pick.is-on, .job.is-on, .scene.is-on, .door.is-on, .task.is-on, .dim.is-on {
-      border-color: transparent;
-      background: var(--klein);
+      border-color: rgba(255, 255, 255, 0.36);
+      background: rgba(0, 47, 167, 0.42);
       color: #fff;
-      box-shadow: none;
+      box-shadow: inset 0 0 0 1px rgba(1, 194, 195, 0.35);
     }
     .pick.is-on p, .scene.is-on p, .task.is-on p, .job.is-on p, .dim.is-on p { color: rgba(255, 255, 255, 0.78); }
     .tag {
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--dim);
+      color: rgba(255, 255, 255, 0.42);
       line-height: 1.4;
     }
     .pick.is-on .tag, .job.is-on .tag, .scene.is-on .tag, .task.is-on .tag { color: #fff; }
@@ -580,16 +628,16 @@
     .compare { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 24px; align-items: start; }
     .compare article {
       padding: 14px 14px 16px;
-      border: 1px solid var(--line);
-      border-radius: var(--r-lg);
-      background: var(--surface-1);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--r-md);
+      background: rgba(7, 9, 13, 0.28);
       display: flex;
       flex-direction: column;
       min-height: 0;
     }
     .compare article.is-html {
-      border-color: transparent;
-      background: var(--klein);
+      border-color: rgba(255, 255, 255, 0.32);
+      background: rgba(0, 47, 167, 0.42);
       color: #fff;
     }
     .compare .kind { font-size: 12px; font-weight: 500; letter-spacing: 0.4px; color: var(--dim); }
@@ -830,38 +878,40 @@
     .beats4 button {
       text-align: left;
       padding: 12px 12px 14px;
-      border: 1px solid var(--line);
-      border-radius: var(--r-lg);
-      background: var(--surface-1);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--r-md);
+      background: rgba(7, 9, 13, 0.28);
       cursor: pointer;
       min-height: 96px;
-      transition: background 160ms ease, border-color 160ms ease;
+      transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
     }
-    .beats4 button:hover { background: var(--surface-2); border-color: var(--line-strong); }
-    .beats4 button.is-on { border-color: transparent; background: var(--klein); color: #fff; }
+    .beats4 button:hover { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.32); }
+    .beats4 button.is-on { border-color: rgba(255, 255, 255, 0.36); background: rgba(0, 47, 167, 0.42); color: #fff; }
     .beats4 button.is-on p { color: rgba(255, 255, 255, 0.78); }
     .beats4 .n { font-size: 12px; font-weight: 500; letter-spacing: 0.4px; color: var(--dim); }
     .beats4 button.is-on .n { color: #fff; }
 
     .device {
-      background: var(--surface-1);
-      border: 1px solid var(--line);
-      border-radius: var(--r-xl);
+      background: rgba(7, 9, 13, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
       display: flex;
       flex-direction: column;
       aspect-ratio: 3 / 2;
       min-height: 0;
       overflow: hidden;
-      box-shadow: var(--shadow-1);
+      box-shadow: none;
     }
     .device-chrome {
       height: 22px;
       flex: none;
-      background: var(--klein);
-      color: #fff;
-      font-size: 10px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.55);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+      font-size: 9px;
       font-weight: 500;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1184,19 +1234,22 @@
     }
     .copy-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
     .copy-row button {
-      border: 0;
-      border-radius: var(--r-md);
-      background: var(--klein);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      background: transparent;
       color: #fff;
-      padding: 8px 14px;
+      padding: 8px 16px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 11px;
       font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
       line-height: 1.2;
-      min-height: 40px;
+      min-height: 0;
     }
-    .copy-row button:hover { background: var(--klein-hover); }
-    .copy-row button:active { background: var(--klein-pressed); }
+    .copy-row button:hover { background: transparent; border-color: rgba(255, 255, 255, 0.55); }
+    .copy-row button:active { background: transparent; }
+    .copy-row button::after { content: " →"; letter-spacing: 0; color: var(--klein-on-dark); }
     .copy-row span { font-size: 12px; color: var(--dim); }
     .list4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 16px; }
     .list4 li {
@@ -1899,9 +1952,354 @@
       .grid3, .dims, .doors { grid-template-columns: repeat(2, 1fr); }
       .cognition .jobs { grid-template-columns: repeat(3, 1fr); }
     }
+
+    /* —— 场景流：固定氛围 / 中景海报 / 前景文案 / 细线 HUD —— */
+    .scene-root {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0;
+    }
+    body.started .scene-root {
+      opacity: 1;
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .scene-mid,
+    .scene-wash,
+    .scene-vignette,
+    .scene-grain {
+      position: absolute;
+      inset: 0;
+    }
+    .scene-mid { z-index: 0; }
+    .scene-still {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 46%;
+      transform: scale(1.06);
+    }
+    .scene-wash {
+      z-index: 1;
+      background:
+        linear-gradient(105deg, rgba(7, 9, 13, 0.78) 0%, rgba(7, 9, 13, 0.42) 46%, rgba(7, 9, 13, 0.68) 100%);
+      transition: background 640ms ease;
+    }
+    .scene-root[data-scene="open"] .scene-wash {
+      background:
+        linear-gradient(90deg, rgba(7, 9, 13, 0.7) 0%, rgba(7, 9, 13, 0.22) 58%, rgba(7, 9, 13, 0.55) 100%);
+    }
+    .scene-root[data-scene="talk"] .scene-wash {
+      background:
+        linear-gradient(105deg, rgba(7, 9, 13, 0.84) 0%, rgba(7, 9, 13, 0.58) 40%, rgba(7, 9, 13, 0.74) 100%);
+    }
+    .scene-root[data-scene="case"] .scene-wash {
+      background:
+        radial-gradient(78% 68% at 72% 46%, rgba(7, 9, 13, 0.12) 0%, rgba(7, 9, 13, 0.62) 70%, rgba(7, 9, 13, 0.78) 100%);
+    }
+    .scene-vignette {
+      z-index: 2;
+      background: radial-gradient(120% 90% at 50% 42%, transparent 38%, rgba(7, 9, 13, 0.62) 100%);
+    }
+    .scene-grain {
+      z-index: 3;
+      opacity: 0.05;
+      mix-blend-mode: overlay;
+      background-repeat: repeat;
+      background-size: 180px 180px;
+    }
+    .scene-veil {
+      position: fixed;
+      inset: 0;
+      z-index: 45;
+      background: rgba(7, 9, 13, 0.72);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 360ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .scene-veil.is-cut { opacity: 1; }
+    .scene-mark {
+      position: fixed;
+      left: 50%;
+      top: 46%;
+      z-index: 46;
+      transform: translate(-50%, 12px);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.72);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 420ms ease, transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .scene-mark.is-on {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+    .page-fore { position: relative; z-index: 2; max-width: 42rem; }
+    .page.is-chapter .page-fore { max-width: min(56rem, 100%); }
+    .page.is-case {
+      display: grid;
+      grid-template-columns: minmax(240px, 36%) minmax(0, 1fr);
+      grid-template-rows: 1fr;
+      gap: clamp(16px, 2.4vw, 36px);
+      align-items: stretch;
+    }
+    .page.is-case .page-fore { max-width: none; min-width: 0; align-self: center; }
+    .page.is-case .beats4 {
+      grid-template-columns: 1fr 1fr;
+      margin-top: 20px;
+    }
+    .page.is-case .beats4 button { min-height: 0; }
+    .page.is-case .case-extra {
+      margin-top: 0;
+      align-self: center;
+      width: 100%;
+      min-width: 0;
+    }
+    .page.is-case .case-extra .device { width: min(100%, 640px); }
+    .fake-page .motion-still {
+      display: none;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.38;
+    }
+    .fake-page.has-asset .motion-still { display: block; }
+    .page-side {
+      position: absolute;
+      top: 50%;
+      right: 18px;
+      writing-mode: vertical-rl;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.32);
+      pointer-events: none;
+      transform: translateY(-50%);
+    }
+    .brand-slot {
+      position: fixed;
+      top: 18px;
+      right: 22px;
+      z-index: 32;
+      height: 18px;
+      width: auto;
+      max-width: 72px;
+      object-fit: contain;
+      opacity: 0;
+      pointer-events: none;
+    }
+    body.started .brand-slot.is-in { opacity: 0.7; }
+    .mat-ph { position: relative; }
+    .mat-ph .asset-still {
+      display: none;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .mat-ph.has-asset .asset-still { display: block; }
+    .mat-ph.has-asset .mat-ph-wait { display: none; }
+    .mat-ph.has-asset .mat-ph-name {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      z-index: 1;
+      letter-spacing: 0.2em;
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+    .shirt-skin {
+      display: none;
+      position: absolute;
+      inset: 18% 22% 22%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      pointer-events: none;
+    }
+    .shirt.has-decal .shirt-skin { display: block; }
+    .nono.has-shot {
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    .rail {
+      background: linear-gradient(90deg, rgba(7, 9, 13, 0.55) 0%, rgba(7, 9, 13, 0.08) 100%);
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .rail-brand {
+      letter-spacing: 0.22em;
+      font-size: 10px;
+    }
+    .rail-brand b {
+      letter-spacing: -0.02em;
+      font-weight: 400;
+    }
+    .dock {
+      position: relative;
+      z-index: 30;
+      background: linear-gradient(0deg, rgba(7, 9, 13, 0.55), transparent);
+    }
+    .nav-btns button,
+    .notes-btn {
+      background: transparent;
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+    .nav-btns button:hover,
+    .notes-btn:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .dots button.is-on { background: var(--aurora); }
+    .notes {
+      background: rgba(7, 9, 13, 0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .prompt {
+      background: rgba(7, 9, 13, 0.36);
+    }
+    .quote,
+    .cognition,
+    .demo,
+    .vs article,
+    .rows li,
+    .sum3 article,
+    .list4 li {
+      background: rgba(7, 9, 13, 0.3);
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+    .rows li:last-child,
+    .sum3 .who {
+      background: rgba(0, 47, 167, 0.48);
+    }
+    .klein-bar {
+      background: rgba(0, 47, 167, 0.55);
+    }
+    .door .go {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .ring {
+      display: none;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      body.has-ring.started:not(.is-edit) { cursor: none; }
+      body.has-ring.started:not(.is-edit) button,
+      body.has-ring.started:not(.is-edit) a,
+      body.has-ring.started:not(.is-edit) .pick,
+      body.has-ring.started:not(.is-edit) .job,
+      body.has-ring.started:not(.is-edit) .scene,
+      body.has-ring.started:not(.is-edit) .door,
+      body.has-ring.started:not(.is-edit) .task,
+      body.has-ring.started:not(.is-edit) .check,
+      body.has-ring.started:not(.is-edit) .nono,
+      body.has-ring.started:not(.is-edit) .shirt { cursor: none; }
+      .ring {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 22px;
+        height: 22px;
+        margin: -11px 0 0 -11px;
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 90;
+        opacity: 0;
+        mix-blend-mode: difference;
+        transition: width 180ms ease, height 180ms ease, margin 180ms ease, opacity 200ms ease;
+      }
+      body.has-ring.started:not(.is-edit) .ring { opacity: 0.85; }
+      .ring.is-hot {
+        width: 32px;
+        height: 32px;
+        margin: -16px 0 0 -16px;
+        border-color: #fff;
+      }
+      .ring i {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 3px;
+        height: 3px;
+        margin: -1.5px 0 0 -1.5px;
+        border-radius: 50%;
+        background: #fff;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scene-veil, .scene-mark, .scene-root, .scene-wash { transition: none !important; }
+      .ring { display: none !important; }
+      body.has-ring { cursor: auto !important; }
+      body.has-ring button,
+      body.has-ring a { cursor: pointer !important; }
+    }
+
+    @media (max-width: 979px) {
+      .page {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        overflow-x: hidden;
+        overflow-y: auto;
+        max-width: none;
+        width: 100%;
+        margin: 0;
+      }
+      .page.is-on { display: flex; }
+      .page.cover.is-on,
+      .main:has(.cover.is-on),
+      .stage:has(.cover.is-on) {
+        background: transparent;
+      }
+      .page.is-case {
+        display: flex;
+        grid-template-columns: none;
+        gap: 16px;
+      }
+      .page.is-case.is-on { display: flex; }
+      .page-side,
+      .ring,
+      .scene-mark { display: none !important; }
+      .page.is-chapter.is-on .page-fore,
+      .page.is-case.is-on .page-fore { animation: none; }
+      .hud, .dock {
+        background: rgba(7, 9, 13, 0.78);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      body.has-ring,
+      body.has-ring.started { cursor: auto; }
+    }
   </style>
 </head>
 <body>
+  <div class="scene-root" id="scene-root" data-scene="open" aria-hidden="true">
+    <div class="scene-mid" id="scene-mid">
+      <img class="scene-still" src="cover-poster.webp" alt="" width="1536" height="1024" />
+    </div>
+    <div class="scene-wash" id="scene-wash"></div>
+    <div class="scene-vignette"></div>
+    <div class="scene-grain" id="scene-grain"></div>
+  </div>
+  <div class="scene-veil" id="scene-veil" aria-hidden="true"></div>
+  <div class="scene-mark" id="scene-mark" aria-hidden="true"></div>
+  <div class="ring" id="ring" aria-hidden="true"><i></i></div>
+  <img class="brand-slot" id="brand-slot" data-src="assets/poizon/logo/poizon.svg" alt="" />
   <div id="loader" role="dialog" aria-modal="true" aria-label="门前">
     <div class="door-scroller" id="door-scroller">
       <div class="door-track">
@@ -1988,7 +2386,8 @@
       <div class="stage-wrap">
         <div class="stage" id="stage">
 
-          <section class="page cover klein-field is-on" data-ch="0" data-note="口播：先停在开场问题上：内容写好了，别人却看不懂、不想看、不会用。｜操作：停在封面，四个拍子只过一眼。｜过渡：下一页看今天要学会的四件事。">
+          <section class="page cover is-chapter is-on" data-ch="0" data-scene="open" data-note="口播：先停在开场问题上：内容写好了，别人却看不懂、不想看、不会用。｜操作：停在封面，四个拍子只过一眼。｜过渡：下一页看今天要学会的四件事。">
+            <div class="page-fore">
             <p class="who">POIZON 全员课</p>
             <h1 data-frozen>《HTML+：AI 时代的<br>工作表达新方式》</h1>
             <p class="sub" data-frozen>不用学编程，也能做出能讲、能点、能分享的工作成果</p>
@@ -1996,9 +2395,11 @@
               <b>文档</b><i></i><b>页面</b><i></i><b>交互</b><i></i><b class="is-last">分享</b>
             </div>
             <p class="ask">你有没有遇到过：内容已经写好了，但别人还是看不懂、不想看、不会用？</p>
+            </div>
+            <span class="page-side">HTML+</span>
           </section>
 
-          <section class="page" data-ch="0" data-note="口播：不学代码，学会四件事。结课只读：找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。｜操作：点四张卡，跳进对应章。｜过渡：先走进「什么是 HTML」。">
+          <section class="page" data-ch="0" data-scene="talk" data-note="口播：不学代码，学会四件事。结课只读：找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。｜操作：点四张卡，跳进对应章。｜过渡：先走进「什么是 HTML」。">
             <p class="kicker">P02<em>·</em>总览</p>
             <h2>今天不学代码，学会四件事</h2>
             <div class="grid4 overview-grid">
@@ -2010,13 +2411,16 @@
             <p class="punch">找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。</p>
           </section>
 
-          <section class="page center-page klein-field" data-ch="1" data-note="口播：当内容需要被看见、被理解、被操作时，它就可以变成一个 HTML。｜操作：停在章封面，只立这一句。｜过渡：下一页是定义，一字不改。">
+          <section class="page center-page is-chapter" data-ch="1" data-scene="open" data-note="口播：当内容需要被看见、被理解、被操作时，它就可以变成一个 HTML。｜操作：停在章封面，只立这一句。｜过渡：下一页是定义，一字不改。">
+            <div class="page-fore">
             <p class="ch-no">01  什么是 HTML</p>
             <p class="gold">当内容需要被看见、被理解、被操作时，<br>它就可以变成一个 HTML。</p>
+            </div>
             <span class="watermark">01</span>
+            <span class="page-side">01 / HTML</span>
           </section>
 
-          <section class="page def-page" data-ch="1" data-note="口播：先读定义，一字不改。每个岗位都能借 AI 做轻量工作界面。｜操作：点六张岗位卡，看各自装哪类工作。｜过渡：同一份内容，还可以用别的方式打开。">
+          <section class="page def-page" data-ch="1" data-scene="talk" data-note="口播：先读定义，一字不改。每个岗位都能借 AI 做轻量工作界面。｜操作：点六张岗位卡，看各自装哪类工作。｜过渡：同一份内容，还可以用别的方式打开。">
             <p class="kicker">P04<em>·</em>定义</p>
             <p class="quote" data-frozen>HTML 是一种可以被浏览器直接打开的内容容器。借助 AI，我们可以把文字、图片、数据和流程，快速变成一个可查看、可点击、可演示的工作界面。</p>
             <div class="pills" aria-label="装得下的工作内容">
@@ -2039,7 +2443,7 @@
             </div>
           </section>
 
-          <section class="page" data-ch="1" data-note="口播：共同改稿用文档表格，现场线性讲用 PPT，固定节奏用视频。HTML 负责查看、选择、互动、复用。｜操作：四列只对照读，不点。｜过渡：那 HTML 到底多了什么能力？">
+          <section class="page" data-ch="1" data-scene="talk" data-note="口播：共同改稿用文档表格，现场线性讲用 PPT，固定节奏用视频。HTML 负责查看、选择、互动、复用。｜操作：四列只对照读，不点。｜过渡：那 HTML 到底多了什么能力？">
             <p class="kicker">P05<em>·</em>对照</p>
             <h2>同一份内容，四种打开方式</h2>
             <div class="compare">
@@ -2070,7 +2474,8 @@
             </div>
           </section>
 
-          <section class="page center-page klein-field" data-ch="2" data-note="口播：文件把内容交给你；HTML 还会回应。四个动作下一页当场试。｜操作：停在章封面，读四步。｜过渡：下一页用活动通知试一遍。">
+          <section class="page center-page is-chapter" data-ch="2" data-scene="open" data-note="口播：文件把内容交给你；HTML 还会回应。四个动作下一页当场试。｜操作：停在章封面，读四步。｜过渡：下一页用活动通知试一遍。">
+            <div class="page-fore">
             <p class="ch-no">02  HTML 可以做什么</p>
             <p class="gold">普通文件把内容交给你，<br>HTML 还可以回应你的操作。</p>
             <div class="flow">
@@ -2079,10 +2484,12 @@
               <div class="flow-step"><div class="n">03</div><h3>接收操作</h3><p>点一下，页知道你是谁</p></div><i></i>
               <div class="flow-step"><div class="n">04</div><h3>给出回应</h3><p>拿到自己的下一步</p></div>
             </div>
+            </div>
             <span class="watermark">02</span>
+            <span class="page-side">02 / ACTION</span>
           </section>
 
-          <section class="page" data-ch="2" data-note="口播：不是更多内容，是会回应的内容。选完身份，页给出下一步。｜操作：依次点「装下内容」「组织信息」「接收操作」「给出回应」，再点「新同学」。等金句出现、四卡全亮。｜过渡：所以接下来问，谁要用它完成什么？">
+          <section class="page" data-ch="2" data-scene="talk" data-note="口播：不是更多内容，是会回应的内容。选完身份，页给出下一步。｜操作：依次点「装下内容」「组织信息」「接收操作」「给出回应」，再点「新同学」。等金句出现、四卡全亮。｜过渡：所以接下来问，谁要用它完成什么？">
             <p class="kicker">P07<em>·</em>四个基础动作</p>
             <div class="split">
               <div>
@@ -2114,16 +2521,19 @@
             </div>
           </section>
 
-          <section class="page center-page klein-field" data-ch="3" data-note="口播：不要先问能不能做成 HTML，先问谁要用它完成什么。｜操作：停在章封面，过链式四步。｜过渡：下一页先认四种高频场景。">
+          <section class="page center-page is-chapter" data-ch="3" data-scene="open" data-note="口播：不要先问能不能做成 HTML，先问谁要用它完成什么。｜操作：停在章封面，过链式四步。｜过渡：下一页先认四种高频场景。">
+            <div class="page-fore">
             <p class="ch-no">03  工作中怎么选择</p>
             <p class="gold">不要先问「能不能做成 HTML」，<br>先问「谁要用它完成什么」。</p>
             <div class="chain">
               <span>任务</span><i></i><span>使用者</span><i></i><span>使用方式</span><i></i><span>交付形式</span>
             </div>
+            </div>
             <span class="watermark">03</span>
+            <span class="page-side">03 / CHOOSE</span>
           </section>
 
-          <section class="page" data-ch="3" data-note="口播：四种高频场景：讲清楚、走完流程、比较和选择、让想法被体验。点开只看交付形态。｜操作：现场只点开一张，其余三张一行还在。｜过渡：做之前，只看使用者、任务、是否复用。">
+          <section class="page" data-ch="3" data-scene="talk" data-note="口播：四种高频场景：讲清楚、走完流程、比较和选择、让想法被体验。点开只看交付形态。｜操作：现场只点开一张，其余三张一行还在。｜过渡：做之前，只看使用者、任务、是否复用。">
             <p class="kicker">P09<em>·</em>四种高频场景</p>
             <h2>先认场景，再谈做成什么样</h2>
             <div class="grid4 scene-grid" id="scenes" style="margin-top:22px">
@@ -2134,7 +2544,7 @@
             </div>
           </section>
 
-          <section class="page" data-ch="3" data-note="口播：三个维度一起看。任务只许选一个场景。一次会不要过度；长期用先确认负责人。｜操作：点中间「讲清楚 / 走完流程 / 比较和选择 / 让想法被体验」，只留一个。｜过渡：能用更轻的形式，就不要上 HTML。">
+          <section class="page" data-ch="3" data-scene="talk" data-note="口播：三个维度一起看。任务只许选一个场景。一次会不要过度；长期用先确认负责人。｜操作：点中间「讲清楚 / 走完流程 / 比较和选择 / 让想法被体验」，只留一个。｜过渡：能用更轻的形式，就不要上 HTML。">
             <p class="kicker">P10<em>·</em>三维度</p>
             <h2>做之前，只看这三件事</h2>
             <div class="dims">
@@ -2162,7 +2572,7 @@
             </div>
           </section>
 
-          <section class="page" data-ch="3" data-note="口播：最轻有效：文档表格、PPT、视频够用就停下。三自检第三问否定，当场不做。｜操作：左栏只读。右栏可点「谁会使用？」「他要完成什么？」；第 3 条常亮。｜过渡：下面用三个得物案例看这套判断。">
+          <section class="page" data-ch="3" data-scene="talk" data-note="口播：最轻有效：文档表格、PPT、视频够用就停下。三自检第三问否定，当场不做。｜操作：左栏只读。右栏可点「谁会使用？」「他要完成什么？」；第 3 条常亮。｜过渡：下面用三个得物案例看这套判断。">
             <p class="kicker">P11<em>·</em>最轻有效方案</p>
             <h2>价值不是看起来像网站，<br>是减少解释和重复劳动</h2>
             <div class="decide">
@@ -2183,7 +2593,8 @@
             </div>
           </section>
 
-          <section class="page center-page klein-field" data-ch="4" data-note="口播：同一种能力，解决不同类型的内容。只讲动作，不讲实现配方。｜操作：点「进入房间 →」进案例一、二或三。｜过渡：先看 11 周年物料怎么被操作。">
+          <section class="page center-page is-chapter" data-ch="4" data-scene="open" data-note="口播：同一种能力，解决不同类型的内容。只讲动作，不讲实现配方。｜操作：点「进入房间 →」进案例一、二或三。｜过渡：先看 11 周年物料怎么被操作。">
+            <div class="page-fore">
             <p class="ch-no">04  我们的 HTML 案例</p>
             <p class="gold">同一种能力，解决不同类型的内容。</p>
             <div class="doors">
@@ -2191,10 +2602,13 @@
               <button class="door" data-jump="13"><span class="tag">案例二 · 比较选择</span><h3>NONO 九款</h3><p>九款进同一页，把分散确认收起来。</p><span class="go">进入房间 →</span></button>
               <button class="door" data-jump="14"><span class="tag">案例三 · 讲清楚 / 体验</span><h3>业务知多少</h3><p>已有 HTML，再给页加上时间。现场叫它视频插件。</p><span class="go">进入房间 →</span></button>
             </div>
+            </div>
             <span class="watermark">04</span>
+            <span class="page-side">04 / CASE</span>
           </section>
 
-          <section class="page" data-ch="4" data-note="口播：平面稿看不出结构。多了接收操作、给出回应。｜操作：依次点四拍「原来 / 旧形式不够 / 多了哪个动作 / 交付给谁」；再点「T恤 / 物流箱 / 奖杯 / 防伪」；T恤上点「字标 / 贴花 / 吊牌」并拖。｜过渡：下一页收九款来比。">
+          <section class="page is-case" data-ch="4" data-scene="case" data-note="口播：平面稿看不出结构。多了接收操作、给出回应。｜操作：依次点四拍「原来 / 旧形式不够 / 多了哪个动作 / 交付给谁」；再点「T恤 / 物流箱 / 奖杯 / 防伪」；T恤上点「字标 / 贴花 / 吊牌」并拖。｜过渡：下一页收九款来比。">
+            <div class="page-fore">
             <p class="kicker">P13<em>·</em>案例一 · 比较 / 体验</p>
             <h2>11 周年 T恤 + 物流箱 + 奖杯 + 防伪</h2>
             <div class="beats4" data-beats>
@@ -2202,6 +2616,7 @@
               <button><span class="n">旧形式不够</span><h3>看不出材质结构</h3><p>静态稿无法转、无法比、无法换贴花。</p></button>
               <button><span class="n">多了哪个动作</span><h3>接收操作 + 给出回应</h3><p>让人拖、换贴花、比结构。</p></button>
               <button><span class="n">交付给谁</span><h3>活动 / 履约 / 防伪</h3><p>给沟通对象自己观察、自己比较。</p></button>
+            </div>
             </div>
             <div class="case-extra">
               <div class="device">
@@ -2218,25 +2633,28 @@
                     <path fill="#1c2126" stroke="rgba(238,244,246,0.22)" stroke-width="1.2" d="M24 18 L48 10 H72 L96 18 L110 38 L92 46 V118 H28 V46 L10 38 Z"/>
                     <path fill="none" stroke="rgba(1,194,195,0.35)" stroke-width="1" d="M48 12 C54 22 66 22 72 12"/>
                   </svg>
+                  <img class="shirt-skin" id="shirt-skin" alt="" />
                   <span class="mark" id="shirt-mark">11</span>
                 </div>
                 <div class="tee-tools">
-                  <button class="is-on" data-decal="11">字标</button>
-                  <button data-decal="POIZON">贴花</button>
-                  <button data-decal="吊牌">吊牌</button>
+                  <button class="is-on" data-decal="11" data-decal-src="assets/poizon/decal/mark.png">字标</button>
+                  <button data-decal="POIZON" data-decal-src="assets/poizon/decal/decal.png">贴花</button>
+                  <button data-decal="吊牌" data-decal-src="assets/poizon/decal/hangtag.png">吊牌</button>
                 </div>
                 <span class="tee-cap">拖一拖 · 换贴花</span>
               </div>
-              <div class="mat-ph" data-mat-pane="box"><span class="mat-ph-name">物流箱</span><span class="mat-ph-wait">待补图</span></div>
-              <div class="mat-ph" data-mat-pane="cup"><span class="mat-ph-name">奖杯</span><span class="mat-ph-wait">待补图</span></div>
-              <div class="mat-ph" data-mat-pane="anti"><span class="mat-ph-name">防伪</span><span class="mat-ph-wait">待补图</span></div>
+              <div class="mat-ph" data-mat-pane="box"><img class="asset-still" data-src="assets/poizon/box/texture.webp" alt="" /><span class="mat-ph-name">物流箱</span><span class="mat-ph-wait">待补 · 物流箱纹理</span></div>
+              <div class="mat-ph" data-mat-pane="cup"><img class="asset-still" data-src="assets/poizon/cup/preview.webp" alt="" /><span class="mat-ph-name">奖杯</span><span class="mat-ph-wait">待补 · 奖杯静帧</span></div>
+              <div class="mat-ph" data-mat-pane="anti"><img class="asset-still" data-src="assets/poizon/anti/preview.webp" alt="" /><span class="mat-ph-name">防伪</span><span class="mat-ph-wait">待补 · 防伪静帧</span></div>
               <div class="klein-bar"><b>价值</b>　静态设计稿变成能观察比较的沟通工具。可用 AI Coding 把已有物料收进同一页。</div>
                 </div>
               </div>
             </div>
+            <span class="page-side">POIZON</span>
           </section>
 
-          <section class="page" data-ch="4" data-note="口播：九款散在不同文件。多了组织信息、接收操作：同一页里筛、点、比。｜操作：依次点四拍「原来 / 旧形式不够 / 多了哪个动作 / 交付给谁」。再点「01」「02」，看对比卡；再点可取消。｜过渡：下一页看页怎么被加上时间。">
+          <section class="page is-case" data-ch="4" data-scene="case" data-note="口播：九款散在不同文件。多了组织信息、接收操作：同一页里筛、点、比。｜操作：依次点四拍「原来 / 旧形式不够 / 多了哪个动作 / 交付给谁」。再点「01」「02」，看对比卡；再点可取消。｜过渡：下一页看页怎么被加上时间。">
+            <div class="page-fore">
             <p class="kicker">P14<em>·</em>案例二 · 比较选择</p>
             <h2>NONO 九款，进同一页</h2>
             <div class="beats4" data-beats>
@@ -2244,6 +2662,7 @@
               <button><span class="n">旧形式不够</span><h3>分散确认成本高</h3><p>对一次、漏一次、再问一次。</p></button>
               <button><span class="n">多了哪个动作</span><h3>组织信息 + 接收操作</h3><p>同一页里筛、点、比。</p></button>
               <button><span class="n">交付给谁</span><h3>要对齐的人</h3><p>自己点两款，当场看差别。</p></button>
+            </div>
             </div>
             <div class="case-extra">
               <div class="device">
@@ -2264,24 +2683,26 @@
                   </div>
                   <p class="job-out" id="nono-out">点两款，看「比较」怎么发生。</p>
                   <div class="nono-grid" id="nono">
-                    <button class="nono" data-no="01"><b>01</b>高帮</button>
-                    <button class="nono" data-no="02"><b>02</b>低帮</button>
-                    <button class="nono" data-no="03"><b>03</b>高帮</button>
-                    <button class="nono" data-no="04"><b>04</b>袜套</button>
-                    <button class="nono" data-no="05"><b>05</b>低帮</button>
-                    <button class="nono" data-no="06"><b>06</b>高帮</button>
-                    <button class="nono" data-no="07"><b>07</b>低帮</button>
-                    <button class="nono" data-no="08"><b>08</b>袜套</button>
-                    <button class="nono" data-no="09"><b>09</b>高帮</button>
+                    <button class="nono" data-no="01" data-shot="assets/poizon/nono/01.webp"><b>01</b>高帮</button>
+                    <button class="nono" data-no="02" data-shot="assets/poizon/nono/02.webp"><b>02</b>低帮</button>
+                    <button class="nono" data-no="03" data-shot="assets/poizon/nono/03.webp"><b>03</b>高帮</button>
+                    <button class="nono" data-no="04" data-shot="assets/poizon/nono/04.webp"><b>04</b>袜套</button>
+                    <button class="nono" data-no="05" data-shot="assets/poizon/nono/05.webp"><b>05</b>低帮</button>
+                    <button class="nono" data-no="06" data-shot="assets/poizon/nono/06.webp"><b>06</b>高帮</button>
+                    <button class="nono" data-no="07" data-shot="assets/poizon/nono/07.webp"><b>07</b>低帮</button>
+                    <button class="nono" data-no="08" data-shot="assets/poizon/nono/08.webp"><b>08</b>袜套</button>
+                    <button class="nono" data-no="09" data-shot="assets/poizon/nono/09.webp"><b>09</b>高帮</button>
                   </div>
                 </div>
                 <div class="klein-bar"><b>价值</b>　把比较收进一页。可用 AI Coding 先出能打开的操作台，再用人话改到能用。</div>
                 </div>
               </div>
             </div>
+            <span class="page-side">POIZON</span>
           </section>
 
-          <section class="page" data-ch="4" data-note="口播：页能看，但不能按时间讲。加上时间、转场、声音，现场叫它视频插件。｜操作：点四拍「原来 / 旧形式不够 / 多了哪个动作 / 交付给谁」。再点「加上时间」「加上转场」「加上声音」。转场只闪一次，立刻看。｜过渡：三个案例只记三行。">
+          <section class="page is-case" data-ch="4" data-scene="case" data-note="口播：页能看，但不能按时间讲。加上时间、转场、声音，现场叫它视频插件。｜操作：点四拍「原来 / 旧形式不够 / 多了哪个动作 / 交付给谁」。再点「加上时间」「加上转场」「加上声音」。转场只闪一次，立刻看。｜过渡：三个案例只记三行。">
+            <div class="page-fore">
             <p class="kicker">P15<em>·</em>案例三 · 讲清楚 / 体验</p>
             <h2>《得物业务知多少》VOL.06</h2>
             <p class="lede" style="margin-top:8px">第三章「我们相信什么，决定了我们是谁」。页能看，但不能按时间讲。给页加上时间、转场、声音——现场叫它<b style="color:var(--ink)">视频插件</b>。</p>
@@ -2291,12 +2712,14 @@
               <button><span class="n">多了哪个动作</span><h3>加上时间</h3><p>出现、转场、声音，页开始被讲述。</p></button>
               <button><span class="n">交付给谁</span><h3>要讲这一章的人</h3><p>按时间走，而不是干翻页。</p></button>
             </div>
+            </div>
             <div class="case-extra">
               <div class="device">
                 <div class="device-chrome"><span>HTML</span><span>3:2</span></div>
                 <div class="device-view">
               <div class="timeline-box" id="vol06">
                 <div class="fake-page" id="fake-page">
+                  <img class="asset-still motion-still" data-src="assets/poizon/motion/frame.webp" alt="" />
                   <div class="layer">我们相信什么，决定了我们是谁</div>
                   <span class="wave" aria-hidden="true"></span>
                 </div>
@@ -2312,9 +2735,10 @@
                 </div>
               </div>
             </div>
+            <span class="page-side">POIZON</span>
           </section>
 
-          <section class="page" data-ch="4" data-note="口播：只留三行。原来、不够、多了哪个动作。不要再展开故事。｜操作：三行只读，不点。｜过渡：轮到他们自己做一件能打开的事。">
+          <section class="page" data-ch="4" data-scene="talk" data-note="口播：只留三行。原来、不够、多了哪个动作。不要再展开故事。｜操作：三行只读，不点。｜过渡：轮到他们自己做一件能打开的事。">
             <p class="kicker">P16<em>·</em>三案对照</p>
             <h2>三个案例，只记三行</h2>
             <div class="sum3">
@@ -2339,7 +2763,8 @@
             </div>
           </section>
 
-          <section class="page center-page klein-field" data-ch="5" data-note="口播：不要从「我要做一个很厉害的网站」开始。从「我想少解释一次什么」开始。｜操作：四问只点到现场有共鸣的那一个。｜过渡：下一页三选一，锁在得物三例。">
+          <section class="page center-page is-chapter" data-ch="5" data-scene="open" data-note="口播：不要从「我要做一个很厉害的网站」开始。从「我想少解释一次什么」开始。｜操作：四问只点到现场有共鸣的那一个。｜过渡：下一页三选一，锁在得物三例。">
+            <div class="page-fore">
             <p class="ch-no">05  轮到你了</p>
             <p class="gold">不要从「我要做一个很厉害的网站」开始。<br>从「我想少解释一次什么」开始。</p>
             <div class="qs">
@@ -2348,10 +2773,12 @@
               <article><span class="tag">03</span><h3>文字说不清</h3></article>
               <article><span class="tag">04</span><h3>能变成小工具</h3></article>
             </div>
+            </div>
             <span class="watermark">05</span>
+            <span class="page-side">05 / YOU</span>
           </section>
 
-          <section class="page" data-ch="5" data-note="口播：三选一，做一件能打开的事。作业锁在得物三个例子上，不要改题。｜操作：点「11 周年活动页」或「入职鉴别指引」或「一页可点方案」，点一个就停。｜过渡：下一页打开蓝龙虾，把提示词贴进去。">
+          <section class="page" data-ch="5" data-scene="talk" data-note="口播：三选一，做一件能打开的事。作业锁在得物三个例子上，不要改题。｜操作：点「11 周年活动页」或「入职鉴别指引」或「一页可点方案」，点一个就停。｜过渡：下一页打开蓝龙虾，把提示词贴进去。">
             <p class="kicker">P18<em>·</em>小任务</p>
             <h2>三选一，做一件能打开的事</h2>
             <div class="grid3" id="tasks" style="margin-top:22px">
@@ -2374,7 +2801,7 @@
             <p class="job-out" id="task-out">点一个任务。下一页打开蓝龙虾。</p>
           </section>
 
-          <section class="page" data-ch="5" data-note="口播：入口只有蓝龙虾。提示词整段复制，不要改。人话改到能用就停，再过三自检。｜操作：点「复制提示词」，到蓝龙虾里贴上。｜过渡：最后停在结课句。">
+          <section class="page" data-ch="5" data-scene="talk" data-note="口播：入口只有蓝龙虾。提示词整段复制，不要改。人话改到能用就停，再过三自检。｜操作：点「复制提示词」，到蓝龙虾里贴上。｜过渡：最后停在结课句。">
             <p class="kicker">P19<em>·</em>打开蓝龙虾</p>
             <h2>先填谁、什么事，再生成能打开的一版</h2>
             <div class="prompt">
@@ -2392,9 +2819,12 @@
             </ul>
           </section>
 
-          <section class="page close-page klein-field" data-ch="5" data-note="口播：未来真正重要的，不是每个人都会写代码，而是每个人都能把自己的专业判断，变成别人可以直接使用的成果。｜操作：停住，一字不改。｜过渡：把房间还给他们。">
+          <section class="page close-page is-chapter" data-ch="5" data-scene="open" data-note="口播：未来真正重要的，不是每个人都会写代码，而是每个人都能把自己的专业判断，变成别人可以直接使用的成果。｜操作：停住，一字不改。｜过渡：把房间还给他们。">
+            <div class="page-fore">
             <p class="who">结课</p>
             <p class="gold" data-frozen>未来真正重要的，不是每个人都会写代码，而是每个人都能把自己的专业判断，变成别人可以直接使用的成果。</p>
+            </div>
+            <span class="page-side">HTML+</span>
           </section>
 
         </div>
@@ -2444,6 +2874,20 @@
       let index = 0;
       let notesOn = false;
       let started = false;
+      let goToken = 0;
+      const sceneRoot = document.getElementById("scene-root");
+      const sceneMid = document.getElementById("scene-mid");
+      const sceneWash = document.getElementById("scene-wash");
+      const sceneVeil = document.getElementById("scene-veil");
+      const sceneMark = document.getElementById("scene-mark");
+      const CHAPTER_MARKS = {
+        0: "00  开场",
+        2: "01  什么是 HTML",
+        5: "02  可以做什么",
+        7: "03  怎么选择",
+        11: "04  我们的案例",
+        16: "05  轮到你了"
+      };
 
       pages.forEach((_, i) => {
         const b = document.createElement("button");
@@ -2455,14 +2899,17 @@
       });
       const dotBtns = [...dots.children];
 
-      function go(n) {
-        if (!started) return;
+      function applyPage(n) {
         index = Math.max(0, Math.min(pages.length - 1, n));
-        pages.forEach((p, i) => p.classList.toggle("is-on", i === index));
+        pages.forEach((p, i) => {
+          p.classList.toggle("is-on", i === index);
+          p.classList.remove("is-leave");
+        });
         dotBtns.forEach((d, i) => d.classList.toggle("is-on", i === index));
         const ch = Number(pages[index].dataset.ch || 0);
         const start = chStarts[ch];
         chBtns.forEach((r) => r.classList.toggle("is-on", Number(r.dataset.go) === start));
+        if (sceneRoot) sceneRoot.dataset.scene = pages[index].dataset.scene || "talk";
         window.scrollTo(0, 0);
         const label = "P" + String(index + 1).padStart(2, "0");
         pageLabel.textContent = label + " / 20";
@@ -2476,6 +2923,42 @@
             revealAboveChrome();
           });
         });
+      }
+
+      function go(n, opts) {
+        if (!started) return;
+        n = Math.max(0, Math.min(pages.length - 1, n));
+        const instant = (opts && opts.instant) || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (instant) {
+          goToken += 1;
+          if (sceneVeil) sceneVeil.classList.remove("is-cut");
+          if (sceneMark) sceneMark.classList.remove("is-on");
+          applyPage(n);
+          return;
+        }
+        if (n === index && pages[index].classList.contains("is-on")) return;
+        const from = index;
+        const isChapter = chStarts.includes(n);
+        const token = ++goToken;
+        const veilMs = isChapter ? 380 : 140;
+        const holdMs = isChapter ? 260 : 40;
+        pages[from].classList.add("is-leave");
+        if (sceneVeil) sceneVeil.classList.add("is-cut");
+        if (isChapter && sceneMark) {
+          sceneMark.textContent = CHAPTER_MARKS[n] || "";
+          sceneMark.classList.add("is-on");
+        } else if (sceneMark) {
+          sceneMark.classList.remove("is-on");
+        }
+        window.setTimeout(function () {
+          if (token !== goToken) return;
+          applyPage(n);
+          window.setTimeout(function () {
+            if (token !== goToken) return;
+            if (sceneVeil) sceneVeil.classList.remove("is-cut");
+            if (sceneMark) sceneMark.classList.remove("is-on");
+          }, holdMs);
+        }, veilMs);
       }
 
       function renderNotes() {
@@ -2714,11 +3197,30 @@
         lastX = e.clientX;
         shirt.style.setProperty("--ry", ry + "deg");
       });
+      const shirtSkin = document.getElementById("shirt-skin");
+      function setDecal(btn) {
+        document.querySelectorAll(".tee-tools button").forEach((b) => b.classList.toggle("is-on", b === btn));
+        mark.textContent = btn.dataset.decal;
+        if (!shirtSkin || !shirt) return;
+        const src = btn.dataset.decalSrc;
+        if (!src) {
+          shirt.classList.remove("has-decal");
+          shirtSkin.removeAttribute("src");
+          return;
+        }
+        const probe = new Image();
+        probe.onload = function () {
+          shirtSkin.src = src;
+          shirt.classList.add("has-decal");
+        };
+        probe.onerror = function () {
+          shirt.classList.remove("has-decal");
+          shirtSkin.removeAttribute("src");
+        };
+        probe.src = src;
+      }
       document.querySelectorAll(".tee-tools button").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          document.querySelectorAll(".tee-tools button").forEach((b) => b.classList.toggle("is-on", b === btn));
-          mark.textContent = btn.dataset.decal;
-        });
+        btn.addEventListener("click", () => setDecal(btn));
       });
 
       const teeView = document.getElementById("tee");
@@ -2974,7 +3476,10 @@
           d[i * 4 + 3] = 255;
         }
         ctx.putImageData(im, 0, 0);
-        el.style.backgroundImage = "url(" + c.toDataURL("image/png") + ")";
+        const url = "url(" + c.toDataURL("image/png") + ")";
+        el.style.backgroundImage = url;
+        const sceneGrain = document.getElementById("scene-grain");
+        if (sceneGrain) sceneGrain.style.backgroundImage = url;
       }
 
       function wireDoorReveal() {
@@ -3006,7 +3511,7 @@
         started = true;
         document.body.classList.add("started");
         loader.classList.add("done");
-        go(0);
+        go(0, { instant: true });
       }
       enterBtn.addEventListener("click", enterClass);
       if (doorScroller && !reduceMotion) {
@@ -3014,6 +3519,84 @@
       }
       paintDoorGrain();
       wireDoorReveal();
+
+      function probeAsset(src, onOk, onMiss) {
+        if (!src) { if (onMiss) onMiss(); return; }
+        const im = new Image();
+        im.onload = function () { onOk(src); };
+        im.onerror = function () { if (onMiss) onMiss(); };
+        im.src = src;
+      }
+      function probeAssetList(list, onOk, onMiss) {
+        let i = 0;
+        function next() {
+          if (i >= list.length) { if (onMiss) onMiss(); return; }
+          probeAsset(list[i++], onOk, next);
+        }
+        next();
+      }
+      document.querySelectorAll("img.asset-still[data-src]").forEach((img) => {
+        probeAsset(img.getAttribute("data-src"), function (src) {
+          img.src = src;
+          const host = img.closest(".mat-ph, .fake-page");
+          if (host) host.classList.add("has-asset");
+        });
+      });
+      const brandSlot = document.getElementById("brand-slot");
+      if (brandSlot) {
+        probeAssetList(
+          ["assets/poizon/logo/poizon.svg", "assets/poizon/logo/poizon.png"],
+          function (src) {
+            brandSlot.src = src;
+            brandSlot.classList.add("is-in");
+          }
+        );
+      }
+      document.querySelectorAll("#nono .nono[data-shot]").forEach((btn) => {
+        probeAsset(btn.getAttribute("data-shot"), function (src) {
+          btn.style.backgroundImage = "url(" + src + ")";
+          btn.classList.add("has-shot");
+        });
+      });
+      const firstDecal = document.querySelector(".tee-tools button.is-on");
+      if (firstDecal) setDecal(firstDecal);
+
+      const ring = document.getElementById("ring");
+      const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+      const wideDesk = window.matchMedia("(min-width: 980px)").matches;
+      if (ring && finePointer && wideDesk && !reduceMotion) {
+        document.body.classList.add("has-ring");
+        let rx = window.innerWidth / 2, ry = window.innerHeight / 2, tx = rx, ty = ry;
+        document.addEventListener("pointermove", function (e) {
+          tx = e.clientX;
+          ty = e.clientY;
+          const hot = e.target.closest("button, a, .pick, .job, .scene, .door, .task, .check, .nono, .shirt, .mat-tab");
+          ring.classList.toggle("is-hot", !!hot);
+          if (hot) {
+            const r = hot.getBoundingClientRect();
+            tx += (r.left + r.width / 2 - e.clientX) * 0.14;
+            ty += (r.top + r.height / 2 - e.clientY) * 0.14;
+          }
+        }, { passive: true });
+        (function tickRing() {
+          rx += (tx - rx) * 0.22;
+          ry += (ty - ry) * 0.22;
+          ring.style.transform = "translate3d(" + rx + "px," + ry + "px,0)";
+          requestAnimationFrame(tickRing);
+        })();
+      }
+
+      if (!reduceMotion && wideDesk) {
+        document.addEventListener("pointermove", function (e) {
+          if (!started) return;
+          const x = e.clientX / window.innerWidth - 0.5;
+          const y = e.clientY / window.innerHeight - 0.5;
+          if (sceneMid) sceneMid.style.transform = "translate3d(" + (x * -10) + "px," + (y * -7) + "px,0)";
+          if (sceneWash) sceneWash.style.transform = "translate3d(" + (x * -16) + "px," + (y * -11) + "px,0)";
+          const fore = pages[index] && pages[index].querySelector(".page-fore");
+          if (fore) fore.style.transform = "translate3d(" + (x * -22) + "px," + (y * -14) + "px,0)";
+        }, { passive: true });
+      }
     })();
   </script>
 </body>
