@@ -1561,7 +1561,7 @@
         bottom: 0;
       }
       .watermark { display: none; }
-      .grid3, .grid4, .compare, .qs, .list4, .jobs, .dims, .doors, .actions { grid-template-columns: 1fr; }
+      .grid3, .grid4, .compare, .qs, .list4, .jobs, .dims, .doors { grid-template-columns: 1fr; }
       .beats4 { grid-template-columns: 1fr 1fr; }
       .beats4 button { min-height: 0; padding: 10px 10px 12px; }
       .grid6, .nono-grid, .cognition .jobs { grid-template-columns: repeat(3, 1fr); }
@@ -2561,7 +2561,7 @@
         const dockEl = document.querySelector(".dock");
         if (!dockEl || !page) return;
         const limit = dockEl.getBoundingClientRect().top;
-        const sel = ".tee-tools, .tee-cap, #nono, .tl-btns, .hf, .klein-bar, .copy-row, #tasks, #scenes, .mat-tab";
+        const sel = "button, .tee-tools, .tee-cap, #nono, .tl-btns, .hf, .klein-bar, .copy-row, .roles";
         let lowest = 0;
         page.querySelectorAll(sel).forEach((el) => {
           const r = el.getBoundingClientRect();
