@@ -2982,8 +2982,13 @@
             const d = parseFloat(e.target.dataset.rvd || 0);
             window.setTimeout(() => e.target.classList.add("rv-in"), d);
           });
-        }, { root: doorScroller || null, rootMargin: "0px 0px -8% 0px", threshold: 0.04 });
+        }, { root: doorScroller || null, rootMargin: "0px", threshold: 0 });
         items.forEach((el) => io.observe(el));
+        window.setTimeout(() => {
+          items.forEach((el) => {
+            if (!el.classList.contains("rv-in")) el.classList.add("rv-in");
+          });
+        }, 900);
       }
 
       function enterClass() {
