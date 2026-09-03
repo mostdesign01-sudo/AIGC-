@@ -1318,7 +1318,7 @@
       transition: opacity 0.9s ease, visibility 0.9s;
     }
     #loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
-    #loader.done .loader-copy,
+    #loader.done .door-hero,
     #loader.done .door-cta { opacity: 0; transition: opacity 0.15s ease; }
 
     .door-scroller {
@@ -1332,7 +1332,7 @@
       scroll-timeline-axis: block;
     }
     .door-scroller::-webkit-scrollbar { width: 0; height: 0; }
-    .door-track { height: 150vh; position: relative; }
+    .door-track { height: 185vh; position: relative; }
     .door-sticky {
       position: sticky;
       top: 0;
@@ -1346,9 +1346,9 @@
       pointer-events: none;
       will-change: transform;
     }
-    .door-l1 { z-index: 1; }
-    .door-l2 { z-index: 2; }
-    .door-l3 { z-index: 3; }
+    .door-mid { z-index: 0; }
+    .door-read { z-index: 10; }
+    .door-near { z-index: 20; }
 
     .door-still {
       position: absolute;
@@ -1356,231 +1356,309 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center center;
+      object-position: center 46%;
     }
-    .door-l3::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 36vh;
-      background: linear-gradient(0deg, rgba(7, 9, 13, 0.62) 0%, transparent 100%);
+
+    .door-vignette,
+    .door-grain {
+      position: fixed;
+      inset: 0;
       pointer-events: none;
     }
-    .door-frame-32 {
-      position: absolute;
-      left: 50%;
-      top: 46%;
-      width: min(58vw, 580px);
-      aspect-ratio: 3 / 2;
-      transform: translate(-50%, -50%);
-      border: 1px solid var(--chrome);
-      border-radius: 2px;
-      opacity: 0.42;
+    .door-vignette {
+      z-index: 55;
+      background: radial-gradient(125% 95% at 50% 42%, transparent 40%, rgba(7, 9, 13, 0.55) 100%);
     }
-    .door-chrome {
+    .door-grain {
+      z-index: 60;
+      inset: -1px;
+      opacity: 0.055;
+      mix-blend-mode: overlay;
+      background-repeat: repeat;
+      background-size: 180px 180px;
+    }
+
+    .door-fg { position: absolute; inset: 0; }
+    .door-tick {
       position: absolute;
-      left: 50%;
-      top: 38%;
-      transform: translate(-50%, -50%);
-      width: min(46vw, 460px);
-      height: min(32vh, 240px);
+      width: 22px;
+      height: 22px;
+      border-color: rgba(255, 255, 255, 0.42);
+      border-style: solid;
+      border-width: 0;
+    }
+    .door-tick-tl { top: 16px; left: 16px; border-top-width: 1px; border-left-width: 1px; }
+    .door-tick-tr { top: 16px; right: 16px; border-top-width: 1px; border-right-width: 1px; }
+    .door-tick-bl { bottom: 16px; left: 16px; border-bottom-width: 1px; border-left-width: 1px; }
+    .door-tick-br { bottom: 16px; right: 16px; border-bottom-width: 1px; border-right-width: 1px; }
+
+    .door-peek {
+      position: absolute;
+      right: clamp(56px, 6vw, 110px);
+      bottom: clamp(72px, 14vh, 128px);
+      width: clamp(132px, 14vw, 200px);
+    }
+    .door-peek-fr {
+      display: block;
+      aspect-ratio: 3 / 2;
       border: 1px solid var(--chrome);
-      border-radius: 2px;
-      z-index: 2;
+      background: transparent;
+      box-shadow: 0 28px 60px -28px rgba(0, 0, 0, 0.7);
     }
     .door-chrome-bar {
-      height: 22px;
+      height: 20px;
       border-bottom: 1px solid var(--chrome);
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      gap: 10px;
-      padding: 0 10px;
+      gap: 8px;
+      padding: 0 8px;
     }
     .door-chrome-bar i {
       display: block;
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       box-sizing: border-box;
-      border: 1px solid rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.5);
     }
-    .door-chrome-bar .dc-min { height: 1px; align-self: center; border: 0; background: rgba(255, 255, 255, 0.55); }
-    .door-chrome-bar .dc-x {
-      position: relative;
-      border: 0;
-    }
+    .door-chrome-bar .dc-min { height: 1px; align-self: center; border: 0; background: rgba(255, 255, 255, 0.5); }
+    .door-chrome-bar .dc-x { position: relative; border: 0; }
     .door-chrome-bar .dc-x::before,
     .door-chrome-bar .dc-x::after {
       content: "";
       position: absolute;
       left: 0;
       right: 0;
-      top: 4px;
+      top: 3px;
       height: 1px;
-      background: rgba(255, 255, 255, 0.55);
+      background: rgba(255, 255, 255, 0.5);
     }
     .door-chrome-bar .dc-x::before { transform: rotate(45deg); }
     .door-chrome-bar .dc-x::after { transform: rotate(-45deg); }
     .door-slash {
       position: absolute;
-      left: 50%;
-      top: calc(38% + min(18vh, 140px));
-      transform: translateX(-50%);
-      z-index: 2;
-      font-size: 11px;
+      right: clamp(56px, 6vw, 110px);
+      bottom: clamp(52px, 10vh, 96px);
+      font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.38em;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.32);
+      color: rgba(255, 255, 255, 0.36);
       white-space: nowrap;
     }
     .cine-word { display: none; }
     .cover .cine-word { display: none; }
 
-    .loader-copy,
-    .door-title-float {
+    .door-hero {
       position: absolute;
-      left: clamp(24px, 6vw, 88px);
-      bottom: clamp(132px, 24vh, 220px);
-      z-index: 3;
+      inset: 0;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
-      text-align: left;
-      max-width: 28em;
+      padding: clamp(20px, 3.4vw, 56px);
+      pointer-events: none;
     }
+    .door-hero-top {
+      position: relative;
+      max-width: min(560px, 46vw);
+    }
+    .door-hero-spacer { flex: 1 1 auto; min-height: clamp(80px, 18vh, 220px); }
     .door-cta {
-      position: absolute;
-      left: clamp(24px, 6vw, 88px);
-      bottom: clamp(28px, 8vh, 72px);
-      z-index: 4;
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 10px;
+      gap: 16px;
       pointer-events: auto;
     }
-    .door-scroll-cue {
-      width: 10px;
-      height: 10px;
-      margin-top: 2px;
-      border-right: 1px solid rgba(255, 255, 255, 0.45);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.45);
-      transform: rotate(45deg);
-      opacity: 0.7;
-      animation: door-cue 1.6s ease-in-out infinite;
-    }
-    @keyframes door-cue {
-      0%, 100% { opacity: 0.35; transform: rotate(45deg) translateY(0); }
-      50% { opacity: 0.85; transform: rotate(45deg) translateY(4px); }
-    }
-    .loader-kicker {
-      font-size: 13px;
+    .door-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.55);
-      line-height: 1.3;
-    }
-    .loader-title {
-      font-size: clamp(22px, 3.2vw, 32px);
-      letter-spacing: -0.6px;
-      font-weight: 600;
-      color: #fff;
+      color: rgba(255, 255, 255, 0.48);
       line-height: 1.2;
-      text-shadow: var(--title-glow);
     }
-    .loader-sub {
-      max-width: 26em;
-      margin: 0;
-      font-size: clamp(14px, 1.5vw, 16px);
+    .door-eyebrow .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--aurora);
+      box-shadow: 0 0 10px rgba(1, 194, 195, 0.55);
+      flex: none;
+    }
+    .door-mark {
+      margin: 0 0 16px;
+      font-size: clamp(2rem, 5.4vw, 4.6rem);
       font-weight: 400;
-      line-height: 1.5;
-      letter-spacing: -0.05px;
-      color: rgba(255, 255, 255, 0.72);
+      letter-spacing: -0.012em;
+      line-height: 1.05;
+      color: #fff;
+      text-shadow: 0 2px 34px rgba(3, 6, 8, 0.72);
     }
-    .loader-bar {
-      width: 48px;
-      height: 2px;
-      background: rgba(255, 255, 255, 0.2);
+    .door-lede {
+      margin: 0;
+      max-width: 320px;
+      font-size: clamp(13px, 1.02vw, 16px);
+      font-weight: 300;
+      line-height: 1.72;
+      letter-spacing: 0;
+      color: rgba(255, 255, 255, 0.62);
+    }
+    [data-rv] { opacity: 0; }
+    [data-rv="up"] { transform: translate3d(0, 26px, 0); }
+    [data-rv="fade"] { transform: none; }
+    [data-rv].rv-in {
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: var(--rv-delay, 0ms);
+    }
+    .mask-line { display: block; overflow: hidden; }
+    .mask-line > span {
+      display: block;
+      transform: translate3d(0, 110%, 0);
+      transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: var(--rv-delay, 0ms);
+    }
+    .rv-in.mask-line > span,
+    .rv-in .mask-line > span { transform: none; }
+
+    .door-cue {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.46);
+    }
+    .door-cue .track {
+      width: 54px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.16);
+      position: relative;
       overflow: hidden;
     }
-    .loader-bar-fill {
-      width: 0;
-      height: 100%;
-      background: var(--aurora);
-      transition: width 1s ease;
+    .door-cue .track i {
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      transform-origin: left;
+      animation: door-cue-sweep 2.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
     }
-    .loader-bar-fill.is-ready { width: 100%; }
-    .enter-btn {
-      margin-top: 4px;
-      padding: 8px 14px;
-      min-height: 40px;
-      min-width: 120px;
-      background: var(--klein);
-      color: #fff;
-      border: 0;
-      border-radius: var(--r-md);
-      font-size: 14px;
+    @keyframes door-cue-sweep {
+      0% { transform: scaleX(0); }
+      42% { transform: scaleX(1); }
+      100% { transform: scaleX(1) translateX(100%); }
+    }
+    .door-side {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+    .door-side-l { left: clamp(10px, 1.6vw, 22px); }
+    .door-side-r { right: clamp(10px, 1.6vw, 22px); }
+    .door-side .v {
+      writing-mode: vertical-rl;
+      font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.38);
+    }
+    .enter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+      padding: 8px 14px;
+      min-height: 0;
+      min-width: 0;
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
       line-height: 1.2;
       cursor: pointer;
-      transition: background 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+      transition: border-color 0.2s ease, transform 0.16s ease, color 0.2s ease;
+    }
+    .enter-btn .arr {
+      font-size: 13px;
+      letter-spacing: 0;
+      color: var(--klein-on-dark);
+      transition: transform 0.2s ease;
     }
     .enter-btn:hover {
-      background: var(--klein-hover);
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18), 0 0 28px rgba(0, 47, 167, 0.45);
-      transform: translateY(-3px);
+      background: transparent;
+      box-shadow: none;
+      border-color: rgba(255, 255, 255, 0.55);
+      transform: translateY(-2px);
     }
-    .enter-btn:active { background: var(--klein-pressed); }
-    .enter-btn:focus-visible { outline: 2px solid rgba(255, 255, 255, 0.5); outline-offset: 2px; }
-    .loader-hint {
-      margin: 0;
-      font-size: 12px;
-      letter-spacing: 0;
-      color: rgba(255, 255, 255, 0.5);
-    }
+    .enter-btn:hover .arr { transform: translateX(4px); }
+    .enter-btn:active { background: transparent; }
+    .enter-btn:focus-visible { outline: 2px solid rgba(122, 162, 255, 0.7); outline-offset: 3px; }
     @supports (animation-timeline: scroll()) {
-      .door-l1 {
-        animation: door-l1 linear both;
+      .door-mid {
+        animation: door-mid linear both;
         animation-timeline: --door;
       }
-      .door-l2 {
-        animation: door-l2 linear both;
+      .door-near {
+        animation: door-near linear both;
         animation-timeline: --door;
       }
-      .door-title-float {
-        animation: door-l3 linear both;
+      .door-read-shift {
+        animation: door-read linear both;
         animation-timeline: --door;
       }
     }
-    @keyframes door-l1 {
-      from { transform: scale(1) translateY(0); }
-      to { transform: scale(1.06) translateY(-2%); }
+    @keyframes door-mid {
+      from { transform: translate3d(0, 0, 0) scale(1); }
+      to { transform: translate3d(0, -4%, 0) scale(1.04); }
     }
-    @keyframes door-l2 {
-      from { transform: translateY(0); }
-      to { transform: translateY(-18%); }
+    @keyframes door-near {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(0, -16%, 0); }
     }
-    @keyframes door-l3 {
-      from { transform: translateY(0); }
-      to { transform: translateY(-12vh); }
+    @keyframes door-read {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(0, -7vh, 0); }
     }
     @media (prefers-reduced-motion: reduce) {
       .door-scroller { overflow: hidden; }
       .door-track { height: 100%; }
       .door-layer,
       .door-still,
-      .door-title-float,
-      .door-scroll-cue {
+      .door-read-shift,
+      .door-cue .track i {
         animation: none !important;
         transform: none !important;
       }
-      .door-scroll-cue { display: none; }
+      [data-rv],
+      .mask-line > span {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      .door-cue { display: none; }
+    }
+    body:not(.started) {
+      overflow: hidden;
+      height: 100%;
     }
     body:not(.started) .rail,
     body:not(.started) .hud,
@@ -1750,31 +1828,23 @@
         border-color: transparent;
         background: rgba(255, 255, 255, 0.16);
       }
-      .door-chrome {
-        width: min(72vw, 280px);
-        height: 120px;
-        top: 34%;
+      .door-still {
+        width: 122%;
+        height: 122%;
+        left: -11%;
+        top: -8%;
+        object-position: center 34%;
       }
-      .door-frame-32 {
-        width: min(78vw, 320px);
-        top: 42%;
+      .door-peek,
+      .door-slash,
+      .door-tick,
+      .door-side { display: none; }
+      .door-hero {
+        padding: 20px 18px 22px;
       }
-      .door-slash {
-        top: calc(34% + 88px);
-        letter-spacing: 0.22em;
-      }
-      .loader-copy,
-      .door-title-float {
-        left: 24px;
-        right: 24px;
-        bottom: 22vh;
-        max-width: none;
-      }
-      .door-cta {
-        left: 24px;
-        right: 24px;
-        bottom: 8vh;
-      }
+      .door-hero-top { max-width: 18em; }
+      .door-mark { font-size: clamp(1.65rem, 8vw, 2.05rem); }
+      .door-lede { max-width: 16em; }
       .cover h1 { max-width: 14em; }
       .demo { padding-bottom: 16px; }
       .device { width: 100%; }
@@ -1826,34 +1896,56 @@
     <div class="door-scroller" id="door-scroller">
       <div class="door-track">
         <div class="door-sticky">
-          <div class="door-layer door-l1">
+          <div class="door-layer door-mid">
             <img class="door-still" src="cover-poster.webp" alt="" width="1536" height="1024" />
           </div>
-          <div class="door-layer door-l2" aria-hidden="true">
-            <div class="door-frame-32"></div>
-            <div class="door-chrome">
-              <div class="door-chrome-bar">
-                <i class="dc-min"></i><i class="dc-max"></i><i class="dc-x"></i>
+          <div class="door-layer door-read">
+            <div class="door-hero">
+              <div class="door-hero-top door-read-shift">
+                <div class="door-eyebrow" data-rv="up">
+                  <i class="dot" aria-hidden="true"></i>
+                  <span>00 · 门前</span>
+                </div>
+                <div class="door-mark mask-line" data-rv="up"><span>走进 HTML+</span></div>
+                <p class="door-lede" data-rv="up">点进去，从一份写好的内容开始。</p>
+              </div>
+              <div class="door-hero-spacer"></div>
+              <div class="door-cta">
+                <button type="button" id="enter-btn" class="enter-btn">进入课堂<span class="arr" aria-hidden="true">→</span></button>
+                <div class="door-cue" data-rv="fade" aria-hidden="true">
+                  <span>下滑进入</span>
+                  <span class="track"><i></i></span>
+                </div>
+              </div>
+              <div class="door-side door-side-l" data-rv="fade" aria-hidden="true">
+                <span class="v">POIZON DESIGN</span>
+              </div>
+              <div class="door-side door-side-r" data-rv="fade" aria-hidden="true">
+                <span class="v">OPEN CLASS</span>
               </div>
             </div>
-            <div class="door-slash">\ HTML+ /</div>
           </div>
-          <div class="door-layer door-l3">
-            <div class="loader-copy door-title-float">
-              <div class="loader-kicker">CHAPTER 00 · 门前</div>
-              <div class="loader-title">走进 HTML+</div>
-              <p class="loader-sub">不用学编程，也能做出能讲、能点、能分享的工作成果</p>
-              <div class="loader-bar" aria-hidden="true"><div class="loader-bar-fill" id="loader-bar"></div></div>
-            </div>
-            <div class="door-cta">
-              <button type="button" id="enter-btn" class="enter-btn">进入课堂</button>
-              <p class="loader-hint">点进去，从一份写好的内容开始。</p>
-              <span class="door-scroll-cue" aria-hidden="true"></span>
+          <div class="door-layer door-near" aria-hidden="true">
+            <div class="door-fg">
+              <span class="door-tick door-tick-tl"></span>
+              <span class="door-tick door-tick-tr"></span>
+              <span class="door-tick door-tick-bl"></span>
+              <span class="door-tick door-tick-br"></span>
+              <div class="door-peek">
+                <div class="door-peek-fr">
+                  <div class="door-chrome-bar">
+                    <i class="dc-min"></i><i class="dc-max"></i><i class="dc-x"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="door-slash">\ HTML+ /</div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="door-vignette" aria-hidden="true"></div>
+    <div class="door-grain" id="door-grain" aria-hidden="true"></div>
   </div>
   <div class="app">
     <aside class="rail">
@@ -2334,7 +2426,6 @@
       const stage = document.getElementById("stage");
       const loader = document.getElementById("loader");
       const enterBtn = document.getElementById("enter-btn");
-      const loaderBar = document.getElementById("loader-bar");
       const chStarts = [0, 2, 5, 7, 11, 16];
       const FROZEN = {
         title: "《HTML+：AI 时代的工作表达新方式》",
@@ -2823,9 +2914,9 @@
       });
 
       const doorScroller = document.getElementById("door-scroller");
-      const doorL1 = document.querySelector(".door-l1");
-      const doorL2 = document.querySelector(".door-l2");
-      const doorTitle = document.querySelector(".door-title-float");
+      const doorMid = document.querySelector(".door-mid");
+      const doorNear = document.querySelector(".door-near");
+      const doorReadShift = document.querySelector(".door-read-shift");
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const supportsSDA = window.CSS && CSS.supports && CSS.supports("animation-timeline", "scroll()");
 
@@ -2835,17 +2926,69 @@
         return max <= 0 ? 0 : doorScroller.scrollTop / max;
       }
       function applyDoorParallax(t) {
-        if (!doorL1 || !doorL2 || !doorTitle) return;
-        doorL1.style.transform = "scale(" + (1 + t * 0.06) + ") translateY(" + (t * -2) + "%)";
-        doorL2.style.transform = "translateY(" + (t * -18) + "%)";
-        doorTitle.style.transform = "translateY(" + (t * -12) + "vh)";
+        if (!doorMid || !doorNear || !doorReadShift) return;
+        doorMid.style.transform = "translate3d(0," + (t * -4) + "%,0) scale(" + (1 + t * 0.04) + ")";
+        doorNear.style.transform = "translate3d(0," + (t * -16) + "%,0)";
+        doorReadShift.style.transform = "translate3d(0," + (t * -7) + "vh,0)";
       }
       function onDoorScroll() {
         if (started || reduceMotion) return;
         const t = doorProgress();
-        const live = doorL1 ? getComputedStyle(doorL1).transform : "none";
+        const live = doorMid ? getComputedStyle(doorMid).transform : "none";
         if (!supportsSDA || live === "none") applyDoorParallax(t);
         if (t >= 0.88) enterClass();
+      }
+
+      function paintDoorGrain() {
+        const el = document.getElementById("door-grain");
+        if (!el) return;
+        const S = 180;
+        const c = document.createElement("canvas");
+        c.width = S;
+        c.height = S;
+        const ctx = c.getContext("2d");
+        if (!ctx) return;
+        const im = ctx.createImageData(S, S);
+        const d = im.data;
+        let seed = 9;
+        const rnd = function () {
+          seed |= 0;
+          seed = seed + 0x6D2B79F5 | 0;
+          let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+          t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+          return ((t ^ t >>> 14) >>> 0) / 4294967296;
+        };
+        for (let i = 0; i < S * S; i++) {
+          const v = 110 + rnd() * 90;
+          d[i * 4] = d[i * 4 + 1] = d[i * 4 + 2] = v;
+          d[i * 4 + 3] = 255;
+        }
+        ctx.putImageData(im, 0, 0);
+        el.style.backgroundImage = "url(" + c.toDataURL("image/png") + ")";
+      }
+
+      function wireDoorReveal() {
+        const items = loader ? [...loader.querySelectorAll("[data-rv], .mask-line")] : [];
+        if (!items.length) return;
+        if (reduceMotion) {
+          items.forEach((el) => el.classList.add("rv-in"));
+          return;
+        }
+        items.forEach((el, i) => { el.dataset.rvd = String(i * 85); });
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (!e.isIntersecting) return;
+            io.unobserve(e.target);
+            const d = parseFloat(e.target.dataset.rvd || 0);
+            window.setTimeout(() => e.target.classList.add("rv-in"), d);
+          });
+        }, { root: doorScroller || null, rootMargin: "0px", threshold: 0 });
+        items.forEach((el) => io.observe(el));
+        window.setTimeout(() => {
+          items.forEach((el) => {
+            if (!el.classList.contains("rv-in")) el.classList.add("rv-in");
+          });
+        }, 900);
       }
 
       function enterClass() {
@@ -2859,7 +3002,8 @@
       if (doorScroller && !reduceMotion) {
         doorScroller.addEventListener("scroll", onDoorScroll, { passive: true });
       }
-      requestAnimationFrame(() => loaderBar.classList.add("is-ready"));
+      paintDoorGrain();
+      wireDoorReveal();
     })();
   </script>
 </body>
