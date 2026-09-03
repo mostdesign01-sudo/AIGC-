@@ -33,7 +33,7 @@
 - `prefers-reduced-motion`：无入场、无暗场、无指针视差、无 ring cursor，轨道收成一屏。
 - 桌面轻量 ring cursor（22px 细圈，hover 略放大并微磁吸）。手机和 reduced-motion 关闭，不抢内容。
 
-视觉 token 见 [`DESIGN.md`](./DESIGN.md)。真实素材槽见 [`ASSETS.md`](./ASSETS.md)。
+视觉 token 见 [`DESIGN.md`](./DESIGN.md)。真实素材状态见 [`ASSETS.md`](./ASSETS.md)（当前仅 `cover-poster.webp` 已落盘；`assets/poizon/` 为待接入目录）。
 
 ## 门前封面 · `cover-poster.webp`
 

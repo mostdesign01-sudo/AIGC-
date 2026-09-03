@@ -115,7 +115,7 @@ CTA 与字在阅读层（z 10），不抬到 grain 之上。
 
 ## 真实素材
 
-只认已落盘文件。缺文件写「待补」，不生成假产品图。路径见 `ASSETS.md`。T恤 SVG 是交互线框，不是产品照片。
+**当前仅 `cover-poster.webp` 已在仓库。** `assets/poizon/` 子目录为空占位（`.gitkeep`），zip 内 logo / decal / 物流箱 / NONO 等**均未落盘**；页上写「待补」或保留 SVG 线框。完整状态表见 `ASSETS.md`。T恤 SVG 是交互线框，不是产品照片。
 
 ## Do
 
