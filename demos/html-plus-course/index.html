@@ -283,7 +283,6 @@
       background: var(--klein);
       color: #fff;
     }
-    .cover > :not(.door-field) { position: relative; z-index: 3; }
     .cover .who,
     .cover h1,
     .cover .sub,
@@ -392,9 +391,8 @@
       color: #fff;
       font-size: 13px;
       line-height: 1.4;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal;
+      overflow: visible;
       z-index: 2;
     }
     .klein-bar .punch, .klein-bar .ask, .klein-bar .gold { margin: 0; color: #fff; font-size: inherit; font-weight: 500; }
@@ -421,8 +419,13 @@
       word-break: break-word;
       min-width: 0;
     }
-    .page [contenteditable] { outline: none; cursor: text; }
-    .page [contenteditable]:focus { outline: 1px dashed rgba(0, 47, 167, 0.22); outline-offset: 3px; }
+    .page [contenteditable] { outline: none; }
+    body.is-edit .page [contenteditable="true"] {
+      cursor: text;
+      outline: 1px dashed rgba(0, 47, 167, 0.22);
+      outline-offset: 3px;
+    }
+    body:not(.is-edit) .page [contenteditable] { cursor: inherit; }
     .edit-hint { font-size: 11px; letter-spacing: 0.06em; color: var(--dim); font-weight: 400; }
     .pick, .job, .scene, .door, .task, .check { cursor: pointer; }
     .pick, .scene, .task, .door, .job, .card {
@@ -707,18 +710,20 @@
       position: relative;
       background: var(--surface-2);
       overflow: hidden;
+      --klein-bar-space: calc(2.8em + 16px);
+      padding-bottom: var(--klein-bar-space);
     }
-    .device-view > .tee,
+    .device-view > .tee {
+      position: absolute;
+      inset: 0;
+    }
     .device-view > .nono-grid,
     .device-view > .timeline-box {
       position: absolute;
-      left: 50%;
+      left: 0;
+      right: 0;
       top: 0;
-      transform: translateX(-50%);
-      width: 100%;
-      height: 118%;
-      object-fit: cover;
-      object-position: top center;
+      bottom: var(--klein-bar-space);
     }
     .beats4 h3 { margin-top: 8px; font-size: 16px; font-weight: 500; letter-spacing: -0.2px; }
     .beats4 p { margin-top: 8px; font-size: 13px; color: var(--soft); line-height: 1.45; }
@@ -736,7 +741,7 @@
       position: absolute;
       left: 10px;
       right: 10px;
-      bottom: 36px;
+      bottom: calc(var(--klein-bar-space) + 8px);
       margin: 0;
       z-index: 1;
       font-size: 12px;
@@ -780,7 +785,7 @@
       white-space: nowrap;
       font-weight: 600;
     }
-    .tee-tools { display: flex; gap: 6px; position: absolute; left: 10px; bottom: 10px; }
+    .tee-tools { display: flex; gap: 6px; position: absolute; left: 10px; bottom: calc(var(--klein-bar-space) + 8px); }
     .tee-tools button {
       border: 1px solid var(--line);
       border-radius: var(--r-md);
@@ -791,7 +796,7 @@
       background: var(--surface-1);
     }
     .tee-tools button.is-on { border-color: transparent; background: var(--klein); color: #fff; }
-    .tee-cap { position: absolute; right: 10px; bottom: 10px; font-size: 12px; color: var(--dim); }
+    .tee-cap { position: absolute; right: 10px; bottom: calc(var(--klein-bar-space) + 8px); font-size: 12px; color: var(--dim); }
 
     .nono-grid {
       display: grid;
@@ -1019,7 +1024,7 @@
     }
     .toast.is-on { opacity: 1; }
 
-    /* 门前 — T7 街拍原图未落到磁盘，不使用带 T2 字样的错楼。建筑 + 字，无角色。 */
+    /* 门前 — T7 街拍未落盘，纯 Klein。不渲染替代建筑。 */
     #loader {
       position: fixed;
       inset: 0;
@@ -1052,8 +1057,11 @@
     .door-field::after {
       content: "";
       position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, rgba(0, 47, 167, 0.42) 0%, rgba(0, 47, 167, 0.12) 48%, transparent 72%);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 40vh;
+      background: linear-gradient(0deg, rgba(0, 47, 167, 0.6) 0%, transparent 100%);
       pointer-events: none;
     }
 
@@ -1070,8 +1078,6 @@
       color: rgba(255, 255, 255, 0.94);
       pointer-events: none;
     }
-    .cover > .door-field { z-index: 0; }
-    .cover.is-push .door-still { transform: scale(1.2); }
     .cover .cine-word { display: none; }
 
     .loader-copy {
@@ -1085,6 +1091,17 @@
       gap: 14px;
       text-align: left;
       max-width: 28em;
+    }
+    .loader-copy::before {
+      content: "";
+      position: absolute;
+      left: -24px;
+      right: -40vw;
+      bottom: -28px;
+      height: 40vh;
+      background: linear-gradient(0deg, rgba(0, 47, 167, 0.6) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: -1;
     }
     .loader-kicker {
       font-size: 13px;
@@ -1152,7 +1169,7 @@
       color: rgba(255, 255, 255, 0.5);
     }
     @media (prefers-reduced-motion: reduce) {
-      .door-still, .cover.is-push .door-still { transform: none !important; transition: none; }
+      .door-still { transform: none !important; transition: none; }
     }
     body:not(.started) .rail,
     body:not(.started) .hud,
@@ -1329,9 +1346,7 @@
 </head>
 <body>
   <div id="loader" role="dialog" aria-modal="true" aria-label="门前">
-    <div class="door-field" aria-hidden="true">
-      <img class="door-still" src="door-still.webp" alt="">
-    </div>
+    <div class="door-field" aria-hidden="true"></div>
     <div class="cine-word">HTML+</div>
     <div class="loader-copy">
       <div class="loader-kicker">CHAPTER 00 · 门前</div>
@@ -1374,9 +1389,6 @@
         <div class="stage" id="stage">
 
           <section class="page cover klein-field is-on" data-ch="0" data-note="先停在开场问题上：内容写好了，别人却看不懂、不想看、不会用。四个拍子只点一下：文档变成页面，再变成能点、能分享。">
-            <div class="door-field" aria-hidden="true">
-              <img class="door-still" src="door-still.webp" alt="">
-            </div>
             <p class="who">POIZON 全员课</p>
             <h1>《HTML+：AI 时代的<br>工作表达新方式》</h1>
             <p class="sub">不用学编程，也能做出能讲、能点、能分享的工作成果</p>
@@ -1766,7 +1778,7 @@
           <button type="button" id="next">下一页</button>
         </div>
         <span class="hint" id="page-label">P01 / 20</span>
-        <span class="hint edit-hint">点字可改</span>
+        <button type="button" class="notes-btn edit-hint" id="edit-btn" aria-pressed="false">改字</button>
         <button type="button" class="notes-btn" id="notes-btn">讲稿</button>
         <span class="hint desk">← → 空格 · F 全屏</span>
       </div>
@@ -1839,10 +1851,32 @@
         notesBtn.classList.toggle("is-on", notesOn);
       }
       notesBtn.addEventListener("click", () => setNotes(!notesOn));
+      const editBtn = document.getElementById("edit-btn");
+      function setEdit(on) {
+        document.body.classList.toggle("is-edit", on);
+        document.querySelectorAll("[data-edit]").forEach((el) => {
+          el.setAttribute("contenteditable", on ? "true" : "false");
+        });
+        if (editBtn) {
+          editBtn.classList.toggle("is-on", on);
+          editBtn.setAttribute("aria-pressed", on ? "true" : "false");
+        }
+        if (!on) {
+          const ae = document.activeElement;
+          if (ae instanceof Element && ae.closest("[data-edit]")) ae.blur();
+        }
+      }
+      if (editBtn) editBtn.addEventListener("click", () => {
+        setEdit(!document.body.classList.contains("is-edit"));
+      });
 
       document.addEventListener("keydown", (e) => {
-        if (e.target.closest("[contenteditable], textarea, input")) {
-          if (e.key === "Escape") e.target.blur();
+        const inField = e.target instanceof Element && e.target.closest("[contenteditable='true'], textarea, input");
+        if (inField) {
+          if (e.key === "Escape") {
+            e.target.blur();
+            setEdit(false);
+          }
           return;
         }
         if (!started) {
@@ -1863,19 +1897,23 @@
           else document.exitFullscreen().catch(() => {});
         } else if (e.key === "s" || e.key === "S") {
           setNotes(!notesOn);
+        } else if (e.key === "e" || e.key === "E") {
+          e.preventDefault();
+          setEdit(!document.body.classList.contains("is-edit"));
         } else if (e.key === "Escape") {
           setNotes(false);
+          setEdit(false);
         }
       });
 
       let sx = 0, sy = 0, swipeIgnore = false;
       stage.addEventListener("touchstart", (e) => {
-        swipeIgnore = !!e.target.closest("[contenteditable]");
+        swipeIgnore = !!e.target.closest("[contenteditable='true']");
         const t = e.changedTouches[0];
         sx = t.clientX; sy = t.clientY;
       }, { passive: true });
       stage.addEventListener("touchend", (e) => {
-        if (swipeIgnore || e.target.closest("[contenteditable], button, a, .tee, .shirt, .nono-grid, .prompt, .roles, .scene-mini, .beats4, .timeline-box, .jobs, .actions, .checks")) return;
+        if (swipeIgnore || e.target.closest("[contenteditable='true'], button, a, .tee, .shirt, .nono-grid, .prompt, .roles, .scene-mini, .beats4, .timeline-box, .jobs, .actions, .checks")) return;
         const t = e.changedTouches[0];
         const dx = t.clientX - sx;
         const dy = t.clientY - sy;
@@ -1884,7 +1922,7 @@
       }, { passive: true });
 
       stage.addEventListener("click", (e) => {
-        if (e.target.closest("[contenteditable], button, a, .tee, .nono-grid, .prompt, .roles, .scene-mini, .beats4, .timeline-box, .jobs, .actions, .checks, .device")) return;
+        if (e.target.closest("[contenteditable='true'], button, a, .tee, .nono-grid, .prompt, .roles, .scene-mini, .beats4, .timeline-box, .jobs, .actions, .checks, .device")) return;
         const rect = stage.getBoundingClientRect();
         if (e.clientX < rect.left + rect.width * 0.22) prev();
         else if (e.clientX > rect.right - rect.width * 0.22) next();
@@ -1892,7 +1930,7 @@
 
       document.querySelectorAll("[data-jump]").forEach((el) => {
         el.addEventListener("click", (e) => {
-          if (e.target.closest("[contenteditable]")) return;
+          if (e.target.closest("[contenteditable='true']")) return;
           e.stopPropagation();
           go(Number(el.dataset.jump));
         });
@@ -1900,7 +1938,7 @@
 
       const jobOut = document.getElementById("job-out");
       document.getElementById("jobs").addEventListener("click", (e) => {
-        if (e.target.closest("[contenteditable]")) return;
+        if (e.target.closest("[contenteditable='true']")) return;
         const btn = e.target.closest(".job");
         if (!btn) return;
         document.querySelectorAll("#jobs .job").forEach((j) => j.classList.toggle("is-on", j === btn));
@@ -1916,7 +1954,7 @@
       };
       const nextStep = document.getElementById("next-step");
       document.getElementById("roles").addEventListener("click", (e) => {
-        if (e.target.closest("[contenteditable]")) return;
+        if (e.target.closest("[contenteditable='true']")) return;
         const btn = e.target.closest("button");
         if (!btn) return;
         document.querySelectorAll("#roles button").forEach((b) => b.classList.toggle("is-on", b === btn));
@@ -1927,7 +1965,7 @@
         persistEdits();
       });
       document.getElementById("actions").addEventListener("click", (e) => {
-        if (e.target.closest("[contenteditable]")) return;
+        if (e.target.closest("[contenteditable='true']")) return;
         const btn = e.target.closest(".pick");
         if (!btn) return;
         document.querySelectorAll("#actions .pick").forEach((p) => p.classList.toggle("is-on", p === btn));
@@ -1939,7 +1977,7 @@
       });
 
       document.getElementById("scenes").addEventListener("click", (e) => {
-        if (e.target.closest("[contenteditable]")) return;
+        if (e.target.closest("[contenteditable='true']")) return;
         const btn = e.target.closest(".scene");
         if (!btn) return;
         const on = btn.classList.contains("is-on");
@@ -1948,14 +1986,14 @@
       });
 
       document.getElementById("one-scene").addEventListener("click", (e) => {
-        if (e.target.closest("[contenteditable]")) return;
+        if (e.target.closest("[contenteditable='true']")) return;
         const btn = e.target.closest("button");
         if (!btn) return;
         document.querySelectorAll("#one-scene button").forEach((b) => b.classList.toggle("is-on", b === btn));
       });
 
       document.getElementById("checks").addEventListener("click", (e) => {
-        if (e.target.closest("[contenteditable]")) return;
+        if (e.target.closest("[contenteditable='true']")) return;
         const btn = e.target.closest(".check");
         if (!btn) return;
         document.querySelectorAll("#checks .check").forEach((c) => c.classList.toggle("is-on", c === btn));
@@ -1963,7 +2001,7 @@
 
       document.querySelectorAll("[data-beats]").forEach((box) => {
         box.addEventListener("click", (e) => {
-          if (e.target.closest("[contenteditable]")) return;
+          if (e.target.closest("[contenteditable='true']")) return;
           const btn = e.target.closest("button");
           if (!btn) return;
           box.querySelectorAll("button").forEach((b) => b.classList.toggle("is-on", b === btn));
@@ -1990,7 +2028,7 @@
 
       const nonoOut = document.getElementById("nono-out");
       document.getElementById("nono").addEventListener("click", (e) => {
-        if (e.target.closest("[contenteditable]")) return;
+        if (e.target.closest("[contenteditable='true']")) return;
         const btn = e.target.closest(".nono");
         if (!btn) return;
         btn.classList.toggle("is-on");
@@ -2017,7 +2055,7 @@
 
       const taskOut = document.getElementById("task-out");
       document.getElementById("tasks").addEventListener("click", (e) => {
-        if (e.target.closest("[contenteditable]")) return;
+        if (e.target.closest("[contenteditable='true']")) return;
         const btn = e.target.closest(".task");
         if (!btn) return;
         document.querySelectorAll("#tasks .task").forEach((t) => t.classList.toggle("is-on", t === btn));
@@ -2044,7 +2082,7 @@
       });
 
       const EDIT_KEY = "htmlplus-course-edits-v1";
-      const editSel = ".page h1, .page h2, .page h3, .page p:not(.kicker), .page li, .page .ch-no, .page .prompt pre, .page .klein-bar, .page .sum3 article > div";
+      const editSel = ".page h1:not([data-frozen]), .page h2:not([data-frozen]), .page h3:not([data-frozen]), .page p:not(.kicker):not([data-frozen]), .page li:not([data-frozen]), .page .ch-no:not([data-frozen]), .page .prompt pre:not([data-frozen]), .page .klein-bar:not([data-frozen]), .page .sum3 article > div:not([data-frozen])";
       function persistEdits() {
         const data = {};
         document.querySelectorAll("[data-edit]").forEach((el) => {
@@ -2056,14 +2094,18 @@
         let saved = {};
         try { saved = JSON.parse(localStorage.getItem(EDIT_KEY) || "{}") || {}; } catch (err) { saved = {}; }
         document.querySelectorAll(editSel).forEach((el, i) => {
-          el.setAttribute("contenteditable", "true");
+          el.setAttribute("contenteditable", "false");
           el.setAttribute("spellcheck", "false");
           el.setAttribute("data-edit", String(i));
           if (saved[i] != null) el.innerHTML = saved[i];
           el.addEventListener("input", persistEdits);
           el.addEventListener("blur", persistEdits);
-          el.addEventListener("click", (e) => e.stopPropagation());
-          el.addEventListener("mousedown", (e) => e.stopPropagation());
+          el.addEventListener("click", (e) => {
+            if (document.body.classList.contains("is-edit")) e.stopPropagation();
+          });
+          el.addEventListener("mousedown", (e) => {
+            if (document.body.classList.contains("is-edit")) e.stopPropagation();
+          });
           el.addEventListener("paste", (e) => {
             e.preventDefault();
             const t = (e.clipboardData || window.clipboardData).getData("text/plain");
@@ -2072,13 +2114,10 @@
         });
       })();
 
-      const cover = document.querySelector(".cover");
-
       function enterClass() {
         if (started) return;
         started = true;
         document.body.classList.add("started");
-        if (cover) cover.classList.add("is-push");
         loader.classList.add("done");
         go(0);
       }
