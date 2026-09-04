@@ -139,11 +139,26 @@
       pointer-events: none;
       mix-blend-mode: screen;
       will-change: transform;
-      filter: contrast(1.15) brightness(1.05);
+      /* 母本下部 RGB≈35–80，screen 会提成灰蓝盒；去饱和再加压对比 */
+      filter: contrast(1.8) brightness(0.85) saturate(0);
       opacity: var(--cut-a, 0.6);
       aspect-ratio: calc(var(--cw, 40) * 16 / (var(--ch, 40) * 9));
-      -webkit-mask-image: radial-gradient(60% 60% at var(--mx, 50%) var(--my, 40%), #000 55%, transparent 100%);
-      mask-image: radial-gradient(60% 60% at var(--mx, 50%) var(--my, 40%), #000 55%, transparent 100%);
+      border-radius: 50%;
+      --mask: closest-side at var(--mx, 50%) var(--my, 50%);
+      --fade-l: 14%;
+      --fade-r: 14%;
+      --fade-t: 14%;
+      --fade-b: 14%;
+      -webkit-mask-image:
+        radial-gradient(var(--mask), #000 45%, transparent 100%),
+        linear-gradient(to right, transparent 0%, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent 100%),
+        linear-gradient(to bottom, transparent 0%, #000 var(--fade-t), #000 calc(100% - var(--fade-b)), transparent 100%);
+      -webkit-mask-composite: source-in, source-in;
+      mask-image:
+        radial-gradient(var(--mask), #000 45%, transparent 100%),
+        linear-gradient(to right, transparent 0%, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent 100%),
+        linear-gradient(to bottom, transparent 0%, #000 var(--fade-t), #000 calc(100% - var(--fade-b)), transparent 100%);
+      mask-composite: intersect;
     }
     .cut > img {
       position: absolute;
@@ -164,6 +179,9 @@
       object-fit: contain;
       left: 0;
       top: 0;
+    }
+    .cut-approach {
+      filter: contrast(1.5) brightness(0.9) saturate(1.35);
     }
 
     button, textarea { font-family: inherit; color: inherit; }
@@ -757,33 +775,39 @@
     }
     .compare article.is-html .more { border-top-color: rgba(255, 255, 255, 0.16); }
     .html-sw {
-      margin-top: 10px;
+      margin: 10px -8px 0;
       display: flex;
       align-items: center;
-      gap: 8px;
+      flex-wrap: nowrap;
+      gap: 5px;
       min-height: 28px;
-      height: 28px;
-      padding: 0 8px;
+      height: auto;
+      padding: 5px 6px 6px;
     }
     .html-sw-btn {
       flex: none;
-      height: 22px;
-      padding: 0 8px;
+      height: 20px;
+      padding: 0 4px;
       border: 1px solid var(--bone-line);
       border-radius: 2px;
       background: transparent;
       color: var(--bone);
-      font-size: 11px;
-      letter-spacing: 0.08em;
+      font-size: 10px;
+      letter-spacing: 0.06em;
       cursor: pointer;
       line-height: 1;
     }
     .html-sw-btn:hover { background-image: var(--dots); background-size: 3px 3px; }
     .html-sw-line {
       margin: 0;
-      min-width: 0;
-      font-size: 13px;
-      line-height: 1.3;
+      flex: 1 0 auto;
+      min-width: auto;
+      overflow: visible;
+      text-overflow: clip;
+      font-size: 11px;
+      letter-spacing: -0.04em;
+      line-height: 1.25;
+      white-space: nowrap;
       color: var(--bone-soft);
     }
     .html-sw-line .use,
@@ -2218,27 +2242,30 @@
     }
     .cut-hand-l, .cut-tip-l { left: 0; bottom: 0; }
     .cut-hand-r, .cut-tip-r { right: 0; bottom: 0; }
-    .cut-hand-l { width: 26%; --cut-a: 0.6; --from-x: -8%; --from-y: 10%; }
-    .cut-hand-r { width: 26%; --cut-a: 0.6; --from-x: 8%; --from-y: 10%; }
-    .cut-tip-l { width: 15%; --cut-a: 0.7; --from-x: -6%; --from-y: 8%; }
-    .cut-tip-r { width: 15%; --cut-a: 0.7; --from-x: 6%; --from-y: 8%; }
+    .cut-hand-l { width: 24%; --cut-a: 0.55; --from-x: -8%; --from-y: 10%; }
+    .cut-hand-r { width: 24%; --cut-a: 0.55; --from-x: 8%; --from-y: 10%; }
+    .cut-tip-l { width: 11%; --cut-a: 0.65; --from-x: -6%; --from-y: 8%; }
+    .cut-tip-r { width: 11%; --cut-a: 0.65; --from-x: 6%; --from-y: 8%; }
     .scene-root[data-near="cover"] .cut-tip-l,
-    .scene-root[data-near="cover"] .cut-tip-r { --cut-a: 0.7; }
+    .scene-root[data-near="cover"] .cut-tip-r { --cut-a: 0.65; }
     .scene-root[data-near="case"] .cut-tip-l,
-    .scene-root[data-near="case"] .cut-tip-r { width: 12%; --cut-a: 0.5; }
+    .scene-root[data-near="case"] .cut-tip-r { width: 10%; --cut-a: 0.5; }
     .scene-root[data-near="case"] .cut-tip-l { left: 36%; bottom: 16%; }
     .scene-root[data-near="case"] .cut-tip-r { right: 3%; bottom: 16%; left: auto; }
-    .scene-root[data-near="close"] .cut-hand-l,
-    .scene-root[data-near="close"] .cut-hand-r { --cut-a: 0.55; }
+    .scene-root[data-near="close"] .cut-tip-l,
+    .scene-root[data-near="close"] .cut-tip-r { --cut-a: 0.35; }
     .cut-approach {
-      width: 90px;
-      height: 28px;
-      aspect-ratio: auto;
-      --cut-a: 0.85;
-      filter: none;
+      width: 12%;
+      --cut-a: 0.8;
     }
-    .cut-approach.is-p12 { left: auto; right: 10%; top: 22%; bottom: auto; }
-    .cut-approach.is-p20 { left: auto; right: 8%; top: auto; bottom: 38%; }
+    .cut-approach.is-p12 { left: auto; right: 8%; top: 20%; bottom: auto; }
+    .cut-approach.is-p20 { left: auto; right: 7%; top: auto; bottom: 36%; }
+    .cut-nudge {
+      left: auto;
+      right: 2%;
+      bottom: 26%;
+      width: 10%;
+    }
     .scene-far-par,
     .scene-mid-par,
     .scene-near-par {
@@ -2615,6 +2642,7 @@
 
     @media (max-width: 979px) {
       .scene-near { display: none; }
+      .door-near .cut { display: none; }
       .scene-vignette {
         background: radial-gradient(118% 96% at 50% 18%, transparent 12%, rgba(7, 9, 13, 0.78) 100%);
       }
@@ -4062,23 +4090,50 @@
       const POSTER_SRC = "cover-poster.webp";
       const cutFiles = { left: null, right: null, approach: null };
       const CUT_SPEC = {
-        "hand-l": { cx: 0, cy: 48, cw: 44, ch: 52, mx: "75%", my: "28%", key: "left", file: "poster/hand-left.png" },
-        "hand-r": { cx: 54, cy: 54, cw: 46, ch: 46, mx: "22%", my: "30%", key: "right", file: "poster/hand-right.png" },
-        "tip-l": { cx: 26, cy: 58, cw: 18, ch: 22, mx: "80%", my: "25%", key: "left", file: "poster/hand-left.png" },
-        "tip-r": { cx: 54, cy: 66, cw: 18, ch: 22, mx: "20%", my: "28%", key: "right", file: "poster/hand-right.png" },
-        approach: { cx: 60, cy: 47, cw: 22, ch: 14, mx: "50%", my: "50%", key: "approach", file: "poster/approach.svg" }
+        /* 母本 1200×675：左手体 x0–39/y53–85 指尖≈(38,71)；右手体 x60–100/y62–92 指尖≈(60,72)。
+           禁入：标题 y40–53、底行 y91–96、窗口 x36–64/y60–88（指尖入窗 ≤3%）；Approach x62–78/y50–61。 */
+        "hand-l": {
+          cx: 0, cy: 53, cw: 39, ch: 32, mx: "88%", my: "56%",
+          mask: "ellipse 78% 68% at 68% 56%",
+          fade: { l: "10%", r: "22%", t: "18%", b: "12%" },
+          key: "left", file: "poster/hand-left.png"
+        },
+        "hand-r": {
+          cx: 60, cy: 62, cw: 40, ch: 29, mx: "8%", my: "34%",
+          mask: "ellipse 78% 68% at 22% 38%",
+          fade: { l: "26%", r: "10%", t: "22%", b: "16%" },
+          key: "right", file: "poster/hand-right.png"
+        },
+        "tip-l": {
+          cx: 32, cy: 66, cw: 7, ch: 10, mx: "82%", my: "50%",
+          mask: "closest-side at 82% 50%",
+          fade: { l: "12%", r: "20%", t: "14%", b: "14%" },
+          key: "left", file: "poster/hand-left.png"
+        },
+        "tip-r": {
+          cx: 60, cy: 68, cw: 10, ch: 8, mx: "18%", my: "50%",
+          mask: "closest-side at 18% 50%",
+          fade: { l: "16%", r: "12%", t: "14%", b: "14%" },
+          key: "right", file: "poster/hand-right.png"
+        },
+        approach: {
+          cx: 62, cy: 50, cw: 16, ch: 11, mx: "50%", my: "50%",
+          mask: "ellipse 68% 62% at 50% 50%",
+          fade: { l: "16%", r: "16%", t: "16%", b: "16%" },
+          key: "approach", file: "poster/approach.svg"
+        }
       };
       const NEAR_BY_PAGE = {
         0: [{ kind: "tip-l" }, { kind: "tip-r" }],
         2: [{ kind: "hand-l" }],
         5: [{ kind: "hand-r" }],
         7: [{ kind: "hand-l" }],
-        11: [{ kind: "hand-r", id: "cut-p12" }, { kind: "approach", extra: "is-p12" }],
+        11: [{ kind: "tip-r", id: "cut-p12" }, { kind: "approach", extra: "is-p12" }],
         12: [{ kind: "tip-l" }],
         13: [{ kind: "tip-r" }],
         14: [{ kind: "tip-l" }],
         16: [{ kind: "hand-l" }],
-        19: [{ kind: "hand-l" }, { kind: "hand-r" }, { kind: "approach", extra: "is-p20" }]
+        19: [{ kind: "tip-l" }, { kind: "tip-r" }, { kind: "approach", extra: "is-p20" }]
       };
       const NEAR_TONE = { 0: "cover", 2: "chapter", 5: "chapter", 7: "chapter", 11: "chapter", 12: "case", 13: "case", 14: "case", 16: "chapter", 19: "close" };
 
@@ -4104,6 +4159,12 @@
           el.style.setProperty("--py", (-100 * spec.cy / spec.ch) + "%");
           el.style.setProperty("--mx", spec.mx);
           el.style.setProperty("--my", spec.my);
+          if (spec.mask) el.style.setProperty("--mask", spec.mask);
+          const fade = spec.fade || {};
+          if (fade.l) el.style.setProperty("--fade-l", fade.l);
+          if (fade.r) el.style.setProperty("--fade-r", fade.r);
+          if (fade.t) el.style.setProperty("--fade-t", fade.t);
+          if (fade.b) el.style.setProperty("--fade-b", fade.b);
         }
         el.appendChild(img);
       }
