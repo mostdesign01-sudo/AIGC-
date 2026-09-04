@@ -90,18 +90,16 @@
 
 ### 母本坐标（批次 I）
 
-母本（双手从下角相触、窗口在下 1/3）应落在 `poster/cover-poster-master.png`，并转 `cover-poster.webp`（q≈85，宽边 ≤ 2400，横版）。
+母本已落盘：`poster/cover-poster-master.png` 与 `cover-poster.webp`（1200×675，标题在上半、窗口在下约 1/3、双手从两侧指向窗口）。
 
-当前仓库 `cover-poster.webp`（1536×1024，窗口在画心）实测后写入 `.door-win`：
+`.door-win` 按该图实测量终值：
 
 | 机位 | `--win-x` | `--win-y` | `--win-w` | `--win-h` |
 |---|---|---|---|---|
-| 桌面 cover / 1440×900 | 31% | 28% | 38% | 34% |
-| 手机 contain / 390 | 22% | 48% | 56% | 16% |
+| 桌面 cover / 1440×900 | 34.4% | 59.9% | 30.3% | 27.8% |
+| 手机 contain / 390 | 35.9% | 60% | 27.3% | 7.3% |
 
-简报母本（双手下角相触、窗口在下 1/3）预置是 `36 / 60 / 28 / 27`。母本落盘后按实图改回并写终值。
-
-手机门页：`object-fit: contain; object-position: 50% 60%`，避免裁掉两手。
+手机门页：`object-fit: contain; object-position: 50% 60%`，整幅入画，两手不被裁掉。
 
 ## 门页规则 · 海报延展
 
@@ -155,7 +153,7 @@
 
 ## 真实素材
 
-**当前仅旧版 `cover-poster.webp`（双手捏窗，1536×1024）在仓库。** Hao 母本（双手相触）应落到 `poster/cover-poster-master.png` 并覆盖 webp。`assets/poizon/` 子目录为空占位。完整状态表见 `ASSETS.md`。
+**当前 `cover-poster.webp` 与 `poster/cover-poster-master.png` 已是 Hao 双手相触母本（1200×675）。** `assets/poizon/` 子目录为空占位。完整状态表见 `ASSETS.md`。
 
 ## Do
 

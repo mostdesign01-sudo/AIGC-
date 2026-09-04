@@ -6,10 +6,10 @@
 
 | 路径 | 来源 | 用法 | 状态 |
 |---|---|---|---|
-| `cover-poster.webp` | 旧版「双手捏窗」横版（1536×1024） | 门页底景；进课后 `.scene-root` 中景 | ⚠️ 待母本覆盖 |
-| `poster/cover-poster-master.png` | Hao 母本「双手相触」原图 | 存档；转 webp 的源 | ❌ 未落盘（附件路径未进本环境） |
+| `cover-poster.webp` | Hao 母本「双手相触」横版（1200×675） | 门页底景；进课后 `.scene-root` 中景 | ✅ 已落盘 |
+| `poster/cover-poster-master.png` | 同一母本 PNG 原图 | 存档；webp 源 | ✅ 已落盘 |
 
-母本规格：横版，转 `cover-poster.webp` q≈85、宽边 ≤ 2400。不得用旧版手冒充、不得用 AI 重画。落盘后按实图校正 `.door-win` 的 `--win-*` 与手机 `object-position: 50% 60%`，终值写回 `DESIGN.md`。
+构图：标题在上半、窗口在下约 1/3、双手从两侧指向窗口。旧捏窗版已作废。`.door-win` 热区终值见 `DESIGN.md`。
 
 ## 非产品图（结构占位，不是 zip 素材）
 
