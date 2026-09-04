@@ -124,24 +124,47 @@
 
 ## 课堂场景流
 
-进课后 `#loader` 淡出，`.scene-root` 接住同一张海报。页不再是舞台里的卡片。
+进课后 `#loader` 淡出，`.scene-root` 接住同一张海报。页不再是舞台里的卡片。机位 `transform` 写在 `*-cam`，指针视差写在 `*-par`，两层包裹，互不覆盖。wash 不位移。
 
-| 层 | 节点 | 角色 |
-|---|---|---|
-| 底 | `.scene-mid` + 海报 | 固定中景，桌面指针轻微平移 |
-| 洗 | `.scene-wash` | `open / talk / case` 三套暗角，案例页右侧更透 |
-| 氛 | `.scene-vignette` + `.scene-grain` | 与门页同手法 |
-| 文 | `.page-fore` | 窄栏标题 / 短句 / 细线互动 |
-| HUD | 左栏、dock、`.page-side`、3:2 `.win` 线框 | 细描边，不铺实心底 |
+| z | 层 | 节点 | 角色 | 视差 @ ±0.5 |
+|---|---|---|---|---|
+| 0 | 底景 far | `.scene-far > .scene-far-cam > .scene-far-par > img` | 母本整图，`[data-ch]` 换机位 900ms；讲解页 `brightness(.5)`，章首 `.7`，ch5 章首 `.6` | 4px |
+| 1 | 中景 mid | `.scene-mid` | 空容器（批次 L 再填字母 / 纹理） | 8px |
+| 2 | 洗 wash | `.scene-wash` | `open / talk / case` 三套暗角，**不位移** | 0 |
+| 10 | 前景文案 | `.page-fore` | 窄栏标题 / 短句 / 细线互动；视差走 `--par-x/y` | 14px |
+| 20 | 近景 near | `.scene-near` | 空容器（批次 K 再填 cut-out）；手机不出现 | 24px |
+| 55 | 氛围 | `.scene-vignette` | 径向暗角 | 0 |
+| 60 | 氛围 | `.scene-grain` | canvas 噪点 | 0 |
+| 70 | HUD | rail / dock / hud / `.page-side` | 细描边，不铺实心底 | 0 |
 
 章首（`chStarts` = P01 / P03 / P06 / P08 / P12 / P17）：
 
-- 暗场 `.scene-veil` 约 380ms
-- 章标 `.scene-mark` 居中短暂停留（骨白、`--display-weight`）
-- `.page-fore` 从左下入场 720ms
-- 背景海报保持，不切到纯色 Klein 场
+- t0 暗场 `.scene-veil` .72（380ms）
+- t0+80 far / mid 换机位 900ms `cubic-bezier(.16,1,.3,1)`
+- t0+120 章标 `.scene-mark.sl`：`\ 0n 章名 /`，骨白、`--display-weight`、18px、`letter-spacing: .28em`
+- t0+380 `applyPage()`，veil 退，`.page-fore` 从左下入场 720ms
+- t0+500 `.scene-near` 入场 class（本批无 cut）
+- t0+900 章标退
+- `prefers-reduced-motion`：无机位位移、无 veil、无视差，静态可读
 
-六机位切层是后续批次，本批不铺。
+### 六机位终值（批次 J，母本 1200×675）
+
+`.scene-root[data-ch]` ← `applyPage()` 写页上已有 `data-ch`。`--cam-x/y` 是 `object-position` + `transform-origin`，`--cam-s` 是外层 `scale`。
+
+| ch | 页 | `--cam-x` | `--cam-y` | `--cam-s` | 看到什么 | 文案安全区 |
+|---|---|---|---|---|---|---|
+| 0 | P01–P02 | `50%` | `8%` | `1.32` | 上半：字母 + 方标；窗口落到帧外 | 中央偏上，课名居中 |
+| 1 | P03–P05 | `12%` | `78%` | `1.6` | 左手大、字母在后 | 右上：x 约 48–100%，y 靠上 |
+| 2 | P06–P07 | `50%` | `75%` | `1.5` | 窗口居中偏下 | 金句在窗口上方，y 约 18–48% |
+| 3 | P08–P11 | `88%` | `78%` | `1.6` | 右手大 | 左上：x 约 6–56% |
+| 4 | P12–P16 | `50%` | `20%` | `1.3` | 字母 + 方标，wash `case` 右侧更透 | 标题左上；预览仍右 64% |
+| 5 | P17–P20 | `50%` | `50%` | `1.1` | 全图回归 | P17 左栏；P20 居中 |
+
+> ch0 简报原写 `50% 100% / 1.25`。现母本窗口在下 1/3，该值会把镜头钉在窗口上，与「看上半、窗口落帧外」相反，按 1200 文件改为 `50% 8% / 1.32`。其余五档沿用简报表。母本仅 1200 宽，1.6× 会发软——**待 Hao ≥2400 原图**，不要 AI 重画。
+
+同章翻页只换 wash / 亮度，不换机位。换章 far 位移 ≥ 6% 帧宽。
+
+手机：机位切换保留；wash 上限 .8（无 `!important`）；`.page-fore` 底 `.78` + 1px 边；near 不出现。
 
 ## Motion
 
