@@ -194,7 +194,7 @@
 
 ## 真实素材
 
-**当前 `cover-poster.webp` 与 `poster/cover-poster-master.png` 已是 Hao 双手相触母本（1200×675）。** `assets/poizon/` 子目录为空占位；批次 L 槽位就绪、静帧待补。完整状态表见 `ASSETS.md`，静帧规格见 `assets/poizon/README.md`。
+**当前 `cover-poster.webp` 与 `poster/cover-poster-master.png` 已是 Hao 双手相触母本（1200×675）。** `assets/poizon/` 已落盘：箱纹理、logo、三枚贴花、防伪正面。奖杯 / NONO / motion 仍待补。完整状态表见 `ASSETS.md`，静帧规格见 `assets/poizon/README.md`。
 
 ## Do
 

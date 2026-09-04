@@ -50,9 +50,10 @@
 
 本目录已落盘静帧合计约 1.13MB（≤ 3MB）。无 `.js / .wasm / .glb / .json / .mp4`。
 
-## 待 M（本批不修）
+## `.shirt-skin`（批次 M 已修）
 
-- `.shirt-skin` 现为 `width/height: auto` + 贴花原图像素（宽边 793–1200）叠在 118×124 的 `.shirt` 上，**会撑破**线框。批次 M 收口时修宽高（`width/height: 100%` 或等价约束），L 不改皮肤。
+- 原：`width/height: auto` + 贴花原图像素（宽边 793–1200）叠在 118×124 的 `.shirt` 上，会撑破线框。
+- 现：`left: 22%; top: 18%; width: 56%; height: 60%; object-fit: contain`。贴花落在设备框内。
 
 ## 下一步（Hao / 设计侧）
 

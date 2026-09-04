@@ -48,7 +48,7 @@
 - **`prefers-reduced-motion`**：全静态。无 veil、无机位过渡、无 near 入场、无视差、无 ring cursor。门页轨道收成一屏。机位仍按页瞬切，保证可读。
 - 桌面轻量 ring cursor（22px 点阵细圈）。手机和 reduced-motion 关闭。
 
-视觉 token 见 [`DESIGN.md`](./DESIGN.md)。真实素材状态见 [`ASSETS.md`](./ASSETS.md)（当前仅 `cover-poster.webp` 已落盘；`assets/poizon/` 为待接入目录）。
+视觉 token 见 [`DESIGN.md`](./DESIGN.md)。真实素材状态见 [`ASSETS.md`](./ASSETS.md)（海报 + box / logo / decal / anti 已落盘；奖杯 / NONO / motion 仍待补）。
 
 ## 门前封面 · `cover-poster.webp`
 

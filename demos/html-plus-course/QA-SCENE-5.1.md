@@ -1,6 +1,6 @@
 # HTML+ 场景 5.1 · 批次 M 收口验收
 
-- 对象：`demos/html-plus-course/index.html`，分支 `cursor/html-plus-batch-m-e5cb`，叠在 `cursor/html-plus-batch-l-6af8`（PR #33）之上。
+- 对象：`demos/html-plus-course/index.html`，分支 `cursor/html-plus-batch-m-e5cb`，rebase 在 `cursor/html-plus-batch-l-6af8` tip（PR #33 + 静帧落盘 `153d4ef`）之上。
 - 依据：`OPTIMIZATION-SCENE-5.1.md` §批次 M + §6 全文（约 24 项）。
 - 方式：Chrome 无头 1440×900 / 390×844；`getComputedStyle` / `scrollWidth` / `getBoundingClientRect`；`grep -c -F` 冻结句与禁词。打开方式同简报：单文件、无网络。
 - 执行：Grok 4.6。I→L 视觉决定未回退。有争议写「待 Hao」。
@@ -27,9 +27,10 @@
 | 390 无横滚 | P01–P20 `scrollWidth === clientWidth === 390` | ✓ |
 | 底栏 ≤ 96 | 二十页 `chromeH = 84`（hud 40 + dock 44） | ✓ |
 | page-fore 非 .94 | 有 fore 的页 `background-color` alpha **0.78** | ✓ |
-| `.shirt-skin` | 2400×2400 试图：skin 66×74 落在 shirt 118×124 内，`inside: true` | ✓ L 暴露、M 修 |
+| `.shirt-skin` | `left/top` + `56% × 60%`；贴花原图（mark 793–1200）落在 shirt 118×124 内 | ✓ L 暴露、M 修 |
+| L 静帧并入 | box / logo / decal / anti 已出图；cup / nono / motion 仍待补 | ✓ rebase L tip |
 
-截图（附 PR）：门页 / P01 / P03 / P07 / P13 / P20 × 1440 + 390，另 P03 桌面 reduced-motion。
+截图（附 PR）：门页 / P01 / P03 / P07 / P13 / P20 × 1440 + 390，另 P03 桌面 reduced-motion；P13 含真实贴花。
 
 ---
 
@@ -72,7 +73,7 @@
 - [x] 不点近景也能按讲稿三段讲完：近景不可点；P05 / P07 / P13 互动都在既有按钮上。
 - [x] `prefers-reduced-motion`：门页 overflow hidden、轨道 100%、无 cue、无机位动画；课堂无 veil、far 过渡 0s、cut/fore 无位移、无视差、无 ring。P03 1440 reduced 截图静态可读。
 - [x] 390 二十页无横滚、底栏 84px、无元素被底栏永久遮住（`revealAboveChrome` 仍在；padding-bottom = hud+dock+24）。
-- [x] `assets/poizon/` 无 `.js / .wasm / .glb / .json / .mp4`。素材缺失处仍写「待补」。
+- [x] `assets/poizon/` 无 `.js / .wasm / .glb / .json / .mp4`。已落盘：box / logo / decal / anti。奖杯 / NONO / motion 仍写「待补」。
 
 24 / 24。
 
