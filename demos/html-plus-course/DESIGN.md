@@ -129,7 +129,7 @@
 | z | 层 | 节点 | 角色 | 视差 @ ±0.5 |
 |---|---|---|---|---|
 | 0 | 底景 far | `.scene-far > .scene-far-cam > .scene-far-par > img` | 母本整图，`[data-ch]` 换机位 900ms；讲解页 `brightness(.5)`，章首 `.7`，ch5 章首 `.6` | 4px |
-| 1 | 中景 mid | `.scene-mid` | 空容器（批次 L 再填字母 / 纹理） | 8px |
+| 1 | 中景 mid | `.scene-mid` | 默认空。`box/texture.webp` 存在时 ch4 铺该纹理：`soft-light` `.18` + `saturate(.85) brightness(.9)`（海报字母仍在 far）；pane 内静帧原色 | 8px |
 | 2 | 洗 wash | `.scene-wash` | `open / talk / case` 三套暗角，**不位移** | 0 |
 | 10 | 前景文案 | `.page-fore` | 窄栏标题 / 短句 / 细线互动；视差走 `--par-x/y` | 14px |
 | auto（DOM 在 wash 后） | 近景 near | `.scene-near` | 点阵手 / 指尖 / Approach；**无 z-index / will-change / 容器 transform**（避免 isolation，好让 `.cut` 的 screen 与海报混合）；视差写在 `.cut` 上；手机不出现 | 24px |
@@ -194,7 +194,7 @@
 
 ## 真实素材
 
-**当前 `cover-poster.webp` 与 `poster/cover-poster-master.png` 已是 Hao 双手相触母本（1200×675）。** `assets/poizon/` 子目录为空占位。完整状态表见 `ASSETS.md`。
+**当前 `cover-poster.webp` 与 `poster/cover-poster-master.png` 已是 Hao 双手相触母本（1200×675）。** `assets/poizon/` 子目录为空占位；批次 L 槽位就绪、静帧待补。完整状态表见 `ASSETS.md`，静帧规格见 `assets/poizon/README.md`。
 
 ## Do
 
