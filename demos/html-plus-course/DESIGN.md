@@ -92,7 +92,14 @@
 
 母本（双手从下角相触、窗口在下 1/3）应落在 `poster/cover-poster-master.png`，并转 `cover-poster.webp`（q≈85，宽边 ≤ 2400，横版）。
 
-简报预置窗口矩形（% 帧）：`left 36% / top 60% / width 28% / height 27%`，写成 `.door-win` 的 `--win-x --win-y --win-w --win-h`。母本落盘后按实图校正，终值写回本表。
+当前仓库 `cover-poster.webp`（1536×1024，窗口在画心）实测后写入 `.door-win`：
+
+| 机位 | `--win-x` | `--win-y` | `--win-w` | `--win-h` |
+|---|---|---|---|---|
+| 桌面 cover / 1440×900 | 31% | 28% | 38% | 34% |
+| 手机 contain / 390 | 22% | 48% | 56% | 16% |
+
+简报母本（双手下角相触、窗口在下 1/3）预置是 `36 / 60 / 28 / 27`。母本落盘后按实图改回并写终值。
 
 手机门页：`object-fit: contain; object-position: 50% 60%`，避免裁掉两手。
 
