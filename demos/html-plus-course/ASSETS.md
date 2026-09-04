@@ -1,12 +1,15 @@
 # 真实素材清单
 
-**当前仓库状态（分支 `cursor/html-plus-scene-flow-983d`）**：除课程海报外，`assets/poizon/` 下各子目录仅有 `.gitkeep` 占位，**没有任何 zip 内产品图已落盘**。页面对应槽位一律显示「待补」或保留 SVG 线框交互，不会加载假图。
+**当前仓库状态（分支 `cursor/html-plus-batch-i-e7ee`）**：除课程海报外，`assets/poizon/` 下各子目录仅有 `.gitkeep` 占位，**没有任何 zip 内产品图已落盘**。页面对应槽位一律显示「待补」或保留 SVG 线框交互，不会加载假图。
 
 ## 已落盘（真实文件在磁盘上）
 
 | 路径 | 来源 | 用法 | 状态 |
 |---|---|---|---|
-| `cover-poster.webp` | Hao 确认的横版课程海报 | 门页底景；进课后 `.scene-root` 中景 | ✅ 已落盘 |
+| `cover-poster.webp` | 旧版「双手捏窗」横版（1536×1024） | 门页底景；进课后 `.scene-root` 中景 | ⚠️ 待母本覆盖 |
+| `poster/cover-poster-master.png` | Hao 母本「双手相触」原图 | 存档；转 webp 的源 | ❌ 未落盘（附件路径未进本环境） |
+
+母本规格：横版，转 `cover-poster.webp` q≈85、宽边 ≤ 2400。不得用旧版手冒充、不得用 AI 重画。落盘后按实图校正 `.door-win` 的 `--win-*` 与手机 `object-position: 50% 60%`，终值写回 `DESIGN.md`。
 
 ## 非产品图（结构占位，不是 zip 素材）
 
