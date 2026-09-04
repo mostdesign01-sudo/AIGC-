@@ -118,7 +118,7 @@
 3. 底 / 中 / 前景不同 **translate** 速率。
 4. `[data-rv]` / `.mask-line`：字从下方滑入。
 5. **窗口即门**：透明 `<button.door-win>` 覆盖母本窗口矩形。点窗口 / 滚到阈值 / Enter / 空格，一层进入 P01。
-6. `prefers-reduced-motion`：无动画、轨道收成一屏、静态可读。
+6. `prefers-reduced-motion`：全静态——无动画、无 veil、轨道收成一屏。
 7. 手机：`contain` + `50% 60%`，两手至少各露前臂；窗口可点。不叠竖排字、不画假窗口。
 8. 左栏 / HUD / dock 进课后才出现。
 
@@ -132,7 +132,7 @@
 | 1 | 中景 mid | `.scene-mid` | 默认空。`box/texture.webp` 存在时 ch4 铺该纹理：`soft-light` `.18` + `saturate(.85) brightness(.9)`（海报字母仍在 far）；pane 内静帧原色 | 8px |
 | 2 | 洗 wash | `.scene-wash` | `open / talk / case` 三套暗角，**不位移** | 0 |
 | 10 | 前景文案 | `.page-fore` | 窄栏标题 / 短句 / 细线互动；视差走 `--par-x/y` | 14px |
-| auto（DOM 在 wash 后） | 近景 near | `.scene-near` | 点阵手 / 指尖 / Approach；**无 z-index / will-change / 容器 transform**（避免 isolation，好让 `.cut` 的 screen 与海报混合）；视差写在 `.cut` 上；手机不出现 | 24px |
+| auto（DOM 在 wash 后） | 近景 near | `.scene-near` | 点阵手 / 指尖 / Approach；**无 z-index / will-change / 容器 transform**（避免 isolation，好让 `.cut` 的 screen 与海报混合）；视差写在 `.cut` 上；手机不出现，P20 例外一个左指尖 | 24px |
 | 55 | 氛围 | `.scene-vignette` | 径向暗角 | 0 |
 | 60 | 氛围 | `.scene-grain` | canvas 噪点 | 0 |
 | 70 | HUD | rail / dock / hud / `.page-side` | 细描边，不铺实心底 | 0 |
@@ -145,7 +145,7 @@
 - t0+380 `applyPage()`，veil 退，`.page-fore` 从左下入场 720ms
 - t0+500 `.scene-near` 入场 class；`.cut` 从对应角入 900ms
 - t0+900 章标退
-- `prefers-reduced-motion`：无机位位移、无 veil、无视差，静态可读
+- `prefers-reduced-motion`：全静态——无 veil、无机位过渡、无 near 入场、无视差、无入场动画；机位仍按页瞬切到位，保证可读
 
 ### 六机位终值（批次 J，母本 1200×675）
 
@@ -164,7 +164,7 @@
 
 同章翻页只换 wash / 亮度，不换机位。换章 far 位移 ≥ 6% 帧宽。
 
-手机：机位切换保留；wash 上限 .8（无 `!important`）；`.page-fore` 底 `.78` + 1px 边；near 不出现。
+手机：机位切换保留；wash 上限 .8（无 `!important`）；`.page-fore` 底 `.78` + 1px 边；near 不出现。**P20 例外**（批次 M）：允许一个左指尖，贴在底栏之上。
 
 ### 近景密度（批次 K）
 
@@ -179,7 +179,7 @@
 | P12 | 右指尖 + Approach（底景已有手时不叠整手） |
 | P13 / P15 | 左指尖，贴预览外侧 |
 | P14 | 右指尖，贴预览外侧 |
-| P20 | 左右指尖 + Approach（`--cut-a` .35，避四只手） |
+| P20 | 左右指尖 + Approach（`--cut-a` .35，避四只手）；手机只留左指尖 |
 | 其余讲解页 | 空 |
 
 同图裁切（母本 1200×675，无分层文件时）：左手体 x0–39 / y53–85；右手体 x60–100 / y62–92；左指尖 ≈ (40.5, 71)，裁切 x37–42（避开窗线 x36）；右指尖裁切 x56–62.5（避开窗线 x63）；Approach x62–78 / y50–61。遮罩 `closest-side` / 盒内椭圆，无 `border-radius` 硬切，四边与对角 alpha 0。
