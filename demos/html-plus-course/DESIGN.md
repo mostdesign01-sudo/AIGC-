@@ -132,7 +132,7 @@
 | 1 | 中景 mid | `.scene-mid` | 空容器（批次 L 再填字母 / 纹理） | 8px |
 | 2 | 洗 wash | `.scene-wash` | `open / talk / case` 三套暗角，**不位移** | 0 |
 | 10 | 前景文案 | `.page-fore` | 窄栏标题 / 短句 / 细线互动；视差走 `--par-x/y` | 14px |
-| 20 | 近景 near | `.scene-near` | 点阵手 / 指尖 / Approach（按密度表）；贴边不跟机位缩放；手机不出现 | 24px |
+| auto（DOM 在 wash 后） | 近景 near | `.scene-near` | 点阵手 / 指尖 / Approach；**无 z-index / will-change / 容器 transform**（避免 isolation，好让 `.cut` 的 screen 与海报混合）；视差写在 `.cut` 上；手机不出现 | 24px |
 | 55 | 氛围 | `.scene-vignette` | 径向暗角 | 0 |
 | 60 | 氛围 | `.scene-grain` | canvas 噪点 | 0 |
 | 70 | HUD | rail / dock / hud / `.page-side` | 细描边，不铺实心底 | 0 |
