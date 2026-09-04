@@ -783,7 +783,7 @@
       gap: 5px;
       min-height: 28px;
       height: auto;
-      padding: 5px 6px 6px;
+      padding: 5px 10px 6px 6px;
       overflow: hidden;
     }
     .html-sw-btn {
@@ -806,8 +806,8 @@
       min-width: 0;
       overflow: hidden;
       text-overflow: clip;
-      font-size: 11px;
-      letter-spacing: -0.04em;
+      font-size: 10px;
+      letter-spacing: -0.05em;
       line-height: 1.25;
       white-space: nowrap;
       color: var(--bone-soft);
@@ -2266,9 +2266,9 @@
     .cut-approach.is-p20 { left: auto; right: 7%; top: auto; bottom: 36%; }
     .cut-nudge {
       left: auto;
-      right: 2%;
+      right: 0;
       bottom: 66%;
-      width: 10%;
+      width: 4%;
     }
     .scene-far-par,
     .scene-mid-par,
@@ -4215,6 +4215,14 @@
         sceneNearPar.querySelectorAll(".cut-nudge").forEach((el) => el.remove());
         const tip = makeCut("tip-r", "cut-nudge");
         tip.style.setProperty("--cut-a", "0.5");
+        const demo = document.getElementById("demo");
+        if (demo) {
+          const r = demo.getBoundingClientRect();
+          const room = Math.max(40, window.innerWidth - r.right - 6);
+          tip.style.left = Math.round(r.right + 4) + "px";
+          tip.style.right = "auto";
+          tip.style.width = Math.min(64, room) + "px";
+        }
         sceneNearPar.appendChild(tip);
         sceneNear.classList.add("is-in");
         const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
