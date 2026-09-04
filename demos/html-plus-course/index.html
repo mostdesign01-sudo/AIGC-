@@ -1333,6 +1333,18 @@
     }
     .nono-compare.is-on { display: grid; }
     .nono-compare .cc-no { font-size: 13px; font-weight: 600; color: var(--ink); }
+    .nono-compare .cc-shot {
+      display: none;
+      width: 48px;
+      height: 48px;
+      margin: 0 0 6px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+    }
+    .nono-compare .cc-shot.has-shot { display: block; }
     .nono-compare .cc-row { color: var(--soft); }
     .nono-compare .cc-row i { font-style: normal; color: var(--dim); margin-right: 4px; }
     .nono-stage > .job-out {
@@ -1369,7 +1381,7 @@
       color: var(--soft);
       cursor: pointer;
     }
-    .nono.is-on { border-color: var(--klein-on-dark); background: transparent; color: var(--klein-on-dark); }
+    .nono.is-on { border-color: var(--klein-on-dark); background-color: transparent; color: var(--klein-on-dark); }
     .nono b { font-size: 12px; }
 
     .timeline-box {
@@ -2304,6 +2316,23 @@
         object-position 900ms cubic-bezier(0.16, 1, 0.3, 1),
         filter 640ms ease;
     }
+    /* 批次 L：box/texture.webp 存在才进 mid；无文件时 mid 仍空，与 K 一致 */
+    .scene-mid-tex {
+      display: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: var(--cam-x) var(--cam-y);
+      mix-blend-mode: soft-light;
+      opacity: 0.18;
+      filter: saturate(0.85) brightness(0.9);
+      pointer-events: none;
+    }
+    .scene-root.has-mid-tex[data-ch="4"] .scene-mid-tex { display: block; }
+    .scene-root.has-mid-tex[data-ch="4"][data-scene="case"] .scene-wash {
+      background:
+        radial-gradient(78% 68% at 72% 46%, rgba(7, 9, 13, 0.22) 0%, rgba(7, 9, 13, 0.72) 70%, rgba(7, 9, 13, 0.86) 100%);
+    }
     .scene-wash {
       background:
         linear-gradient(105deg, rgba(7, 9, 13, 0.78) 0%, rgba(7, 9, 13, 0.42) 46%, rgba(7, 9, 13, 0.68) 100%);
@@ -2498,6 +2527,7 @@
       object-fit: cover;
     }
     .mat-ph.has-asset .asset-still { display: block; }
+    .mat-ph.has-asset.win { background: transparent; }
     .mat-ph.has-asset .mat-ph-wait { display: none; }
     .mat-ph.has-asset .mat-ph-name {
       position: absolute;
@@ -2524,6 +2554,7 @@
       color: #fff;
       text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
     }
+    .nono.has-shot.is-on { color: #fff; }
 
     .rail {
       background: linear-gradient(90deg, rgba(7, 9, 13, 0.55) 0%, rgba(7, 9, 13, 0.08) 100%);
@@ -3153,11 +3184,13 @@
                 <div class="nono-stage">
                   <div class="nono-compare" id="nono-compare">
                     <div>
+                      <div class="cc-shot" data-cc="shot-a"></div>
                       <div class="cc-no" data-cc="no-a"></div>
                       <div class="cc-row"><i>帮型</i><span data-cc="cut-a"></span></div>
                       <div class="cc-row"><i>差别</i><span data-cc="diff-a"></span></div>
                     </div>
                     <div>
+                      <div class="cc-shot" data-cc="shot-b"></div>
                       <div class="cc-no" data-cc="no-b"></div>
                       <div class="cc-row"><i>帮型</i><span data-cc="cut-b"></span></div>
                       <div class="cc-row"><i>差别</i><span data-cc="diff-b"></span></div>
@@ -3725,7 +3758,11 @@
         const key = BEAT_KEYS[i] || "";
         device.dataset.beatState = key;
         const title = device.querySelector(".win-title");
-        if (title) title.textContent = key === "who" ? ((btn.querySelector("h3") && btn.querySelector("h3").textContent) || "") : "";
+        if (title) {
+          const decalOn = device.querySelector(".tee-tools button.is-on");
+          if (decalOn) title.textContent = decalOn.textContent.trim();
+          else title.textContent = key === "who" ? ((btn.querySelector("h3") && btn.querySelector("h3").textContent) || "") : "";
+        }
       }
       document.querySelectorAll("[data-beats]").forEach((box) => {
         applyBeat(box);
@@ -3760,6 +3797,8 @@
       function setDecal(btn) {
         document.querySelectorAll(".tee-tools button").forEach((b) => b.classList.toggle("is-on", b === btn));
         mark.textContent = btn.dataset.decal;
+        const barTitle = btn.closest(".device") && btn.closest(".device").querySelector(".win-title");
+        if (barTitle) barTitle.textContent = btn.textContent.trim();
         if (!shirtSkin || !shirt) return;
         const src = btn.dataset.decalSrc;
         if (!src) {
@@ -3818,6 +3857,19 @@
         nonoCompare.querySelector("[data-cc='cut-b']").textContent = nonoField(b, "cut");
         nonoCompare.querySelector("[data-cc='diff-a']").textContent = nonoField(a, "diff");
         nonoCompare.querySelector("[data-cc='diff-b']").textContent = nonoField(b, "diff");
+        paintCcShot(nonoCompare.querySelector("[data-cc='shot-a']"), a);
+        paintCcShot(nonoCompare.querySelector("[data-cc='shot-b']"), b);
+      }
+      function paintCcShot(slot, btn) {
+        if (!slot) return;
+        const ready = btn && btn.classList.contains("has-shot") && btn.style.backgroundImage;
+        if (ready) {
+          slot.style.backgroundImage = btn.style.backgroundImage;
+          slot.classList.add("has-shot");
+        } else {
+          slot.style.backgroundImage = "";
+          slot.classList.remove("has-shot");
+        }
       }
       document.getElementById("nono").addEventListener("click", (e) => {
         if (e.target.closest("[contenteditable='true']")) return;
@@ -3995,6 +4047,8 @@
         chBtns.forEach((r) => r.classList.remove("is-pre"));
         if (shirt) shirt.style.setProperty("--ry", "0deg");
         if (mark) mark.textContent = "11";
+        const resetDecal = document.querySelector(".tee-tools button.is-on");
+        if (resetDecal) setDecal(resetDecal);
         if (teeView) teeView.classList.remove("is-off");
         document.querySelectorAll(".mat-ph").forEach((ph) => ph.classList.remove("is-on"));
         if (nonoCompare) nonoCompare.classList.remove("is-on");
@@ -4285,7 +4339,17 @@
           img.src = src;
           const host = img.closest(".mat-ph, .fake-page");
           if (host) host.classList.add("has-asset");
+          if (host && host.classList.contains("mat-ph")) host.classList.add("win");
         });
+      });
+      probeAsset("assets/poizon/box/texture.webp", function (src) {
+        if (!sceneMidPar) return;
+        const img = document.createElement("img");
+        img.className = "scene-mid-tex";
+        img.alt = "";
+        img.src = src;
+        sceneMidPar.appendChild(img);
+        if (sceneRoot) sceneRoot.classList.add("has-mid-tex");
       });
       const brandSlot = document.getElementById("brand-slot");
       if (brandSlot) {
