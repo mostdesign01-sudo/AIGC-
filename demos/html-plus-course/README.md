@@ -2,9 +2,11 @@
 
 用浏览器直接打开本目录的 `index.html`（双击或拖进 Chrome / Edge / Safari，`file://` 即可）。无需安装、无需构建、无需网络。单文件，无外链、无字体 CDN。同目录的 `cover-poster.webp`、`assets/` 用相对路径读取。
 
-门页是 Kage 式短距 landing：z 0 海报底景、z 10 阅读层、可选近景 cut-out、z 55 径向 vignette、z 60 canvas grain。进入前可下滑约 1.8 屏；`file://` 无网络可开。点「进入课堂」、滚到阈值或按 `Enter` / 空格，一层到 P01。
+门页是海报母本的下一页：z 0 海报底景、z 10 阅读层、可选近景 cut-out、z 55 径向 vignette、z 60 canvas grain。进入前可下滑约 1.8 屏；`file://` 无网络可开。点海报窗口、滚到阈值或按 `Enter` / 空格，一层到 P01。
 
-进课后不是 16:9 白板翻卡片。海报留作整幅中景，文字和 HUD 压在画面上；章首（P01 / P03 / P06 / P08 / P12 / P17）走短距暗场 + 章标 + 文案从边缘入场；讲解页换洗，不瞬移切模块。桌面可「改字」，刷新后仍在；演示输出（身份、比较、任务）不入库，刷新或 `R` 回到初始。
+进课后不是 16:9 白板翻卡片。同一张海报按六机位换镜头，文字和 HUD 压在画面上；章首（P01 / P03 / P06 / P08 / P12 / P17）走短距暗场 + 章标 + 文案从边缘入场；讲解页换洗，不瞬移切模块。桌面可「改字」，刷新后仍在；演示输出（身份、比较、任务）不入库，刷新或 `R` 回到初始。
+
+场景 5.1 收口验收见 [`QA-SCENE-5.1.md`](./QA-SCENE-5.1.md)。
 
 ## 快捷键
 
@@ -25,15 +27,28 @@
 
 **改字只在桌面。**
 
-## 场景流
+## 场景流 · 六机位
 
-- 氛围层固定：海报 + 暗角 + 噪点。中景按 `open / talk / case` 换洗。前景是窄栏文案和细线 HUD。
-- 章首 300–900ms：暗场 → 章标 → 标题从左侧入场。普通页短距 opacity / translate。
-- 背景 / 中景 / 前景三速率：门页跟短距滚动；课堂桌面跟指针轻微平移。
-- `prefers-reduced-motion`：无入场、无暗场、无指针视差、无 ring cursor，轨道收成一屏。
-- 桌面轻量 ring cursor（22px 细圈，hover 略放大并微磁吸）。手机和 reduced-motion 关闭，不抢内容。
+同一张 `cover-poster.webp`，六个「摄影机」。同章翻页只换洗 / 亮度，不换机位；换章才动镜头。终值见 [`DESIGN.md`](./DESIGN.md)。
 
-视觉 token 见 [`DESIGN.md`](./DESIGN.md)。真实素材状态见 [`ASSETS.md`](./ASSETS.md)（当前仅 `cover-poster.webp` 已落盘；`assets/poizon/` 为待接入目录）。
+| ch | 页 | 机位（object-position + scale） | 看到什么 |
+|---|---|---|---|
+| 0 | P01–P02 | `50% 8%` / `1.32` | 上半：字母 + 方标 |
+| 1 | P03–P05 | `12% 78%` / `1.6` | 左手大 |
+| 2 | P06–P07 | `50% 75%` / `1.5` | 窗口居中偏下 |
+| 3 | P08–P11 | `88% 78%` / `1.6` | 右手大 |
+| 4 | P12–P16 | `50% 20%` / `1.3` | 字母 + 方标，案例洗更透 |
+| 5 | P17–P20 | `50% 50%` / `1.1` | 全图回归 |
+
+层栈：far（底景）→ mid（案例纹理，有文件才出）→ wash（暗角）→ `.page-fore`（文案）→ near（点阵手 / 指尖）。桌面指针视差 far 4 / mid 8 / fore 14 / near 24。
+
+- 章首 300–900ms：暗场 → `\ 0n 章名 /` → 标题从左侧入场。普通页短距 opacity / translate。
+- 门页分层跟短距滚动；课堂桌面跟指针。
+- **手机（≤979）三层减配**：far 机位保留 + wash ≤ `.8` + 无 near。**P20 例外**：允许一个左指尖。底部 HUD + dock ≤ 96px。`.page-fore` 底 `.78`，母本透出，不是实心卡。
+- **`prefers-reduced-motion`**：全静态。无 veil、无机位过渡、无 near 入场、无视差、无 ring cursor。门页轨道收成一屏。机位仍按页瞬切，保证可读。
+- 桌面轻量 ring cursor（22px 点阵细圈）。手机和 reduced-motion 关闭。
+
+视觉 token 见 [`DESIGN.md`](./DESIGN.md)。真实素材状态见 [`ASSETS.md`](./ASSETS.md)（海报 + box / logo / decal / anti 已落盘；奖杯 / NONO / motion 仍待补）。
 
 ## 门前封面 · `cover-poster.webp`
 

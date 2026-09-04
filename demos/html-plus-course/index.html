@@ -2541,9 +2541,10 @@
     .shirt-skin {
       display: none;
       position: absolute;
-      inset: 18% 22% 22%;
-      width: auto;
-      height: auto;
+      left: 22%;
+      top: 18%;
+      width: 56%;
+      height: 60%;
       object-fit: contain;
       pointer-events: none;
     }
@@ -2678,7 +2679,11 @@
       .scene-far-cam,
       .scene-mid-cam,
       .scene-near-cam,
-      .scene-still { transition: none !important; }
+      .scene-still,
+      #loader,
+      #loader.done .door-hero,
+      #loader.done .door-cta,
+      body.started .scene-root { transition: none !important; animation: none !important; }
       .scene-far-par,
       .scene-mid-par,
       .scene-near-par,
@@ -2686,8 +2691,14 @@
       .scene-near .cut {
         transition: none !important;
         --cut-show: 1;
+        --from-x: 0px;
+        --from-y: 0px;
+        --par-nx: 0px;
+        --par-ny: 0px;
         transform: none !important;
       }
+      .fake-page.is-play .layer { animation: none !important; }
+      .demo[data-win-act="recv"] .roles button { animation: none !important; }
       .ring { display: none !important; }
       body.has-ring { cursor: auto !important; }
       body.has-ring button,
@@ -2696,6 +2707,15 @@
 
     @media (max-width: 979px) {
       .scene-near { display: none; }
+      /* 批次 M：手机无 near；P20 简报例外，只露一个指尖 */
+      .scene-root[data-near="close"] .scene-near { display: block; }
+      .scene-root[data-near="close"] .cut-tip-l {
+        left: 4%;
+        bottom: calc(var(--hud) + var(--dock) + 8px);
+        width: 16%;
+        max-width: 64px;
+        --cut-a: 0.4;
+      }
       .door-near .cut { display: none; }
       .scene-vignette {
         background: radial-gradient(118% 96% at 50% 18%, transparent 12%, rgba(7, 9, 13, 0.78) 100%);
@@ -4067,6 +4087,7 @@
         if (!started) return;
         applyRhythm();
         revealAboveChrome();
+        if (typeof paintNear === "function") paintNear(index);
       });
 
       const doorScroller = document.getElementById("door-scroller");
@@ -4275,7 +4296,10 @@
       function paintNear(n) {
         if (!sceneNearPar || !sceneRoot) return;
         sceneNearPar.replaceChildren();
-        const spec = NEAR_BY_PAGE[n];
+        const mobile = window.matchMedia("(max-width: 979px)").matches;
+        let spec = NEAR_BY_PAGE[n];
+        /* 手机三层减配：无 near。P20 简报例外，只留一个指尖。 */
+        if (mobile) spec = (n === 19) ? [{ kind: "tip-l" }] : null;
         sceneRoot.dataset.near = spec ? (NEAR_TONE[n] || "") : "";
         if (!spec) return;
         spec.forEach((item) => {
