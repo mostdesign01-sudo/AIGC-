@@ -181,7 +181,8 @@
       top: 0;
     }
     .cut-approach {
-      filter: contrast(1.5) brightness(0.9) saturate(1.35);
+      /* 只留极光青手写，压掉底下「方式」白字与海军底 */
+      filter: url(#cut-cyan) contrast(1.15) brightness(1.05);
     }
 
     button, textarea { font-family: inherit; color: inherit; }
@@ -2727,6 +2728,14 @@
   </style>
 </head>
 <body>
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+    <filter id="cut-cyan" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -2.05 1.05 1.05 0 0" />
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="1.6" intercept="-0.08" />
+      </feComponentTransfer>
+    </filter>
+  </svg>
   <div class="scene-root" id="scene-root" data-scene="open" data-ch="0" aria-hidden="true">
     <div class="scene-far" id="scene-far">
       <div class="scene-far-cam">
@@ -4095,31 +4104,31 @@
         "hand-l": {
           cx: 0, cy: 53, cw: 39, ch: 32, mx: "88%", my: "56%",
           mask: "ellipse 78% 68% at 68% 56%",
-          fade: { l: "10%", r: "22%", t: "18%", b: "12%" },
+          fade: { l: "10%", r: "34%", t: "20%", b: "12%" },
           key: "left", file: "poster/hand-left.png"
         },
         "hand-r": {
           cx: 60, cy: 62, cw: 40, ch: 29, mx: "8%", my: "34%",
           mask: "ellipse 78% 68% at 22% 38%",
-          fade: { l: "26%", r: "10%", t: "22%", b: "16%" },
+          fade: { l: "30%", r: "10%", t: "24%", b: "18%" },
           key: "right", file: "poster/hand-right.png"
         },
         "tip-l": {
-          cx: 32, cy: 66, cw: 7, ch: 10, mx: "82%", my: "50%",
-          mask: "closest-side at 82% 50%",
-          fade: { l: "12%", r: "20%", t: "14%", b: "14%" },
+          cx: 32, cy: 66, cw: 7, ch: 10, mx: "78%", my: "50%",
+          mask: "ellipse 72% 68% at 78% 50%",
+          fade: { l: "12%", r: "22%", t: "14%", b: "14%" },
           key: "left", file: "poster/hand-left.png"
         },
         "tip-r": {
-          cx: 60, cy: 68, cw: 10, ch: 8, mx: "18%", my: "50%",
-          mask: "closest-side at 18% 50%",
-          fade: { l: "16%", r: "12%", t: "14%", b: "14%" },
+          cx: 60, cy: 68, cw: 10, ch: 8, mx: "22%", my: "50%",
+          mask: "ellipse 72% 68% at 22% 50%",
+          fade: { l: "20%", r: "12%", t: "14%", b: "14%" },
           key: "right", file: "poster/hand-right.png"
         },
         approach: {
           cx: 62, cy: 50, cw: 16, ch: 11, mx: "50%", my: "50%",
-          mask: "ellipse 68% 62% at 50% 50%",
-          fade: { l: "16%", r: "16%", t: "16%", b: "16%" },
+          mask: "ellipse 58% 52% at 50% 50%",
+          fade: { l: "18%", r: "18%", t: "20%", b: "20%" },
           key: "approach", file: "poster/approach.svg"
         }
       };
