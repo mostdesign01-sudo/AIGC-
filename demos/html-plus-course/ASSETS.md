@@ -1,6 +1,6 @@
 # 真实素材清单
 
-**当前仓库状态（分支 `cursor/html-plus-batch-i-e7ee`）**：除课程海报外，`assets/poizon/` 下各子目录仅有 `.gitkeep` 占位，**没有任何 zip 内产品图已落盘**。页面对应槽位一律显示「待补」或保留 SVG 线框交互，不会加载假图。
+**当前仓库状态（分支 `cursor/html-plus-batch-k-0dcc`）**：除课程海报外，`assets/poizon/` 下各子目录仅有 `.gitkeep` 占位，**没有任何 zip 内产品图已落盘**。页面对应槽位一律显示「待补」或保留 SVG 线框交互，不会加载假图。分层手图 / Approach 路径未到，近景用母本同图裁切。
 
 ## 已落盘（真实文件在磁盘上）
 
@@ -8,6 +8,9 @@
 |---|---|---|---|
 | `cover-poster.webp` | Hao 母本「双手相触」横版（1200×675） | 门页底景；进课后 `.scene-root` 中景 | ✅ 已落盘 |
 | `poster/cover-poster-master.png` | 同一母本 PNG 原图 | 存档；webp 源 | ✅ 已落盘 |
+| `poster/hand-left.png` | Hao 分层（可选） | `.cut` 近景左手 | 未落盘 → 同图裁切 |
+| `poster/hand-right.png` | Hao 分层（可选） | `.cut` 近景右手 | 未落盘 → 同图裁切 |
+| `poster/approach.svg` | Hao 路径（可选） | Approach 手写 | 未落盘 → 同图裁切；不用 web font |
 
 构图：标题在上半、窗口在下约 1/3、双手从两侧指向窗口。旧捏窗版已作废。`.door-win` 热区终值见 `DESIGN.md`。
 

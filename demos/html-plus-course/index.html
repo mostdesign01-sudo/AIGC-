@@ -98,6 +98,16 @@
       gap: 8px;
       padding: 0 8px;
     }
+    .win-title {
+      margin-right: auto;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--bone-soft);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
     .win-bar i {
       display: block;
       width: 8px;
@@ -129,12 +139,31 @@
       pointer-events: none;
       mix-blend-mode: screen;
       will-change: transform;
+      filter: contrast(1.15) brightness(1.05);
+      opacity: var(--cut-a, 0.6);
+      aspect-ratio: calc(var(--cw, 40) * 16 / (var(--ch, 40) * 9));
+      -webkit-mask-image: radial-gradient(60% 60% at var(--mx, 50%) var(--my, 40%), #000 55%, transparent 100%);
+      mask-image: radial-gradient(60% 60% at var(--mx, 50%) var(--my, 40%), #000 55%, transparent 100%);
     }
     .cut > img {
       position: absolute;
-      width: var(--pw);
-      left: var(--px);
-      top: var(--py);
+      width: var(--pw, 100%);
+      height: auto;
+      max-width: none;
+      left: var(--px, 0);
+      top: var(--py, 0);
+      pointer-events: none;
+    }
+    .cut.is-file {
+      aspect-ratio: auto;
+      filter: none;
+    }
+    .cut.is-file > img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      left: 0;
+      top: 0;
     }
 
     button, textarea { font-family: inherit; color: inherit; }
@@ -225,6 +254,11 @@
     }
     .rail .ch.is-on .num { color: #fff; }
     .rail .ch.is-on .lab { color: #fff; font-weight: 500; }
+    .rail .ch.is-pre:not(.is-on) {
+      border-left-color: var(--bone-line);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .rail .ch.is-pre:not(.is-on) .lab { color: rgba(255, 255, 255, 0.92); }
 
     .rail-progress { margin-top: auto; padding-top: 16px; }
     .rail-progress .meta {
@@ -722,6 +756,47 @@
       line-height: 1.5;
     }
     .compare article.is-html .more { border-top-color: rgba(255, 255, 255, 0.16); }
+    .html-sw {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 28px;
+      height: 28px;
+      padding: 0 8px;
+    }
+    .html-sw-btn {
+      flex: none;
+      height: 22px;
+      padding: 0 8px;
+      border: 1px solid var(--bone-line);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--bone);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .html-sw-btn:hover { background-image: var(--dots); background-size: 3px 3px; }
+    .html-sw-line {
+      margin: 0;
+      min-width: 0;
+      font-size: 13px;
+      line-height: 1.3;
+      color: var(--bone-soft);
+    }
+    .html-sw-line .use,
+    .html-sw-line .more {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      display: none;
+    }
+    .html-sw:not(.is-on) .html-sw-line .use { display: inline; }
+    .html-sw.is-on .html-sw-line .more { display: inline; }
+    .compare article.is-html .html-sw .use,
+    .compare article.is-html .html-sw .more { color: var(--bone-soft); }
 
     .flow { display: flex; align-items: stretch; gap: 0; margin-top: 24px; }
     .flow-step {
@@ -768,6 +843,26 @@
       background: rgba(255, 255, 255, 0.08);
       box-shadow: inset 3px 0 0 var(--aurora);
     }
+    .demo[data-win-act="hold"] {
+      animation: win-flash 640ms ease 1;
+    }
+    .demo[data-win-act="hold"] .win-bar,
+    .demo[data-win-act="org"] .win-bar,
+    .demo[data-win-act="recv"] .win-bar,
+    .demo[data-win-act="reply"] .win-bar {
+      background: rgba(236, 233, 226, 0.06);
+    }
+    .demo[data-win-act="org"] .demo-org { box-shadow: inset 3px 0 0 var(--aurora); }
+    .demo[data-win-act="recv"] .roles button { animation: role-pulse 560ms ease 2; }
+    .demo[data-win-act="reply"] #next-step {
+      color: var(--bone);
+      box-shadow: inset 3px 0 0 var(--aurora);
+      padding-left: 8px;
+    }
+    @keyframes win-flash {
+      0%, 100% { box-shadow: none; border-color: var(--bone-line); }
+      40% { box-shadow: 0 0 0 1px var(--bone); border-color: var(--bone); }
+    }
     .demo-punch {
       display: none;
       margin-top: auto;
@@ -794,6 +889,10 @@
     @media (prefers-reduced-motion: reduce) {
       .demo-punch.is-in { animation: none; }
       .roles.is-pulse button { animation: none; }
+      .demo[data-win-act="hold"] { animation: none; }
+      .device[data-beat-state="act"] .tee-tools button,
+      .device[data-beat-state="act"] .nono,
+      .device[data-beat-state="act"] .tl-btns button { animation: none; }
     }
     .roles { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
     .roles button {
@@ -870,6 +969,13 @@
       color: var(--dim);
     }
     .scene.is-on .ex { display: block; color: rgba(255, 255, 255, 0.7); }
+    #scenes:has(.scene.is-on) .scene:not(.is-on) {
+      background-image: var(--dots);
+      background-size: 3px 3px;
+      opacity: 0.55;
+      -webkit-mask-image: linear-gradient(180deg, #000 42%, transparent 100%);
+      mask-image: linear-gradient(180deg, #000 42%, transparent 100%);
+    }
 
     .dims { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 24px; }
     .dim { padding: 16px; }
@@ -947,6 +1053,14 @@
 
     .doors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 24px; }
     .door { min-height: 210px; display: flex; flex-direction: column; }
+    .door.win {
+      padding: 0 16px 16px;
+      border: 1px solid var(--bone-line);
+      border-radius: 2px;
+      border-bottom: 1px solid var(--bone-line);
+      background: rgba(7, 9, 13, 0.22);
+    }
+    .door.win > .win-bar { margin: 0 -16px 10px; }
     .door .go { margin-top: auto; padding-top: 16px; font-size: 12px; letter-spacing: 0.4px; color: var(--dim); }
     .klein-field .door .go { color: rgba(255, 255, 255, 0.6); }
 
@@ -1039,6 +1153,34 @@
       overflow: hidden;
       --klein-bar-space: calc(2.8em + 16px);
       padding-bottom: var(--klein-bar-space);
+    }
+    .device[data-beat-state="was"] .device-view {
+      filter: grayscale(1) opacity(0.7);
+    }
+    .device[data-beat-state="lack"] .device-view::after {
+      content: "\\  /";
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: 300;
+      color: var(--bone);
+      opacity: 0.55;
+      letter-spacing: 0.16em;
+      pointer-events: none;
+    }
+    .device[data-beat-state="lack"] { border-color: var(--bone); }
+    @keyframes beat-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 var(--klein-wash); }
+      50% { box-shadow: 0 0 0 5px rgba(0, 47, 167, 0); }
+    }
+    .device[data-beat-state="act"] .tee-tools button,
+    .device[data-beat-state="act"] .nono,
+    .device[data-beat-state="act"] .tl-btns button {
+      animation: beat-pulse 700ms ease 2;
     }
     .device-view > .tee {
       position: absolute;
@@ -1323,6 +1465,15 @@
       font-size: 15px;
       line-height: 1.5;
     }
+    .slot {
+      color: inherit;
+      box-shadow: inset 0 -2px 0 var(--aurora);
+    }
+    #prompt-job {
+      display: none;
+      margin: 0 0 8px;
+    }
+    #prompt-job.is-on { display: block; }
     .copy-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
     .copy-row button {
       border: 1px solid rgba(255, 255, 255, 0.28);
@@ -1526,6 +1677,12 @@
       background-size: 180px 180px;
     }
 
+    .door-near .cut {
+      --cut-a: 1;
+      opacity: 1;
+    }
+    .door-near .cut-tip-l { left: 16%; bottom: 6%; width: 20%; }
+    .door-near .cut-tip-r { right: 12%; bottom: 3%; width: 20%; }
     .door-fg { position: absolute; inset: 0; }
     .door-tick {
       position: absolute;
@@ -2033,14 +2190,55 @@
     .scene-near { z-index: 20; }
     .scene-vignette { z-index: 55; }
     .scene-grain { z-index: 60; }
-    /* 外层机位、内层视差，避免 pointermove 覆盖 scale */
+    /* 外层机位、内层视差，避免 pointermove 覆盖 scale。近景贴边，不跟机位缩放。 */
     .scene-far-cam,
-    .scene-mid-cam,
-    .scene-near-cam {
+    .scene-mid-cam {
       transform: scale(var(--cam-s));
       transform-origin: var(--cam-x) var(--cam-y);
       transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
     }
+    .scene-near-cam {
+      transform: none;
+    }
+    .scene-near .cut {
+      --cut-show: 0;
+      --nudge-x: 0px;
+      --nudge-y: 0px;
+      --from-x: 0px;
+      --from-y: 18px;
+      opacity: calc(var(--cut-a, 0.6) * var(--cut-show));
+      transform: translate3d(var(--from-x), var(--from-y), 0);
+      transition:
+        opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .scene-near.is-in .cut {
+      --cut-show: 1;
+      transform: translate3d(var(--nudge-x), var(--nudge-y), 0);
+    }
+    .cut-hand-l, .cut-tip-l { left: 0; bottom: 0; }
+    .cut-hand-r, .cut-tip-r { right: 0; bottom: 0; }
+    .cut-hand-l { width: 26%; --cut-a: 0.6; --from-x: -8%; --from-y: 10%; }
+    .cut-hand-r { width: 26%; --cut-a: 0.6; --from-x: 8%; --from-y: 10%; }
+    .cut-tip-l { width: 15%; --cut-a: 0.7; --from-x: -6%; --from-y: 8%; }
+    .cut-tip-r { width: 15%; --cut-a: 0.7; --from-x: 6%; --from-y: 8%; }
+    .scene-root[data-near="cover"] .cut-tip-l,
+    .scene-root[data-near="cover"] .cut-tip-r { --cut-a: 0.7; }
+    .scene-root[data-near="case"] .cut-tip-l,
+    .scene-root[data-near="case"] .cut-tip-r { width: 12%; --cut-a: 0.5; }
+    .scene-root[data-near="case"] .cut-tip-l { left: 36%; bottom: 16%; }
+    .scene-root[data-near="case"] .cut-tip-r { right: 3%; bottom: 16%; left: auto; }
+    .scene-root[data-near="close"] .cut-hand-l,
+    .scene-root[data-near="close"] .cut-hand-r { --cut-a: 0.55; }
+    .cut-approach {
+      width: 90px;
+      height: 28px;
+      aspect-ratio: auto;
+      --cut-a: 0.85;
+      filter: none;
+    }
+    .cut-approach.is-p12 { left: auto; right: 10%; top: 22%; bottom: auto; }
+    .cut-approach.is-p20 { left: auto; right: 8%; top: auto; bottom: 38%; }
     .scene-far-par,
     .scene-mid-par,
     .scene-near-par {
@@ -2360,12 +2558,16 @@
         width: 22px;
         height: 22px;
         margin: -11px 0 0 -11px;
-        border: 1px solid rgba(255, 255, 255, 0.72);
+        border: 0;
         border-radius: 50%;
         pointer-events: none;
         z-index: 90;
         opacity: 0;
         mix-blend-mode: difference;
+        background-image: var(--dots);
+        background-size: 3px 3px;
+        -webkit-mask-image: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px));
+        mask-image: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px));
         transition: width 180ms ease, height 180ms ease, margin 180ms ease, opacity 200ms ease;
       }
       body.has-ring.started:not(.is-edit) .ring { opacity: 0.85; }
@@ -2400,6 +2602,11 @@
       .scene-mid-par,
       .scene-near-par,
       .page-fore { transform: none !important; }
+      .scene-near .cut {
+        transition: none !important;
+        --cut-show: 1;
+        transform: none !important;
+      }
       .ring { display: none !important; }
       body.has-ring { cursor: auto !important; }
       body.has-ring button,
@@ -2555,6 +2762,8 @@
               <span class="door-tick door-tick-bl"></span>
               <span class="door-tick door-tick-br"></span>
             </div>
+            <div class="cut cut-tip-l" data-cut="tip-l"></div>
+            <div class="cut cut-tip-r" data-cut="tip-r"></div>
           </div>
         </div>
       </div>
@@ -2675,8 +2884,13 @@
               <article class="is-html">
                 <div class="kind">查看 · 选择 · 互动 · 复用</div>
                 <h3>HTML</h3>
-                <p class="use">内容随操作变化</p>
-                <p class="more">别人自己看、自己选、自己走下一步。</p>
+                <div class="win html-sw" id="html-sw">
+                  <button type="button" class="html-sw-btn" id="html-sw-btn" aria-pressed="false">点一下</button>
+                  <p class="html-sw-line">
+                    <span class="use">内容随操作变化</span>
+                    <span class="more">别人自己看、自己选、自己走下一步。</span>
+                  </p>
+                </div>
               </article>
             </div>
           </section>
@@ -2806,9 +3020,9 @@
             <p class="ch-no">04  我们的 HTML 案例</p>
             <p class="gold">同一种能力，解决不同类型的内容。</p>
             <div class="doors">
-              <button class="door" data-jump="12"><span class="tag">案例一 · 比较 / 体验</span><h3>11 周年物料</h3><p>T恤、物流箱、奖杯、防伪。平面稿看不出结构。</p><span class="go">进入房间 →</span></button>
-              <button class="door" data-jump="13"><span class="tag">案例二 · 比较选择</span><h3>NONO 九款</h3><p>九款进同一页，把分散确认收起来。</p><span class="go">进入房间 →</span></button>
-              <button class="door" data-jump="14"><span class="tag">案例三 · 讲清楚 / 体验</span><h3>业务知多少</h3><p>已有 HTML，再给页加上时间。现场叫它视频插件。</p><span class="go">进入房间 →</span></button>
+              <button class="door win" data-jump="12"><span class="win-bar" aria-hidden="true"><i class="dc-min"></i><i class="dc-max"></i><i class="dc-x"></i></span><span class="tag">案例一 · 比较 / 体验</span><h3>11 周年物料</h3><p>T恤、物流箱、奖杯、防伪。平面稿看不出结构。</p><span class="go">进入房间 →</span></button>
+              <button class="door win" data-jump="13"><span class="win-bar" aria-hidden="true"><i class="dc-min"></i><i class="dc-max"></i><i class="dc-x"></i></span><span class="tag">案例二 · 比较选择</span><h3>NONO 九款</h3><p>九款进同一页，把分散确认收起来。</p><span class="go">进入房间 →</span></button>
+              <button class="door win" data-jump="14"><span class="win-bar" aria-hidden="true"><i class="dc-min"></i><i class="dc-max"></i><i class="dc-x"></i></span><span class="tag">案例三 · 讲清楚 / 体验</span><h3>业务知多少</h3><p>已有 HTML，再给页加上时间。现场叫它视频插件。</p><span class="go">进入房间 →</span></button>
             </div>
             </div>
             <span class="watermark">04</span>
@@ -2833,7 +3047,7 @@
                   <button type="button" class="mat-tab" data-mat="box">物流箱</button>
                   <button type="button" class="mat-tab" data-mat="cup">奖杯</button>
                   <button type="button" class="mat-tab" data-mat="anti">防伪</button>
-                  <span class="win-bar" aria-hidden="true"><i class="dc-min"></i><i class="dc-max"></i><i class="dc-x"></i></span>
+                  <span class="win-bar" aria-hidden="true"><span class="win-title"></span><i class="dc-min"></i><i class="dc-max"></i><i class="dc-x"></i></span>
                 </div>
                 <div class="device-view">
               <div class="tee" id="tee" title="拖一拖，换一换">
@@ -2875,7 +3089,7 @@
             </div>
             <div class="case-extra">
               <div class="device win">
-                <div class="device-chrome"><span>HTML</span><span class="win-bar" aria-hidden="true"><i class="dc-min"></i><i class="dc-max"></i><i class="dc-x"></i></span></div>
+                <div class="device-chrome"><span>HTML</span><span class="win-bar" aria-hidden="true"><span class="win-title"></span><i class="dc-min"></i><i class="dc-max"></i><i class="dc-x"></i></span></div>
                 <div class="device-view">
                 <div class="nono-stage">
                   <div class="nono-compare" id="nono-compare">
@@ -2924,7 +3138,7 @@
             </div>
             <div class="case-extra">
               <div class="device win">
-                <div class="device-chrome"><span>HTML</span><span class="win-bar" aria-hidden="true"><i class="dc-min"></i><i class="dc-max"></i><i class="dc-x"></i></span></div>
+                <div class="device-chrome"><span>HTML</span><span class="win-bar" aria-hidden="true"><span class="win-title"></span><i class="dc-min"></i><i class="dc-max"></i><i class="dc-x"></i></span></div>
                 <div class="device-view">
               <div class="timeline-box" id="vol06">
                 <div class="fake-page" id="fake-page">
@@ -3015,7 +3229,8 @@
             <h2>先填谁、什么事，再生成能打开的一版</h2>
             <div class="prompt win">
               <div class="win-bar" aria-hidden="true"><i class="dc-min"></i><i class="dc-max"></i><i class="dc-x"></i></div>
-              <pre id="prompt" data-frozen>我想把这份材料做成一个可以直接打开的 HTML。使用者是【谁】，需要完成【什么事】。请先帮我整理内容结构，再生成一个简单、清楚、容易使用的版本。</pre>
+              <pre id="prompt" data-frozen>我想把这份材料做成一个可以直接打开的 HTML。使用者是<span class="slot">【谁】</span>，需要完成<span class="slot">【什么事】</span>。请先帮我整理内容结构，再生成一个简单、清楚、容易使用的版本。</pre>
+              <p class="job-out" id="prompt-job"></p>
               <div class="copy-row">
                 <button type="button" id="copy-btn">复制提示词</button>
                 <span id="copy-state">整段复制，到蓝龙虾里贴上。</span>
@@ -3134,6 +3349,8 @@
             leftover.style.removeProperty("--par-y");
           }
         });
+        if (typeof paintNear === "function") paintNear(index);
+        if (typeof syncPromptJob === "function") syncPromptJob();
         window.scrollTo(0, 0);
         const label = "P" + String(index + 1).padStart(2, "0");
         pageLabel.textContent = label + " / 20";
@@ -3157,8 +3374,8 @@
           goToken += 1;
           if (sceneVeil) sceneVeil.classList.remove("is-cut");
           if (sceneMark) sceneMark.classList.remove("is-on");
-          if (sceneNear) sceneNear.classList.remove("is-in");
           applyPage(n);
+          if (sceneNear) sceneNear.classList.add("is-in");
           return;
         }
         if (n === index && pages[index].classList.contains("is-on")) return;
@@ -3317,6 +3534,26 @@
           go(Number(el.dataset.jump));
         });
       });
+      document.querySelectorAll(".overview-grid [data-jump]").forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          const n = Number(el.dataset.jump);
+          chBtns.forEach((r) => r.classList.toggle("is-pre", Number(r.dataset.go) === n));
+        });
+        el.addEventListener("mouseleave", () => {
+          chBtns.forEach((r) => r.classList.remove("is-pre"));
+        });
+      });
+      document.querySelectorAll(".doors .door").forEach((el, i) => {
+        el.addEventListener("mouseenter", () => {
+          const cut = document.getElementById("cut-p12");
+          if (!cut) return;
+          cut.style.setProperty("--nudge-x", ["-36px", "0px", "36px"][i] || "0px");
+        });
+        el.addEventListener("mouseleave", () => {
+          const cut = document.getElementById("cut-p12");
+          if (cut) cut.style.setProperty("--nudge-x", "0px");
+        });
+      });
 
       const jobOut = document.getElementById("job-out");
       document.getElementById("jobs").addEventListener("click", (e) => {
@@ -3341,15 +3578,18 @@
       function clearDemoHL() {
         demo.querySelectorAll(".is-hl").forEach((el) => el.classList.remove("is-hl"));
         rolesBox.classList.remove("is-pulse");
+        demo.removeAttribute("data-win-act");
       }
       function highlightAct(act) {
         clearDemoHL();
+        demo.dataset.winAct = act || "";
         if (act === "hold") demo.querySelector(".demo-hold").classList.add("is-hl");
         if (act === "org") demo.querySelector(".demo-org").classList.add("is-hl");
         if (act === "recv") {
           rolesBox.classList.add("is-hl");
           void rolesBox.offsetWidth;
           rolesBox.classList.add("is-pulse");
+          if (typeof nudgeRecvTip === "function") nudgeRecvTip();
         }
         if (act === "reply") nextStep.classList.add("is-hl");
       }
@@ -3416,12 +3656,26 @@
         document.querySelectorAll("#checks .check:not(.is-stop)").forEach((c) => c.classList.toggle("is-on", c === btn));
       });
 
+      const BEAT_KEYS = ["was", "lack", "act", "who"];
+      function applyBeat(box) {
+        const page = box.closest(".page");
+        const device = page && page.querySelector(".device");
+        const btn = box.querySelector("button.is-on");
+        if (!device || !btn) return;
+        const i = [...box.querySelectorAll("button")].indexOf(btn);
+        const key = BEAT_KEYS[i] || "";
+        device.dataset.beatState = key;
+        const title = device.querySelector(".win-title");
+        if (title) title.textContent = key === "who" ? ((btn.querySelector("h3") && btn.querySelector("h3").textContent) || "") : "";
+      }
       document.querySelectorAll("[data-beats]").forEach((box) => {
+        applyBeat(box);
         box.addEventListener("click", (e) => {
           if (e.target.closest("[contenteditable='true']")) return;
           const btn = e.target.closest("button");
           if (!btn) return;
           box.querySelectorAll("button").forEach((b) => b.classList.toggle("is-on", b === btn));
+          applyBeat(box);
         });
       });
 
@@ -3430,11 +3684,18 @@
       let drag = false, lastX = 0, ry = 0;
       shirt.addEventListener("pointerdown", (e) => { drag = true; lastX = e.clientX; shirt.style.cursor = "grabbing"; });
       window.addEventListener("pointerup", () => { drag = false; shirt.style.cursor = "grab"; });
+      let teeNudgeRaf = 0;
       window.addEventListener("pointermove", (e) => {
         if (!drag) return;
         ry = Math.max(-40, Math.min(40, ry + (e.clientX - lastX) * 0.4));
         lastX = e.clientX;
         shirt.style.setProperty("--ry", ry + "deg");
+        if (teeNudgeRaf) return;
+        teeNudgeRaf = requestAnimationFrame(function () {
+          teeNudgeRaf = 0;
+          const tip = sceneNearPar && sceneNearPar.querySelector(".cut-tip-l");
+          if (tip) tip.style.setProperty("--nudge-x", ((ry / 40) * 6).toFixed(1) + "px");
+        });
       });
       const shirtSkin = document.getElementById("shirt-skin");
       function setDecal(btn) {
@@ -3524,13 +3785,36 @@
       });
 
       const taskOut = document.getElementById("task-out");
+      let pickedJobHint = "";
+      function syncPromptJob() {
+        const el = document.getElementById("prompt-job");
+        if (!el) return;
+        if (pickedJobHint) {
+          el.textContent = pickedJobHint;
+          el.classList.add("is-on");
+        } else {
+          el.textContent = "";
+          el.classList.remove("is-on");
+        }
+      }
       document.getElementById("tasks").addEventListener("click", (e) => {
         if (e.target.closest("[contenteditable='true']")) return;
         const btn = e.target.closest(".task");
         if (!btn) return;
         document.querySelectorAll("#tasks .task").forEach((t) => t.classList.toggle("is-on", t === btn));
         taskOut.innerHTML = btn.dataset.hint;
+        pickedJobHint = btn.dataset.hint || "";
+        syncPromptJob();
       });
+      const htmlSw = document.getElementById("html-sw");
+      const htmlSwBtn = document.getElementById("html-sw-btn");
+      if (htmlSwBtn && htmlSw) {
+        htmlSwBtn.addEventListener("click", () => {
+          const on = !htmlSw.classList.contains("is-on");
+          htmlSw.classList.toggle("is-on", on);
+          htmlSwBtn.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+      }
 
       document.getElementById("copy-btn").addEventListener("click", async () => {
         const promptText = FROZEN.prompt;
@@ -3637,11 +3921,19 @@
         setEdit(false);
         setNotes(false);
         rolePicked = false;
+        pickedJobHint = "";
+        if (typeof syncPromptJob === "function") syncPromptJob();
+        if (htmlSw) htmlSw.classList.remove("is-on");
+        if (htmlSwBtn) htmlSwBtn.setAttribute("aria-pressed", "false");
         if (punchline) {
           punchline.classList.remove("is-in");
           punchline.setAttribute("aria-hidden", "true");
         }
         if (typeof clearDemoHL === "function") clearDemoHL();
+        document.querySelectorAll("[data-beats]").forEach((box) => {
+          if (typeof applyBeat === "function") applyBeat(box);
+        });
+        chBtns.forEach((r) => r.classList.remove("is-pre"));
         if (shirt) shirt.style.setProperty("--ry", "0deg");
         if (mark) mark.textContent = "11";
         if (teeView) teeView.classList.remove("is-off");
@@ -3766,6 +4058,117 @@
         im.onerror = function () { if (onMiss) onMiss(); };
         im.src = src;
       }
+
+      const POSTER_SRC = "cover-poster.webp";
+      const cutFiles = { left: null, right: null, approach: null };
+      const CUT_SPEC = {
+        "hand-l": { cx: 0, cy: 48, cw: 44, ch: 52, mx: "75%", my: "28%", key: "left", file: "poster/hand-left.png" },
+        "hand-r": { cx: 54, cy: 54, cw: 46, ch: 46, mx: "22%", my: "30%", key: "right", file: "poster/hand-right.png" },
+        "tip-l": { cx: 26, cy: 58, cw: 18, ch: 22, mx: "80%", my: "25%", key: "left", file: "poster/hand-left.png" },
+        "tip-r": { cx: 54, cy: 66, cw: 18, ch: 22, mx: "20%", my: "28%", key: "right", file: "poster/hand-right.png" },
+        approach: { cx: 60, cy: 47, cw: 22, ch: 14, mx: "50%", my: "50%", key: "approach", file: "poster/approach.svg" }
+      };
+      const NEAR_BY_PAGE = {
+        0: [{ kind: "tip-l" }, { kind: "tip-r" }],
+        2: [{ kind: "hand-l" }],
+        5: [{ kind: "hand-r" }],
+        7: [{ kind: "hand-l" }],
+        11: [{ kind: "hand-r", id: "cut-p12" }, { kind: "approach", extra: "is-p12" }],
+        12: [{ kind: "tip-l" }],
+        13: [{ kind: "tip-r" }],
+        14: [{ kind: "tip-l" }],
+        16: [{ kind: "hand-l" }],
+        19: [{ kind: "hand-l" }, { kind: "hand-r" }, { kind: "approach", extra: "is-p20" }]
+      };
+      const NEAR_TONE = { 0: "cover", 2: "chapter", 5: "chapter", 7: "chapter", 11: "chapter", 12: "case", 13: "case", 14: "case", 16: "chapter", 19: "close" };
+
+      function fillCut(el, kind) {
+        const spec = CUT_SPEC[kind];
+        if (!el || !spec) return;
+        el.replaceChildren();
+        const img = document.createElement("img");
+        img.alt = "";
+        const fileSrc = cutFiles[spec.key];
+        if (fileSrc) {
+          el.classList.add("is-file");
+          img.src = fileSrc;
+        } else {
+          el.classList.remove("is-file");
+          img.src = POSTER_SRC;
+          el.style.setProperty("--cx", spec.cx);
+          el.style.setProperty("--cy", spec.cy);
+          el.style.setProperty("--cw", spec.cw);
+          el.style.setProperty("--ch", spec.ch);
+          el.style.setProperty("--pw", (10000 / spec.cw) + "%");
+          el.style.setProperty("--px", (-100 * spec.cx / spec.cw) + "%");
+          el.style.setProperty("--py", (-100 * spec.cy / spec.ch) + "%");
+          el.style.setProperty("--mx", spec.mx);
+          el.style.setProperty("--my", spec.my);
+        }
+        el.appendChild(img);
+      }
+
+      function makeCut(kind, extra) {
+        const el = document.createElement("div");
+        el.className = "cut cut-" + kind + (extra ? " " + extra : "");
+        el.setAttribute("aria-hidden", "true");
+        el.dataset.cut = kind;
+        fillCut(el, kind);
+        return el;
+      }
+
+      function paintDoorCuts() {
+        document.querySelectorAll(".door-near [data-cut]").forEach((el) => {
+          fillCut(el, el.dataset.cut);
+        });
+      }
+
+      function paintNear(n) {
+        if (!sceneNearPar || !sceneRoot) return;
+        sceneNearPar.replaceChildren();
+        const spec = NEAR_BY_PAGE[n];
+        sceneRoot.dataset.near = spec ? (NEAR_TONE[n] || "") : "";
+        if (!spec) return;
+        spec.forEach((item) => {
+          const node = makeCut(item.kind, item.extra || "");
+          if (item.id) node.id = item.id;
+          sceneNearPar.appendChild(node);
+        });
+      }
+
+      function nudgeRecvTip() {
+        if (!sceneNearPar || !sceneNear) return;
+        if (window.matchMedia("(max-width: 979px)").matches) return;
+        sceneNearPar.querySelectorAll(".cut-nudge").forEach((el) => el.remove());
+        const tip = makeCut("tip-r", "cut-nudge");
+        tip.style.setProperty("--cut-a", "0.5");
+        sceneNearPar.appendChild(tip);
+        sceneNear.classList.add("is-in");
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const done = function () { if (tip.parentNode) tip.remove(); };
+        if (reduce) {
+          window.setTimeout(done, 360);
+          return;
+        }
+        requestAnimationFrame(function () {
+          tip.style.setProperty("--nudge-x", "-12px");
+          window.setTimeout(function () {
+            tip.style.setProperty("--nudge-x", "0px");
+            window.setTimeout(done, 320);
+          }, 240);
+        });
+      }
+
+      function bootCuts(done) {
+        let left = 3;
+        function tick() {
+          left -= 1;
+          if (left <= 0 && done) done();
+        }
+        probeAsset("poster/hand-left.png", function (src) { cutFiles.left = src; tick(); }, tick);
+        probeAsset("poster/hand-right.png", function (src) { cutFiles.right = src; tick(); }, tick);
+        probeAsset("poster/approach.svg", function (src) { cutFiles.approach = src; tick(); }, tick);
+      }
       function probeAssetList(list, onOk, onMiss) {
         let i = 0;
         function next() {
@@ -3799,6 +4202,11 @@
       });
       const firstDecal = document.querySelector(".tee-tools button.is-on");
       if (firstDecal) setDecal(firstDecal);
+      paintDoorCuts();
+      bootCuts(function () {
+        paintDoorCuts();
+        if (started) paintNear(index);
+      });
 
       const ring = document.getElementById("ring");
       const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;

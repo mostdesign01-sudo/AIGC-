@@ -84,7 +84,7 @@
 | `.win` | `border: 1px solid var(--bone-line); border-radius: 2px; background: rgba(7,9,13,.22)` |
 | `.win-bar` | 22px、底线、右对齐 `— ☐ ✕`（原 `.door-chrome-bar`） |
 | `.sl` | `::before "\\ "` / `::after " /"`，字重 300、opacity .7 |
-| `.cut` | 同图裁切地基（`mix-blend-mode: screen`）；本批不铺各章手 |
+| `.cut` | 同图 `screen` 裁切；探测 `poster/hand-left.png` / `hand-right.png` / `approach.svg`，有则用，无则裁母本 |
 
 用在：P07 `.demo.win`、P13–15 `.device.win`、P19 `.prompt.win`、讲稿 `.notes.win`、`.toast.win`、门页窗口按钮。
 
@@ -109,7 +109,7 @@
 |---|---|---|
 | 0 | `.door-mid` + `cover-poster.webp` | 固定底景。海报 `object-fit: cover`，滚动时最慢 translate。窗口按钮叠在这一层，跟着海报走 |
 | 10 | `.door-read` / `.door-hero` | 滚动阅读层：`.sl` eyebrow、骨白重标、窄栏副文、右侧 scroll cue |
-| 20 | `.door-near` / `.door-fg` | 角标；近景手 cut 留给后续批次 |
+| 20 | `.door-near` / `.door-fg` | 角标 + 两枚指尖 `.cut`（滚动 -16% 上移） |
 | 55 | `.door-vignette` | 固定径向暗角 |
 | 60 | `.door-grain` | canvas 生成 180px 噪点 `toDataURL`，`opacity: .055`，`mix-blend-mode: overlay` |
 
@@ -132,7 +132,7 @@
 | 1 | 中景 mid | `.scene-mid` | 空容器（批次 L 再填字母 / 纹理） | 8px |
 | 2 | 洗 wash | `.scene-wash` | `open / talk / case` 三套暗角，**不位移** | 0 |
 | 10 | 前景文案 | `.page-fore` | 窄栏标题 / 短句 / 细线互动；视差走 `--par-x/y` | 14px |
-| 20 | 近景 near | `.scene-near` | 空容器（批次 K 再填 cut-out）；手机不出现 | 24px |
+| 20 | 近景 near | `.scene-near` | 点阵手 / 指尖 / Approach（按密度表）；贴边不跟机位缩放；手机不出现 | 24px |
 | 55 | 氛围 | `.scene-vignette` | 径向暗角 | 0 |
 | 60 | 氛围 | `.scene-grain` | canvas 噪点 | 0 |
 | 70 | HUD | rail / dock / hud / `.page-side` | 细描边，不铺实心底 | 0 |
@@ -143,7 +143,7 @@
 - t0+80 far / mid 换机位 900ms `cubic-bezier(.16,1,.3,1)`
 - t0+120 章标 `.scene-mark.sl`：`\ 0n 章名 /`，骨白、`--display-weight`、18px、`letter-spacing: .28em`
 - t0+380 `applyPage()`，veil 退，`.page-fore` 从左下入场 720ms
-- t0+500 `.scene-near` 入场 class（本批无 cut）
+- t0+500 `.scene-near` 入场 class；`.cut` 从对应角入 900ms
 - t0+900 章标退
 - `prefers-reduced-motion`：无机位位移、无 veil、无视差，静态可读
 
@@ -153,7 +153,7 @@
 
 | ch | 页 | `--cam-x` | `--cam-y` | `--cam-s` | 看到什么 | 文案安全区 |
 |---|---|---|---|---|---|---|
-| 0 | P01–P02 | `50%` | `8%` | `1.32` | 上半：字母 + 方标；窗口落到帧外 | 中央偏上，课名居中 |
+| 0 | P01–P02 | `50%` | `8%` | `1.32` | 上半：字母 + 方标；窗口上约 1/3 露在帧底，与课名不相交 | 中央偏上，课名居中 |
 | 1 | P03–P05 | `12%` | `78%` | `1.6` | 左手大、字母在后 | 右上：x 约 48–100%，y 靠上 |
 | 2 | P06–P07 | `50%` | `75%` | `1.5` | 窗口居中偏下 | 金句在窗口上方，y 约 18–48% |
 | 3 | P08–P11 | `88%` | `78%` | `1.6` | 右手大 | 左上：x 约 6–56% |
@@ -166,13 +166,28 @@
 
 手机：机位切换保留；wash 上限 .8（无 `!important`）；`.page-fore` 底 `.78` + 1px 边；near 不出现。
 
+### 近景密度（批次 K）
+
+20 页里 `.scene-near` 非空恰好 10 页；讲解页子节点 = 0。手 `pointer-events: none`。
+
+| 页 | 近景 |
+|---|---|
+| 门页 | 2 指尖（`.door-near`，另计） |
+| P01 | 2 指尖 |
+| P03 / P08 / P17 | 左手 |
+| P06 / P12 | 右手；P12 + Approach 28px |
+| P13 / P15 | 左指尖，贴预览外侧 |
+| P14 | 右指尖，贴预览外侧 |
+| P20 | 双手 + Approach |
+| 其余讲解页 | 空 |
+
 ## Motion
 
 - 课堂卡片 hover：点阵底，不要大投影、不要蓝块。
 - 门页窗口 hover：骨白描边 + 标题栏图标微亮。
 - 章节过渡 300–900ms。不要 Three.js、不要 4200vh、不要自定义 WebGL。
 - 门页分层跟短距滚动；课堂桌面跟指针。不加迈步帧、无音频。
-- 桌面 ring cursor：22px 细圈，`mix-blend-mode: difference`。移动端 / `prefers-reduced-motion` / 改字态关闭。
+- 桌面 ring cursor：22px 点阵细圈（`--dots` 描边），`mix-blend-mode: difference`。移动端 / `prefers-reduced-motion` / 改字态关闭。
 
 ## 真实素材
 
