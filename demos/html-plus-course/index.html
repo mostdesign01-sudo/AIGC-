@@ -312,12 +312,12 @@
       animation: scene-fore-side 640ms cubic-bezier(0.16, 1, 0.3, 1) both;
     }
     @keyframes scene-fore-in {
-      from { opacity: 0; transform: translate3d(-28px, 18px, 0); }
-      to { opacity: 1; transform: none; }
+      from { opacity: 0; transform: translate3d(calc(-28px + var(--par-x)), calc(18px + var(--par-y)), 0); }
+      to { opacity: 1; transform: translate3d(var(--par-x), var(--par-y), 0); }
     }
     @keyframes scene-fore-side {
-      from { opacity: 0; transform: translate3d(-22px, 0, 0); }
-      to { opacity: 1; transform: none; }
+      from { opacity: 0; transform: translate3d(calc(-22px + var(--par-x)), var(--par-y), 0); }
+      to { opacity: 1; transform: translate3d(var(--par-x), var(--par-y), 0); }
     }
     .page.is-short {
       justify-content: center;
@@ -1996,35 +1996,67 @@
       .cognition .jobs { grid-template-columns: repeat(3, 1fr); }
     }
 
-    /* —— 场景流：固定氛围 / 中景海报 / 前景文案 / 细线 HUD —— */
+    /* —— 场景流：far / mid / wash / near / 氛围（vignette + grain） —— */
     .scene-root {
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
       opacity: 0;
+      --cam-x: 50%;
+      --cam-y: 50%;
+      --cam-s: 1.1;
+      --scene-bright: 0.5;
     }
     body.started .scene-root {
       opacity: 1;
       transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1);
     }
+    .scene-far,
     .scene-mid,
     .scene-wash,
+    .scene-near,
     .scene-vignette,
-    .scene-grain {
+    .scene-grain,
+    .scene-far-cam,
+    .scene-far-par,
+    .scene-mid-cam,
+    .scene-mid-par,
+    .scene-near-cam,
+    .scene-near-par {
       position: absolute;
       inset: 0;
     }
-    .scene-mid { z-index: 0; }
+    .scene-far { z-index: 0; }
+    .scene-mid { z-index: 1; }
+    .scene-wash { z-index: 2; }
+    .scene-near { z-index: 20; }
+    .scene-vignette { z-index: 55; }
+    .scene-grain { z-index: 60; }
+    /* 外层机位、内层视差，避免 pointermove 覆盖 scale */
+    .scene-far-cam,
+    .scene-mid-cam,
+    .scene-near-cam {
+      transform: scale(var(--cam-s));
+      transform-origin: var(--cam-x) var(--cam-y);
+      transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .scene-far-par,
+    .scene-mid-par,
+    .scene-near-par {
+      will-change: transform;
+    }
     .scene-still {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 46%;
-      transform: scale(1.06);
+      object-position: var(--cam-x) var(--cam-y);
+      filter: brightness(var(--scene-bright));
+      transition:
+        object-position 900ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 640ms ease;
     }
     .scene-wash {
-      z-index: 1;
       background:
         linear-gradient(105deg, rgba(7, 9, 13, 0.78) 0%, rgba(7, 9, 13, 0.42) 46%, rgba(7, 9, 13, 0.68) 100%);
       transition: background 640ms ease;
@@ -2041,12 +2073,21 @@
       background:
         radial-gradient(78% 68% at 72% 46%, rgba(7, 9, 13, 0.12) 0%, rgba(7, 9, 13, 0.62) 70%, rgba(7, 9, 13, 0.78) 100%);
     }
+    /* 六机位：object-position 语义，按 1200 母本校正。讲解页 .5 / 章首 .7 */
+    .scene-root[data-ch="0"] { --cam-x: 50%; --cam-y: 8%; --cam-s: 1.32; }
+    .scene-root[data-ch="1"] { --cam-x: 12%; --cam-y: 78%; --cam-s: 1.6; }
+    .scene-root[data-ch="2"] { --cam-x: 50%; --cam-y: 75%; --cam-s: 1.5; }
+    .scene-root[data-ch="3"] { --cam-x: 88%; --cam-y: 78%; --cam-s: 1.6; }
+    .scene-root[data-ch="4"] { --cam-x: 50%; --cam-y: 20%; --cam-s: 1.3; }
+    .scene-root[data-ch="5"] { --cam-x: 50%; --cam-y: 50%; --cam-s: 1.1; }
+    .scene-root[data-scene="open"] { --scene-bright: 0.7; }
+    .scene-root[data-scene="talk"],
+    .scene-root[data-scene="case"] { --scene-bright: 0.5; }
+    .scene-root[data-ch="5"][data-scene="open"] { --scene-bright: 0.6; }
     .scene-vignette {
-      z-index: 2;
       background: radial-gradient(120% 90% at 50% 42%, transparent 38%, rgba(7, 9, 13, 0.62) 100%);
     }
     .scene-grain {
-      z-index: 3;
       opacity: 0.05;
       mix-blend-mode: overlay;
       background-repeat: repeat;
@@ -2068,9 +2109,9 @@
       top: 46%;
       z-index: 46;
       transform: translate(-50%, 12px);
-      font-size: 11px;
+      font-size: 18px;
       font-weight: var(--display-weight);
-      letter-spacing: 0.32em;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--bone);
       text-shadow: var(--display-glow);
@@ -2082,8 +2123,67 @@
       opacity: 1;
       transform: translate(-50%, 0);
     }
-    .page-fore { position: relative; z-index: 2; max-width: 42rem; }
+    .page-fore {
+      position: relative;
+      z-index: 10;
+      max-width: 42rem;
+      --par-x: 0px;
+      --par-y: 0px;
+      transform: translate3d(var(--par-x), var(--par-y), 0);
+    }
     .page.is-chapter .page-fore { max-width: min(56rem, 100%); }
+    /* 章首文案安全区：只调 max-width / 对齐，避让机位下的母本窗口 */
+    .page.cover.is-chapter {
+      justify-content: flex-start;
+      padding-top: clamp(36px, 8vh, 72px);
+    }
+    .page.cover.is-chapter .page-fore {
+      max-width: min(40rem, 56vw);
+      margin-inline: auto;
+      text-align: center;
+    }
+    .page.cover.is-chapter h1 {
+      font-weight: var(--display-weight);
+      color: var(--bone);
+      text-shadow: var(--display-glow);
+    }
+    .page[data-ch="1"].is-chapter {
+      justify-content: flex-start;
+      padding-top: clamp(28px, 7vh, 64px);
+    }
+    .page[data-ch="1"].is-chapter .page-fore {
+      margin-left: auto;
+      max-width: min(28rem, 52%);
+      text-align: right;
+    }
+    .page[data-ch="2"].is-chapter {
+      justify-content: flex-start;
+      padding-top: clamp(24px, 8vh, 72px);
+    }
+    .page[data-ch="2"].is-chapter .page-fore {
+      max-width: min(38rem, 70%);
+      margin-inline: auto;
+      text-align: center;
+    }
+    .page[data-ch="3"].is-chapter {
+      justify-content: flex-start;
+      padding-top: clamp(28px, 7vh, 64px);
+    }
+    .page[data-ch="3"].is-chapter .page-fore {
+      max-width: min(30rem, 52%);
+      margin-right: auto;
+    }
+    .page[data-ch="4"].is-chapter {
+      justify-content: flex-start;
+      padding-top: clamp(24px, 6vh, 56px);
+    }
+    .page[data-ch="4"].is-chapter .gold { max-width: min(18em, 34vw); }
+    .page[data-ch="5"].center-page.is-chapter .page-fore { max-width: min(36rem, 58%); }
+    .page.close-page.is-chapter .page-fore {
+      margin-inline: auto;
+      text-align: center;
+      max-width: min(36rem, 70%);
+    }
     .page.is-case {
       display: grid;
       grid-template-columns: minmax(240px, 36%) minmax(0, 1fr);
@@ -2288,7 +2388,18 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .scene-veil, .scene-mark, .scene-root, .scene-wash { transition: none !important; }
+      .scene-veil { display: none !important; }
+      .scene-mark,
+      .scene-root,
+      .scene-wash,
+      .scene-far-cam,
+      .scene-mid-cam,
+      .scene-near-cam,
+      .scene-still { transition: none !important; }
+      .scene-far-par,
+      .scene-mid-par,
+      .scene-near-par,
+      .page-fore { transform: none !important; }
       .ring { display: none !important; }
       body.has-ring { cursor: auto !important; }
       body.has-ring button,
@@ -2296,34 +2407,40 @@
     }
 
     @media (max-width: 979px) {
-      .scene-still {
-        transform: scale(1.42);
-        object-position: 58% 8%;
-        filter: brightness(0.42) saturate(0.82);
-      }
+      .scene-near { display: none; }
       .scene-vignette {
         background: radial-gradient(118% 96% at 50% 18%, transparent 12%, rgba(7, 9, 13, 0.78) 100%);
       }
       .scene-wash {
         background:
-          linear-gradient(180deg, rgba(7, 9, 13, 0.94) 0%, rgba(7, 9, 13, 0.86) 48%, rgba(7, 9, 13, 0.96) 100%) !important;
+          linear-gradient(180deg, rgba(7, 9, 13, 0.8) 0%, rgba(7, 9, 13, 0.72) 48%, rgba(7, 9, 13, 0.8) 100%);
       }
       .scene-root[data-scene="open"] .scene-wash,
       .scene-root[data-scene="talk"] .scene-wash,
       .scene-root[data-scene="case"] .scene-wash {
         background:
-          linear-gradient(180deg, rgba(7, 9, 13, 0.95) 0%, rgba(7, 9, 13, 0.88) 100%) !important;
+          linear-gradient(180deg, rgba(7, 9, 13, 0.78) 0%, rgba(7, 9, 13, 0.7) 100%);
       }
       .page {
-        background: rgba(7, 9, 13, 0.35);
+        background: rgba(7, 9, 13, 0.2);
       }
       .page-fore {
         position: relative;
-        z-index: 2;
+        z-index: 10;
         padding: 18px 16px 20px;
         border: 1px solid rgba(255, 255, 255, 0.12);
-        background: rgba(7, 9, 13, 0.94);
-        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+        background: rgba(7, 9, 13, 0.78);
+        box-shadow: none;
+      }
+      .page[data-ch="1"].is-chapter .page-fore,
+      .page[data-ch="2"].is-chapter .page-fore,
+      .page[data-ch="3"].is-chapter .page-fore,
+      .page.cover.is-chapter .page-fore,
+      .page[data-ch="5"].center-page.is-chapter .page-fore,
+      .page.close-page.is-chapter .page-fore {
+        max-width: none;
+        margin-inline: 0;
+        text-align: left;
       }
       .cover .page-fore,
       .center-page .page-fore,
@@ -2375,16 +2492,30 @@
   </style>
 </head>
 <body>
-  <div class="scene-root" id="scene-root" data-scene="open" aria-hidden="true">
+  <div class="scene-root" id="scene-root" data-scene="open" data-ch="0" aria-hidden="true">
+    <div class="scene-far" id="scene-far">
+      <div class="scene-far-cam">
+        <div class="scene-far-par" id="scene-far-par">
+          <img class="scene-still" src="cover-poster.webp" alt="" width="1200" height="675" />
+        </div>
+      </div>
+    </div>
     <div class="scene-mid" id="scene-mid">
-      <img class="scene-still" src="cover-poster.webp" alt="" width="1200" height="675" />
+      <div class="scene-mid-cam">
+        <div class="scene-mid-par" id="scene-mid-par"></div>
+      </div>
     </div>
     <div class="scene-wash" id="scene-wash"></div>
+    <div class="scene-near" id="scene-near">
+      <div class="scene-near-cam">
+        <div class="scene-near-par" id="scene-near-par"></div>
+      </div>
+    </div>
     <div class="scene-vignette"></div>
     <div class="scene-grain" id="scene-grain"></div>
   </div>
   <div class="scene-veil" id="scene-veil" aria-hidden="true"></div>
-  <div class="scene-mark" id="scene-mark" aria-hidden="true"></div>
+  <div class="scene-mark sl" id="scene-mark" aria-hidden="true"></div>
   <div class="ring" id="ring" aria-hidden="true"><i></i></div>
   <img class="brand-slot" id="brand-slot" data-src="assets/poizon/logo/poizon.svg" alt="" />
   <div id="loader" role="dialog" aria-modal="true" aria-label="门前">
@@ -2956,8 +3087,10 @@
       let started = false;
       let goToken = 0;
       const sceneRoot = document.getElementById("scene-root");
-      const sceneMid = document.getElementById("scene-mid");
-      const sceneWash = document.getElementById("scene-wash");
+      const sceneFarPar = document.getElementById("scene-far-par");
+      const sceneMidPar = document.getElementById("scene-mid-par");
+      const sceneNear = document.getElementById("scene-near");
+      const sceneNearPar = document.getElementById("scene-near-par");
       const sceneVeil = document.getElementById("scene-veil");
       const sceneMark = document.getElementById("scene-mark");
       const CHAPTER_MARKS = {
@@ -2989,7 +3122,18 @@
         const ch = Number(pages[index].dataset.ch || 0);
         const start = chStarts[ch];
         chBtns.forEach((r) => r.classList.toggle("is-on", Number(r.dataset.go) === start));
-        if (sceneRoot) sceneRoot.dataset.scene = pages[index].dataset.scene || "talk";
+        if (sceneRoot) {
+          sceneRoot.dataset.scene = pages[index].dataset.scene || "talk";
+          sceneRoot.dataset.ch = pages[index].dataset.ch || "0";
+        }
+        pages.forEach((p, i) => {
+          if (i === index) return;
+          const leftover = p.querySelector(".page-fore");
+          if (leftover) {
+            leftover.style.removeProperty("--par-x");
+            leftover.style.removeProperty("--par-y");
+          }
+        });
         window.scrollTo(0, 0);
         const label = "P" + String(index + 1).padStart(2, "0");
         pageLabel.textContent = label + " / 20";
@@ -3013,6 +3157,7 @@
           goToken += 1;
           if (sceneVeil) sceneVeil.classList.remove("is-cut");
           if (sceneMark) sceneMark.classList.remove("is-on");
+          if (sceneNear) sceneNear.classList.remove("is-in");
           applyPage(n);
           return;
         }
@@ -3020,25 +3165,39 @@
         const from = index;
         const isChapter = chStarts.includes(n);
         const token = ++goToken;
-        const veilMs = isChapter ? 380 : 140;
-        const holdMs = isChapter ? 260 : 40;
         pages[from].classList.add("is-leave");
         if (sceneVeil) sceneVeil.classList.add("is-cut");
-        if (isChapter && sceneMark) {
-          sceneMark.textContent = CHAPTER_MARKS[n] || "";
-          sceneMark.classList.add("is-on");
-        } else if (sceneMark) {
-          sceneMark.classList.remove("is-on");
-        }
+        if (!isChapter && sceneMark) sceneMark.classList.remove("is-on");
+        if (sceneNear) sceneNear.classList.remove("is-in");
+        /* t0+80：far / mid 换机位 900ms */
+        window.setTimeout(function () {
+          if (token !== goToken) return;
+          if (sceneRoot) sceneRoot.dataset.ch = pages[n].dataset.ch || "0";
+        }, isChapter ? 80 : 0);
+        /* t0+120：章标 \ 0n 章名 / */
+        window.setTimeout(function () {
+          if (token !== goToken) return;
+          if (isChapter && sceneMark) {
+            sceneMark.textContent = CHAPTER_MARKS[n] || "";
+            sceneMark.classList.add("is-on");
+          }
+        }, isChapter ? 120 : 0);
+        /* t0+380：applyPage + veil 退；普通页更短 */
         window.setTimeout(function () {
           if (token !== goToken) return;
           applyPage(n);
-          window.setTimeout(function () {
-            if (token !== goToken) return;
-            if (sceneVeil) sceneVeil.classList.remove("is-cut");
-            if (sceneMark) sceneMark.classList.remove("is-on");
-          }, holdMs);
-        }, veilMs);
+          if (sceneVeil) sceneVeil.classList.remove("is-cut");
+        }, isChapter ? 380 : 140);
+        /* t0+500：near 入场（本批空容器，只挂 class） */
+        window.setTimeout(function () {
+          if (token !== goToken) return;
+          if (sceneNear) sceneNear.classList.add("is-in");
+        }, isChapter ? 500 : 180);
+        /* t0+900：章标退 */
+        window.setTimeout(function () {
+          if (token !== goToken) return;
+          if (sceneMark) sceneMark.classList.remove("is-on");
+        }, isChapter ? 900 : 220);
       }
 
       function renderNotes() {
@@ -3671,10 +3830,15 @@
           if (!started) return;
           const x = e.clientX / window.innerWidth - 0.5;
           const y = e.clientY / window.innerHeight - 0.5;
-          if (sceneMid) sceneMid.style.transform = "translate3d(" + (x * -10) + "px," + (y * -7) + "px,0)";
-          if (sceneWash) sceneWash.style.transform = "translate3d(" + (x * -16) + "px," + (y * -11) + "px,0)";
+          /* ±0.5 时 far 4 / mid 8 / fore 14 / near 24；左→右行程 8 / 16 / 28 / 48 = 1 : 3.5 */
+          if (sceneFarPar) sceneFarPar.style.transform = "translate3d(" + (x * -8) + "px," + (y * -5.6) + "px,0)";
+          if (sceneMidPar) sceneMidPar.style.transform = "translate3d(" + (x * -16) + "px," + (y * -11.2) + "px,0)";
+          if (sceneNearPar) sceneNearPar.style.transform = "translate3d(" + (x * -48) + "px," + (y * -33.6) + "px,0)";
           const fore = pages[index] && pages[index].querySelector(".page-fore");
-          if (fore) fore.style.transform = "translate3d(" + (x * -22) + "px," + (y * -14) + "px,0)";
+          if (fore) {
+            fore.style.setProperty("--par-x", (x * -28) + "px");
+            fore.style.setProperty("--par-y", (y * -19.6) + "px");
+          }
         }, { passive: true });
       }
     })();
