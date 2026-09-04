@@ -138,7 +138,6 @@
       overflow: hidden;
       pointer-events: none;
       mix-blend-mode: screen;
-      will-change: transform;
       /* 母本下部 RGB≈35–80，screen 会提成灰蓝盒；去饱和再加压对比 */
       filter: contrast(1.8) brightness(0.85) saturate(0);
       opacity: var(--cut-a, 0.6);
@@ -1675,7 +1674,13 @@
     }
     .door-mid { z-index: 0; }
     .door-read { z-index: 10; }
-    .door-near { z-index: 20; }
+    /* 不建 isolated group，好让子 .cut 的 screen 与门页海报混合 */
+    .door-near {
+      z-index: auto;
+      will-change: auto;
+      transform: none;
+      isolation: auto;
+    }
 
     .door-still {
       position: absolute;
@@ -1903,7 +1908,7 @@
         animation: door-mid linear both;
         animation-timeline: --door;
       }
-      .door-near {
+      .door-near .cut {
         animation: door-near linear both;
         animation-timeline: --door;
       }
@@ -2212,10 +2217,13 @@
       position: absolute;
       inset: 0;
     }
-    .scene-far { z-index: 0; }
-    .scene-mid { z-index: 1; }
-    .scene-wash { z-index: 2; }
-    .scene-near { z-index: 20; }
+    .scene-far,
+    .scene-mid,
+    .scene-wash,
+    .scene-near {
+      z-index: auto;
+      isolation: auto;
+    }
     .scene-vignette { z-index: 55; }
     .scene-grain { z-index: 60; }
     /* 外层机位、内层视差，避免 pointermove 覆盖 scale。近景贴边，不跟机位缩放。 */
@@ -2225,8 +2233,10 @@
       transform-origin: var(--cam-x) var(--cam-y);
       transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .scene-near-cam {
+    .scene-near-cam,
+    .scene-near-par {
       transform: none;
+      will-change: auto;
     }
     .scene-near .cut {
       --cut-show: 0;
@@ -2234,15 +2244,25 @@
       --nudge-y: 0px;
       --from-x: 0px;
       --from-y: 18px;
+      --par-nx: 0px;
+      --par-ny: 0px;
       opacity: calc(var(--cut-a, 0.6) * var(--cut-show));
-      transform: translate3d(var(--from-x), var(--from-y), 0);
+      transform: translate3d(
+        calc(var(--from-x) + var(--par-nx)),
+        calc(var(--from-y) + var(--par-ny)),
+        0
+      );
       transition:
         opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
         transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
     }
     .scene-near.is-in .cut {
       --cut-show: 1;
-      transform: translate3d(var(--nudge-x), var(--nudge-y), 0);
+      transform: translate3d(
+        calc(var(--nudge-x) + var(--par-nx)),
+        calc(var(--nudge-y) + var(--par-ny)),
+        0
+      );
     }
     .cut-hand-l, .cut-tip-l { left: 0; bottom: 0; }
     .cut-hand-r, .cut-tip-r { right: 0; bottom: 0; }
@@ -2271,8 +2291,7 @@
       width: 4%;
     }
     .scene-far-par,
-    .scene-mid-par,
-    .scene-near-par {
+    .scene-mid-par {
       will-change: transform;
     }
     .scene-still {
@@ -4011,7 +4030,10 @@
       function applyDoorParallax(t) {
         if (!doorMid || !doorNear || !doorReadShift) return;
         doorMid.style.transform = "translate3d(0," + (t * -4) + "%,0) scale(" + (1 + t * 0.04) + ")";
-        doorNear.style.transform = "translate3d(0," + (t * -16) + "%,0)";
+        doorNear.style.transform = "none";
+        doorNear.querySelectorAll(".cut").forEach(function (el) {
+          el.style.transform = "translate3d(0," + (t * -16) + "%,0)";
+        });
         doorReadShift.style.transform = "translate3d(0," + (t * -7) + "vh,0)";
       }
       function onDoorScroll() {
@@ -4322,7 +4344,15 @@
           /* ±0.5 时 far 4 / mid 8 / fore 14 / near 24；左→右行程 8 / 16 / 28 / 48 = 1 : 3.5 */
           if (sceneFarPar) sceneFarPar.style.transform = "translate3d(" + (x * -8) + "px," + (y * -5.6) + "px,0)";
           if (sceneMidPar) sceneMidPar.style.transform = "translate3d(" + (x * -16) + "px," + (y * -11.2) + "px,0)";
-          if (sceneNearPar) sceneNearPar.style.transform = "translate3d(" + (x * -48) + "px," + (y * -33.6) + "px,0)";
+          if (sceneNearPar) {
+            sceneNearPar.style.transform = "none";
+            const nx = (x * -48) + "px";
+            const ny = (y * -33.6) + "px";
+            sceneNearPar.querySelectorAll(".cut").forEach(function (el) {
+              el.style.setProperty("--par-nx", nx);
+              el.style.setProperty("--par-ny", ny);
+            });
+          }
           const fore = pages[index] && pages[index].querySelector(".page-fore");
           if (fore) {
             fore.style.setProperty("--par-x", (x * -28) + "px");
