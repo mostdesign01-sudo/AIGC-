@@ -1,0 +1,42 @@
+[
+  {
+    "id": "2026-09-17-raven-transition-vertical",
+    "title": "换装转场样片 · Raven Transition",
+    "url": "https://github.com/mostdesign01-sudo/AIGC-/releases/tag/vol10-gifs",
+    "platform": "github",
+    "author": "",
+    "orientation": "vertical",
+    "category": "fashion",
+    "tags": ["换装", "转场", "9:16"],
+    "intro_zh": "一条 9:16 的换装转场样片：主体在原地一次转身，从日常装切到全黑造型，背景同时换场。看点是转场那一帧的处理——发丝、衣料与光线一起过渡，没有明显的接缝。适合作为时尚/换装类竖版内容的镜头参考。",
+    "collected_date": "2026-09-17",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol10-gifs/Q-raven-transition-vert-2x.gif",
+    "gif_b_url": "",
+    "cover_url": "",
+    "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol10-gifs/Q-raven-transition-vert.mp4",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "示例数据。素材来自仓库 Release vol10-gifs，原片出处待补，链接暂指向 Release 页。"
+  },
+  {
+    "id": "2026-09-17-urban-fur-vertical",
+    "title": "都市毛绒穿搭 · 竖版样片",
+    "url": "https://github.com/mostdesign01-sudo/AIGC-/releases/tag/vol10-gifs",
+    "platform": "github",
+    "author": "",
+    "orientation": "vertical",
+    "category": "fashion",
+    "tags": ["材质", "街拍", "9:16"],
+    "intro_zh": "竖版都市毛绒穿搭样片，人物在街景中缓步走近镜头，皮草纹理与霓虹反光是全片重点。看材质细节在运动中的稳定性：毛尖随步伐起伏而不闪烁，是评估模型服装表现的一个直观样本。适合放进换装/时尚类的参考库。",
+    "collected_date": "2026-09-17",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol10-gifs/B-urban-fur-vert.gif",
+    "gif_b_url": "",
+    "cover_url": "",
+    "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol10-gifs/B-urban-fur-vert.mp4",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "示例数据。素材来自仓库 Release vol10-gifs，原片出处待补，链接暂指向 Release 页。"
+  }
+]
