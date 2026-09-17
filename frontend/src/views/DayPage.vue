@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useFeed } from '../data/useFeed'
 import { formatDay, formatDayLong, formatWeek } from '../data/format'
-import DaySection from '../components/DaySection.vue'
+import VideoCard from '../components/VideoCard.vue'
 import EmptyState from '../components/EmptyState.vue'
 
 const props = defineProps<{ date: string }>()
@@ -50,7 +50,9 @@ const week = computed(() => (weekId.value ? weekById(weekId.value) : undefined))
       </div>
     </header>
 
-    <DaySection v-if="videos.length" :date="date" :videos="videos" :week-id="weekId" :link-to-day="false" eager-first />
+    <div v-if="videos.length" class="card-grid">
+      <VideoCard v-for="(v, i) in videos" :key="v.id" :video="v" :eager="i < 2" />
+    </div>
     <EmptyState v-else title="这一天没有收录" hint="试试相邻的日期，或回到每日归档。">
       <RouterLink to="/days" class="btn btn--ghost">回到归档</RouterLink>
     </EmptyState>

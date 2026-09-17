@@ -172,6 +172,7 @@ const { weeks, videoById, videosInWeek } = useFeed()
 .mini-pick__text {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 6px;
   min-width: 0;
 }

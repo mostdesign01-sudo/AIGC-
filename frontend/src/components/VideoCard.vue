@@ -82,6 +82,7 @@ const { categoryName, slotLabel } = useFeed()
   top: 10px;
   left: 10px;
   right: 10px;
+  z-index: 3;
   display: flex;
   justify-content: space-between;
   gap: 8px;
