@@ -1,17 +1,81 @@
 [
   {
-    "url": "https://www.youtube.com/watch?v=NZ2VI7dQ91A",
+    "id": "2026-09-18-odysseus-the-fall-official-trailer",
     "title": "ODYSSEUS: The Fall | Official Trailer",
+    "url": "https://www.youtube.com/watch?v=NZ2VI7dQ91A",
+    "platform": "youtube",
     "author": "FOUNTAIN 0 studios",
     "orientation": "landscape",
     "category": "ai-short-film",
-    "tags": "Kling 3.0,长片预告,荷马史诗",
+    "tags": [
+      "Kling",
+      "3.0",
+      "长片预告",
+      "荷马史诗"
+    ],
     "intro_zh": "Fountain 0 用 Kling 3.0 全生成的 150 分钟史诗预告：奥德修斯回家路上的海、神与人被压进高密度剪辑。点子落在「把 AI 成片野心抬到院线时长」，预告本身就是宣言。",
     "collected_date": "2026-09-18",
     "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/odysseus-trailer-a.gif",
     "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/odysseus-trailer-b.gif",
     "cover_url": "https://i.ytimg.com/vi/NZ2VI7dQ91A/hqdefault.jpg",
     "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/odysseus-trailer.mp4",
-    "source_notes": "YT Official Trailer；成片 9/16 上线租看；日更例行 2026-09-18"
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "YT Official Trailer；成片 9/16 上线租看；日更例行 2026-09-18",
+    "week_id": "2026-W38",
+    "weekly_slot": null
+  },
+  {
+    "id": "2026-09-18-by-your-side",
+    "title": "BY YOUR SIDE",
+    "url": "https://www.youtube.com/watch?v=A14HI1p3Dyo",
+    "platform": "youtube",
+    "author": "The Blue Horizon AI",
+    "orientation": "landscape",
+    "category": "ai-short-film",
+    "tags": [
+      "Higgsfield Festival",
+      "机器人短片",
+      "巴黎"
+    ],
+    "intro_zh": "巴黎街头的服务机器人日复一日清扫、穿巷、迎着金光往前开：没有英雄弧光，只有「被安排在你身边」的沉默陪伴。点子落在把城市基建小机器写成情感主体，用日常工种完成一场不喊口号的温柔科幻，让陪伴感压过设定说明书。",
+    "collected_date": "2026-09-18",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/by-your-side-a.gif",
+    "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/by-your-side-b.gif",
+    "cover_url": "https://i.ytimg.com/vi/A14HI1p3Dyo/hqdefault.jpg",
+    "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/by-your-side.mp4",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "YT 上传 2026-09-14；Higgsfield Global Film Festival；日更 2026-09-18",
+    "week_id": "2026-W38",
+    "weekly_slot": null
+  },
+  {
+    "id": "2026-09-18-honeydew",
+    "title": "Honeydew",
+    "url": "https://www.youtube.com/watch?v=V9u2gbEmdK8",
+    "platform": "youtube",
+    "author": "Charles Gunn",
+    "orientation": "landscape",
+    "category": "ai-short-film",
+    "tags": [
+      "Higgsfield Festival",
+      "Seedance 2.5",
+      "关系戏"
+    ],
+    "intro_zh": "公寓暖光里两人对视、停顿、靠近：几乎没有外景奇观，把生成片压进日常关系张力。点子落在 Seedance 做「室内戏」——用微小表情与空间距离撑住亲密与裂隙，让甜味片名反过来衬出不安、犹豫与未说出口的话。",
+    "collected_date": "2026-09-18",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/honeydew-a.gif",
+    "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/honeydew-b.gif",
+    "cover_url": "https://i.ytimg.com/vi/V9u2gbEmdK8/hqdefault.jpg",
+    "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/honeydew.mp4",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "YT 上传 2026-09-14；Seedance 2.5 festival entry；日更 2026-09-18",
+    "week_id": "2026-W38",
+    "weekly_slot": null
   }
 ]
