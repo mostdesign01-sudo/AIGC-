@@ -1,0 +1,29 @@
+[
+  {
+    "id": "2026-09-18-odysseus-the-fall-official-trailer",
+    "title": "ODYSSEUS: The Fall | Official Trailer",
+    "url": "https://www.youtube.com/watch?v=NZ2VI7dQ91A",
+    "platform": "youtube",
+    "author": "FOUNTAIN 0 studios",
+    "orientation": "landscape",
+    "category": "ai-short-film",
+    "tags": [
+      "Kling",
+      "3.0",
+      "长片预告",
+      "荷马史诗"
+    ],
+    "intro_zh": "Fountain 0 用 Kling 3.0 全生成的 150 分钟史诗预告：奥德修斯回家路上的海、神与人被压进高密度剪辑。点子落在「把 AI 成片野心抬到院线时长」，预告本身就是宣言。",
+    "collected_date": "2026-09-18",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/odysseus-trailer-a.gif",
+    "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/odysseus-trailer-b.gif",
+    "cover_url": "https://i.ytimg.com/vi/NZ2VI7dQ91A/hqdefault.jpg",
+    "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/odysseus-trailer.mp4",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "YT Official Trailer；成片 9/16 上线租看；日更例行 2026-09-18",
+    "week_id": "2026-W38",
+    "weekly_slot": null
+  }
+]
