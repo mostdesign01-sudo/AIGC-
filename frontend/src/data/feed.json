@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T02:17:04+00:00",
+  "generated_at": "2026-09-21T02:12:27+00:00",
   "timezone": "Asia/Shanghai",
   "categories": [
     {
@@ -54,6 +54,110 @@
     }
   },
   "videos": [
+    {
+      "id": "2026-09-21-sea-of-ash-cinematic-ai-short-film-higgsfield-fi",
+      "title": "Sea of Ash | Cinematic AI Short Film | Higgsfield Film Festival",
+      "url": "https://www.youtube.com/watch?v=i4VzmQI0Qlk",
+      "platform": "youtube",
+      "author": "Valune Motion Pictures",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "AI短片"
+      ],
+      "intro_zh": "少年带着父亲骨灰穿越异海与荒漠：风暴、沙漠同伴、埋地巨兽一路相随，最后才发现能帮他放下的，其实一直在身边。点子落在丧亲之后如何上路、如何放手——把骨灰之旅写成一场关于陪伴与告别的奇幻公路片。",
+      "collected_date": "2026-09-21",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-21/sea-of-ash-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-21/sea-of-ash-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/i4VzmQI0Qlk/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-21-the-elevator-final-cut-ai-short-film-higgsfield",
+      "title": "The Elevator (Final Cut) | AI Short Film | Higgsfield Global Film Festival Entry",
+      "url": "https://www.youtube.com/watch?v=lrYveOkI-vo",
+      "platform": "youtube",
+      "author": "Marvs AI",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "AI短片"
+      ],
+      "intro_zh": "男人踏进电梯，每上一层都更荒诞：洗衣房怪物、失重茶水间、不停说话的声音、从未离开的女人。喜剧惊悚把「往上走」拧成越升越乱、却又突然说得通的命运玩笑，点子落在封闭垂直空间里的失控喜剧。",
+      "collected_date": "2026-09-21",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-21/the-elevator-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-21/the-elevator-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/lrYveOkI-vo/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-21-make-believe-ai-short-film-higgsfield-global-fil",
+      "title": "MAKE BELIEVE - AI Short Film - Higgsfield Global Film Festival 2026",
+      "url": "https://www.youtube.com/watch?v=_glVBsCNbMU",
+      "platform": "youtube",
+      "author": "Montlouis Mane",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "AI短片"
+      ],
+      "intro_zh": "1991年，男孩在沙漠古董店偶遇神秘观景器，一头扎进自己的想象冒险。点子落在童年造梦——橡皮怪、手绘天空、微缩布景那种手工感幻想，重新唤起「想拍电影」的那股劲，把 AI 片拍成一封写给儿时的回信。",
+      "collected_date": "2026-09-21",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-21/make-believe-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-21/make-believe-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/_glVBsCNbMU/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-21-the-bridge-ai-short-film-higgsfield-festival",
+      "title": "The Bridge — AI Short Film | Higgsfield Festival",
+      "url": "https://www.youtube.com/watch?v=GQCQ-4aty8Q",
+      "platform": "youtube",
+      "author": "Mike de Laat",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "AI短片"
+      ],
+      "intro_zh": "一家人停在荒漠吊桥入口，少年握着木棍，随后在深谷木板桥上匍匐、抓缆索前进。点子落在「桥」本身：把跨越写成一场高空求生戏，用金色荒原与金属缆绳压出紧张，让过桥变成家庭意志与信任的考验。",
+      "collected_date": "2026-09-21",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-21/the-bridge-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-21/the-bridge-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/GQCQ-4aty8Q/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
     {
       "id": "2026-09-18-odysseus-the-fall-official-trailer",
       "title": "ODYSSEUS: The Fall | Official Trailer",
@@ -473,6 +577,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-09-21",
+      "week_id": "2026-W39",
+      "count": 4
+    },
     {
       "date": "2026-09-18",
       "week_id": "2026-W38",
