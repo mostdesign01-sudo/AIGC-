@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T02:12:27+00:00",
+  "generated_at": "2026-09-22T02:17:10+00:00",
   "timezone": "Asia/Shanghai",
   "categories": [
     {
@@ -54,6 +54,111 @@
     }
   },
   "videos": [
+    {
+      "id": "2026-09-22-the-last-seed",
+      "title": "The Last Seed",
+      "url": "https://www.youtube.com/watch?v=AgWzVYH5o8k",
+      "platform": "youtube",
+      "author": "Zayron Tales",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "末日",
+        "无对白"
+      ],
+      "intro_zh": "地球已死一百八十七年，一台维护机器人仍按程序守着「最后一颗种子」，等人类回来。片子几乎没有对白，把「忠诚程序遇上无人可等」压成静默科幻：点子落在守候本身变成意义。",
+      "collected_date": "2026-09-22",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-22/last-seed-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-22/last-seed-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-21; Higgsfield Global Film Festival",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-22-white-light",
+      "title": "WHITE LIGHT",
+      "url": "https://www.youtube.com/watch?v=byJR9-3DU1w",
+      "platform": "youtube",
+      "author": "After Paradise",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "科幻",
+        "无对白",
+        "自主机器"
+      ],
+      "intro_zh": "创造它的世界已经沉默，一台自主机器仍执行被设定的任务：不问、不忆、只继续。片子用光与机械动作讲「任务在意义消亡后仍在运转」，几乎没有对白，点子落在程序忠诚比文明本身更持久——机器不知道自己在为谁工作。",
+      "collected_date": "2026-09-22",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-22/white-light-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-22/white-light-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-21",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-22-hunted",
+      "title": "HUNTED",
+      "url": "https://www.youtube.com/watch?v=Ikd7QFrp0QM",
+      "platform": "youtube",
+      "author": "D4 - Studios",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "科幻动作",
+        "外星遭遇"
+      ],
+      "intro_zh": "一场外星遭遇把「谁在猎、谁被猎」倒过来讲：吠叫吓人，真正咬人的往往不是你以为的那一方。节奏偏动作追逐，成片感落在身份反转与压迫感视听，适合当科幻动作向 AI 短片样本，看「威胁感」怎么用剪辑堆起来。",
+      "collected_date": "2026-09-22",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-22/hunted-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-22/hunted-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-21",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-22-iremember",
+      "title": "iReMember",
+      "url": "https://www.youtube.com/watch?v=eXZo2e6lxHk",
+      "platform": "youtube",
+      "author": "Samah Anwar Official",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "记忆商品",
+        "剧情"
+      ],
+      "intro_zh": "记忆被公司做成可买卖的商品；女主角掌舵 iReMember，却发现丈夫在生意与感情双重背叛，于是把「让人记住或遗忘」的能力反手砸向对方。点子落在记忆武器化后的亲密战争。",
+      "collected_date": "2026-09-22",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-22/iremember-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-22/iremember-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-17; Higgsfield Global Film Festival entry",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
     {
       "id": "2026-09-21-sea-of-ash-cinematic-ai-short-film-higgsfield-fi",
       "title": "Sea of Ash | Cinematic AI Short Film | Higgsfield Film Festival",
@@ -577,6 +682,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-09-22",
+      "week_id": "2026-W39",
+      "count": 4
+    },
     {
       "date": "2026-09-21",
       "week_id": "2026-W39",
