@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T02:17:10+00:00",
+  "generated_at": "2026-09-23T02:16:18+00:00",
   "timezone": "Asia/Shanghai",
   "categories": [
     {
@@ -54,6 +54,86 @@
     }
   },
   "videos": [
+    {
+      "id": "2026-09-23-goodwipes-asstra",
+      "title": "goodwipes ASSTRA",
+      "url": "https://www.youtube.com/watch?v=165A1ADnXUg",
+      "platform": "youtube",
+      "author": "goodwipes",
+      "orientation": "landscape",
+      "category": "ai-ad",
+      "tags": [
+        "恶搞广告",
+        "Astra",
+        "湿巾品牌"
+      ],
+      "intro_zh": "湿巾品牌把 OpenAI Astra 改写成厕所里的语音助手 ASSTRA：你随口喊一声，它就按指令擦。片子整段当「未来湿巾广告」拍，点子落在把高科口头助手拽进最日常、最不体面的场景，用一本正经的科幻腔做品牌恶搞。",
+      "collected_date": "2026-09-23",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-23/goodwipes-asstra-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-23/goodwipes-asstra-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-17; AI parody of OpenAI Astra; news bump ~2026-09-21",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-23-uncle-s-last-stop",
+      "title": "Uncle's Last Stop",
+      "url": "https://www.youtube.com/watch?v=VHz-otzLbr4",
+      "platform": "youtube",
+      "author": "Yahya AI Films",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "人情短片",
+        "Seedance"
+      ],
+      "intro_zh": "一位叔叔走到人生某一站的终点：片子不靠大场面，把「最后一站」压在日常人情与告别的节奏里。旅途短、话说完、站坐过——点子落在用普通人的短途旅程讲告别，而不是英雄史诗式的落幕；情感留在停靠本身。",
+      "collected_date": "2026-09-23",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-23/uncle-last-stop-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-23/uncle-last-stop-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-15; Higgsfield Global Film Festival; leftover clip from 2026-09-22 workspace",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-23-the-zero-line",
+      "title": "THE ZERO LINE",
+      "url": "https://www.youtube.com/watch?v=lpye2dxElkc",
+      "platform": "youtube",
+      "author": "City Frames",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "脑洞幻想",
+        "伦敦"
+      ],
+      "intro_zh": "伦敦三个陌生人在 23:47 收到同一句尚未发出的讯息，被引向地下月台与通向 Morrow 的列车——那里每个可能未来都被登记，唯独他们空白。片子把「命运档案」做成脑洞奇旅：点子落在「没有被写进未来的人」才有资格抵达终点站。",
+      "collected_date": "2026-09-23",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-23/zero-line-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-23/zero-line-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-16; Higgsfield Global Film Festival; cerebral fantasy short",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
     {
       "id": "2026-09-22-the-last-seed",
       "title": "The Last Seed",
@@ -682,6 +762,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-09-23",
+      "week_id": "2026-W39",
+      "count": 3
+    },
     {
       "date": "2026-09-22",
       "week_id": "2026-W39",
