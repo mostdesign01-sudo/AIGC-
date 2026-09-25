@@ -1,0 +1,42 @@
+[
+  {
+    "id": "2026-09-10-wencangsheng",
+    "title": "问苍生",
+    "url": "https://www.bilibili.com/video/BV1rHbY6MEB9/",
+    "platform": "bilibili",
+    "author": "青瓜蛋丶",
+    "orientation": "landscape",
+    "category": "ai-short-film",
+    "tags": ["Seedance 2.5", "GPT Image 2", "长叙事"],
+    "intro_zh": "约 26 分钟体量的 AI 长片，用 Seedance 2.5 出镜头、GPT Image 2 定人物与场景，把新模型压在长叙事而不是 15 秒切片上。看点在于人物跨场景的一致性和群像调度：同一批角色在庙堂、战场、荒野之间来回而不走形。适合作为「AI 能否撑住完整故事」的参照样本。",
+    "collected_date": "2026-09-10",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/01-wencangsheng-a.gif",
+    "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/01-wencangsheng-b.gif",
+    "cover_url": "",
+    "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/01-wencangsheng-src.mp4",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs；原片为 B 站 BV1rHbY6MEB9，2026-08-17 发布。"
+  },
+  {
+    "id": "2026-09-10-wan30-demo",
+    "title": "通义万相 Wan 3.0 官方演示",
+    "url": "https://help.aliyun.com/zh/model-studio/wan3-video-generation-guide",
+    "platform": "web",
+    "author": "阿里云百炼",
+    "orientation": "landscape",
+    "category": "new-model",
+    "tags": ["Wan 3.0", "文生视频", "官方 demo"],
+    "intro_zh": "阿里云百炼 Wan 3.0 的官方 20 秒演示片，一段里塞进真人、动物、流体与文字四类难点。重点看运动连贯与光影变化：镜头推拉时主体不抖，水面与布料的物理感明显好于上一代。作为「新模型能做到哪一步」的基线，直接对照自己的提示词去测。",
+    "collected_date": "2026-09-10",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/02-wan30-a.gif",
+    "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/02-wan30-b.gif",
+    "cover_url": "",
+    "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/02-wan30-src.mp4",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs（源为文档页示例 wan_aio_t3.mp4，1280x720，20s）。"
+  }
+]

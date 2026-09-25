@@ -1,54 +1,222 @@
-/* Pinterest风格全局样式 */
-* {
+/* 得物 AIGC 创意站 · 全局样式与设计变量 */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 :root {
-  --primary-color: #e60023;
-  --primary-hover: #ad081b;
-  --bg-color: #fff;
-  --bg-secondary: #f0f0f0;
-  --text-primary: #111;
-  --text-secondary: #767676;
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, sans-serif;
+  --ink: #111214;
+  --ink-2: #3a3b40;
+  --muted: #6f7178;
+  --muted-2: #9a9ca3;
+  --line: #e6e5e1;
+  --line-2: #f0efeb;
+  --bg: #f6f5f2;
+  --bg-2: #eeede9;
+  --card: #ffffff;
+  --accent: #0fbfae;
+  --accent-ink: #0a7f74;
+  --accent-soft: #e2f7f4;
+
+  --slot-hottest: #ff5a36;
+  --slot-hottest-soft: #ffe9e3;
+  --slot-influential: #4f5bff;
+  --slot-influential-soft: #e8eaff;
+  --slot-creative: #0fbfae;
+  --slot-creative-soft: #dff6f3;
+
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 1px 2px rgba(17, 18, 20, 0.04), 0 8px 24px -12px rgba(17, 18, 20, 0.12);
+  --shadow-hover: 0 2px 4px rgba(17, 18, 20, 0.06), 0 18px 40px -16px rgba(17, 18, 20, 0.24);
+
+  --sans: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', 'Microsoft YaHei',
+    'Noto Sans CJK SC', 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+
+  --container: 1320px;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
   font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--text-primary);
-  background: var(--bg-color);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 #app {
-  width: 100%;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* 重置按钮样式 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 button {
   font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
 }
 
-/* 滚动条样式 */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+img {
+  max-width: 100%;
 }
 
-::-webkit-scrollbar-track {
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+p {
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  background: var(--bg-2);
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.chip--accent {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+.chip--outline {
   background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-weight: 500;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #c4c4c4;
-  border-radius: 4px;
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+.btn:hover {
+  background: #000;
+  transform: translateY(-1px);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.btn--ghost:hover {
+  background: var(--card);
+  border-color: var(--ink);
+}
+
+.btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.section-head h2 {
+  font-size: 22px;
+}
+
+.section-head .sub {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.section-head .more {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.section-head .more:hover {
+  color: var(--ink);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 16px;
+  }
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .section-head h2 {
+    font-size: 19px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
 }

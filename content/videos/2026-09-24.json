@@ -1,0 +1,83 @@
+[
+  {
+    "id": "2026-09-24-fukushima",
+    "title": "Fukushima",
+    "url": "https://www.youtube.com/watch?v=IrYiXEO8WpY",
+    "platform": "youtube",
+    "author": "Another Interesting STory",
+    "orientation": "landscape",
+    "category": "ai-short-film",
+    "tags": [
+      "Higgsfield",
+      "Festival",
+      "核事故",
+      "历史虚构"
+    ],
+    "intro_zh": "把 2011 年福岛核电站事故拍成三分钟虚构短片：控制室、警报、撤离被压进连续镜头里。片子不靠纪录片旁白堆信息，而是用灾难瞬间的人机节奏讲「失控如何被看见」——点子落在用 AI 影像重演真实核危机的临场感，而不是事后复盘。",
+    "collected_date": "2026-09-24",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-24/fukushima-a.gif",
+    "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-24/fukushima-b.gif",
+    "cover_url": "",
+    "source_video_url": "",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "upload 2026-09-22; Higgsfield Global Film Festival 2nd submission; ~3min fiction on 2011 Fukushima Daiichi",
+    "week_id": "2026-W39",
+    "weekly_slot": null
+  },
+  {
+    "id": "2026-09-24-meta-ai-glasses-ad-film",
+    "title": "META AI Glasses AD Film",
+    "url": "https://www.youtube.com/watch?v=sMaoYAdBLks",
+    "platform": "youtube",
+    "author": "BLACKHORSE studioone",
+    "orientation": "landscape",
+    "category": "ai-ad",
+    "tags": [
+      "Meta",
+      "智能眼镜",
+      "品牌片",
+      "全片生成"
+    ],
+    "intro_zh": "一支全片 AI 生成的 Meta 智能眼镜概念广告：口号是「你不再穿戴科技，你穿戴的是智能」。没有屏幕滑动，只有视线即接口——点子落在把 AR 眼镜拍成「看不见的助理」，用旅行与街头镜头证明智能该隐进日常视野，而不是挂在脸上的一块屏。",
+    "collected_date": "2026-09-24",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-24/meta-ai-glasses-a.gif",
+    "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-24/meta-ai-glasses-b.gif",
+    "cover_url": "",
+    "source_video_url": "",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "upload 2026-09-23; fully AI-generated Meta AI Glasses concept commercial by BLACKHORSE studioone",
+    "week_id": "2026-W39",
+    "weekly_slot": null
+  },
+  {
+    "id": "2026-09-24-good-boy",
+    "title": "GOOD BOY",
+    "url": "https://www.youtube.com/watch?v=gY3iR7mBBSU",
+    "platform": "youtube",
+    "author": "Dair K",
+    "orientation": "landscape",
+    "category": "ai-short-film",
+    "tags": [
+      "末日",
+      "丧尸",
+      "人宠",
+      "长片"
+    ],
+    "intro_zh": "末日废土里，女孩与狗并肩对抗丧尸群：整部长片由一人用 AI 写导演剪。口型与造型在长时段里保持一致，片子把「忠诚」做成动作戏的主轴——点子落在用宠物搭档撑起完整叙事弧，而不是只做几秒特效 demo；人与狗的关系才是废土里的锚点。",
+    "collected_date": "2026-09-24",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-24/good-boy-a.gif",
+    "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-24/good-boy-b.gif",
+    "cover_url": "",
+    "source_video_url": "",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "upload 2026-09-22; post-apocalyptic AI feature by Dair K; news bump ~2026-09-23 (Fandom Pulse)",
+    "week_id": "2026-W39",
+    "weekly_slot": null
+  }
+]

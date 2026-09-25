@@ -1,0 +1,14 @@
+{
+  "hottest": {
+    "label": "最热",
+    "tagline": "本周讨论最多、传播最广的一条"
+  },
+  "influential": {
+    "label": "最影响力",
+    "tagline": "最可能改变行业做法或品牌预期的一条"
+  },
+  "creative": {
+    "label": "最有创意",
+    "tagline": "点子最新、落点最准的一条"
+  }
+}

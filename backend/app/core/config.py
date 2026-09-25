@@ -28,6 +28,15 @@ class Settings(BaseSettings):
     
     # 数据库
     database_url: str = "sqlite:///./data/videos.db"
+
+    # 创意站内容库（文件型）。默认仓库根目录 content/；部署时可指向持久盘。
+    content_dir: str = os.path.join(BASE_DIR, "content")
+    # 编译产物；留空则不落盘（仅通过接口 /creative/feed 输出）。
+    feed_path: str = os.path.join(BASE_DIR, "frontend", "src", "data", "feed.json")
+    # 写接口（ingest / TOP3 / labels）需要在请求头 X-Admin-Token 带上这个值；为空则写接口全部关闭。
+    admin_token: str = ""
+    # ffmpeg 可执行文件（可选，脚本 make_gifs.py 使用）
+    ffmpeg_path: str = ""
     
     # 抓取配置
     min_play_count: int = 100000

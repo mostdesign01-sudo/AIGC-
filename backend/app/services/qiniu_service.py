@@ -12,9 +12,22 @@ settings = get_settings()
 
 class QiniuService:
     def __init__(self):
-        self.auth = Auth(settings.qiniu_access_key, settings.qiniu_secret_key)
+        self._auth = None
         self.bucket = settings.qiniu_bucket_name
         self.domain = settings.qiniu_domain
+
+    @property
+    def configured(self) -> bool:
+        return bool(settings.qiniu_access_key and settings.qiniu_secret_key)
+
+    @property
+    def auth(self) -> Auth:
+        # 延迟创建：没有配置七牛密钥时（例如只跑创意站接口）服务也能正常启动。
+        if self._auth is None:
+            if not self.configured:
+                raise RuntimeError("未配置 QINIU_ACCESS_KEY / QINIU_SECRET_KEY，无法上传到七牛云")
+            self._auth = Auth(settings.qiniu_access_key, settings.qiniu_secret_key)
+        return self._auth
     
     def upload_from_url(self, url: str, key: str = None) -> str:
         """从URL下载并上传到七牛云 - 处理B站防盗链"""

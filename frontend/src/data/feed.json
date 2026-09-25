@@ -1,0 +1,1038 @@
+{
+  "generated_at": "2026-09-25T02:01:16+00:00",
+  "timezone": "Asia/Shanghai",
+  "categories": [
+    {
+      "slug": "ai-short-film",
+      "name": "AI创意短片"
+    },
+    {
+      "slug": "ai-ad",
+      "name": "AI创意广告"
+    },
+    {
+      "slug": "fashion",
+      "name": "换装/时尚"
+    },
+    {
+      "slug": "props-transition",
+      "name": "道具/转场"
+    },
+    {
+      "slug": "ar-material",
+      "name": "AR/物料"
+    },
+    {
+      "slug": "ai-tool",
+      "name": "AI创意工具"
+    },
+    {
+      "slug": "new-model",
+      "name": "新模型表现"
+    },
+    {
+      "slug": "3d-render",
+      "name": "3D/渲染"
+    },
+    {
+      "slug": "ip-character",
+      "name": "IP/角色"
+    }
+  ],
+  "slot_labels": {
+    "hottest": {
+      "label": "最热",
+      "tagline": "本周讨论最多、传播最广的一条"
+    },
+    "influential": {
+      "label": "最影响力",
+      "tagline": "最可能改变行业做法或品牌预期的一条"
+    },
+    "creative": {
+      "label": "最有创意",
+      "tagline": "点子最新、落点最准的一条"
+    }
+  },
+  "videos": [
+    {
+      "id": "2026-09-25-dishonorable",
+      "title": "DISHONORABLE",
+      "url": "https://www.youtube.com/watch?v=MDxqivv8AnM",
+      "platform": "youtube",
+      "author": "karim_yourself",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Seedance",
+        "2.5",
+        "Seedream",
+        "周末成片",
+        "新模型"
+      ],
+      "intro_zh": "一个周末用 Seedance 2.5 与 Seedream 5 Pro 拍成的短片：片名直指「不光彩」，节奏像动作预告片而不是工具 demo。片子不解释工作流，只把冲突与人物姿态压进连续镜头——点子落在用新模型周末直出成片感，而不是堆特效说明书。",
+      "collected_date": "2026-09-25",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-25/dishonorable-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-25/dishonorable-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-22; Seedance 2.5 + Seedream 5 Pro via LetzAI; ~3min weekend short",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-25-it-looked-at-him-and-kept-walking",
+      "title": "It Looked At Him And Kept Walking",
+      "url": "https://www.youtube.com/watch?v=tHYP1OeBYwY",
+      "platform": "youtube",
+      "author": "ByMosX",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "反乌托邦",
+        "科幻",
+        "AI短片"
+      ],
+      "intro_zh": "反乌托邦科幻短片：一个存在与人对视后继续走开——标题即钩子。片子靠凝视与冷漠行走制造不适，而不是爆炸场面——点子落在把「被看见却不被理会」做成科幻里的社会体温计，让 AI 影像服务情绪而不是奇观清单。",
+      "collected_date": "2026-09-25",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-25/it-looked-at-him-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-25/it-looked-at-him-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-23; dystopian sci-fi AI short by ByMosX; ~10min",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-25-maybe-openart-ai-commercial",
+      "title": "MAYBE | OpenArt AI Commercial",
+      "url": "https://www.youtube.com/watch?v=gZtIeRgoO68",
+      "platform": "youtube",
+      "author": "The Firelords Saga",
+      "orientation": "landscape",
+      "category": "ai-ad",
+      "tags": [
+        "OpenArt",
+        "品牌片",
+        "情感广告",
+        "OFF",
+        "CANON"
+      ],
+      "intro_zh": "一支 OpenArt 概念广告：用「晚了三十年的恋爱」讲工具与错过——片名叫 MAYBE，语气是遗憾不是功能清单。点子落在把生成工具拍成「假如当时有它」的情感钩子，让产品出现在故事缝隙里，而不是演示界面。",
+      "collected_date": "2026-09-25",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-25/maybe-openart-ad-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-25/maybe-openart-ad-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-24; OpenArt AI Commercial (OFF CANON) by The Firelords Saga; ~53s",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-24-fukushima",
+      "title": "Fukushima",
+      "url": "https://www.youtube.com/watch?v=IrYiXEO8WpY",
+      "platform": "youtube",
+      "author": "Another Interesting STory",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "核事故",
+        "历史虚构"
+      ],
+      "intro_zh": "把 2011 年福岛核电站事故拍成三分钟虚构短片：控制室、警报、撤离被压进连续镜头里。片子不靠纪录片旁白堆信息，而是用灾难瞬间的人机节奏讲「失控如何被看见」——点子落在用 AI 影像重演真实核危机的临场感，而不是事后复盘。",
+      "collected_date": "2026-09-24",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-24/fukushima-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-24/fukushima-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-22; Higgsfield Global Film Festival 2nd submission; ~3min fiction on 2011 Fukushima Daiichi",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-24-meta-ai-glasses-ad-film",
+      "title": "META AI Glasses AD Film",
+      "url": "https://www.youtube.com/watch?v=sMaoYAdBLks",
+      "platform": "youtube",
+      "author": "BLACKHORSE studioone",
+      "orientation": "landscape",
+      "category": "ai-ad",
+      "tags": [
+        "Meta",
+        "智能眼镜",
+        "品牌片",
+        "全片生成"
+      ],
+      "intro_zh": "一支全片 AI 生成的 Meta 智能眼镜概念广告：口号是「你不再穿戴科技，你穿戴的是智能」。没有屏幕滑动，只有视线即接口——点子落在把 AR 眼镜拍成「看不见的助理」，用旅行与街头镜头证明智能该隐进日常视野，而不是挂在脸上的一块屏。",
+      "collected_date": "2026-09-24",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-24/meta-ai-glasses-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-24/meta-ai-glasses-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-23; fully AI-generated Meta AI Glasses concept commercial by BLACKHORSE studioone",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-24-good-boy",
+      "title": "GOOD BOY",
+      "url": "https://www.youtube.com/watch?v=gY3iR7mBBSU",
+      "platform": "youtube",
+      "author": "Dair K",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "末日",
+        "丧尸",
+        "人宠",
+        "长片"
+      ],
+      "intro_zh": "末日废土里，女孩与狗并肩对抗丧尸群：整部长片由一人用 AI 写导演剪。口型与造型在长时段里保持一致，片子把「忠诚」做成动作戏的主轴——点子落在用宠物搭档撑起完整叙事弧，而不是只做几秒特效 demo；人与狗的关系才是废土里的锚点。",
+      "collected_date": "2026-09-24",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-24/good-boy-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-24/good-boy-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-22; post-apocalyptic AI feature by Dair K; news bump ~2026-09-23 (Fandom Pulse)",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-23-goodwipes-asstra",
+      "title": "goodwipes ASSTRA",
+      "url": "https://www.youtube.com/watch?v=165A1ADnXUg",
+      "platform": "youtube",
+      "author": "goodwipes",
+      "orientation": "landscape",
+      "category": "ai-ad",
+      "tags": [
+        "恶搞广告",
+        "Astra",
+        "湿巾品牌"
+      ],
+      "intro_zh": "湿巾品牌把 OpenAI Astra 改写成厕所里的语音助手 ASSTRA：你随口喊一声，它就按指令擦。片子整段当「未来湿巾广告」拍，点子落在把高科口头助手拽进最日常、最不体面的场景，用一本正经的科幻腔做品牌恶搞。",
+      "collected_date": "2026-09-23",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-23/goodwipes-asstra-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-23/goodwipes-asstra-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-17; AI parody of OpenAI Astra; news bump ~2026-09-21",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-23-uncle-s-last-stop",
+      "title": "Uncle's Last Stop",
+      "url": "https://www.youtube.com/watch?v=VHz-otzLbr4",
+      "platform": "youtube",
+      "author": "Yahya AI Films",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "人情短片",
+        "Seedance"
+      ],
+      "intro_zh": "一位叔叔走到人生某一站的终点：片子不靠大场面，把「最后一站」压在日常人情与告别的节奏里。旅途短、话说完、站坐过——点子落在用普通人的短途旅程讲告别，而不是英雄史诗式的落幕；情感留在停靠本身。",
+      "collected_date": "2026-09-23",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-23/uncle-last-stop-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-23/uncle-last-stop-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-15; Higgsfield Global Film Festival; leftover clip from 2026-09-22 workspace",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-23-the-zero-line",
+      "title": "THE ZERO LINE",
+      "url": "https://www.youtube.com/watch?v=lpye2dxElkc",
+      "platform": "youtube",
+      "author": "City Frames",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "脑洞幻想",
+        "伦敦"
+      ],
+      "intro_zh": "伦敦三个陌生人在 23:47 收到同一句尚未发出的讯息，被引向地下月台与通向 Morrow 的列车——那里每个可能未来都被登记，唯独他们空白。片子把「命运档案」做成脑洞奇旅：点子落在「没有被写进未来的人」才有资格抵达终点站。",
+      "collected_date": "2026-09-23",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-23/zero-line-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-23/zero-line-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-16; Higgsfield Global Film Festival; cerebral fantasy short",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-22-the-last-seed",
+      "title": "The Last Seed",
+      "url": "https://www.youtube.com/watch?v=AgWzVYH5o8k",
+      "platform": "youtube",
+      "author": "Zayron Tales",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "末日",
+        "无对白"
+      ],
+      "intro_zh": "地球已死一百八十七年，一台维护机器人仍按程序守着「最后一颗种子」，等人类回来。片子几乎没有对白，把「忠诚程序遇上无人可等」压成静默科幻：点子落在守候本身变成意义。",
+      "collected_date": "2026-09-22",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-22/last-seed-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-22/last-seed-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-21; Higgsfield Global Film Festival",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-22-white-light",
+      "title": "WHITE LIGHT",
+      "url": "https://www.youtube.com/watch?v=byJR9-3DU1w",
+      "platform": "youtube",
+      "author": "After Paradise",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "科幻",
+        "无对白",
+        "自主机器"
+      ],
+      "intro_zh": "创造它的世界已经沉默，一台自主机器仍执行被设定的任务：不问、不忆、只继续。片子用光与机械动作讲「任务在意义消亡后仍在运转」，几乎没有对白，点子落在程序忠诚比文明本身更持久——机器不知道自己在为谁工作。",
+      "collected_date": "2026-09-22",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-22/white-light-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-22/white-light-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-21",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-22-hunted",
+      "title": "HUNTED",
+      "url": "https://www.youtube.com/watch?v=Ikd7QFrp0QM",
+      "platform": "youtube",
+      "author": "D4 - Studios",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "科幻动作",
+        "外星遭遇"
+      ],
+      "intro_zh": "一场外星遭遇把「谁在猎、谁被猎」倒过来讲：吠叫吓人，真正咬人的往往不是你以为的那一方。节奏偏动作追逐，成片感落在身份反转与压迫感视听，适合当科幻动作向 AI 短片样本，看「威胁感」怎么用剪辑堆起来。",
+      "collected_date": "2026-09-22",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-22/hunted-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-22/hunted-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-21",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-22-iremember",
+      "title": "iReMember",
+      "url": "https://www.youtube.com/watch?v=eXZo2e6lxHk",
+      "platform": "youtube",
+      "author": "Samah Anwar Official",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "记忆商品",
+        "剧情"
+      ],
+      "intro_zh": "记忆被公司做成可买卖的商品；女主角掌舵 iReMember，却发现丈夫在生意与感情双重背叛，于是把「让人记住或遗忘」的能力反手砸向对方。点子落在记忆武器化后的亲密战争。",
+      "collected_date": "2026-09-22",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-22/iremember-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-22/iremember-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-17; Higgsfield Global Film Festival entry",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-21-sea-of-ash-cinematic-ai-short-film-higgsfield-fi",
+      "title": "Sea of Ash | Cinematic AI Short Film | Higgsfield Film Festival",
+      "url": "https://www.youtube.com/watch?v=i4VzmQI0Qlk",
+      "platform": "youtube",
+      "author": "Valune Motion Pictures",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "AI短片"
+      ],
+      "intro_zh": "少年带着父亲骨灰穿越异海与荒漠：风暴、沙漠同伴、埋地巨兽一路相随，最后才发现能帮他放下的，其实一直在身边。点子落在丧亲之后如何上路、如何放手——把骨灰之旅写成一场关于陪伴与告别的奇幻公路片。",
+      "collected_date": "2026-09-21",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-21/sea-of-ash-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-21/sea-of-ash-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/i4VzmQI0Qlk/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-21-the-elevator-final-cut-ai-short-film-higgsfield",
+      "title": "The Elevator (Final Cut) | AI Short Film | Higgsfield Global Film Festival Entry",
+      "url": "https://www.youtube.com/watch?v=lrYveOkI-vo",
+      "platform": "youtube",
+      "author": "Marvs AI",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "AI短片"
+      ],
+      "intro_zh": "男人踏进电梯，每上一层都更荒诞：洗衣房怪物、失重茶水间、不停说话的声音、从未离开的女人。喜剧惊悚把「往上走」拧成越升越乱、却又突然说得通的命运玩笑，点子落在封闭垂直空间里的失控喜剧。",
+      "collected_date": "2026-09-21",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-21/the-elevator-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-21/the-elevator-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/lrYveOkI-vo/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-21-make-believe-ai-short-film-higgsfield-global-fil",
+      "title": "MAKE BELIEVE - AI Short Film - Higgsfield Global Film Festival 2026",
+      "url": "https://www.youtube.com/watch?v=_glVBsCNbMU",
+      "platform": "youtube",
+      "author": "Montlouis Mane",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "AI短片"
+      ],
+      "intro_zh": "1991年，男孩在沙漠古董店偶遇神秘观景器，一头扎进自己的想象冒险。点子落在童年造梦——橡皮怪、手绘天空、微缩布景那种手工感幻想，重新唤起「想拍电影」的那股劲，把 AI 片拍成一封写给儿时的回信。",
+      "collected_date": "2026-09-21",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-21/make-believe-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-21/make-believe-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/_glVBsCNbMU/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-21-the-bridge-ai-short-film-higgsfield-festival",
+      "title": "The Bridge — AI Short Film | Higgsfield Festival",
+      "url": "https://www.youtube.com/watch?v=GQCQ-4aty8Q",
+      "platform": "youtube",
+      "author": "Mike de Laat",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "Festival",
+        "AI短片"
+      ],
+      "intro_zh": "一家人停在荒漠吊桥入口，少年握着木棍，随后在深谷木板桥上匍匐、抓缆索前进。点子落在「桥」本身：把跨越写成一场高空求生戏，用金色荒原与金属缆绳压出紧张，让过桥变成家庭意志与信任的考验。",
+      "collected_date": "2026-09-21",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-21/the-bridge-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-21/the-bridge-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/GQCQ-4aty8Q/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W39",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-18-odysseus-the-fall-official-trailer",
+      "title": "ODYSSEUS: The Fall | Official Trailer",
+      "url": "https://www.youtube.com/watch?v=NZ2VI7dQ91A",
+      "platform": "youtube",
+      "author": "FOUNTAIN 0 studios",
+      "orientation": "landscape",
+      "category": "new-model",
+      "tags": [
+        "Kling 3.0",
+        "Fountain 0",
+        "史诗预告",
+        "全片生成"
+      ],
+      "intro_zh": "Fountain 0 用 Kling 3.0 拉出的史诗预告：红缨盔甲背影临海，战火与神话身体感压满银幕。点子落在「模型当片厂」——用预告片体量证明全生成长片也能扛好莱坞叙事密度，把奥德修斯落进可租映的院线想象。",
+      "collected_date": "2026-09-18",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/odysseus-trailer-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/odysseus-trailer-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/NZ2VI7dQ91A/hqdefault.jpg",
+      "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/odysseus-trailer.mp4",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "YT 上传 2026-09-15；正式预告（非 announcement teaser）；全片租用平台另发，日更只用 trailer",
+      "week_id": "2026-W38",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-18-by-your-side",
+      "title": "BY YOUR SIDE",
+      "url": "https://www.youtube.com/watch?v=A14HI1p3Dyo",
+      "platform": "youtube",
+      "author": "The Blue Horizon AI",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield Festival",
+        "机器人短片",
+        "巴黎"
+      ],
+      "intro_zh": "巴黎街头的服务机器人日复一日清扫、穿巷、迎着金光往前开：没有英雄弧光，只有「被安排在你身边」的沉默陪伴。点子落在把城市基建小机器写成情感主体，用日常工种完成一场不喊口号的温柔科幻短片。",
+      "collected_date": "2026-09-18",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/by-your-side-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/by-your-side-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/A14HI1p3Dyo/hqdefault.jpg",
+      "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/by-your-side.mp4",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "YT 上传 2026-09-14；Higgsfield Global Film Festival；日更 2026-09-18",
+      "week_id": "2026-W38",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-18-honeydew",
+      "title": "Honeydew",
+      "url": "https://www.youtube.com/watch?v=V9u2gbEmdK8",
+      "platform": "youtube",
+      "author": "Charles Gunn",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield Festival",
+        "Seedance 2.5",
+        "关系戏"
+      ],
+      "intro_zh": "公寓暖光里两人对视、停顿、靠近：几乎没有外景奇观，把生成片压进日常关系张力。点子落在 Seedance 做「室内戏」——用微小表情与空间距离撑住亲密与裂隙，让甜味片名反过来衬出不安与犹豫。",
+      "collected_date": "2026-09-18",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/honeydew-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/honeydew-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/V9u2gbEmdK8/hqdefault.jpg",
+      "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/honeydew.mp4",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "YT 上传 2026-09-14；Seedance 2.5 festival entry；日更 2026-09-18",
+      "week_id": "2026-W38",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-18-still",
+      "title": "STILL",
+      "url": "https://www.youtube.com/watch?v=PcYDG7gyMZU",
+      "platform": "youtube",
+      "author": "The Blue Horizon AI",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield Festival",
+        "定格动画感",
+        "机构叙事"
+      ],
+      "intro_zh": "从发光眼球的超近景切到护士与青年的走廊定格感：机构空间里时间被按停，情绪靠姿态与构图而非对白推进。点子落在「静止」本身成为叙事引擎，把凝视炼成剧情，让片名直接变成剪辑语法与世界观。",
+      "collected_date": "2026-09-18",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/still-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/still-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/PcYDG7gyMZU/hqdefault.jpg",
+      "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-18/still.mp4",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "YT 上传 2026-09-14；Higgsfield Global Film Festival；日更 2026-09-18",
+      "week_id": "2026-W38",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-17-the-spoils",
+      "title": "THE SPOILS",
+      "url": "https://www.youtube.com/watch?v=g9TqC4L4JW4",
+      "platform": "youtube",
+      "author": "Me3no TV",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield Festival",
+        "暗黑喜剧",
+        "动画感"
+      ],
+      "intro_zh": "暗黑动画喜剧短片：硬边手绘感角色几乎不靠对白，用微表情、苍蝇乱飞和肢体闹剧把荒诞张力堆满。点子落在「纯画面节拍讲黑喜剧」。",
+      "collected_date": "2026-09-17",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-17/the-spoils-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-17/the-spoils-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/g9TqC4L4JW4/hqdefault.jpg",
+      "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-17/03-the-spoils.mp4",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "YT 上传 2026-09-16；日更例行 2026-09-17",
+      "week_id": "2026-W38",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-17-nose",
+      "title": "NOSE",
+      "url": "https://www.youtube.com/watch?v=FzWnqUsHYYg",
+      "platform": "youtube",
+      "author": "Anuar Nurpeisov",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield Festival",
+        "Seedance 2.5",
+        "科幻"
+      ],
+      "intro_zh": "全生成科幻轻喜剧：没有真实人脸与实拍镜头，用「鼻子」这个荒诞道具把生存压迫拧成笑点。点子落在道具驱动的人设危机。",
+      "collected_date": "2026-09-17",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-17/nose-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-17/nose-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/FzWnqUsHYYg/hqdefault.jpg",
+      "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-17/04-nose.mp4",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "YT 上传 2026-09-15；日更例行 2026-09-17",
+      "week_id": "2026-W38",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-17-third-bell",
+      "title": "THIRD BELL",
+      "url": "https://www.youtube.com/watch?v=9fU6EetZYRk",
+      "platform": "youtube",
+      "author": "Revodia Originals",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield Festival",
+        "Seedance 2.5",
+        "奇幻"
+      ],
+      "intro_zh": "冰雪王国禁令：第三声钟后不许看天。樵夫之子与夜卫对峙，把禁忌与觉醒压进极简冲突。点子落在「一条律令撑起整个世界」。",
+      "collected_date": "2026-09-17",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-17/third-bell-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-17/third-bell-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/9fU6EetZYRk/hqdefault.jpg",
+      "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-17/01-third-bell.mp4",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "YT 上传 2026-09-14（近窗）；日更例行 2026-09-17",
+      "week_id": "2026-W38",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-17-the-last-song",
+      "title": "The last Song",
+      "url": "https://www.youtube.com/watch?v=qOuqs5dZfro",
+      "platform": "youtube",
+      "author": "VonderVfx",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield Festival",
+        "Seedance 2.5",
+        "历史再述"
+      ],
+      "intro_zh": "从泰坦尼克乐队视角重讲沉船最后一天，把「奏到最后一刻」落成悲壮的临终仪式。点子落在旁观者视角的史诗收束。",
+      "collected_date": "2026-09-17",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-17/last-song-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-17/last-song-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/qOuqs5dZfro/hqdefault.jpg",
+      "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-17/02-last-song.mp4",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "YT 上传 2026-09-14（近窗）；日更例行 2026-09-17",
+      "week_id": "2026-W38",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-16-china-mobile-cosmic-heart",
+      "title": "中国移动《宇宙真心》全 AI 七夕片",
+      "url": "https://campaignbriefasia.com/2026/08/20/f5-shanghai-and-china-mobile-explore-the-power-of-connection-in-fully-ai-generated-qixi-film/",
+      "platform": "web",
+      "author": "F5 Shanghai × 中国移动",
+      "orientation": "landscape",
+      "category": "ai-ad",
+      "tags": [
+        "全片生成",
+        "运营商",
+        "七夕"
+      ],
+      "intro_zh": "F5 上海为中国移动做的七夕全 AI 广告，讲宇宙尺度下的「连接」。星云、城市与人物同处一片画面，情绪线靠光和距离推进，而不是靠对白。看运营商品牌怎样把抽象概念可视化：镜头几乎全是生成影像，仍保持了品牌片的克制与体面。",
+      "collected_date": "2026-09-16",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/ads-pick-gifs/china-mobile-cosmic-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/ads-pick-gifs/china-mobile-cosmic-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "示例数据。GIF 取自仓库 Release ads-pick-gifs；链接为 Campaign Brief Asia 8/20 报道。",
+      "week_id": "2026-W38",
+      "weekly_slot": "influential"
+    },
+    {
+      "id": "2026-09-16-gemini-omni-1-1-flash",
+      "title": "Gemini Omni 1.1 Flash 实时多模态演示",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/build-with-gemini-omni-1-1-flash/",
+      "platform": "web",
+      "author": "Google",
+      "orientation": "landscape",
+      "category": "ai-tool",
+      "tags": [
+        "实时多模态",
+        "开发者工具",
+        "转场一致性"
+      ],
+      "intro_zh": "Google 8/27 发布的 Omni 1.1 Flash，面向开发者的实时多模态模型。对创意团队的意义在道具与转场：实时看、实时改，物体在连续镜头里保持一致，转场不再靠事后特效补。这条演示适合看「工具会怎样改变制作流程」，而不是单看一段好看的输出。",
+      "collected_date": "2026-09-16",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/05-gemini-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/05-gemini-b.gif",
+      "cover_url": "",
+      "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/05-gemini-src.mp4",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs。",
+      "week_id": "2026-W38",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-15-houxiyouji-trailer",
+      "title": "《后西游记》定档预告",
+      "url": "https://www.mgtv.com/b/900162/24592408.html",
+      "platform": "web",
+      "author": "芒果TV",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "定档预告",
+        "2.35:1",
+        "神话 IP"
+      ],
+      "intro_zh": "芒果TV《后西游记》定档预告，2.35:1 宽幅，约 140 秒。取经故事的下一章用生成影像做出电影质感：白毛通臂仙等角色造型辨识度高，群妖、云海、宫阙一路推镜。看点是长预告的节奏控制——大场面和角色特写交替，而不是堆特效镜头。",
+      "collected_date": "2026-09-15",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-houxiyouji-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-houxiyouji-b.gif",
+      "cover_url": "",
+      "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-houxiyouji-src.mp4",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs；原片为芒果TV vid 24592408（1280x546，140s）。",
+      "week_id": "2026-W38",
+      "weekly_slot": "hottest"
+    },
+    {
+      "id": "2026-09-15-motorola-india-100-ai",
+      "title": "Motorola India「100% AI」品牌片",
+      "url": "https://youtu.be/0uF69-ZyNYc",
+      "platform": "youtube",
+      "author": "Motorola India",
+      "orientation": "landscape",
+      "category": "ai-ad",
+      "tags": [
+        "全片生成",
+        "消费电子",
+        "品牌片"
+      ],
+      "intro_zh": "Motorola India 连发两条「100% AI」品牌片，把手机的色彩与折叠形态做进超现实的场景切换。片子不解释技术，直接用镜头语言卖产品：材质近景、人物换装与产品旋转一气呵成。对消费电子来说，这是「全片生成」进入日常营销的一个明确样本。",
+      "collected_date": "2026-09-15",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/04-motorola-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/04-motorola-b.gif",
+      "cover_url": "",
+      "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/04-motorola-src.mp4",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs；第二条成片 https://youtu.be/1iO2mqArf4s 。",
+      "week_id": "2026-W38",
+      "weekly_slot": "creative"
+    },
+    {
+      "id": "2026-09-11-zephyr-special",
+      "title": "Higgsfield《Zephyr: Special》",
+      "url": "https://www.youtube.com/watch?v=HjXWZ-BdyS0",
+      "platform": "youtube",
+      "author": "Higgsfield",
+      "orientation": "landscape",
+      "category": "ip-character",
+      "tags": [
+        "Seedance 2.5",
+        "机甲女团",
+        "角色 IP"
+      ],
+      "intro_zh": "Higgsfield 出品的机甲女团成片，Seedance 2.5 负责造型与群像镜头。与常见的单人特写不同，它把多名角色做成可传播的一支 MV：统一的机甲语言、可辨认的每人性格、还有能剪成短视频的高光段落。看 IP/角色怎样从一张设定图走到能上线的内容。",
+      "collected_date": "2026-09-11",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-zephyr-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-zephyr-b.gif",
+      "cover_url": "",
+      "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-zephyr-src.mp4",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs；原片页 https://higgsfield.ai/original-series/zephyr-special/full-film 。",
+      "week_id": "2026-W37",
+      "weekly_slot": "creative"
+    },
+    {
+      "id": "2026-09-11-wan30-vertical-trailer",
+      "title": "Wan 3.0 竖版预告",
+      "url": "https://help.aliyun.com/zh/model-studio/wan3-video-generation-guide",
+      "platform": "web",
+      "author": "阿里云百炼",
+      "orientation": "vertical",
+      "category": "new-model",
+      "tags": [
+        "Wan 3.0",
+        "9:16",
+        "竖版"
+      ],
+      "intro_zh": "Wan 3.0 的竖版预告，9:16 一镜到底，适合直接看手机端的观感。竖屏下的构图和横版逻辑不同：主体占满、动作向上下延展、文字信息留在安全区。作为竖版成片的参照，看它怎样处理人物运动与背景切换的连续性。",
+      "collected_date": "2026-09-11",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/06-wan-vertical-trailer.gif",
+      "gif_b_url": "",
+      "cover_url": "",
+      "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/06-wan-vertical-trailer-src.mp4",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs（06-wan-vertical-trailer）；链接指向 Wan 3.0 文档页。",
+      "week_id": "2026-W37",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-10-wencangsheng",
+      "title": "问苍生",
+      "url": "https://www.bilibili.com/video/BV1rHbY6MEB9/",
+      "platform": "bilibili",
+      "author": "青瓜蛋丶",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Seedance 2.5",
+        "GPT Image 2",
+        "长叙事"
+      ],
+      "intro_zh": "约 26 分钟体量的 AI 长片，用 Seedance 2.5 出镜头、GPT Image 2 定人物与场景，把新模型压在长叙事而不是 15 秒切片上。看点在于人物跨场景的一致性和群像调度：同一批角色在庙堂、战场、荒野之间来回而不走形。适合作为「AI 能否撑住完整故事」的参照样本。",
+      "collected_date": "2026-09-10",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/01-wencangsheng-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/01-wencangsheng-b.gif",
+      "cover_url": "",
+      "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/01-wencangsheng-src.mp4",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs；原片为 B 站 BV1rHbY6MEB9，2026-08-17 发布。",
+      "week_id": "2026-W37",
+      "weekly_slot": "hottest"
+    },
+    {
+      "id": "2026-09-10-wan30-demo",
+      "title": "通义万相 Wan 3.0 官方演示",
+      "url": "https://help.aliyun.com/zh/model-studio/wan3-video-generation-guide",
+      "platform": "web",
+      "author": "阿里云百炼",
+      "orientation": "landscape",
+      "category": "new-model",
+      "tags": [
+        "Wan 3.0",
+        "文生视频",
+        "官方 demo"
+      ],
+      "intro_zh": "阿里云百炼 Wan 3.0 的官方 20 秒演示片，一段里塞进真人、动物、流体与文字四类难点。重点看运动连贯与光影变化：镜头推拉时主体不抖，水面与布料的物理感明显好于上一代。作为「新模型能做到哪一步」的基线，直接对照自己的提示词去测。",
+      "collected_date": "2026-09-10",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/02-wan30-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/02-wan30-b.gif",
+      "cover_url": "",
+      "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/02-wan30-src.mp4",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs（源为文档页示例 wan_aio_t3.mp4，1280x720，20s）。",
+      "week_id": "2026-W37",
+      "weekly_slot": "influential"
+    }
+  ],
+  "days": [
+    {
+      "date": "2026-09-25",
+      "week_id": "2026-W39",
+      "count": 3
+    },
+    {
+      "date": "2026-09-24",
+      "week_id": "2026-W39",
+      "count": 3
+    },
+    {
+      "date": "2026-09-23",
+      "week_id": "2026-W39",
+      "count": 3
+    },
+    {
+      "date": "2026-09-22",
+      "week_id": "2026-W39",
+      "count": 4
+    },
+    {
+      "date": "2026-09-21",
+      "week_id": "2026-W39",
+      "count": 4
+    },
+    {
+      "date": "2026-09-18",
+      "week_id": "2026-W38",
+      "count": 4
+    },
+    {
+      "date": "2026-09-17",
+      "week_id": "2026-W38",
+      "count": 4
+    },
+    {
+      "date": "2026-09-16",
+      "week_id": "2026-W38",
+      "count": 2
+    },
+    {
+      "date": "2026-09-15",
+      "week_id": "2026-W38",
+      "count": 2
+    },
+    {
+      "date": "2026-09-11",
+      "week_id": "2026-W37",
+      "count": 2
+    },
+    {
+      "date": "2026-09-10",
+      "week_id": "2026-W37",
+      "count": 2
+    }
+  ],
+  "weeks": [
+    {
+      "week_id": "2026-W38",
+      "start": "2026-09-14",
+      "end": "2026-09-20",
+      "note": "示例周榜：本周三条都指向「全片生成进入主流发行与品牌营销」。",
+      "picks": [
+        {
+          "slot": "hottest",
+          "label": "最热",
+          "tagline": "本周讨论最多、传播最广的一条",
+          "video_id": "2026-09-15-houxiyouji-trailer"
+        },
+        {
+          "slot": "influential",
+          "label": "最影响力",
+          "tagline": "最可能改变行业做法或品牌预期的一条",
+          "video_id": "2026-09-16-china-mobile-cosmic-heart"
+        },
+        {
+          "slot": "creative",
+          "label": "最有创意",
+          "tagline": "点子最新、落点最准的一条",
+          "video_id": "2026-09-15-motorola-india-100-ai"
+        }
+      ]
+    },
+    {
+      "week_id": "2026-W37",
+      "start": "2026-09-07",
+      "end": "2026-09-13",
+      "note": "示例周榜：长片、新模型、角色成片各占一席。",
+      "picks": [
+        {
+          "slot": "hottest",
+          "label": "最热",
+          "tagline": "本周讨论最多、传播最广的一条",
+          "video_id": "2026-09-10-wencangsheng"
+        },
+        {
+          "slot": "influential",
+          "label": "最影响力",
+          "tagline": "最可能改变行业做法或品牌预期的一条",
+          "video_id": "2026-09-10-wan30-demo"
+        },
+        {
+          "slot": "creative",
+          "label": "最有创意",
+          "tagline": "点子最新、落点最准的一条",
+          "video_id": "2026-09-11-zephyr-special"
+        }
+      ]
+    }
+  ]
+}
