@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T02:01:16+00:00",
+  "generated_at": "2026-09-28T02:07:46+00:00",
   "timezone": "Asia/Shanghai",
   "categories": [
     {
@@ -54,6 +54,87 @@
     }
   },
   "videos": [
+    {
+      "id": "2026-09-28-passport-rush-ai-animated-short-film-higgsfield",
+      "title": "Passport Rush | AI Animated Short Film | Higgsfield Originals(2026)",
+      "url": "https://www.youtube.com/watch?v=ZncA70OAgPw",
+      "platform": "youtube",
+      "author": "Higgsfield Animation",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Higgsfield",
+        "动画短片",
+        "追逐",
+        "Cinema",
+        "Studio"
+      ],
+      "intro_zh": "黄出租车公路航拍一晃，切到忍者与校服少女趴在巨型粉红气模上狂奔——片名 Passport Rush 把通关焦虑拍成卡通冲刺。点子落在用夸张道具与公路速度，把旅行喜剧压进连续追逐镜头，让动画动作片的爽感盖过说明书式设定。",
+      "collected_date": "2026-09-28",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-28/passport-rush-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-28/passport-rush-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/ZncA70OAgPw/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-25; Higgsfield Animation Originals; ~4:51 animated short",
+      "week_id": "2026-W40",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-28-planet-9-chapter-7-ai-sci-fi-short-movie",
+      "title": "Planet 9 Chapter 7 | AI Sci-Fi Short Movie",
+      "url": "https://www.youtube.com/watch?v=SkIiyHccL8Q",
+      "platform": "youtube",
+      "author": "Last Sumerian",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "科幻",
+        "机器人",
+        "系列短片"
+      ],
+      "intro_zh": "红光廊道里，人对峙无面黑机器人；再切到车间白盔机甲与义肢技师的对视——Planet 9 第七章把压迫感压进狭长空间。点子落在用材质反光与凝视制造科幻体温，冲突靠站位与沉默推进，而不是靠爆炸场面堆奇观。",
+      "collected_date": "2026-09-28",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-28/planet-9-ch7-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-28/planet-9-ch7-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/SkIiyHccL8Q/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-26; Last Sumerian Planet 9 Ch.7; ~3:00 sci-fi short",
+      "week_id": "2026-W40",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-09-28-charmed-ai-animated-short-film-cinema-studio-ori",
+      "title": "CHARMED | AI Animated Short Film | cinema studio Originals(2026).",
+      "url": "https://www.youtube.com/watch?v=tkaL1t_mpEs",
+      "platform": "youtube",
+      "author": "CINEMA STUDIO",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "童话",
+        "荒诞",
+        "动画短片",
+        "角色群像"
+      ],
+      "intro_zh": "更衣室里金绣军装亮相，童话人物却站进警局排队辨认——CHARMED 把「被施了魔」的群像扔进刑侦程序。点子落在用童话角色当嫌犯制造荒诞对位：公主、女巫、小矮人不再讲救赎故事，而是被当作案件里的面孔。",
+      "collected_date": "2026-09-28",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-28/charmed-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-09-28/charmed-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/tkaL1t_mpEs/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-09-26; CINEMA STUDIO Originals; ~9:00 animated short",
+      "week_id": "2026-W40",
+      "weekly_slot": null
+    },
     {
       "id": "2026-09-25-dishonorable",
       "title": "DISHONORABLE",
@@ -925,6 +1006,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-09-28",
+      "week_id": "2026-W40",
+      "count": 3
+    },
     {
       "date": "2026-09-25",
       "week_id": "2026-W39",
