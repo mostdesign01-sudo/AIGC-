@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T02:16:23+00:00",
+  "generated_at": "2026-10-01T02:16:35+00:00",
   "timezone": "Asia/Shanghai",
   "categories": [
     {
@@ -148,7 +148,7 @@
         "时尚广告",
         "短名单"
       ],
-      "intro_zh": "AAAIF 2026 官方短名单上的时尚 AI 广告：把成衣与态度压进短时长的视觉宣言，镜头像在跟人抬杠。点子落在竞赛级广告片的完成度——不是教程秀模型参数，而是一条能直接拿去评奖席的时装向成片。",
+      "intro_zh": "AAAIF 2026 官方短名单上的时尚 AI 广告：把成衣与态度压进短时长的视觉宣言，镜头像在跟人抬杠。点子落在竞赛级广告片的完成度——不是教程秀模型参数，而是一条能直接拿去评奖席亮相的时装向成片。",
       "collected_date": "2026-10-01",
       "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-01/krappy-fashion-a.gif",
       "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-01/krappy-fashion-b.gif",
@@ -175,7 +175,7 @@
         "写实",
         "短剧"
       ],
-      "intro_zh": "以夜路为舞台的写实短剧，用 Kling 4.0 堆情绪张力：脚步、对白与路灯下的脸都尽量「不像生成物」。点子落在新模型的表演级微表情——不靠奇观场面，而靠一段夜里还能让人跟着绷住、信以为真的戏。",
+      "intro_zh": "以夜路为舞台的写实短剧，用 Kling 4.0 堆情绪张力：脚步、对白与路灯下的脸都尽量「不像生成物」。点子落在新模型的表演级微表情——不靠奇观场面，而靠一段夜里还能让人跟着绷住、信以为真的对手戏。",
       "collected_date": "2026-10-01",
       "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-01/night-walk-a.gif",
       "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-01/night-walk-b.gif",
