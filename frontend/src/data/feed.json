@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T02:16:35+00:00",
+  "generated_at": "2026-10-02T02:08:53+00:00",
   "timezone": "Asia/Shanghai",
   "categories": [
     {
@@ -54,6 +54,144 @@
     }
   },
   "videos": [
+    {
+      "id": "2026-10-02-bombardier-wing-tunnel-created-by-nature",
+      "title": "Bombardier Wing Tunnel（Created by Nature）",
+      "url": "https://www.youtube.com/watch?v=iuyPlNsbwFQ",
+      "platform": "youtube",
+      "author": "Bombardier / Leagas Delaney / Dream Zero",
+      "orientation": "landscape",
+      "category": "ai-ad",
+      "tags": [
+        "Dream",
+        "Zero",
+        "品牌片",
+        "航空",
+        "Smooth",
+        "Flex"
+      ],
+      "intro_zh": "猎鹰走进风洞，翅尖随气流弯曲；切到夜空，庞巴迪 Global 8000 与鹰翼同步「折弯」。片子把减颠簸的翼型技术讲成一堂自然课——点子落在「鸟为什么不会颠簸」这一句人话，让航空工程变成舱里可被感知的平稳。",
+      "collected_date": "2026-10-02",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-02/wing-tunnel-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-02/wing-tunnel-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/iuyPlNsbwFQ/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W40",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-02-normally-weird",
+      "title": "Normally Weird",
+      "url": "https://www.youtube.com/watch?v=P7qsgN1xKIg",
+      "platform": "youtube",
+      "author": "Chris & Crystal AI Art",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "超现实",
+        "短片",
+        "日常怪诞"
+      ],
+      "intro_zh": "把「日常」拧成轻微不对劲的超现实小品：人物表情与场面像被调错了频道，荒诞不靠炸场特效，而靠正常生活里突然多出的一截异样。点子落在用 AI 影像把熟悉场景做成会发笑又发毛的错位感，让观众忍不住怀疑自己是不是眼花了。",
+      "collected_date": "2026-10-02",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-02/normally-weird-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-02/normally-weird-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/P7qsgN1xKIg/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W40",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-02-boom-bird-2026",
+      "title": "BOOM BIRD 2026",
+      "url": "https://www.youtube.com/watch?v=iUNt9IQDkw4",
+      "platform": "youtube",
+      "author": "soegimitro",
+      "orientation": "landscape",
+      "category": "fashion",
+      "tags": [
+        "OpenArt",
+        "Seedance",
+        "高定",
+        "时装片"
+      ],
+      "intro_zh": "继巧克力系列之后的高定时装片：鸟羽、廓形与舞台光把成衣抬成一场羽化仪式。点子落在用 Seedance 系影像做「会飞的高定」——时尚不是走秀清单，而是一段可被观看的变形记，让衣服自己慢慢长出翅膀飞起来。",
+      "collected_date": "2026-10-02",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-02/boom-bird-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-02/boom-bird-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/iUNt9IQDkw4/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W40",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-02-b-a-d-o-a-fictional-ad",
+      "title": "B A D O — A Fictional Ad",
+      "url": "https://www.youtube.com/watch?v=FMg5iTqPv_8",
+      "platform": "youtube",
+      "author": "Exai Studio",
+      "orientation": "landscape",
+      "category": "ai-ad",
+      "tags": [
+        "OpenArt",
+        "Ad",
+        "Awards",
+        "MiniMax",
+        "虚构品牌"
+      ],
+      "intro_zh": "OpenArt Ad Awards 的虚构奢侈品牌广告：在限时与积分约束下，用 MiniMax 主生成一条可当片花的品牌片。点子落在「假品牌真广告」的完成度——先让人相信这个世界存在，再让人想伸手去拥有它。",
+      "collected_date": "2026-10-02",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-02/bado-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-02/bado-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/FMg5iTqPv_8/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W40",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-02-hotel-paradiso",
+      "title": "HOTEL PARADISO",
+      "url": "https://www.youtube.com/watch?v=X3kNYDpGC6s",
+      "platform": "youtube",
+      "author": "Lubos Belak",
+      "orientation": "landscape",
+      "category": "ai-ad",
+      "tags": [
+        "OpenArt",
+        "Ad",
+        "Awards",
+        "度假",
+        "虚构品牌"
+      ],
+      "intro_zh": "为一座虚构度假酒店拍的 AI 广告：阳光、泳池与「太完美以至于可疑」的度假仪式感铺满画面。点子落在用广告片语言贩卖一座不存在的天堂——观众先被气氛说服，再猛然意识到品牌本身就是编剧写出来的幻影。度假的诱惑先于真相抵达。",
+      "collected_date": "2026-10-02",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-02/hotel-paradiso-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-02/hotel-paradiso-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/X3kNYDpGC6s/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W40",
+      "weekly_slot": null
+    },
     {
       "id": "2026-10-01-spare-a-short-film-generated-with-the-full-versi",
       "title": "SPARE",
@@ -1329,6 +1467,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-10-02",
+      "week_id": "2026-W40",
+      "count": 5
+    },
     {
       "date": "2026-10-01",
       "week_id": "2026-W40",
