@@ -1,0 +1,42 @@
+[
+  {
+    "id": "2026-09-11-zephyr-special",
+    "title": "Higgsfield《Zephyr: Special》",
+    "url": "https://www.youtube.com/watch?v=HjXWZ-BdyS0",
+    "platform": "youtube",
+    "author": "Higgsfield",
+    "orientation": "landscape",
+    "category": "ip-character",
+    "tags": ["Seedance 2.5", "机甲女团", "角色 IP"],
+    "intro_zh": "Higgsfield 出品的机甲女团成片，Seedance 2.5 负责造型与群像镜头。与常见的单人特写不同，它把多名角色做成可传播的一支 MV：统一的机甲语言、可辨认的每人性格、还有能剪成短视频的高光段落。看 IP/角色怎样从一张设定图走到能上线的内容。",
+    "collected_date": "2026-09-11",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-zephyr-a.gif",
+    "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-zephyr-b.gif",
+    "cover_url": "",
+    "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-zephyr-src.mp4",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs；原片页 https://higgsfield.ai/original-series/zephyr-special/full-film 。"
+  },
+  {
+    "id": "2026-09-11-wan30-vertical-trailer",
+    "title": "Wan 3.0 竖版预告",
+    "url": "https://help.aliyun.com/zh/model-studio/wan3-video-generation-guide",
+    "platform": "web",
+    "author": "阿里云百炼",
+    "orientation": "vertical",
+    "category": "new-model",
+    "tags": ["Wan 3.0", "9:16", "竖版"],
+    "intro_zh": "Wan 3.0 的竖版预告，9:16 一镜到底，适合直接看手机端的观感。竖屏下的构图和横版逻辑不同：主体占满、动作向上下延展、文字信息留在安全区。作为竖版成片的参照，看它怎样处理人物运动与背景切换的连续性。",
+    "collected_date": "2026-09-11",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/06-wan-vertical-trailer.gif",
+    "gif_b_url": "",
+    "cover_url": "",
+    "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/06-wan-vertical-trailer-src.mp4",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs（06-wan-vertical-trailer）；链接指向 Wan 3.0 文档页。"
+  }
+]

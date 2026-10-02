@@ -1,0 +1,42 @@
+[
+  {
+    "id": "2026-09-15-houxiyouji-trailer",
+    "title": "《后西游记》定档预告",
+    "url": "https://www.mgtv.com/b/900162/24592408.html",
+    "platform": "web",
+    "author": "芒果TV",
+    "orientation": "landscape",
+    "category": "ai-short-film",
+    "tags": ["定档预告", "2.35:1", "神话 IP"],
+    "intro_zh": "芒果TV《后西游记》定档预告，2.35:1 宽幅，约 140 秒。取经故事的下一章用生成影像做出电影质感：白毛通臂仙等角色造型辨识度高，群妖、云海、宫阙一路推镜。看点是长预告的节奏控制——大场面和角色特写交替，而不是堆特效镜头。",
+    "collected_date": "2026-09-15",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-houxiyouji-a.gif",
+    "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-houxiyouji-b.gif",
+    "cover_url": "",
+    "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-houxiyouji-src.mp4",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs；原片为芒果TV vid 24592408（1280x546，140s）。"
+  },
+  {
+    "id": "2026-09-15-motorola-india-100-ai",
+    "title": "Motorola India「100% AI」品牌片",
+    "url": "https://youtu.be/0uF69-ZyNYc",
+    "platform": "youtube",
+    "author": "Motorola India",
+    "orientation": "landscape",
+    "category": "ai-ad",
+    "tags": ["全片生成", "消费电子", "品牌片"],
+    "intro_zh": "Motorola India 连发两条「100% AI」品牌片，把手机的色彩与折叠形态做进超现实的场景切换。片子不解释技术，直接用镜头语言卖产品：材质近景、人物换装与产品旋转一气呵成。对消费电子来说，这是「全片生成」进入日常营销的一个明确样本。",
+    "collected_date": "2026-09-15",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/04-motorola-a.gif",
+    "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/04-motorola-b.gif",
+    "cover_url": "",
+    "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/04-motorola-src.mp4",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs；第二条成片 https://youtu.be/1iO2mqArf4s 。"
+  }
+]
