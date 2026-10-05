@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T02:08:53+00:00",
+  "generated_at": "2026-10-05T01:57:31+00:00",
   "timezone": "Asia/Shanghai",
   "categories": [
     {
@@ -54,6 +54,144 @@
     }
   },
   "videos": [
+    {
+      "id": "2026-10-05-galla-s1e4-i-had-a-desk-job-then-hugo-boss-calle",
+      "title": "GALLA S1E4 · I had a desk job. Then Hugo Boss called",
+      "url": "https://www.youtube.com/watch?v=6mB4LUZLWLc",
+      "platform": "youtube",
+      "author": "GALLA / Mario Galla",
+      "orientation": "landscape",
+      "category": "fashion",
+      "tags": [
+        "真人真事",
+        "模特",
+        "黑白时装片",
+        "系列"
+      ],
+      "intro_zh": "AI 原生时装系列《GALLA》第四章，记录真实男模 Mario Galla（装着腿部假肢，后来走进 Hugo Boss）在汉堡快餐店打工、拍下第一张宝丽来的起点。黑白画面全由 AI 生成，故事却是真人真事。点子落在「真人真事 + AI 当画笔」，让时装片替一个身体讲出被看见之前的那段路。",
+      "collected_date": "2026-10-05",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-05/galla-hugo-boss-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-05/galla-hugo-boss-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/6mB4LUZLWLc/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-10-04; GALLA S1 E4, AI-native fashion film series about real model Mario Galla",
+      "week_id": "2026-W41",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-05-dragon-ball-rai-born-without-chains",
+      "title": "Dragon Ball: RAI — Born Without Chains",
+      "url": "https://www.youtube.com/watch?v=OMWlCD3QfX0",
+      "platform": "youtube",
+      "author": "Warvox Studio",
+      "orientation": "landscape",
+      "category": "ip-character",
+      "tags": [
+        "Seedance",
+        "2.5",
+        "同人",
+        "真人化",
+        "龙珠"
+      ],
+      "intro_zh": "非官方《龙珠》同人长片：在赛亚人被铁链奴役的世界里，失明少年 Rai 为救被 Fizera 囚禁的姐姐踏上旅程，从采石场走到云端圣所。全片用 Seedance 2.5 做出真人电影质感，猴尾、铠甲与武打都被「实拍化」。点子落在把经典动漫 IP 改写成原创前传，让粉丝第一次看到真人版赛亚人的苦难史。",
+      "collected_date": "2026-10-05",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-05/dragon-ball-rai-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-05/dragon-ball-rai-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/OMWlCD3QfX0/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-10-03; unofficial fan film, Seedance 2.5, ~20min",
+      "week_id": "2026-W41",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-05-the-giant-spoke",
+      "title": "The Giant Spoke",
+      "url": "https://www.youtube.com/watch?v=jmN7piiEPJo",
+      "platform": "youtube",
+      "author": "ByMosX (MosX Studio)",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Seedance",
+        "2.5",
+        "Dreamina",
+        "科幻",
+        "机甲"
+      ],
+      "intro_zh": "船长 Kaio 每年都把打捞船开回同一片海，却从不说原因；这一次白色教团来抢船上的仿生人声呐员 Ryn，风暴里却走出一具巨型机器人。片子少打斗、多倾听，把「悲伤」写进硬科幻。点子落在两台机器读懂了人类说不出口的东西，用 Dreamina × Seedance 2.5 拍出铁锈与海雾的电影质感。",
+      "collected_date": "2026-10-05",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-05/giant-spoke-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-05/giant-spoke-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/jmN7piiEPJo/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-10-03; created with Dreamina (Seedance 2.5), series #thequietgiants",
+      "week_id": "2026-W41",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-05-lotus-spec-ad",
+      "title": "LOTUS | Spec Ad",
+      "url": "https://www.youtube.com/watch?v=sWoz48OAOsc",
+      "platform": "youtube",
+      "author": "Santialva",
+      "orientation": "landscape",
+      "category": "3d-render",
+      "tags": [
+        "Blender",
+        "白模控镜",
+        "汽车",
+        "Spec",
+        "Ad"
+      ],
+      "intro_zh": "给 Lotus 做的一支非官方概念广告：白烟、红色进气口、白车漂移与黑场尾灯层层切换，质感像高预算棚拍。作者每个镜头都先在 Blender 里搭好白模、定好机位，再交给 AI 生成成片。点子落在「3D 控构图、AI 补质感」——超跑的线条与光比先被锁死，才放手让模型去渲染。",
+      "collected_date": "2026-10-05",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-05/lotus-spec-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-05/lotus-spec-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/sWoz48OAOsc/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-10-03; spec ad (unofficial), Blender blockout every shot + AI generation",
+      "week_id": "2026-W41",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-05-petals-roots-10-flowers-reimagined-as-couture",
+      "title": "PETALS & ROOTS — 10 Flowers Reimagined as Couture",
+      "url": "https://www.youtube.com/watch?v=c7yPVijvQ7k",
+      "platform": "youtube",
+      "author": "LianaProtocol",
+      "orientation": "landscape",
+      "category": "fashion",
+      "tags": [
+        "高定",
+        "花卉",
+        "时装片",
+        "换装"
+      ],
+      "intro_zh": "十种花，十套高定：马蹄莲的弧线、兰花的神秘、罂粟的浓烈、黑色大丽花的暗与帝王花的韧，被逐一翻译成礼服的廓形与褶皱。片子不是把花印在布上，而是让花的形态与脆弱「长」成衣服，每套造型前先给出对应花朵的特写。点子落在一花一裙的换装逻辑，像一本会动的植物系高定画册。",
+      "collected_date": "2026-10-05",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-05/petals-roots-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-05/petals-roots-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/c7yPVijvQ7k/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-10-02; AI fashion film, collection PETALS & ROOTS",
+      "week_id": "2026-W41",
+      "weekly_slot": null
+    },
     {
       "id": "2026-10-02-bombardier-wing-tunnel-created-by-nature",
       "title": "Bombardier Wing Tunnel（Created by Nature）",
@@ -1467,6 +1605,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-10-05",
+      "week_id": "2026-W41",
+      "count": 5
+    },
     {
       "date": "2026-10-02",
       "week_id": "2026-W40",
