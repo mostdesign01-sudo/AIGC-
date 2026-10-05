@@ -109,17 +109,26 @@ const alt = computed(() => props.video.title)
 .stack {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  background: #0f1012;
+  /* 上下两段无缝贴合：不留 gap、不露底色，避免中间出现黑线 */
+  gap: 0;
+  background: transparent;
   border-radius: var(--radius-sm);
   overflow: hidden;
+  line-height: 0;
 }
 
 .frame {
   margin: 0;
+  padding: 0;
+  border: 0;
   position: relative;
   background: #0f1012;
   overflow: hidden;
+}
+
+/* 横版 b 段上移 1px 盖住 a 段底边：小数像素布局下也不会漏出一条底色缝 */
+.stack--landscape .frame--wide + .frame--wide {
+  margin-top: -1px;
 }
 
 .frame--wide {
@@ -141,6 +150,8 @@ const alt = computed(() => props.video.title)
   width: 100%;
   height: 100%;
   display: block;
+  border: 0;
+  vertical-align: top;
 }
 
 .frame--wide img {
@@ -169,6 +180,7 @@ const alt = computed(() => props.video.title)
 
 .ph {
   display: flex;
+  line-height: normal;
   align-items: center;
   justify-content: center;
   color: #8a8d94;
@@ -178,6 +190,7 @@ const alt = computed(() => props.video.title)
 }
 
 figcaption {
+  line-height: normal;
   position: absolute;
   left: 10px;
   bottom: 10px;
