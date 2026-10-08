@@ -23,11 +23,21 @@ export interface CreativeVideo {
   category: string
   tags: string[]
   intro_zh: string
+  /** 结构化简介：背景（谁做的 / 官方或提案 / 赛事发布语境） */
+  intro_background?: string
+  /** 结构化简介：制作（工具 / 模型 / 流程） */
+  intro_production?: string
+  /** 结构化简介：创意构思（核心点子与落点） */
+  intro_concept?: string
   collected_date: string
   gif_a_url: string
   gif_b_url: string
   cover_url: string
   source_video_url: string
+  /** 原片下载地址（GitHub Release 资产 <slug>.mp4） */
+  video_download_url?: string
+  /** 原片拿不到时的原因 */
+  video_download_note?: string
   heat_score: number | null
   influence_score: number | null
   creativity_score: number | null

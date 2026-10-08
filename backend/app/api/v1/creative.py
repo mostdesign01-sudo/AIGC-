@@ -74,6 +74,11 @@ class VideoIn(BaseModel):
     gif_b_url: str = ""
     cover_url: str = ""
     source_video_url: str = ""
+    intro_background: str = ""
+    intro_production: str = ""
+    intro_concept: str = ""
+    video_download_url: str = ""
+    video_download_note: str = ""
     heat_score: Optional[float] = None
     influence_score: Optional[float] = None
     creativity_score: Optional[float] = None

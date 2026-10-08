@@ -63,3 +63,32 @@ export function hostOf(url: string): string {
     return url
   }
 }
+
+/** 简介三段：背景 / 制作 / 创意构思。没有结构化字段时返回空数组（回退到 intro_zh）。 */
+export interface IntroSection {
+  key: 'background' | 'production' | 'concept'
+  label: string
+  text: string
+}
+
+export function introSections(v: {
+  intro_background?: string
+  intro_production?: string
+  intro_concept?: string
+}): IntroSection[] {
+  const out: IntroSection[] = []
+  if (v.intro_background) out.push({ key: 'background', label: '背景', text: v.intro_background })
+  if (v.intro_production) out.push({ key: 'production', label: '制作', text: v.intro_production })
+  if (v.intro_concept) out.push({ key: 'concept', label: '创意', text: v.intro_concept })
+  return out
+}
+
+/** https://…/releases/download/<tag>/xxx-a.gif → xxx-a.gif */
+export function fileNameOf(url: string, fallback = 'download'): string {
+  try {
+    const name = new URL(url).pathname.split('/').filter(Boolean).pop()
+    return name ? decodeURIComponent(name) : fallback
+  } catch {
+    return fallback
+  }
+}

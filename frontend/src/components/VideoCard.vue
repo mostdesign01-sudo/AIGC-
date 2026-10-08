@@ -5,6 +5,8 @@ import { useFeed } from '../data/useFeed'
 import { formatDay, platformName } from '../data/format'
 import GifStack from './GifStack.vue'
 import SlotBadge from './SlotBadge.vue'
+import IntroSections from './IntroSections.vue'
+import DownloadBar from './DownloadBar.vue'
 
 withDefaults(
   defineProps<{
@@ -38,7 +40,9 @@ const { categoryName, slotLabel } = useFeed()
         <RouterLink :to="{ name: 'video', params: { id: video.id } }">{{ video.title }}</RouterLink>
       </h3>
 
-      <p class="card__intro">{{ video.intro_zh || '简介待补。' }}</p>
+      <IntroSections :video="video" size="card" />
+
+      <DownloadBar :video="video" size="card" />
 
       <div class="card__foot">
         <span class="card__author" :title="video.author || platformName(video.platform)">
@@ -126,16 +130,6 @@ const { categoryName, slotLabel } = useFeed()
 
 .card__title a:hover {
   color: var(--accent-ink);
-}
-
-.card__intro {
-  font-size: 13.5px;
-  color: var(--ink-2);
-  line-height: 1.65;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .card__foot {

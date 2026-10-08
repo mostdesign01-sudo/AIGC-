@@ -9,7 +9,15 @@
       --title "品牌片标题" --category ai-ad --orientation landscape \
       --gif-a https://github.com/<owner>/<repo>/releases/download/<tag>/xxx-a.gif \
       --gif-b https://github.com/<owner>/<repo>/releases/download/<tag>/xxx-b.gif \
-      --intro "100–150 字中文简介……" --tags "全片生成,品牌片" --author "Some Studio"
+      --background "谁做的、官方还是提案、什么赛事/发布语境" \
+      --production "用了哪些工具/模型/流程；查不到写「制作工具未公开」" \
+      --concept "核心点子是什么、落在哪里" \
+      --video-download https://github.com/<owner>/<repo>/releases/download/<tag>/xxx.mp4 \
+      --tags "全片生成,品牌片" --author "Some Studio"
+
+简介写法见 scripts/prompts/intro_guide.md：三段（背景 / 制作 / 创意构思）合计约 80–150 字，
+只写有来源的事实，不要纯描述画面。--intro 仍可用（旧写法 / 合并文本），给了三段时会自动合成。
+原片：python scripts/upload_original.py --url ... --slug xxx --date YYYY-MM-DD 会下载并传到 daily-<日期> Release。
 
 自动补标题/作者（YouTube / X / Bilibili，不需要 API Key）：
     python scripts/ingest_day.py --url ... --fetch-meta --category ai-ad --gif-a ... --gif-b ... --intro ...
@@ -117,6 +125,11 @@ def entries_from_args(args: argparse.Namespace) -> list[dict[str, Any]]:
         "category": args.category,
         "tags": args.tags,
         "intro_zh": args.intro,
+        "intro_background": args.background,
+        "intro_production": args.production,
+        "intro_concept": args.concept,
+        "video_download_url": args.video_download,
+        "video_download_note": args.video_download_note,
         "collected_date": args.date,
         "gif_a_url": args.gif_a,
         "gif_b_url": args.gif_b,
@@ -142,7 +155,12 @@ def main(argv: list[str] | None = None) -> int:
     src.add_argument("--orientation", choices=["landscape", "vertical"], default=None)
     src.add_argument("--category", help="可选：" + ", ".join(CATEGORY_SLUGS))
     src.add_argument("--tags", help="逗号分隔")
-    src.add_argument("--intro", help="100–150 字中文简介")
+    src.add_argument("--intro", help="合并简介（可选；给了三段时自动合成）")
+    src.add_argument("--background", help="简介·背景：谁做的 / 官方或提案 / 赛事、发布语境")
+    src.add_argument("--production", help="简介·制作：工具、模型、流程；查不到写「制作工具未公开」")
+    src.add_argument("--concept", help="简介·创意构思：核心点子与落点")
+    src.add_argument("--video-download", dest="video_download", help="原片 mp4 下载地址（Release 资产）")
+    src.add_argument("--video-download-note", dest="video_download_note", help="原片拿不到时的原因")
     src.add_argument("--date", help="收录日期 YYYY-MM-DD（默认上海时区今天）")
     src.add_argument("--gif-a", dest="gif_a", help="横版上段 / 竖版唯一 GIF 地址")
     src.add_argument("--gif-b", dest="gif_b", help="横版下段 GIF 地址")

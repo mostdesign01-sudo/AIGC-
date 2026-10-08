@@ -7,6 +7,8 @@ import GifStack from '../components/GifStack.vue'
 import SlotBadge from '../components/SlotBadge.vue'
 import VideoCard from '../components/VideoCard.vue'
 import EmptyState from '../components/EmptyState.vue'
+import IntroSections from '../components/IntroSections.vue'
+import DownloadBar from '../components/DownloadBar.vue'
 
 const props = defineProps<{ id: string }>()
 
@@ -83,8 +85,8 @@ const shareTitle = computed(() => (video.value ? `${video.value.title} · 得物
           </dl>
 
           <section class="info__intro">
-            <h2>它做了什么</h2>
-            <p>{{ video.intro_zh || '简介待补。' }}</p>
+            <h2>背景 · 制作 · 创意</h2>
+            <IntroSections :video="video" size="detail" />
           </section>
 
           <div v-if="video.tags.length" class="info__tags">
@@ -98,10 +100,13 @@ const shareTitle = computed(() => (video.value ? `${video.value.title} · 得物
                 <path d="M7 17 17 7M9 7h8v8" />
               </svg>
             </a>
-            <a v-if="video.source_video_url" :href="video.source_video_url" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
-              源片 mp4
-            </a>
           </div>
+
+          <section class="info__dl">
+            <h2>下载</h2>
+            <DownloadBar :video="video" size="detail" />
+            <p v-if="!video.video_download_url && video.video_download_note" class="info__dlnote">{{ video.video_download_note }}</p>
+          </section>
 
           <p v-if="video.source_notes" class="info__notes">
             <strong>来源备注：</strong>{{ video.source_notes }}
@@ -244,10 +249,16 @@ const shareTitle = computed(() => (video.value ? `${video.value.title} · 得物
   margin-bottom: 8px;
 }
 
-.info__intro p {
-  font-size: 15.5px;
-  line-height: 1.8;
-  color: var(--ink);
+.info__dl h2 {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.info__dlnote {
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: var(--muted);
 }
 
 .info__tags {

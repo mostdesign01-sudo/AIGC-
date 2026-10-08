@@ -5,6 +5,8 @@ import type { WeekSummary } from '../data/types'
 import { useFeed } from '../data/useFeed'
 import { formatWeek, platformName } from '../data/format'
 import GifStack from './GifStack.vue'
+import IntroSections from './IntroSections.vue'
+import DownloadBar from './DownloadBar.vue'
 import SlotBadge from './SlotBadge.vue'
 
 const props = withDefaults(
@@ -66,7 +68,8 @@ const filled = computed(() => picks.value.filter((p) => p.video).length)
             <h3 class="pick__title">
               <RouterLink :to="{ name: 'video', params: { id: pick.video.id } }">{{ pick.video.title }}</RouterLink>
             </h3>
-            <p class="pick__intro">{{ pick.video.intro_zh }}</p>
+            <IntroSections :video="pick.video" size="card" />
+            <DownloadBar :video="pick.video" size="card" />
             <div class="pick__foot">
               <span class="pick__author">{{ pick.video.author || platformName(pick.video.platform) }}</span>
               <a :href="pick.video.url" target="_blank" rel="noopener noreferrer" class="pick__link">

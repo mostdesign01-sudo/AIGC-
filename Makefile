@@ -1,6 +1,7 @@
 # 得物 AIGC 创意站 · 常用命令
 # 用法示例：
-#   make ingest_day URL=https://youtu.be/xxx CATEGORY=ai-ad GIF_A=... GIF_B=... INTRO="…"
+#   make ingest_day URL=https://youtu.be/xxx CATEGORY=ai-ad GIF_A=... GIF_B=... BACKGROUND="…" PRODUCTION="…" CONCEPT="…" VIDEO_DL=...
+#   make original DATE=2026-10-08            # 当天缺原片的条目：下载 → 上传 daily-<日期> Release → 回写 video_download_url
 #   make pick_week_top3 WEEK=2026-W38 HOTTEST=<id> INFLUENTIAL=<id> CREATIVE=<id>
 #   make gifs SRC=clip.mp4 SLUG=my-clip
 #   make build_feed && make frontend-build
@@ -18,6 +19,10 @@ ORIENTATION ?= landscape
 GIF_A ?=
 GIF_B ?=
 INTRO ?=
+BACKGROUND ?=
+PRODUCTION ?=
+CONCEPT ?=
+VIDEO_DL ?=
 AUTHOR ?=
 TAGS ?=
 DATE ?=
@@ -42,7 +47,7 @@ GIF_ARGS ?=
 API ?=
 ADMIN_TOKEN ?=
 
-.PHONY: help build_feed ingest_day pick_week_top3 list_week gifs dev-frontend frontend-build dev-backend check
+.PHONY: help build_feed ingest_day pick_week_top3 list_week gifs original dev-frontend frontend-build dev-backend check
 
 help:
 	@sed -n '1,8p' Makefile
@@ -59,6 +64,8 @@ else
 	  --category "$(CATEGORY)" --orientation "$(ORIENTATION)" \
 	  $(if $(GIF_A),--gif-a "$(GIF_A)",) $(if $(GIF_B),--gif-b "$(GIF_B)",) \
 	  $(if $(INTRO),--intro "$(INTRO)",) $(if $(AUTHOR),--author "$(AUTHOR)",) \
+	  $(if $(BACKGROUND),--background "$(BACKGROUND)",) $(if $(PRODUCTION),--production "$(PRODUCTION)",) \
+	  $(if $(CONCEPT),--concept "$(CONCEPT)",) $(if $(VIDEO_DL),--video-download "$(VIDEO_DL)",) \
 	  $(if $(TAGS),--tags "$(TAGS)",) $(if $(DATE),--date "$(DATE)",) $(if $(NOTES),--notes "$(NOTES)",) \
 	  --content $(CONTENT) --feed-out $(FEED) \
 	  $(if $(API),--api $(API) --token $(ADMIN_TOKEN),) $(EXTRA)
@@ -76,6 +83,12 @@ pick_week_top3:
 
 gifs:
 	$(PY) scripts/make_gifs.py "$(SRC)" --slug "$(SLUG)" --out-dir "$(OUT_DIR)" $(GIF_ARGS)
+
+# 原片：DATE=YYYY-MM-DD（或 SINCE=YYYY-MM-DD），可选 ID=<content id>、FILE=已下载的 mp4、MIRROR=作者 YouTube 版
+original:
+	$(PY) scripts/upload_original.py $(if $(DATE),--date $(DATE),) $(if $(SINCE),--since $(SINCE),) \
+	  $(if $(ID),--id "$(ID)",) $(if $(FILE),--file "$(FILE)",) $(if $(MIRROR),--mirror "$(MIRROR)",) \
+	  --content $(CONTENT) --feed-out $(FEED) $(EXTRA)
 
 dev-frontend:
 	cd frontend && $(NPM) run dev

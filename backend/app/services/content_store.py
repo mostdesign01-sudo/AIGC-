@@ -248,6 +248,13 @@ def normalize_video(raw: dict[str, Any], *, existing_id: str | None = None) -> d
     if slot is not None and slot not in WEEKLY_SLOTS:
         raise ContentError(f"weekly_slot 只能是 {WEEKLY_SLOTS} 之一或留空：{slot!r}")
 
+    background = _clean_str(raw.get("intro_background"))
+    production = _clean_str(raw.get("intro_production"))
+    concept = _clean_str(raw.get("intro_concept"))
+    intro_zh = _clean_str(raw.get("intro_zh") or raw.get("intro"))
+    if not intro_zh and (background or production or concept):
+        intro_zh = compose_intro(background, production, concept)
+
     entry: dict[str, Any] = {
         "id": video_id,
         "title": title,
@@ -257,12 +264,19 @@ def normalize_video(raw: dict[str, Any], *, existing_id: str | None = None) -> d
         "orientation": orientation,
         "category": category,
         "tags": _as_tags(raw.get("tags")),
-        "intro_zh": _clean_str(raw.get("intro_zh") or raw.get("intro")),
+        "intro_zh": intro_zh,
+        # 结构化简介：背景（谁做的 / 官方或提案 / 赛事发布语境）· 制作（工具模型流程）· 创意构思（核心点子落在哪）
+        "intro_background": background,
+        "intro_production": production,
+        "intro_concept": concept,
         "collected_date": collected.isoformat(),
         "gif_a_url": gif_a,
         "gif_b_url": gif_b,
         "cover_url": _clean_str(raw.get("cover_url")),
         "source_video_url": _clean_str(raw.get("source_video_url")),
+        # 原片下载（GitHub Release 资产 <slug>.mp4）；拿不到时留空并在 note 里写原因
+        "video_download_url": _clean_str(raw.get("video_download_url")),
+        "video_download_note": _clean_str(raw.get("video_download_note")),
         "heat_score": _opt_float(raw.get("heat_score"), "heat_score"),
         "influence_score": _opt_float(raw.get("influence_score"), "influence_score"),
         "creativity_score": _opt_float(raw.get("creativity_score"), "creativity_score"),
@@ -275,16 +289,43 @@ def normalize_video(raw: dict[str, Any], *, existing_id: str | None = None) -> d
     return entry
 
 
+INTRO_SECTIONS = (
+    ("intro_background", "背景"),
+    ("intro_production", "制作"),
+    ("intro_concept", "创意构思"),
+)
+
+
+def _zh_len(text: str) -> int:
+    """按「字」估长度：中文 / 全角算 1，英文数字等半角算 0.5（工具名、版本号不至于虚高）。"""
+    return round(sum(0.5 if ord(ch) < 128 else 1 for ch in text))
+
+
+def compose_intro(background: str, production: str, concept: str) -> str:
+    """把三段结构化简介合成一段 intro_zh（旧前端 / 接口的回退文本）。"""
+    parts = []
+    for label, text in (("背景", background), ("制作", production), ("创意构思", concept)):
+        text = _clean_str(text)
+        if text:
+            parts.append(f"【{label}】{text}")
+    return "".join(parts)
+
+
 def intro_warnings(entry: dict[str, Any]) -> list[str]:
-    """不阻断写入的提示（简介长度、缺 GIF 等）。"""
+    """不阻断写入的提示（简介结构 / 长度、缺 GIF、缺原片等）。"""
     warnings: list[str] = []
-    n = len(entry.get("intro_zh") or "")
-    if n == 0:
+    missing = [label for key, label in INTRO_SECTIONS if not entry.get(key)]
+    if missing:
+        warnings.append(f"简介缺 {'/'.join(missing)} 段（需写 背景·制作·创意构思，不要只描述画面）")
+    body = sum(_zh_len(entry.get(key) or "") for key, _ in INTRO_SECTIONS) or _zh_len(entry.get("intro_zh") or "")
+    if body == 0:
         warnings.append("intro_zh 为空，卡片上不会显示简介")
-    elif n < 80:
-        warnings.append(f"intro_zh 只有 {n} 字，建议 100–150 字")
-    elif n > 170:
-        warnings.append(f"intro_zh 有 {n} 字，建议控制在 150 字左右")
+    elif body < 70:
+        warnings.append(f"简介只有 {body} 字，建议 80–150 字")
+    elif body > 190:
+        warnings.append(f"简介有 {body} 字，建议控制在 150 字左右")
+    if not entry.get("video_download_url") and not entry.get("video_download_note"):
+        warnings.append("缺 video_download_url（原片下载）；拿不到原片时在 video_download_note 写原因")
     if not entry.get("gif_a_url"):
         warnings.append("缺少 gif_a_url，卡片会显示占位")
     if entry.get("orientation") == "landscape" and not entry.get("gif_b_url"):
