@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T01:59:27+00:00",
+  "generated_at": "2026-10-08T01:58:37+00:00",
   "timezone": "Asia/Shanghai",
   "categories": [
     {
@@ -54,6 +54,141 @@
     }
   },
   "videos": [
+    {
+      "id": "2026-10-08-1-shoe-20-animation-styles-norte-spec-ad",
+      "title": "1 Shoe. 20 Animation Styles. · NORTE Spec Ad",
+      "url": "https://www.youtube.com/watch?v=paWIMl3ljSQ",
+      "platform": "youtube",
+      "author": "Maksym Alaybov",
+      "orientation": "landscape",
+      "category": "props-transition",
+      "tags": [
+        "提案片",
+        "风格切换",
+        "产品一致性",
+        "跑鞋"
+      ],
+      "intro_zh": "一双越野跑鞋、一个跑者，画风连换二十种：3D、动漫、黏土、水彩、剪纸、漫画、油画、毛毡、霓虹、像素……世界一直在变，鞋的样子一笔不改。点子落在用画风狂切反衬产品恒定：一双鞋，二十个世界。",
+      "collected_date": "2026-10-08",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-08/norte-one-shoe-20-styles-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-08/norte-one-shoe-20-styles-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/paWIMl3ljSQ/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-10-07；NORTE 为作者虚构品牌的 spec ad",
+      "week_id": "2026-W41",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-08-still-diesel-diesel-ss27-spec-ad",
+      "title": "STILL DIESEL · DIESEL SS27 Spec Ad",
+      "url": "https://www.youtube.com/watch?v=qMkDannpEHU",
+      "platform": "youtube",
+      "author": "KJ Edit & Motion",
+      "orientation": "landscape",
+      "category": "fashion",
+      "tags": [
+        "提案片",
+        "时装片",
+        "牛仔",
+        "反内卷"
+      ],
+      "intro_zh": "深夜加油站，女孩的「油量」只剩 18%，屏幕仍刷着 RISE、GRIND、POST、REPEAT。四套牛仔造型轮换，油表归零时她扯下油表扔掉。点子落在用油表反讽内卷：燃料可选，休息也是态度。",
+      "collected_date": "2026-10-08",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-08/still-diesel-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-08/still-diesel-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/qMkDannpEHU/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-10-07；非官方 spec ad（与 DIESEL 无关）；夜景偏暗，GIF 无黑边",
+      "week_id": "2026-W41",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-08-f1-ai",
+      "title": "F1：零点零一秒 · AI 短片",
+      "url": "https://www.bilibili.com/video/BV16UpK6VEBF",
+      "platform": "bilibili",
+      "author": "大萌Ai",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "国内",
+        "赛车",
+        "逆袭",
+        "雨战"
+      ],
+      "intro_zh": "一辆红色赛车从末位发车，穿过黄昏干地、霓虹氮气加速和暴雨夜战，一路超车，最后以 0.01 秒之差率先冲线。点子落在把一场逆袭切成三种天气、三种光色，节奏全靠引擎声往前推。",
+      "collected_date": "2026-10-08",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-08/f1-0-01s-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-08/f1-0-01s-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/B-Ysa_tax_c/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "B站 2026-10-07 发布；同作者 YouTube 版 https://www.youtube.com/watch?v=B-Ysa_tax_c ；源片带上下黑边，GIF 已裁",
+      "week_id": "2026-W41",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-08-invisible-accidents-almaty-air-initiative",
+      "title": "Invisible Accidents · Almaty Air Initiative",
+      "url": "https://www.youtube.com/watch?v=BlxG3RycV14",
+      "platform": "youtube",
+      "author": "Digital Da Vincis",
+      "orientation": "landscape",
+      "category": "ai-ad",
+      "tags": [
+        "公益",
+        "空气污染",
+        "碰撞假人",
+        "BBDO"
+      ],
+      "intro_zh": "阿拉木图雾霾致死的人数是车祸的十倍。片中碰撞测试假人坐进家用车、走进诊室、站在街头，替普通人承受每一口呼吸。点子落在把看不见的空气污染拍成一场场「隐形车祸」：人不该被当成碰撞假人。",
+      "collected_date": "2026-10-08",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-08/invisible-accidents-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-08/invisible-accidents-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/BlxG3RycV14/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-10-07；BBDO CA × Almaty Air Initiative 公益 campaign，实拍 + AI 合成",
+      "week_id": "2026-W41",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-08-the-stand-up-pigeons-hold-a-corporate-meeting",
+      "title": "The Stand-Up · Pigeons Hold a Corporate Meeting",
+      "url": "https://www.youtube.com/watch?v=9yVJyzTtwJU",
+      "platform": "youtube",
+      "author": "Maksym Alaybov",
+      "orientation": "landscape",
+      "category": "ip-character",
+      "tags": [
+        "动画短片",
+        "职场梗",
+        "原创角色",
+        "鸽子"
+      ],
+      "intro_zh": "一群鸽子站在电线上开公司晨会：经理 Gary 汇报面包屑收购业绩、张口就是「回头再对齐」，入职三周的 Tim 还没搞懂自己干什么，Walt 只怀念那座雕像。点子落在用鸽群演职场黑话。",
+      "collected_date": "2026-10-08",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-08/pigeons-stand-up-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-08/pigeons-stand-up-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/9yVJyzTtwJU/hqdefault.jpg",
+      "source_video_url": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "upload 2026-10-07",
+      "week_id": "2026-W41",
+      "weekly_slot": null
+    },
     {
       "id": "2026-10-07-babyliss-spec-ad-powerful-airflow-brilliant-hair",
       "title": "BaByliss Spec Ad · Powerful Airflow, Brilliant Hair",
@@ -1872,6 +2007,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-10-08",
+      "week_id": "2026-W41",
+      "count": 5
+    },
     {
       "date": "2026-10-07",
       "week_id": "2026-W41",
