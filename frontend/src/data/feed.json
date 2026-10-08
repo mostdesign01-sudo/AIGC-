@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T03:06:13+00:00",
+  "generated_at": "2026-10-08T03:29:15+00:00",
   "timezone": "Asia/Shanghai",
   "categories": [
     {
@@ -84,7 +84,7 @@
       "creativity_score": null,
       "source_notes": "upload 2026-10-07；NORTE 为作者虚构品牌的 spec ad",
       "week_id": "2026-W41",
-      "weekly_slot": null
+      "weekly_slot": "creative"
     },
     {
       "id": "2026-10-08-still-diesel-diesel-ss27-spec-ad",
@@ -276,7 +276,7 @@
       "creativity_score": null,
       "source_notes": "Kling AI 官方频道 upload 2026-10-06；源片带上下黑边，GIF 已裁",
       "week_id": "2026-W41",
-      "weekly_slot": null
+      "weekly_slot": "hottest"
     },
     {
       "id": "2026-10-07-one-coin-3-000-years-the-journey-of-the-coin",
@@ -402,7 +402,7 @@
       "creativity_score": null,
       "source_notes": "SKF 官方频道 2026-09-30 上传，10-04/05 起外媒集中报道并引发讨论；另有 30s 短版 Sd3uliJRobI",
       "week_id": "2026-W41",
-      "weekly_slot": null
+      "weekly_slot": "influential"
     },
     {
       "id": "2026-10-06-one-snap-a-whole-new-reality",
@@ -726,7 +726,7 @@
       "creativity_score": null,
       "source_notes": "",
       "week_id": "2026-W40",
-      "weekly_slot": null
+      "weekly_slot": "influential"
     },
     {
       "id": "2026-10-02-normally-weird",
@@ -822,7 +822,7 @@
       "creativity_score": null,
       "source_notes": "",
       "week_id": "2026-W40",
-      "weekly_slot": null
+      "weekly_slot": "creative"
     },
     {
       "id": "2026-10-02-hotel-paradiso",
@@ -888,7 +888,7 @@
       "creativity_score": null,
       "source_notes": "",
       "week_id": "2026-W40",
-      "weekly_slot": null
+      "weekly_slot": "hottest"
     },
     {
       "id": "2026-10-01-mars-2160-ep3-origin-we-won-the-war-not-the-mess",
@@ -1367,7 +1367,7 @@
       "creativity_score": null,
       "source_notes": "upload 2026-09-22; Seedance 2.5 + Seedream 5 Pro via LetzAI; ~3min weekend short",
       "week_id": "2026-W39",
-      "weekly_slot": null
+      "weekly_slot": "hottest"
     },
     {
       "id": "2026-09-25-it-looked-at-him-and-kept-walking",
@@ -1431,7 +1431,7 @@
       "creativity_score": null,
       "source_notes": "upload 2026-09-24; OpenArt AI Commercial (OFF CANON) by The Firelords Saga; ~53s",
       "week_id": "2026-W39",
-      "weekly_slot": null
+      "weekly_slot": "creative"
     },
     {
       "id": "2026-09-24-fukushima",
@@ -1558,7 +1558,7 @@
       "creativity_score": null,
       "source_notes": "upload 2026-09-17; AI parody of OpenAI Astra; news bump ~2026-09-21",
       "week_id": "2026-W39",
-      "weekly_slot": null
+      "weekly_slot": "influential"
     },
     {
       "id": "2026-09-23-uncle-s-last-stop",
@@ -1903,7 +1903,7 @@
       "creativity_score": null,
       "source_notes": "YT 上传 2026-09-15；正式预告（非 announcement teaser）；全片租用平台另发，日更只用 trailer",
       "week_id": "2026-W38",
-      "weekly_slot": null
+      "weekly_slot": "hottest"
     },
     {
       "id": "2026-09-18-by-your-side",
@@ -1996,7 +1996,7 @@
       "creativity_score": null,
       "source_notes": "YT 上传 2026-09-14；Higgsfield Global Film Festival；日更 2026-09-18",
       "week_id": "2026-W38",
-      "weekly_slot": null
+      "weekly_slot": "creative"
     },
     {
       "id": "2026-09-17-the-spoils",
@@ -2058,7 +2058,7 @@
       "creativity_score": null,
       "source_notes": "YT 上传 2026-09-15；日更例行 2026-09-17",
       "week_id": "2026-W38",
-      "weekly_slot": null
+      "weekly_slot": "influential"
     },
     {
       "id": "2026-09-17-third-bell",
@@ -2151,7 +2151,7 @@
       "creativity_score": null,
       "source_notes": "示例数据。GIF 取自仓库 Release ads-pick-gifs；链接为 Campaign Brief Asia 8/20 报道。",
       "week_id": "2026-W38",
-      "weekly_slot": "influential"
+      "weekly_slot": null
     },
     {
       "id": "2026-09-16-gemini-omni-1-1-flash",
@@ -2213,7 +2213,7 @@
       "creativity_score": null,
       "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs；原片为芒果TV vid 24592408（1280x546，140s）。",
       "week_id": "2026-W38",
-      "weekly_slot": "hottest"
+      "weekly_slot": null
     },
     {
       "id": "2026-09-15-motorola-india-100-ai",
@@ -2244,7 +2244,7 @@
       "creativity_score": null,
       "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs；第二条成片 https://youtu.be/1iO2mqArf4s 。",
       "week_id": "2026-W38",
-      "weekly_slot": "creative"
+      "weekly_slot": null
     },
     {
       "id": "2026-09-11-zephyr-special",
@@ -2475,29 +2475,188 @@
   ],
   "weeks": [
     {
-      "week_id": "2026-W38",
-      "start": "2026-09-14",
-      "end": "2026-09-20",
-      "note": "示例周榜：本周三条都指向「全片生成进入主流发行与品牌营销」。",
+      "week_id": "2026-W41",
+      "start": "2026-10-05",
+      "end": "2026-10-11",
+      "note": "进行中（已收 10/5–10/8）：Kling 4.0 官方上线、品牌用 AI 请回老明星、产品一致性成卖点。周五可按新增日更再调。",
       "picks": [
         {
           "slot": "hottest",
           "label": "最热",
           "tagline": "本周讨论最多、传播最广的一条",
-          "video_id": "2026-09-15-houxiyouji-trailer"
+          "video_id": "2026-10-07-kling-4-0-creator-highlights",
+          "reason": "可灵官方发布的 Kling 4.0 创作者合集，新模型正式上线后的第一波成片，本周最大技术话题。"
         },
         {
           "slot": "influential",
           "label": "最影响力",
           "tagline": "最可能改变行业做法或品牌预期的一条",
-          "video_id": "2026-09-16-china-mobile-cosmic-heart"
+          "video_id": "2026-10-06-skf-pay-like-it-s-1919-starring-greta-garbo",
+          "reason": "SKF 官方广告用 AI 请回葛丽泰·嘉宝，外媒集中报道并引发已故明星肖像使用的讨论，是品牌官方用 AI 的标志性案例。"
         },
         {
           "slot": "creative",
           "label": "最有创意",
           "tagline": "点子最新、落点最准的一条",
-          "video_id": "2026-09-15-motorola-india-100-ai"
+          "video_id": "2026-10-08-1-shoe-20-animation-styles-norte-spec-ad",
+          "reason": "同一双鞋穿过 20 种画风而造型不变，把「产品一致性」这个 AI 难题本身做成卖点，对鞋服电商最可借鉴。"
         }
+      ],
+      "candidate_count": 20,
+      "alternates": [
+        "2026-10-08-still-diesel-diesel-ss27-spec-ad",
+        "2026-10-08-f1-ai",
+        "2026-10-08-invisible-accidents-almaty-air-initiative",
+        "2026-10-08-the-stand-up-pigeons-hold-a-corporate-meeting",
+        "2026-10-07-babyliss-spec-ad-powerful-airflow-brilliant-hair",
+        "2026-10-07-one-coin-3-000-years-the-journey-of-the-coin",
+        "2026-10-07-off-plumb-director-s-cut",
+        "2026-10-07-savage-botany-ai-fashion-film",
+        "2026-10-06-one-snap-a-whole-new-reality",
+        "2026-10-06-marvel-s-x-men-1950s-golden-age-hollywood-ai-tra",
+        "2026-10-06-storm-ii-but-it-s-90s-anime-ai-remake",
+        "2026-10-06-gravity-red-bull-spec-ad",
+        "2026-10-05-galla-s1e4-i-had-a-desk-job-then-hugo-boss-calle",
+        "2026-10-05-dragon-ball-rai-born-without-chains",
+        "2026-10-05-the-giant-spoke",
+        "2026-10-05-lotus-spec-ad",
+        "2026-10-05-petals-roots-10-flowers-reimagined-as-couture"
+      ]
+    },
+    {
+      "week_id": "2026-W40",
+      "start": "2026-09-28",
+      "end": "2026-10-04",
+      "note": "Kling 4.0 抢先上手、品牌官方 campaign 和 OpenArt 赛事广告集中出现。",
+      "picks": [
+        {
+          "slot": "hottest",
+          "label": "最热",
+          "tagline": "本周讨论最多、传播最广的一条",
+          "video_id": "2026-10-01-spare-a-short-film-generated-with-the-full-versi",
+          "reason": "赶在 Kling 4.0 正式上线前的内测短片：原生 30 秒直出、21:9、口型同步，新模型话题度最高。"
+        },
+        {
+          "slot": "influential",
+          "label": "最影响力",
+          "tagline": "最可能改变行业做法或品牌预期的一条",
+          "video_id": "2026-10-02-bombardier-wing-tunnel-created-by-nature",
+          "reason": "庞巴迪官方 campaign，Leagas Delaney 与 Dream Zero 联合署名：大牌 B2B 品牌把工程卖点交给生成影像来讲。"
+        },
+        {
+          "slot": "creative",
+          "label": "最有创意",
+          "tagline": "点子最新、落点最准的一条",
+          "video_id": "2026-10-02-b-a-d-o-a-fictional-ad",
+          "reason": "给虚构奢侈品牌只卖「稀缺感」：排队、进保险柜、拍卖「最后几只」，先让人信了再想要，和潮流稀缺的语境直接相通。"
+        }
+      ],
+      "candidate_count": 20,
+      "alternates": [
+        "2026-10-02-normally-weird",
+        "2026-10-02-boom-bird-2026",
+        "2026-10-02-hotel-paradiso",
+        "2026-10-01-mars-2160-ep3-origin-we-won-the-war-not-the-mess",
+        "2026-10-01-afterlight-ai-cyberpunk-festival-commercial-open",
+        "2026-10-01-aaaif-2026-official-shortlist-ai-commercial-krap",
+        "2026-10-01-night-walk",
+        "2026-09-30-boom-chocolate-collection-2026-ai-fashion-film-o",
+        "2026-09-30-city-of-light-ai-short-film-higgsfield-global-fi",
+        "2026-09-30-something-to-sea-higgsfield-global-film-festival",
+        "2026-09-30-the-last-delivery-higgsfield-global-film-festiva",
+        "2026-09-29-anerneq-ai-generated-short-film-higgsfield-origi",
+        "2026-09-29-gucci-no-occasion-necessary-ai-fashion-film-by-r",
+        "2026-09-29-la-triste-figura-the-sorrowful-figure-contanimat",
+        "2026-09-28-passport-rush-ai-animated-short-film-higgsfield",
+        "2026-09-28-planet-9-chapter-7-ai-sci-fi-short-movie",
+        "2026-09-28-charmed-ai-animated-short-film-cinema-studio-ori"
+      ]
+    },
+    {
+      "week_id": "2026-W39",
+      "start": "2026-09-21",
+      "end": "2026-09-27",
+      "note": "Seedance 2.5 周末成片、品牌官方恶搞和赛事广告同周出现：AI 从技术展示转向讲故事、卖点子。",
+      "picks": [
+        {
+          "slot": "hottest",
+          "label": "最热",
+          "tagline": "本周讨论最多、传播最广的一条",
+          "video_id": "2026-09-25-dishonorable",
+          "reason": "Seedance 2.5 + Seedream 5 Pro 一个周末做完的动作向成片，新模型「直出成片感」是本周最大话题。"
+        },
+        {
+          "slot": "influential",
+          "label": "最影响力",
+          "tagline": "最可能改变行业做法或品牌预期的一条",
+          "video_id": "2026-09-23-goodwipes-asstra",
+          "reason": "湿巾品牌官方频道下场戏仿 OpenAI Astra，被媒体跟进报道，示范品牌怎样借 AI 热点做官方恶搞营销。"
+        },
+        {
+          "slot": "creative",
+          "label": "最有创意",
+          "tagline": "点子最新、落点最准的一条",
+          "video_id": "2026-09-25-maybe-openart-ai-commercial",
+          "reason": "给虚构婚恋品牌讲「擦肩三十年」，一句「也许」收尾，把产品藏进遗憾里，是本周钩子最干净的一支。"
+        }
+      ],
+      "candidate_count": 17,
+      "alternates": [
+        "2026-09-25-it-looked-at-him-and-kept-walking",
+        "2026-09-24-fukushima",
+        "2026-09-24-meta-ai-glasses-ad-film",
+        "2026-09-24-good-boy",
+        "2026-09-23-uncle-s-last-stop",
+        "2026-09-23-the-zero-line",
+        "2026-09-22-the-last-seed",
+        "2026-09-22-white-light",
+        "2026-09-22-hunted",
+        "2026-09-22-iremember",
+        "2026-09-21-sea-of-ash-cinematic-ai-short-film-higgsfield-fi",
+        "2026-09-21-the-elevator-final-cut-ai-short-film-higgsfield",
+        "2026-09-21-make-believe-ai-short-film-higgsfield-global-fil",
+        "2026-09-21-the-bridge-ai-short-film-higgsfield-festival"
+      ]
+    },
+    {
+      "week_id": "2026-W38",
+      "start": "2026-09-14",
+      "end": "2026-09-20",
+      "note": "Higgsfield 电影节参赛潮叠上 Kling 3.0 长片预告：全生成从短片走向长片。",
+      "picks": [
+        {
+          "slot": "hottest",
+          "label": "最热",
+          "tagline": "本周讨论最多、传播最广的一条",
+          "video_id": "2026-09-18-odysseus-the-fall-official-trailer",
+          "reason": "Kling 3.0 生成的 AI 长片正式预告，正片同周上线流媒体，是本周讨论度最高的「全生成长片」。"
+        },
+        {
+          "slot": "influential",
+          "label": "最影响力",
+          "tagline": "最可能改变行业做法或品牌预期的一条",
+          "video_id": "2026-09-17-nose",
+          "reason": "Higgsfield Cinema Studio 内用 Seedance 2.5 + Nano Banana Pro 全流程生成，画面、人声、音乐无一实拍，给全生成喜剧立了可复用的样板。"
+        },
+        {
+          "slot": "creative",
+          "label": "最有创意",
+          "tagline": "点子最新、落点最准的一条",
+          "video_id": "2026-09-18-still",
+          "reason": "用手工定格质感讲记忆与哀悼，让「静止」本身成为叙事和剪辑语法，片名就是手法。"
+        }
+      ],
+      "candidate_count": 12,
+      "alternates": [
+        "2026-09-18-by-your-side",
+        "2026-09-18-honeydew",
+        "2026-09-17-the-spoils",
+        "2026-09-17-third-bell",
+        "2026-09-17-the-last-song",
+        "2026-09-16-china-mobile-cosmic-heart",
+        "2026-09-16-gemini-omni-1-1-flash",
+        "2026-09-15-houxiyouji-trailer",
+        "2026-09-15-motorola-india-100-ai"
       ]
     },
     {
@@ -2510,20 +2669,27 @@
           "slot": "hottest",
           "label": "最热",
           "tagline": "本周讨论最多、传播最广的一条",
-          "video_id": "2026-09-10-wencangsheng"
+          "video_id": "2026-09-10-wencangsheng",
+          "reason": ""
         },
         {
           "slot": "influential",
           "label": "最影响力",
           "tagline": "最可能改变行业做法或品牌预期的一条",
-          "video_id": "2026-09-10-wan30-demo"
+          "video_id": "2026-09-10-wan30-demo",
+          "reason": ""
         },
         {
           "slot": "creative",
           "label": "最有创意",
           "tagline": "点子最新、落点最准的一条",
-          "video_id": "2026-09-11-zephyr-special"
+          "video_id": "2026-09-11-zephyr-special",
+          "reason": ""
         }
+      ],
+      "candidate_count": 4,
+      "alternates": [
+        "2026-09-11-wan30-vertical-trailer"
       ]
     }
   ]

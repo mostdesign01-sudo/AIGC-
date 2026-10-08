@@ -4,14 +4,14 @@ import { RouterLink } from 'vue-router'
 import { useFeed } from '../data/useFeed'
 import type { WeekSummary } from '../data/types'
 import { WEEKLY_SLOTS } from '../data/types'
-import { formatWeek } from '../data/format'
+import { formatDay, formatWeek } from '../data/format'
 import WeeklyTop3 from '../components/WeeklyTop3.vue'
 import VideoCard from '../components/VideoCard.vue'
 import EmptyState from '../components/EmptyState.vue'
 
 const props = defineProps<{ weekId: string }>()
 
-const { weeks, weekById, videosInWeek, slotLabel } = useFeed()
+const { weeks, weekById, videosInWeek, videoById, slotLabel } = useFeed()
 
 /** 从 ISO 周编号推算起止日期（feed 里没有这一周记录时也能显示标题） */
 function isoWeekRange(weekId: string): { start: string; end: string } | undefined {
@@ -43,9 +43,15 @@ const week = computed<WeekSummary | undefined>(() => {
   }
 })
 
+/** 候选 = 这一周的全部日更；备选 = 其中没进 TOP3 的条目（feed 里有 alternates 就按它的顺序） */
 const candidates = computed(() => videosInWeek(props.weekId))
 const pickedIds = computed(() => new Set(week.value?.picks.map((p) => p.video_id).filter(Boolean) as string[]))
-const others = computed(() => candidates.value.filter((v) => !pickedIds.value.has(v.id)))
+const others = computed(() => {
+  const ids = week.value?.alternates
+  if (ids && ids.length) return ids.map((id) => videoById(id)).filter((v): v is NonNullable<typeof v> => Boolean(v))
+  return candidates.value.filter((v) => !pickedIds.value.has(v.id))
+})
+const dayLinks = computed(() => [...new Set(candidates.value.map((v) => v.collected_date))].sort())
 
 const index = computed(() => weeks.value.findIndex((w) => w.week_id === props.weekId))
 const newer = computed(() => (index.value > 0 ? weeks.value[index.value - 1] : undefined))
@@ -78,15 +84,21 @@ const older = computed(() => (index.value >= 0 && index.value < weeks.value.leng
       <section class="others">
         <div class="section-head">
           <div>
-            <h2>本周其余收录</h2>
-            <p class="sub">{{ others.length }} 条 · 当周共收录 {{ candidates.length }} 条</p>
+            <h2>备选 · 来自本周日更</h2>
+            <p class="sub">{{ others.length }} 条备选 · 当周日更共 {{ candidates.length }} 条，TOP3 也从这里面选</p>
           </div>
           <RouterLink to="/days" class="more">按日期浏览 →</RouterLink>
+        </div>
+        <div v-if="dayLinks.length" class="others__days">
+          <span>本周日更：</span>
+          <RouterLink v-for="d in dayLinks" :key="d" :to="{ name: 'day', params: { date: d } }" class="chip chip--outline">
+            {{ formatDay(d) }}
+          </RouterLink>
         </div>
         <div v-if="others.length" class="card-grid">
           <VideoCard v-for="v in others" :key="v.id" :video="v" show-date />
         </div>
-        <EmptyState v-else title="这一周没有其它收录" :hint="candidates.length ? '三条 TOP3 就是全部。' : '这一周还没有任何收录。'" />
+        <EmptyState v-else title="这一周没有备选" :hint="candidates.length ? '当周日更就这三条，都进了 TOP3。' : '这一周还没有任何日更收录。'" />
       </section>
     </template>
     <EmptyState v-else title="周编号格式不对" hint="应为 YYYY-Www，例如 2026-W38。">
@@ -112,6 +124,25 @@ const older = computed(() => (index.value >= 0 && index.value < weeks.value.leng
 
 .crumbs a:hover {
   color: var(--ink);
+}
+
+.others {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.others__days {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.others__days a:hover {
+  color: var(--accent-ink);
 }
 
 .weekpage__nav {

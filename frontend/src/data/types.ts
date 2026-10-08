@@ -57,6 +57,8 @@ export interface WeekPick {
   label: string
   tagline: string
   video_id: string | null
+  /** 入选理由（一句话） */
+  reason?: string
 }
 
 export interface WeekSummary {
@@ -65,6 +67,10 @@ export interface WeekSummary {
   end: string
   note: string
   picks: WeekPick[]
+  /** 当周日更总条数 */
+  candidate_count?: number
+  /** 备选 = 当周日更里没进 TOP3 的条目 id（新到旧） */
+  alternates?: string[]
 }
 
 export interface Feed {

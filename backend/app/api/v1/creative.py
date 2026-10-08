@@ -88,6 +88,7 @@ class VideoIn(BaseModel):
 class WeekPicksIn(BaseModel):
     picks: dict[str, Optional[str]] = Field(description="{hottest, influential, creative} → video id")
     note: str = ""
+    reasons: dict[str, Optional[str]] = Field(default_factory=dict, description="每个槽位一句入选理由（可选）")
 
 
 class LabelsIn(BaseModel):
@@ -222,7 +223,7 @@ def delete_video(video_id: str, store: ContentStore = Depends(get_store)) -> dic
 def set_week_top3(week_id: str, payload: WeekPicksIn, store: ContentStore = Depends(get_store)) -> dict[str, Any]:
     """设置某周三个槽位；传空字符串/null 可清空某一槽。"""
     try:
-        data = store.save_week(week_id, payload.picks, payload.note)
+        data = store.save_week(week_id, payload.picks, payload.note, reasons=payload.reasons)
     except ContentError as exc:
         raise HTTPException(status_code=422, detail=str(exc))
     _rebuild_feed(store)

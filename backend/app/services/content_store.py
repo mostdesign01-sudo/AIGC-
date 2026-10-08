@@ -488,23 +488,46 @@ class ContentStore:
         data = _read_json(self.weeks_dir / f"{week_id}.json", None)
         return data if isinstance(data, dict) else None
 
-    def save_week(self, week_id: str, picks: dict[str, str | None], note: str = "",
-                  *, validate_ids: bool = True) -> dict[str, Any]:
+    def week_candidates(self, week_id: str) -> list[dict[str, Any]]:
+        """某周的候选 = 这一周（周一到周日，上海日期）每日收录里的全部条目。"""
         parse_week_id(week_id)
-        known = {v["id"] for v in self.all_videos()} if validate_ids else set()
+        return [v for v in self.all_videos() if v["week_id"] == week_id]
+
+    def save_week(self, week_id: str, picks: dict[str, str | None], note: str = "",
+                  *, reasons: Optional[dict[str, str | None]] = None,
+                  validate_ids: bool = True) -> dict[str, Any]:
+        """写周榜。三个槽位只能从当周日更里选；reasons 是每个槽位一句入选理由（未给的槽位保留原值）。"""
+        parse_week_id(week_id)
+        week_of = {v["id"]: v["week_id"] for v in self.all_videos()} if validate_ids else {}
         clean: dict[str, Optional[str]] = {}
         for slot in WEEKLY_SLOTS:
             vid = _clean_str(picks.get(slot)) or None
-            if vid and validate_ids and vid not in known:
-                raise ContentError(f"{slot}: 找不到视频 {vid!r}（先 ingest 再选榜）")
+            if vid and validate_ids:
+                if vid not in week_of:
+                    raise ContentError(f"{slot}: 找不到视频 {vid!r}（先 ingest 再选榜）")
+                if week_of[vid] != week_id:
+                    raise ContentError(f"{slot}: {vid!r} 收录于 {week_of[vid]}，不是 {week_id} 的日更，不能进这一周的 TOP3")
             clean[slot] = vid
         chosen = [v for v in clean.values() if v]
         if len(chosen) != len(set(chosen)):
             raise ContentError("同一视频不能占两个槽位")
         existing = self.load_week(week_id) or {}
+        old_reasons = existing.get("reasons") or {}
+        new_reasons = reasons or {}
+        clean_reasons: dict[str, str] = {}
+        for slot in WEEKLY_SLOTS:
+            if not clean[slot]:
+                continue
+            text = _clean_str(new_reasons.get(slot))
+            # 槽位换了视频而没给新理由时，旧理由作废
+            if not text and existing.get("picks", {}).get(slot) == clean[slot]:
+                text = _clean_str(old_reasons.get(slot))
+            if text:
+                clean_reasons[slot] = text
         data = {
             "week_id": week_id,
             "picks": clean,
+            "reasons": clean_reasons,
             "note": _clean_str(note) or existing.get("note", ""),
             "updated_at": datetime.now(SHANGHAI).isoformat(timespec="seconds"),
         }
@@ -519,8 +542,11 @@ class ContentStore:
 
         weeks_out: list[dict[str, Any]] = []
         slot_of: dict[str, str] = {}
-        for week_id in self.list_weeks():
+        # 有周榜文件的周 + 有日更但还没选榜的周，都进 feed（后者三个槽位为空、备选就是当周日更）
+        week_ids = sorted(set(self.list_weeks()) | {v["week_id"] for v in videos}, reverse=True)
+        for week_id in week_ids:
             week = self.load_week(week_id) or {}
+            reasons = week.get("reasons") or {}
             start, end = week_range(week_id)
             picks_out = []
             for slot in WEEKLY_SLOTS:
@@ -532,13 +558,20 @@ class ContentStore:
                     "label": labels[slot]["label"],
                     "tagline": labels[slot]["tagline"],
                     "video_id": vid if vid in by_id else None,
+                    "reason": _clean_str(reasons.get(slot)) if vid in by_id else "",
                 })
+            candidate_ids = [v["id"] for v in videos if v["week_id"] == week_id]
+            picked = {p["video_id"] for p in picks_out if p["video_id"]}
             weeks_out.append({
                 "week_id": week_id,
                 "start": start.isoformat(),
                 "end": end.isoformat(),
                 "note": week.get("note", ""),
                 "picks": picks_out,
+                "candidate_count": len(candidate_ids),
+                # 备选 = 当周日更里没进 TOP3 的条目（按收录日期新到旧）
+                "alternates": [i for i in sorted(candidate_ids, key=lambda i: by_id[i]["collected_date"], reverse=True)
+                               if i not in picked],
             })
 
         for v in videos:

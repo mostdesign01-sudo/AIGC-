@@ -68,6 +68,7 @@ const filled = computed(() => picks.value.filter((p) => p.video).length)
             <h3 class="pick__title">
               <RouterLink :to="{ name: 'video', params: { id: pick.video.id } }">{{ pick.video.title }}</RouterLink>
             </h3>
+            <p v-if="pick.reason" class="pick__reason"><strong>入选理由</strong>{{ pick.reason }}</p>
             <IntroSections :video="pick.video" size="card" />
             <DownloadBar :video="pick.video" size="card" />
             <div class="pick__foot">
@@ -211,6 +212,41 @@ const filled = computed(() => picks.value.filter((p) => p.video).length)
 
 .pick__title a:hover {
   color: var(--accent-ink);
+}
+
+.pick__reason {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink);
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--card);
+  border: 1px solid var(--line-2);
+}
+
+.pick__reason strong {
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 1px 6px;
+  border-radius: 5px;
+  color: #fff;
+  background: var(--ink-2);
+}
+
+.pick--hottest .pick__reason strong {
+  background: var(--slot-hottest, var(--ink-2));
+}
+
+.pick--influential .pick__reason strong {
+  background: var(--slot-influential, var(--ink-2));
+}
+
+.pick--creative .pick__reason strong {
+  background: var(--slot-creative, var(--ink-2));
 }
 
 .pick__intro {

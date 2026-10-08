@@ -6,12 +6,16 @@
     python scripts/pick_week_top3.py --list                # 默认当前周
     python scripts/pick_week_top3.py --list --week 2026-W37
 
+候选只来自这一周（周一到周日，上海日期）的日更收录 content/videos/*.json；
+选了别的周的条目会直接报错。没进 TOP3 的当周日更会自动作为「备选」展示在周榜页。
+
 选榜（写 content/weeks/<week>.json 并重编 feed.json）：
     python scripts/pick_week_top3.py --week 2026-W38 \
       --hottest 2026-09-15-houxiyouji-trailer \
       --influential 2026-09-16-china-mobile-cosmic-heart \
       --creative 2026-09-15-motorola-india-100-ai \
-      --note "本周三条都指向全片生成进入主流。"
+      --note "本周三条都指向全片生成进入主流。" \
+      --reason-hottest "一句话入选理由" --reason-influential "..." --reason-creative "..."
 
 只改标签文案（三个槽位的名字 / 副标题）：
     python scripts/pick_week_top3.py --set-label hottest "最热" "本周传播最广的一条"
@@ -53,8 +57,8 @@ def list_candidates(store: ContentStore, week_id: str) -> None:
     start, end = week_range(week_id)
     labels = store.load_labels()
     current = (store.load_week(week_id) or {}).get("picks") or {}
-    videos = [v for v in store.all_videos() if v["week_id"] == week_id]
-    print(f"{week_id}（{start} ~ {end}）候选 {len(videos)} 条：")
+    videos = store.week_candidates(week_id)
+    print(f"{week_id}（{start} ~ {end}）候选 {len(videos)} 条（= 当周日更）：")
     if not videos:
         print("  （这一周还没有收录，先跑 ingest_day）")
     for v in sorted(videos, key=lambda x: x["collected_date"], reverse=True):
@@ -62,9 +66,12 @@ def list_candidates(store: ContentStore, week_id: str) -> None:
         mark = f"  ← {labels[slot]['label']}" if slot else ""
         print(f"  {v['collected_date']}  {v['id']:<48} {v['orientation']:<9} {v['category']:<16} {v['title'][:28]}{mark}")
     print()
+    reasons = (store.load_week(week_id) or {}).get("reasons") or {}
     print("当前槽位：")
     for slot in WEEKLY_SLOTS:
         print(f"  {slot:<12} {labels[slot]['label']:<6} → {current.get(slot) or '（空）'}")
+        if reasons.get(slot):
+            print(f"  {'':<12} 理由：{reasons[slot]}")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -75,6 +82,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--influential")
     parser.add_argument("--creative")
     parser.add_argument("--note", default="", help="本周一句话说明")
+    parser.add_argument("--reason-hottest", default="", help="最热槽位的入选理由")
+    parser.add_argument("--reason-influential", default="", help="最影响力槽位的入选理由")
+    parser.add_argument("--reason-creative", default="", help="最有创意槽位的入选理由")
     parser.add_argument("--clear", action="store_true", help="清空该周三个槽位")
     parser.add_argument("--set-label", nargs=3, metavar=("SLOT", "LABEL", "TAGLINE"), action="append",
                         help="修改槽位文案，可重复")
@@ -108,6 +118,8 @@ def main(argv: list[str] | None = None) -> int:
             list_candidates(store, week_id)
 
         picks = {"hottest": args.hottest, "influential": args.influential, "creative": args.creative}
+        reasons = {"hottest": args.reason_hottest, "influential": args.reason_influential,
+                   "creative": args.reason_creative}
         if args.clear:
             picks = {slot: None for slot in WEEKLY_SLOTS}
         if any(picks.values()) or args.clear:
@@ -119,14 +131,16 @@ def main(argv: list[str] | None = None) -> int:
                     print("✗ --api 需要同时给 --token", file=sys.stderr)
                     return 2
                 result = _put_json(f"{args.api.rstrip('/')}/api/v1/creative/weeks/{week_id}/top3", args.token,
-                                   {"picks": picks, "note": args.note})
+                                   {"picks": picks, "note": args.note, "reasons": reasons})
                 print(f"✓ 接口已保存 {result.get('week_id', week_id)}")
             else:
-                data = store.save_week(week_id, picks, args.note)
+                data = store.save_week(week_id, picks, args.note, reasons=reasons)
                 labels = store.load_labels()
                 print(f"✓ {week_id} 周榜已写入 content/weeks/{week_id}.json")
                 for slot in WEEKLY_SLOTS:
                     print(f"  {labels[slot]['label']:<6} → {data['picks'][slot] or '（空）'}")
+                    if data["reasons"].get(slot):
+                        print(f"  {'':<6}   理由：{data['reasons'][slot]}")
             changed = True
     except ContentError as exc:
         print(f"✗ {exc}", file=sys.stderr)

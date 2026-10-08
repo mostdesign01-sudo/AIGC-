@@ -155,7 +155,16 @@ python scripts/pick_week_top3.py --week 2026-W38 \
 python scripts/pick_week_top3.py --set-label hottest "最热" "本周传播最广的一条"
 ```
 
-Make 写法：`make list_week`、`make pick_week_top3 WEEK=2026-W38 HOTTEST=<id> INFLUENTIAL=<id> CREATIVE=<id>`。
+Make 写法：`make list_week`、`make pick_week_top3 WEEK=2026-W38 HOTTEST=<id> INFLUENTIAL=<id> CREATIVE=<id> REASON_HOTTEST="..." REASON_INFLUENTIAL="..." REASON_CREATIVE="..."`。
+
+**候选与备选都来自当周日更**：
+
+- 候选 = 这一 ISO 周（周一到周日，上海日期）`content/videos/*.json` 里的全部条目；`--list` 列的就是它们。选了别的周的条目，脚本 / 接口会直接报错。
+- 每个槽位可带一句 `--reason-<slot>` 入选理由，写进 `weeks/<week>.json` 的 `reasons`，周榜卡片上显示为「入选理由」；卡片简介仍是条目自己的 背景 / 制作 / 创意 三段。
+- 备选 = 当周日更里没进 TOP3 的其余条目，`build_feed` 自动算进 feed 的 `weeks[].alternates`，`/week/<id>` 页面在 TOP3 下面用同样的卡片（GIF + GIF/原片下载）列出，并链到当周各日。
+- 有日更但还没选榜的周也会出现在 feed 里（槽位为空，备选就是全部日更）。
+
+**周五例程**：`make list_week WEEK=<本周>` 拿当周日更做候选 → 按「最热 / 最影响力 / 最有创意」各推荐一条发给 Hao 点选（同一条不能占两个槽）→ 收到编号后 `make pick_week_top3 ...`（带三句理由）→ 提交 `content/weeks/` 与 `frontend/src/data/feed.json`。
 
 也可以直接改 `content/weeks/2026-W38.json` 与 `content/labels.json`，然后 `make build_feed`。
 首页显示**最近一个有选择的周**；`/weeks` 保留所有往期。

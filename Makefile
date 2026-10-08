@@ -36,6 +36,9 @@ HOTTEST ?=
 INFLUENTIAL ?=
 CREATIVE ?=
 NOTE ?=
+REASON_HOTTEST ?=
+REASON_INFLUENTIAL ?=
+REASON_CREATIVE ?=
 
 # make_gifs 参数
 SRC ?=
@@ -78,6 +81,9 @@ pick_week_top3:
 	$(PY) scripts/pick_week_top3.py $(if $(WEEK),--week $(WEEK),) \
 	  $(if $(HOTTEST),--hottest "$(HOTTEST)",) $(if $(INFLUENTIAL),--influential "$(INFLUENTIAL)",) \
 	  $(if $(CREATIVE),--creative "$(CREATIVE)",) $(if $(NOTE),--note "$(NOTE)",) \
+	  $(if $(REASON_HOTTEST),--reason-hottest "$(REASON_HOTTEST)",) \
+	  $(if $(REASON_INFLUENTIAL),--reason-influential "$(REASON_INFLUENTIAL)",) \
+	  $(if $(REASON_CREATIVE),--reason-creative "$(REASON_CREATIVE)",) \
 	  --content $(CONTENT) --feed-out $(FEED) \
 	  $(if $(API),--api $(API) --token $(ADMIN_TOKEN),) $(EXTRA)
 

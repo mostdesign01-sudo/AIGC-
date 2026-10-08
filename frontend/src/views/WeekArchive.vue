@@ -13,7 +13,7 @@ const { weeks, videoById, videosInWeek } = useFeed()
     <header class="weeks__head">
       <p class="eyebrow">Archive · weekly TOP3</p>
       <h1>周榜 TOP3</h1>
-      <p class="weeks__sub">每周从当周收录里选三条：最热、最影响力、最有创意。往期都留在这里。</p>
+      <p class="weeks__sub">每周从当周日更里选三条：最热、最影响力、最有创意；其余当周日更作为备选列在周榜页。往期都留在这里。</p>
     </header>
 
     <ul v-if="weeks.length" class="week-list">
@@ -21,7 +21,7 @@ const { weeks, videoById, videosInWeek } = useFeed()
         <RouterLink :to="{ name: 'week', params: { weekId: w.week_id } }" class="week-row__head">
           <div>
             <h2>{{ formatWeek(w.week_id) }}</h2>
-            <p class="week-row__meta">{{ formatRange(w.start, w.end) }} · 当周收录 {{ videosInWeek(w.week_id).length }} 条</p>
+            <p class="week-row__meta">{{ formatRange(w.start, w.end) }} · 当周日更 {{ videosInWeek(w.week_id).length }} 条 · TOP3 + {{ w.alternates?.length ?? Math.max(videosInWeek(w.week_id).length - 3, 0) }} 条备选</p>
           </div>
           <span class="week-row__arrow" aria-hidden="true">→</span>
         </RouterLink>
