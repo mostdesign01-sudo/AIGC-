@@ -77,7 +77,7 @@ const sections = computed(() => introSections(props.video))
 
 .intro--card dd {
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
