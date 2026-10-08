@@ -23,7 +23,7 @@ const generatedAt = () => {
       <RouterLink to="/" class="brand" @click="menuOpen = false">
         <span class="brand__mark" aria-hidden="true"></span>
         <span class="brand__text">
-          <strong>得物 AIGC 创意站</strong>
+          <strong>AIGC创意</strong>
           <small>每日创意 · 每周 TOP3</small>
         </span>
       </RouterLink>
@@ -51,7 +51,7 @@ const generatedAt = () => {
   <footer class="footer">
     <div class="container footer__inner">
       <p>
-        得物 AIGC 创意站 · 收集行业前沿 AI 创意视频，只做筛选与解读，不编造播放数据。
+        AIGC创意 · 收集行业前沿 AI 创意视频，只做筛选与解读，不编造播放数据。
       </p>
       <p class="footer__meta">
         数据更新于 {{ generatedAt() }}（Asia/Shanghai）

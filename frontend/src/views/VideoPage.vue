@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watchEffect } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useFeed } from '../data/useFeed'
 import { formatDay, formatDayLong, formatWeek, hostOf, platformName } from '../data/format'
@@ -25,7 +25,11 @@ const related = computed(() => {
     .slice(0, 3)
 })
 
-const shareTitle = computed(() => (video.value ? `${video.value.title} · 得物 AIGC 创意站` : ''))
+const shareTitle = computed(() => (video.value ? `${video.value.title} · AIGC创意` : ''))
+
+watchEffect(() => {
+  document.title = shareTitle.value || 'AIGC创意 · 每日创意 · 每周 TOP3'
+})
 </script>
 
 <template>
