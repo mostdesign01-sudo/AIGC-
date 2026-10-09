@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T03:29:15+00:00",
+  "generated_at": "2026-10-09T03:14:26+00:00",
   "timezone": "Asia/Shanghai",
   "categories": [
     {
@@ -54,6 +54,162 @@
     }
   },
   "videos": [
+    {
+      "id": "2026-10-09-one-take-two-worlds-webcam-performance-ai-cinema",
+      "title": "One Take, Two Worlds | Webcam Performance → AI Cinema (Seedance Performance Transfer)",
+      "url": "https://www.youtube.com/watch?v=D5ut6LtbfMg",
+      "platform": "youtube",
+      "author": "From the Dust",
+      "orientation": "landscape",
+      "category": "ai-tool",
+      "tags": [
+        "表演迁移",
+        "Seedance",
+        "并排对比"
+      ],
+      "intro_zh": "【背景】From the Dust 的 Seedance 表演迁移测试：办公室摄像头实拍对照 AI 画廊同表演，非品牌投放。【制作】摄像头实拍作表演参考，Seedance Performance Transfer 生成场景与运镜，片尾并排同步。【创意构思】同一条表演帧对帧迁到异场景，把「表演一致性」做成可核对的工具演示。",
+      "intro_background": "From the Dust 的 Seedance 表演迁移测试：办公室摄像头实拍对照 AI 画廊同表演，非品牌投放。",
+      "intro_production": "摄像头实拍作表演参考，Seedance Performance Transfer 生成场景与运镜，片尾并排同步。",
+      "intro_concept": "同一条表演帧对帧迁到异场景，把「表演一致性」做成可核对的工具演示。",
+      "collected_date": "2026-10-09",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-09/one-take-two-worlds-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-09/one-take-two-worlds-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/D5ut6LtbfMg/hqdefault.jpg",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-09/one-take-two-worlds.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W41",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-09-greatness-is-worn-in-ai-spec-ad-seedance",
+      "title": "GREATNESS IS WORN IN | AI Spec Ad ✴︎ Seedance",
+      "url": "https://www.youtube.com/watch?v=GjWHsypg8VE",
+      "platform": "youtube",
+      "author": "Mud — AI Creative Studio",
+      "orientation": "landscape",
+      "category": "fashion",
+      "tags": [
+        "提案片",
+        "adidas非官方",
+        "Seedance"
+      ],
+      "intro_zh": "【背景】Mud AI Creative Studio 非官方 adidas 提案片，声明与品牌无关，全片 AI 生成。【制作】静帧 Seedream / GPT Image，视频 Seedance（Higgsfield），声音 ElevenLabs。【创意构思】以「伟大是穿出来的」做运动时尚态度片，用全片 AI 撑品牌级运动影像质感。",
+      "intro_background": "Mud AI Creative Studio 非官方 adidas 提案片，声明与品牌无关，全片 AI 生成。",
+      "intro_production": "静帧 Seedream / GPT Image，视频 Seedance（Higgsfield），声音 ElevenLabs。",
+      "intro_concept": "以「伟大是穿出来的」做运动时尚态度片，用全片 AI 撑品牌级运动影像质感。",
+      "collected_date": "2026-10-09",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-09/greatness-is-worn-in-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-09/greatness-is-worn-in-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/GjWHsypg8VE/hqdefault.jpg",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-09/greatness-is-worn-in.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W41",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-09-mastiha-a-spec-ad-for-skinos-mastiha-spirit",
+      "title": "MASTIHA | A spec ad for SKINOS Mastiha Spirit",
+      "url": "https://www.youtube.com/watch?v=5PVZhFyBVOk",
+      "platform": "youtube",
+      "author": "Takis Pagonis",
+      "orientation": "landscape",
+      "category": "ai-ad",
+      "tags": [
+        "提案片",
+        "烈酒",
+        "产地叙事",
+        "Seedance"
+      ],
+      "intro_zh": "【背景】Takis Pagonis（Pagonis AI Studio）为 SKINOS 乳香酒做的非官方提案片。【制作】Dreamina（Seedance 2.5、Seedream 5.0）、ElevenLabs、Suno、Topaz、Premiere；旁白作者本人。【创意构思】从希俄斯岛划树取「泪」到冷饮，用调研过的产地工序做可核对的烈酒现实主义叙事。",
+      "intro_background": "Takis Pagonis（Pagonis AI Studio）为 SKINOS 乳香酒做的非官方提案片。",
+      "intro_production": "Dreamina（Seedance 2.5、Seedream 5.0）、ElevenLabs、Suno、Topaz、Premiere；旁白作者本人。",
+      "intro_concept": "从希俄斯岛划树取「泪」到冷饮，用调研过的产地工序做可核对的烈酒现实主义叙事。",
+      "collected_date": "2026-10-09",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-09/mastiha-skinos-spec-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-09/mastiha-skinos-spec-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/5PVZhFyBVOk/hqdefault.jpg",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-09/mastiha-skinos-spec.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W41",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-09-super-powers-ai-short-film-made-with-pai",
+      "title": "Super Powers | AI Short Film Made with PAI",
+      "url": "https://www.youtube.com/watch?v=-k_seae-qMw",
+      "platform": "youtube",
+      "author": "Matias Collado / Utopai Studios",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "超级英雄喜剧",
+        "PAI",
+        "Utopai"
+      ],
+      "intro_zh": "【背景】Matias Collado 为 Utopai Studios 引擎 PAI 做的案例短片：普通人乱获超能力的都市喜剧。【制作】PAI 做分镜、角色参考与视频生成，DaVinci Resolve 剪辑；Production Agent 同步剧本镜头表。【创意构思】超能力开场即失控，用喜剧节奏展示 PAI 从剧本到成片的一体化制片流程。",
+      "intro_background": "Matias Collado 为 Utopai Studios 引擎 PAI 做的案例短片：普通人乱获超能力的都市喜剧。",
+      "intro_production": "PAI 做分镜、角色参考与视频生成，DaVinci Resolve 剪辑；Production Agent 同步剧本镜头表。",
+      "intro_concept": "超能力开场即失控，用喜剧节奏展示 PAI 从剧本到成片的一体化制片流程。",
+      "collected_date": "2026-10-09",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-09/super-powers-pai-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-09/super-powers-pai-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/-k_seae-qMw/hqdefault.jpg",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-09/super-powers-pai.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W41",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-09-hojeopjimong-concept-trailer",
+      "title": "〈호접지몽〉 | Concept Trailer",
+      "url": "https://www.youtube.com/watch?v=2gvTJDJhTFE",
+      "platform": "youtube",
+      "author": "Nuker(누커)",
+      "orientation": "landscape",
+      "category": "ip-character",
+      "tags": [
+        "概念预告",
+        "朝鲜赛博朋克",
+        "非官方"
+      ],
+      "intro_zh": "【背景】韩国创作者 Nuker 的非官方概念预告，仿「熟悉的朝鲜赛博朋克」实拍感，声明与任何既有作品无关。【制作】制作工具未公开；作者注明因韩语 TTS 仍别扭而改用英语旁白。【创意构思】把朝鲜历史美学拍成赛博朋克概念预告，用熟悉类型外壳测 AI 实拍感与世界观气质。",
+      "intro_background": "韩国创作者 Nuker 的非官方概念预告，仿「熟悉的朝鲜赛博朋克」实拍感，声明与任何既有作品无关。",
+      "intro_production": "制作工具未公开；作者注明因韩语 TTS 仍别扭而改用英语旁白。",
+      "intro_concept": "把朝鲜历史美学拍成赛博朋克概念预告，用熟悉类型外壳测 AI 实拍感与世界观气质。",
+      "collected_date": "2026-10-09",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-09/hojeopjimong-concept-trailer-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-09/hojeopjimong-concept-trailer-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/2gvTJDJhTFE/hqdefault.jpg",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-09/hojeopjimong-concept-trailer.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W41",
+      "weekly_slot": null
+    },
     {
       "id": "2026-10-08-1-shoe-20-animation-styles-norte-spec-ad",
       "title": "1 Shoe. 20 Animation Styles. · NORTE Spec Ad",
@@ -2373,6 +2529,11 @@
   ],
   "days": [
     {
+      "date": "2026-10-09",
+      "week_id": "2026-W41",
+      "count": 5
+    },
+    {
       "date": "2026-10-08",
       "week_id": "2026-W41",
       "count": 5
@@ -2478,7 +2639,7 @@
       "week_id": "2026-W41",
       "start": "2026-10-05",
       "end": "2026-10-11",
-      "note": "进行中（已收 10/5–10/8）：Kling 4.0 官方上线、品牌用 AI 请回老明星、产品一致性成卖点。周五可按新增日更再调。",
+      "note": "10-09 日更后仍维持原选：今日新增表演迁移 demo、adidas 非官方时尚提案、SKINOS 产地烈酒提案、PAI 超能力短片、朝鲜赛博朋克概念预告，均未超过 Kling 4.0 官方合集 / SKF 嘉宝 / NORTE 20 画风三槽。",
       "picks": [
         {
           "slot": "hottest",
@@ -2502,8 +2663,13 @@
           "reason": "同一双鞋穿过 20 种画风而造型不变，把「产品一致性」这个 AI 难题本身做成卖点，对鞋服电商最可借鉴。"
         }
       ],
-      "candidate_count": 20,
+      "candidate_count": 25,
       "alternates": [
+        "2026-10-09-one-take-two-worlds-webcam-performance-ai-cinema",
+        "2026-10-09-greatness-is-worn-in-ai-spec-ad-seedance",
+        "2026-10-09-mastiha-a-spec-ad-for-skinos-mastiha-spirit",
+        "2026-10-09-super-powers-ai-short-film-made-with-pai",
+        "2026-10-09-hojeopjimong-concept-trailer",
         "2026-10-08-still-diesel-diesel-ss27-spec-ad",
         "2026-10-08-f1-ai",
         "2026-10-08-invisible-accidents-almaty-air-initiative",
