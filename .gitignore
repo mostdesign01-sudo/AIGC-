@@ -1,3 +1,10 @@
 # Local secrets
 .env
 **/.env
+
+# Python
+__pycache__/
+*.pyc
+
+# GIF 产物（上传到 Release / CDN，不进仓库）
+dist/

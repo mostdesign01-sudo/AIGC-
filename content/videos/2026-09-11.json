@@ -1,0 +1,60 @@
+[
+  {
+    "id": "2026-09-11-zephyr-special",
+    "title": "Higgsfield《Zephyr: Special》",
+    "url": "https://www.youtube.com/watch?v=HjXWZ-BdyS0",
+    "platform": "youtube",
+    "author": "Higgsfield",
+    "orientation": "landscape",
+    "category": "ip-character",
+    "tags": [
+      "Seedance 2.5",
+      "机甲女团",
+      "角色 IP"
+    ],
+    "intro_zh": "【背景】Higgsfield 官方 Original Series 出品的机甲女团成片《Zephyr: Special》，属平台自制内容。【制作】据收录来源，造型与群像镜头由 Seedance 2.5 生成，在 Higgsfield 平台内完成；其余工具未公开。【创意构思】把多名角色做成可传播的 MV：统一机甲语言、每人可辨认的性格和能剪成短视频的高光段，示范 IP 从设定图走到上线内容。",
+    "intro_background": "Higgsfield 官方 Original Series 出品的机甲女团成片《Zephyr: Special》，属平台自制内容。",
+    "intro_production": "据收录来源，造型与群像镜头由 Seedance 2.5 生成，在 Higgsfield 平台内完成；其余工具未公开。",
+    "intro_concept": "把多名角色做成可传播的 MV：统一机甲语言、每人可辨认的性格和能剪成短视频的高光段，示范 IP 从设定图走到上线内容。",
+    "collected_date": "2026-09-11",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-zephyr-a.gif",
+    "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-zephyr-b.gif",
+    "cover_url": "",
+    "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-zephyr-src.mp4",
+    "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-zephyr-src.mp4",
+    "video_download_note": "",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs；原片页 https://higgsfield.ai/original-series/zephyr-special/full-film 。"
+  },
+  {
+    "id": "2026-09-11-wan30-vertical-trailer",
+    "title": "Wan 3.0 竖版预告",
+    "url": "https://help.aliyun.com/zh/model-studio/wan3-video-generation-guide",
+    "platform": "web",
+    "author": "阿里云百炼",
+    "orientation": "vertical",
+    "category": "new-model",
+    "tags": [
+      "Wan 3.0",
+      "9:16",
+      "竖版"
+    ],
+    "intro_zh": "【背景】阿里云百炼 Wan 3.0 文档页附带的竖版预告，官方演示素材。【制作】Wan 3.0 生成，9:16 一镜到底；具体提示词与后期未公开。【创意构思】示范竖屏构图逻辑：主体占满、动作上下延展、文字留在安全区，可作为手机端竖版成片的参照。",
+    "intro_background": "阿里云百炼 Wan 3.0 文档页附带的竖版预告，官方演示素材。",
+    "intro_production": "Wan 3.0 生成，9:16 一镜到底；具体提示词与后期未公开。",
+    "intro_concept": "示范竖屏构图逻辑：主体占满、动作上下延展、文字留在安全区，可作为手机端竖版成片的参照。",
+    "collected_date": "2026-09-11",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/06-wan-vertical-trailer.gif",
+    "gif_b_url": "",
+    "cover_url": "",
+    "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/06-wan-vertical-trailer-src.mp4",
+    "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/06-wan-vertical-trailer-src.mp4",
+    "video_download_note": "",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs（06-wan-vertical-trailer）；链接指向 Wan 3.0 文档页。"
+  }
+]

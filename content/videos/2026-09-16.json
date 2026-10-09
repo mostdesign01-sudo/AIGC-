@@ -1,0 +1,60 @@
+[
+  {
+    "id": "2026-09-16-china-mobile-cosmic-heart",
+    "title": "中国移动《宇宙真心》全 AI 七夕片",
+    "url": "https://campaignbriefasia.com/2026/08/20/f5-shanghai-and-china-mobile-explore-the-power-of-connection-in-fully-ai-generated-qixi-film/",
+    "platform": "web",
+    "author": "F5 Shanghai × 中国移动",
+    "orientation": "landscape",
+    "category": "ai-ad",
+    "tags": [
+      "全片生成",
+      "运营商",
+      "七夕"
+    ],
+    "intro_zh": "【背景】F5 上海为中国移动 10086 做的七夕品牌片《宇宙真心》，8 月 20 日由 Campaign Brief Asia 报道，官方投放。【制作】据代理商说明，全片由 AI 生成；具体模型未公开。【创意构思】把「牛郎织女隔银河」换成现代人的失联焦虑：男主穿越古代、西部、原始、外星等维度，最后在「第 10086 维」接通电话重逢。",
+    "intro_background": "F5 上海为中国移动 10086 做的七夕品牌片《宇宙真心》，8 月 20 日由 Campaign Brief Asia 报道，官方投放。",
+    "intro_production": "据代理商说明，全片由 AI 生成；具体模型未公开。",
+    "intro_concept": "把「牛郎织女隔银河」换成现代人的失联焦虑：男主穿越古代、西部、原始、外星等维度，最后在「第 10086 维」接通电话重逢。",
+    "collected_date": "2026-09-16",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/ads-pick-gifs/china-mobile-cosmic-a.gif",
+    "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/ads-pick-gifs/china-mobile-cosmic-b.gif",
+    "cover_url": "",
+    "source_video_url": "",
+    "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/ads-pick-gifs/china-mobile-cosmic.mp4",
+    "video_download_note": "",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "示例数据。GIF 取自仓库 Release ads-pick-gifs；链接为 Campaign Brief Asia 8/20 报道。"
+  },
+  {
+    "id": "2026-09-16-gemini-omni-1-1-flash",
+    "title": "Gemini Omni 1.1 Flash 实时多模态演示",
+    "url": "https://blog.google/innovation-and-ai/technology/developers-tools/build-with-gemini-omni-1-1-flash/",
+    "platform": "web",
+    "author": "Google",
+    "orientation": "landscape",
+    "category": "ai-tool",
+    "tags": [
+      "实时多模态",
+      "开发者工具",
+      "转场一致性"
+    ],
+    "intro_zh": "【背景】Google 8 月 27 日在开发者博客发布 Gemini Omni 1.1 Flash 时附带的官方演示。【制作】Omni 1.1 Flash 实时多模态生成，边看边改；演示未说明额外后期。【创意构思】看点是工作流而非单条成片：物体在连续镜头里保持一致，转场可以实时改，不再全靠事后特效补。",
+    "intro_background": "Google 8 月 27 日在开发者博客发布 Gemini Omni 1.1 Flash 时附带的官方演示。",
+    "intro_production": "Omni 1.1 Flash 实时多模态生成，边看边改；演示未说明额外后期。",
+    "intro_concept": "看点是工作流而非单条成片：物体在连续镜头里保持一致，转场可以实时改，不再全靠事后特效补。",
+    "collected_date": "2026-09-16",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/05-gemini-a.gif",
+    "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/05-gemini-b.gif",
+    "cover_url": "",
+    "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/05-gemini-src.mp4",
+    "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/05-gemini-src.mp4",
+    "video_download_note": "",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs。"
+  }
+]
