@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T03:14:26+00:00",
+  "generated_at": "2026-10-12T01:58:25+00:00",
   "timezone": "Asia/Shanghai",
   "categories": [
     {
@@ -54,6 +54,133 @@
     }
   },
   "videos": [
+    {
+      "id": "2026-10-12-ahead-of-her-time-ai-watch-commercial-spec-phili",
+      "title": "AHEAD OF HER TIME — AI Watch Commercial (Spec) | Philipp Jeker",
+      "url": "https://www.youtube.com/watch?v=cRPCriS_b9o",
+      "platform": "youtube",
+      "author": "Philipp Jeker",
+      "orientation": "landscape",
+      "category": "fashion",
+      "tags": [
+        "提案片",
+        "虚构品牌",
+        "腕表",
+        "时间叙事"
+      ],
+      "intro_zh": "【背景】Philipp Jeker 为虚构瑞士表品牌 VAULION（Pilote Type A）做的 86 秒非官方提案片。【制作】制作工具未公开；全片生成式 AI，固定参考表保角色、表与飞机一致性，作者包办剪辑配乐。【创意构思】1958 黑白 16mm 4:3 对照 2026 彩色 16:9，把同一块表的跨代传承做成时间叙事。",
+      "intro_background": "Philipp Jeker 为虚构瑞士表品牌 VAULION（Pilote Type A）做的 86 秒非官方提案片。",
+      "intro_production": "制作工具未公开；全片生成式 AI，固定参考表保角色、表与飞机一致性，作者包办剪辑配乐。",
+      "intro_concept": "1958 黑白 16mm 4:3 对照 2026 彩色 16:9，把同一块表的跨代传承做成时间叙事。",
+      "collected_date": "2026-10-12",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-12/ahead-of-her-time-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-12/ahead-of-her-time-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/cRPCriS_b9o/hqdefault.jpg",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-12/ahead-of-her-time.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W42",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-12-urban-horizon-an-audi-ai-cinematic-experience",
+      "title": "Urban Horizon: An Audi AI Cinematic Experience",
+      "url": "https://www.youtube.com/watch?v=2rgRHcvRDd4",
+      "platform": "youtube",
+      "author": "Anim Brige",
+      "orientation": "landscape",
+      "category": "ai-ad",
+      "tags": [
+        "汽车",
+        "Audi非官方",
+        "电影感"
+      ],
+      "intro_zh": "【背景】Anim Brige 的 Audi A7 Sportback AI 汽车电影感展示，非品牌官方投放。【制作】制作工具未公开；片中强调写实光影与动态运镜，按商业车片规格做内外特写。【创意构思】从城市街道驶向山景远眺，用镜头运动验证 AI 车片能否撑住高端汽车广告质感。",
+      "intro_background": "Anim Brige 的 Audi A7 Sportback AI 汽车电影感展示，非品牌官方投放。",
+      "intro_production": "制作工具未公开；片中强调写实光影与动态运镜，按商业车片规格做内外特写。",
+      "intro_concept": "从城市街道驶向山景远眺，用镜头运动验证 AI 车片能否撑住高端汽车广告质感。",
+      "collected_date": "2026-10-12",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-12/urban-horizon-audi-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-12/urban-horizon-audi-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/2rgRHcvRDd4/hqdefault.jpg",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-12/urban-horizon-audi.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W42",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-12-osulloc-spec-ad-modern-matcha-moment-ai-cinemati",
+      "title": "[OSULLOC Spec Ad] Modern Matcha Moment | AI Cinematic Commercial",
+      "url": "https://www.youtube.com/watch?v=QronU7_LIKY",
+      "platform": "youtube",
+      "author": "joseph yoon",
+      "orientation": "landscape",
+      "category": "ai-ad",
+      "tags": [
+        "提案片",
+        "OSULLOC",
+        "爱茉莉太平洋",
+        "googleai"
+      ],
+      "intro_zh": "【背景】joseph yoon 提交给爱茉莉太平洋 AI Branding Competition 的 OSULLOC 非官方提案片。【制作】简介标注 googleai；具体模型与流程未详述，其余制作工具未公开。【创意构思】以现代日常与创意工作空间里的抹茶仪式，做生活方式向的品牌影像提案。",
+      "intro_background": "joseph yoon 提交给爱茉莉太平洋 AI Branding Competition 的 OSULLOC 非官方提案片。",
+      "intro_production": "简介标注 googleai；具体模型与流程未详述，其余制作工具未公开。",
+      "intro_concept": "以现代日常与创意工作空间里的抹茶仪式，做生活方式向的品牌影像提案。",
+      "collected_date": "2026-10-12",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-12/osulloc-spec-ad-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-12/osulloc-spec-ad-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/QronU7_LIKY/hqdefault.jpg",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-12/osulloc-spec-ad.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W42",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-12-chem-catwalk-ai-short-film-video-art-chemistry-f",
+      "title": "Chem Catwalk — AI Short Film | Video Art | Chemistry | Fashion",
+      "url": "https://www.youtube.com/watch?v=ADEdeWcFeS8",
+      "platform": "youtube",
+      "author": "Distopik",
+      "orientation": "landscape",
+      "category": "fashion",
+      "tags": [
+        "视频艺术",
+        "化学元素",
+        "时装秀",
+        "无对白"
+      ],
+      "intro_zh": "【背景】Distopik 的视频艺术短片：盐沼中建筑里，化学元素拟人走上时装秀。【制作】制作工具未公开；约 3 分钟无对白，靠动作、光影、质感与声音让物质显形。【创意构思】把脆弱、有毒、易燃等元素属性做成身体与时装，把看不见的物质性格变成秀场仪式。",
+      "intro_background": "Distopik 的视频艺术短片：盐沼中建筑里，化学元素拟人走上时装秀。",
+      "intro_production": "制作工具未公开；约 3 分钟无对白，靠动作、光影、质感与声音让物质显形。",
+      "intro_concept": "把脆弱、有毒、易燃等元素属性做成身体与时装，把看不见的物质性格变成秀场仪式。",
+      "collected_date": "2026-10-12",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-12/chem-catwalk-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-12/chem-catwalk-b.gif",
+      "cover_url": "https://i.ytimg.com/vi/ADEdeWcFeS8/hqdefault.jpg",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-12/chem-catwalk.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "",
+      "week_id": "2026-W42",
+      "weekly_slot": null
+    },
     {
       "id": "2026-10-09-one-take-two-worlds-webcam-performance-ai-cinema",
       "title": "One Take, Two Worlds | Webcam Performance → AI Cinema (Seedance Performance Transfer)",
@@ -2529,6 +2656,11 @@
   ],
   "days": [
     {
+      "date": "2026-10-12",
+      "week_id": "2026-W42",
+      "count": 4
+    },
+    {
       "date": "2026-10-09",
       "week_id": "2026-W41",
       "count": 5
@@ -2635,6 +2767,42 @@
     }
   ],
   "weeks": [
+    {
+      "week_id": "2026-W42",
+      "start": "2026-10-12",
+      "end": "2026-10-18",
+      "note": "",
+      "picks": [
+        {
+          "slot": "hottest",
+          "label": "最热",
+          "tagline": "本周讨论最多、传播最广的一条",
+          "video_id": null,
+          "reason": ""
+        },
+        {
+          "slot": "influential",
+          "label": "最影响力",
+          "tagline": "最可能改变行业做法或品牌预期的一条",
+          "video_id": null,
+          "reason": ""
+        },
+        {
+          "slot": "creative",
+          "label": "最有创意",
+          "tagline": "点子最新、落点最准的一条",
+          "video_id": null,
+          "reason": ""
+        }
+      ],
+      "candidate_count": 4,
+      "alternates": [
+        "2026-10-12-ahead-of-her-time-ai-watch-commercial-spec-phili",
+        "2026-10-12-urban-horizon-an-audi-ai-cinematic-experience",
+        "2026-10-12-osulloc-spec-ad-modern-matcha-moment-ai-cinemati",
+        "2026-10-12-chem-catwalk-ai-short-film-video-art-chemistry-f"
+      ]
+    },
     {
       "week_id": "2026-W41",
       "start": "2026-10-05",
