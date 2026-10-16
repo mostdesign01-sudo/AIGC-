@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T01:57:53+00:00",
+  "generated_at": "2026-10-16T02:01:26+00:00",
   "timezone": "Asia/Shanghai",
   "categories": [
     {
@@ -84,7 +84,7 @@
       "creativity_score": null,
       "source_notes": "YouTube 官方频道 2026-10-15 发布；X 同步 https://x.com/Kling_ai/status/2110747526840361191",
       "week_id": "2026-W42",
-      "weekly_slot": null
+      "weekly_slot": "hottest"
     },
     {
       "id": "2026-10-16-cadillacs-and-dinosaurs-the-movie-80s-kling-4-0",
@@ -116,7 +116,7 @@
       "creativity_score": null,
       "source_notes": "YouTube 2026-10-15 发布，约 7 分钟；X 帖 https://x.com/techhalla/status/2110806819937378773",
       "week_id": "2026-W42",
-      "weekly_slot": null
+      "weekly_slot": "influential"
     },
     {
       "id": "2026-10-16-one-photo-15s-commercial-magnific-one-seedance-2",
@@ -407,7 +407,7 @@
       "creativity_score": null,
       "source_notes": "YouTube 简介列出全部工具与赛事",
       "week_id": "2026-W42",
-      "weekly_slot": null
+      "weekly_slot": "creative"
     },
     {
       "id": "2026-10-14-storm-elixir-elevator-spec-ad",
@@ -3441,28 +3441,26 @@
           "slot": "hottest",
           "label": "最热",
           "tagline": "本周讨论最多、传播最广的一条",
-          "video_id": null,
-          "reason": ""
+          "video_id": "2026-10-16-king-card-made-with-kling-4-0",
+          "reason": "本周最大话题是 Kling 4.0 全量开放，这是可灵配合发布的官方片。"
         },
         {
           "slot": "influential",
           "label": "最影响力",
           "tagline": "最可能改变行业做法或品牌预期的一条",
-          "video_id": null,
-          "reason": ""
+          "video_id": "2026-10-16-cadillacs-and-dinosaurs-the-movie-80s-kling-4-0",
+          "reason": "用 Kling 4.0 Omni Reference 让演员在近 7 分钟里保持一致，是经典游戏 IP 真人化的样板。"
         },
         {
           "slot": "creative",
           "label": "最有创意",
           "tagline": "点子最新、落点最准的一条",
-          "video_id": null,
-          "reason": ""
+          "video_id": "2026-10-14-live-in-reverse-an-ai-short-film-in-one-shot-all",
+          "reason": "48 小时 GenJam 命题作品，一镜到底、全片倒放来讲「离开」。"
         }
       ],
       "candidate_count": 24,
       "alternates": [
-        "2026-10-16-king-card-made-with-kling-4-0",
-        "2026-10-16-cadillacs-and-dinosaurs-the-movie-80s-kling-4-0",
         "2026-10-16-one-photo-15s-commercial-magnific-one-seedance-2",
         "2026-10-16-american-express-spec-ad-don-t-leave-home-withou",
         "2026-10-16-libufan-disney-style-ai-animation",
@@ -3471,7 +3469,6 @@
         "2026-10-15-ninja-blendsense-spec-ad",
         "2026-10-15-ai-fashion-editorial-seedance-2-5",
         "2026-10-15-the-ballon-d-or-heist-ai-football-movie",
-        "2026-10-14-live-in-reverse-an-ai-short-film-in-one-shot-all",
         "2026-10-14-storm-elixir-elevator-spec-ad",
         "2026-10-14-the-shape-of-speed-15s-ai-sneaker-concept-ad",
         "2026-10-14-mandarin-language-ai-music-short-film",
