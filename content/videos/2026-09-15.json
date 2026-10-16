@@ -1,0 +1,60 @@
+[
+  {
+    "id": "2026-09-15-houxiyouji-trailer",
+    "title": "《后西游记》定档预告",
+    "url": "https://www.mgtv.com/b/900162/24592408.html",
+    "platform": "web",
+    "author": "芒果TV",
+    "orientation": "landscape",
+    "category": "ai-short-film",
+    "tags": [
+      "定档预告",
+      "2.35:1",
+      "神话 IP"
+    ],
+    "intro_zh": "【背景】芒果TV 剧集《后西游记》官方定档预告，约 140 秒，2.35:1 宽幅，平台正式宣发物料。【制作】预告以生成影像呈现角色与场面；官方未公开具体模型与制作流程。【创意构思】用长预告节奏卖世界观：白毛通臂仙等角色特写与群妖、云海、宫阙大场面交替，而不是堆特效镜头。",
+    "intro_background": "芒果TV 剧集《后西游记》官方定档预告，约 140 秒，2.35:1 宽幅，平台正式宣发物料。",
+    "intro_production": "预告以生成影像呈现角色与场面；官方未公开具体模型与制作流程。",
+    "intro_concept": "用长预告节奏卖世界观：白毛通臂仙等角色特写与群妖、云海、宫阙大场面交替，而不是堆特效镜头。",
+    "collected_date": "2026-09-15",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-houxiyouji-a.gif",
+    "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-houxiyouji-b.gif",
+    "cover_url": "",
+    "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-houxiyouji-src.mp4",
+    "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/03-houxiyouji-src.mp4",
+    "video_download_note": "",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs；原片为芒果TV vid 24592408（1280x546，140s）。"
+  },
+  {
+    "id": "2026-09-15-motorola-india-100-ai",
+    "title": "Motorola India「100% AI」品牌片",
+    "url": "https://youtu.be/0uF69-ZyNYc",
+    "platform": "youtube",
+    "author": "Motorola India",
+    "orientation": "landscape",
+    "category": "ai-ad",
+    "tags": [
+      "全片生成",
+      "消费电子",
+      "品牌片"
+    ],
+    "intro_zh": "【背景】Motorola India 官方频道 7 月为 edge 70 Max 上市发布的品牌片，配合 Flipkart 首发宣传。【制作】收录时按「100% AI」品牌片归档；官方说明只讲产品参数，未披露制作工具。【创意构思】不解释技术，直接用超现实场景切换卖手机：材质近景、人物换装与产品旋转一气呵成，是全片生成进入日常营销的样本。",
+    "intro_background": "Motorola India 官方频道 7 月为 edge 70 Max 上市发布的品牌片，配合 Flipkart 首发宣传。",
+    "intro_production": "收录时按「100% AI」品牌片归档；官方说明只讲产品参数，未披露制作工具。",
+    "intro_concept": "不解释技术，直接用超现实场景切换卖手机：材质近景、人物换装与产品旋转一气呵成，是全片生成进入日常营销的样本。",
+    "collected_date": "2026-09-15",
+    "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/04-motorola-a.gif",
+    "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/04-motorola-b.gif",
+    "cover_url": "",
+    "source_video_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/04-motorola-src.mp4",
+    "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/vol11-gifs/motorola.mp4",
+    "video_download_note": "",
+    "heat_score": null,
+    "influence_score": null,
+    "creativity_score": null,
+    "source_notes": "示例数据。GIF 取自仓库 Release vol11-gifs；第二条成片 https://youtu.be/1iO2mqArf4s 。"
+  }
+]

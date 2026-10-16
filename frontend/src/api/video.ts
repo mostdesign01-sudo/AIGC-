@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-const API_BASE = 'https://aigc-creative.onrender.com/api/v1'
+// 旧版爬虫接口客户端（首页已不再依赖）。API 地址由 VITE_API_BASE 决定，未配置时回落到历史 Render 地址。
+const API_ROOT = (import.meta.env.VITE_API_BASE as string | undefined)?.replace(/\/+$/, '') || 'https://aigc-creative.onrender.com'
+const API_BASE = `${API_ROOT}/api/v1`
 
 export interface Video {
   id: number
