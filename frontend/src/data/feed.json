@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T02:01:26+00:00",
+  "generated_at": "2026-10-19T01:55:52+00:00",
   "timezone": "Asia/Shanghai",
   "categories": [
     {
@@ -54,6 +54,168 @@
     }
   },
   "videos": [
+    {
+      "id": "2026-10-19-glow-up-energy-drink-seedance-2-5-tv-spec",
+      "title": "Glow Up Energy Drink · Seedance 2.5 TV Spec",
+      "url": "https://x.com/IsabellaHan_/status/2111452727184085090",
+      "platform": "x",
+      "author": "Isabella",
+      "orientation": "landscape",
+      "category": "ai-ad",
+      "tags": [
+        "Seedance 2.5",
+        "能量饮料",
+        "TV Spec",
+        "角色连贯"
+      ],
+      "intro_zh": "【背景】Isabella（@IsabellaHan_）发布的非官方能量饮料 TV Spec，演示角色、产品与环境一致性。【制作】ByteDance Seedance 2.5 全片生成；片长约 17 秒。【创意构思】用能量饮料广告验证「角色连贯 + 产品连贯 + 商业摄影」可一镜成片。",
+      "intro_background": "Isabella（@IsabellaHan_）发布的非官方能量饮料 TV Spec，演示角色、产品与环境一致性。",
+      "intro_production": "ByteDance Seedance 2.5 全片生成；片长约 17 秒。",
+      "intro_concept": "用能量饮料广告验证「角色连贯 + 产品连贯 + 商业摄影」可一镜成片。",
+      "collected_date": "2026-10-19",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-19/glow-up-energy-seedance-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-19/glow-up-energy-seedance-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-19/glow-up-energy-seedance.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "X 帖 2026-10-17；虚构品牌 Glow Up Energy Drink",
+      "week_id": "2026-W43",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-19-tesla-roadster-spec-lovart-seedance-2-5",
+      "title": "Tesla Roadster Spec · Lovart × Seedance 2.5",
+      "url": "https://x.com/mpumzi_rozani/status/2111486776862818519",
+      "platform": "x",
+      "author": "Mpumzi_Rozani",
+      "orientation": "landscape",
+      "category": "ai-ad",
+      "tags": [
+        "Seedance 2.5",
+        "Lovart",
+        "Tesla",
+        "汽车广告",
+        "Spec"
+      ],
+      "intro_zh": "【背景】Mpumzi Rozani 作为 Lovart AI Creative Partner 的十月提案片，非官方 Tesla 广告。【制作】Seedance 2.5 on Lovart AI；片长约 36 秒。【创意构思】把 Roadster 做成可发行级汽车广告节奏，展示平台创作者计划成片能力。",
+      "intro_background": "Mpumzi Rozani 作为 Lovart AI Creative Partner 的十月提案片，非官方 Tesla 广告。",
+      "intro_production": "Seedance 2.5 on Lovart AI；片长约 36 秒。",
+      "intro_concept": "把 Roadster 做成可发行级汽车广告节奏，展示平台创作者计划成片能力。",
+      "collected_date": "2026-10-19",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-19/tesla-roadster-lovart-seedance-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-19/tesla-roadster-lovart-seedance-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-19/tesla-roadster-lovart-seedance.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "X 帖 2026-10-17；Lovart Creative Partner October submission",
+      "week_id": "2026-W43",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-19-a-burger-ad-turned-into-a-psa-seedance",
+      "title": "A Burger Ad Turned Into a PSA · Seedance",
+      "url": "https://x.com/Edenwoodfilm/status/2111606033236037807",
+      "platform": "x",
+      "author": "Adil",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "Seedance 2.0",
+        "PSA",
+        "叙事短片",
+        "广告反转"
+      ],
+      "intro_zh": "【背景】Edenwoodfilm（@Edenwoodfilm / Adil）叙事短片：汉堡广告反转为公益 PSA。【制作】Seedance 2.0（帖文注明）；片长约 24 秒。【创意构思】用广告语汇讲社会议题，展示 AI 短片的叙事转向。",
+      "intro_background": "Edenwoodfilm（@Edenwoodfilm / Adil）叙事短片：汉堡广告反转为公益 PSA。",
+      "intro_production": "Seedance 2.0（帖文注明）；片长约 24 秒。",
+      "intro_concept": "用广告语汇讲社会议题，展示 AI 短片的叙事转向。",
+      "collected_date": "2026-10-19",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-19/burger-ad-psa-seedance-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-19/burger-ad-psa-seedance-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-19/burger-ad-psa-seedance.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "X 帖 2026-10-17；标题自带 Seedance 2.0",
+      "week_id": "2026-W43",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-19-tesla-roadster-wall-kling4",
+      "title": "Tesla Roadster 贴墙倒挂 · Kling 4.0 + 3D 白模",
+      "url": "https://x.com/geek_zard/status/2111479966580019388",
+      "platform": "x",
+      "author": "geekzard",
+      "orientation": "landscape",
+      "category": "new-model",
+      "tags": [
+        "Kling",
+        "4.0",
+        "3D白模",
+        "Tesla",
+        "工艺向"
+      ],
+      "intro_zh": "【背景】geekzard（@geek_zard）用可灵 4.0 做的 Roadster 隧道贴墙/倒挂驾驶短片；国内创作者工艺向。【制作】先用 3D 白模做出精确运动轨迹，再交 Kling 4.0「蒙皮」成实拍感；纯提示词控不住反直觉动作。【创意构思】「质感交给提示词，运动交给白模」——新模型与传统 3D 管线混用。",
+      "intro_background": "geekzard（@geek_zard）用可灵 4.0 做的 Roadster 隧道贴墙/倒挂驾驶短片；国内创作者工艺向。",
+      "intro_production": "先用 3D 白模做出精确运动轨迹，再交 Kling 4.0「蒙皮」成实拍感；纯提示词控不住反直觉动作。",
+      "intro_concept": "「质感交给提示词，运动交给白模」——新模型与传统 3D 管线混用。",
+      "collected_date": "2026-10-19",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-19/tesla-roadster-wall-kling4-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-19/tesla-roadster-wall-kling4-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-19/tesla-roadster-wall-kling4.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "X 帖 2026-10-17；心得摘自作者原文",
+      "week_id": "2026-W43",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-19-ancient-sages-office-workers",
+      "title": "当古代圣贤遇上现代牛马 · ComfyUI",
+      "url": "https://x.com/hohomngkj148497/status/2111385534304239934",
+      "platform": "x",
+      "author": "龚浩 Snail｜AI影像创作",
+      "orientation": "landscape",
+      "category": "ai-short-film",
+      "tags": [
+        "ComfyUI",
+        "古今反差",
+        "国内AI影像",
+        "职场梗"
+      ],
+      "intro_zh": "【背景】龚浩/Snail（@hohomngkj148497）国内 AI 影像短片：夫子与当代打工人六轮问答。【制作】ComfyUI；帖文提到「墨青书阁·暖晕人像」Skill，并公开 11 张分镜与提示词包。【创意构思】古今反差对白，把职场梗嵌进古装课堂。",
+      "intro_background": "龚浩/Snail（@hohomngkj148497）国内 AI 影像短片：夫子与当代打工人六轮问答。",
+      "intro_production": "ComfyUI；帖文提到「墨青书阁·暖晕人像」Skill，并公开 11 张分镜与提示词包。",
+      "intro_concept": "古今反差对白，把职场梗嵌进古装课堂。",
+      "collected_date": "2026-10-19",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-19/ancient-sages-office-workers-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-19/ancient-sages-office-workers-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-19/ancient-sages-office-workers.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "X 帖 2026-10-17；分镜与提示词包见帖内链接",
+      "week_id": "2026-W43",
+      "weekly_slot": null
+    },
     {
       "id": "2026-10-16-king-card-made-with-kling-4-0",
       "title": "KING CARD · Made with Kling 4.0",
@@ -3300,6 +3462,11 @@
   ],
   "days": [
     {
+      "date": "2026-10-19",
+      "week_id": "2026-W43",
+      "count": 5
+    },
+    {
       "date": "2026-10-16",
       "week_id": "2026-W42",
       "count": 5
@@ -3431,6 +3598,43 @@
     }
   ],
   "weeks": [
+    {
+      "week_id": "2026-W43",
+      "start": "2026-10-19",
+      "end": "2026-10-25",
+      "note": "",
+      "picks": [
+        {
+          "slot": "hottest",
+          "label": "最热",
+          "tagline": "本周讨论最多、传播最广的一条",
+          "video_id": null,
+          "reason": ""
+        },
+        {
+          "slot": "influential",
+          "label": "最影响力",
+          "tagline": "最可能改变行业做法或品牌预期的一条",
+          "video_id": null,
+          "reason": ""
+        },
+        {
+          "slot": "creative",
+          "label": "最有创意",
+          "tagline": "点子最新、落点最准的一条",
+          "video_id": null,
+          "reason": ""
+        }
+      ],
+      "candidate_count": 5,
+      "alternates": [
+        "2026-10-19-glow-up-energy-drink-seedance-2-5-tv-spec",
+        "2026-10-19-tesla-roadster-spec-lovart-seedance-2-5",
+        "2026-10-19-a-burger-ad-turned-into-a-psa-seedance",
+        "2026-10-19-tesla-roadster-wall-kling4",
+        "2026-10-19-ancient-sages-office-workers"
+      ]
+    },
     {
       "week_id": "2026-W42",
       "start": "2026-10-12",
