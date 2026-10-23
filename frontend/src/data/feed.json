@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T02:04:01+00:00",
+  "generated_at": "2026-10-23T02:07:26+00:00",
   "timezone": "Asia/Shanghai",
   "categories": [
     {
@@ -182,7 +182,7 @@
       "creativity_score": null,
       "source_notes": "X 帖 2026-10-21；管线披露完整",
       "week_id": "2026-W43",
-      "weekly_slot": null
+      "weekly_slot": "creative"
     },
     {
       "id": "2026-10-23-the-distance",
@@ -278,7 +278,7 @@
       "creativity_score": null,
       "source_notes": "X 帖 2026-10-21 12:46（北京时间）；X 最高仅 720p",
       "week_id": "2026-W43",
-      "weekly_slot": null
+      "weekly_slot": "hottest"
     },
     {
       "id": "2026-10-22-renault-r8-gordini-spec-dreamina",
@@ -344,7 +344,7 @@
       "creativity_score": null,
       "source_notes": "X 帖 2026-10-21 12:52（北京时间）；GIF 上段为片中 Kling 3.0 Generation 画面，下段为 Kling 4.0 样片",
       "week_id": "2026-W43",
-      "weekly_slot": null
+      "weekly_slot": "influential"
     },
     {
       "id": "2026-10-22-krea3-ecommerce-product",
@@ -4382,22 +4382,22 @@
           "slot": "hottest",
           "label": "最热",
           "tagline": "本周讨论最多、传播最广的一条",
-          "video_id": null,
-          "reason": ""
+          "video_id": "2026-10-22-adidas-greatness-worn-in-spec",
+          "reason": "Mud Studio 为 adidas 做的非官方棒球 spec：逆转夜场 +「伟大是磨出来的」，体育冲突感完整，本周传播最亮。"
         },
         {
           "slot": "influential",
           "label": "最影响力",
           "tagline": "最可能改变行业做法或品牌预期的一条",
-          "video_id": null,
-          "reason": ""
+          "video_id": "2026-10-22-kling4-sungsoo-kim-kafka-subway",
+          "reason": "可灵官方创作者案例：金星洙用同一场地铁巨虫戏对照 Kling 3.0 与 4.0，是新模型物理交互能力的样板。"
         },
         {
           "slot": "creative",
           "label": "最有创意",
           "tagline": "点子最新、落点最准的一条",
-          "video_id": null,
-          "reason": ""
+          "video_id": "2026-10-23-spec-fraimes",
+          "reason": "Fraimes 为虚构邻里咖啡馆搭完整管线（静帧→动效→声画→代码剪辑），把不存在的品牌做成有温度的社区提案。"
         }
       ],
       "candidate_count": 28,
@@ -4405,12 +4405,9 @@
         "2026-10-23-odyssey-kling-4-0",
         "2026-10-23-borrowed-future-ai",
         "2026-10-23-ride-the-sunstream",
-        "2026-10-23-spec-fraimes",
         "2026-10-23-the-distance",
         "2026-10-23-kolbo-ai-kling-4-0",
-        "2026-10-22-adidas-greatness-worn-in-spec",
         "2026-10-22-renault-r8-gordini-spec-dreamina",
-        "2026-10-22-kling4-sungsoo-kim-kafka-subway",
         "2026-10-22-krea3-ecommerce-product",
         "2026-10-22-claude-duet-3d-code-animation",
         "2026-10-22-guangmingding-seedance-wuxia",
