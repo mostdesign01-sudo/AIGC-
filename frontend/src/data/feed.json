@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T03:58:49+00:00",
+  "generated_at": "2026-10-26T05:26:05+00:00",
   "timezone": "Asia/Shanghai",
   "categories": [
     {
@@ -411,6 +411,107 @@
       "influence_score": null,
       "creativity_score": null,
       "source_notes": "X 帖 2026-10-11；Outfit Morph workflow",
+      "week_id": "2026-W44",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-26-actionway-redlight-outfit",
+      "title": "红灯人行道六套 · Claude+Actionway",
+      "url": "https://x.com/Actionwayai/status/2102393000726822957",
+      "platform": "x",
+      "author": "Actionway (@Actionwayai)",
+      "orientation": "vertical",
+      "category": "fashion",
+      "tags": [
+        "Claude",
+        "Actionway",
+        "换装",
+        "人行道",
+        "lookbook"
+      ],
+      "intro_zh": "【背景】创作者 Actionway（@Actionwayai）的人行道换装演示成片，非品牌客户片；帖文写明 Claude + Actionway 工作流。【制作】帖文写明 Claude + Actionway；约 15 秒竖版，固定机位，前景车辆擦镜瞬间切装。【创意构思】红灯行人灯旁锁镜，五次车辆遮挡擦出六套秋冬街拍，把「等绿灯」做成连续 lookbook。",
+      "intro_background": "创作者 Actionway（@Actionwayai）的人行道换装演示成片，非品牌客户片；帖文写明 Claude + Actionway 工作流。",
+      "intro_production": "帖文写明 Claude + Actionway；约 15 秒竖版，固定机位，前景车辆擦镜瞬间切装。",
+      "intro_concept": "红灯行人灯旁锁镜，五次车辆遮挡擦出六套秋冬街拍，把「等绿灯」做成连续 lookbook。",
+      "collected_date": "2026-10-26",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-26/actionway-redlight.gif",
+      "gif_b_url": "",
+      "cover_url": "",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-26/actionway-redlight.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "X 帖；Claude + Actionway；红灯人行道六套",
+      "week_id": "2026-W44",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-26-plangton-7looks-street",
+      "title": "人行道七套街拍 · Pruna P-Image/P-Video",
+      "url": "https://x.com/PlangtonI/status/2102304575609012644",
+      "platform": "x",
+      "author": "plangtonID (@PlangtonI)",
+      "orientation": "landscape",
+      "category": "fashion",
+      "tags": [
+        "PrunaAI",
+        "P-Image",
+        "P-Video",
+        "换装",
+        "街拍",
+        "editorial"
+      ],
+      "intro_zh": "【背景】创作者 plangtonID（@PlangtonI）的城市人行道 editorial 七套成片，非品牌客户片。【制作】帖文写明 PrunaAI 的 P-Image + P-Video-2-Pro；约 23 秒横版，双段 GIF 预览。【创意构思】同一条人行道走拍连切七套 mood（vintage／oversized／彩色混搭），像移动的街拍 editorial。",
+      "intro_background": "创作者 plangtonID（@PlangtonI）的城市人行道 editorial 七套成片，非品牌客户片。",
+      "intro_production": "帖文写明 PrunaAI 的 P-Image + P-Video-2-Pro；约 23 秒横版，双段 GIF 预览。",
+      "intro_concept": "同一条人行道走拍连切七套 mood（vintage／oversized／彩色混搭），像移动的街拍 editorial。",
+      "collected_date": "2026-10-26",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-26/plangton-7looks-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-26/plangton-7looks-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-26/plangton-7looks.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "X 帖；PrunaAI P-Image + P-Video-2-Pro；七套人行道",
+      "week_id": "2026-W44",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-26-zentrix-10dest-travel",
+      "title": "十目的地旅行换装 · Seedance 2.5",
+      "url": "https://x.com/ZentrixHQ/status/2114367685286851069",
+      "platform": "x",
+      "author": "Zentrix (@ZentrixHQ)",
+      "orientation": "landscape",
+      "category": "fashion",
+      "tags": [
+        "Seedance",
+        "2.5",
+        "makeugc",
+        "换装",
+        "旅行",
+        "lookbook"
+      ],
+      "intro_zh": "【背景】创作者 Zentrix（@ZentrixHQ）的旅行 lookbook 成片，非品牌客户片；帖文写明 Seedance 2.5（makeugc）。【制作】帖文写明 Seedance 2.5（makeugc）；约 15–18 秒横版，十个目的地硬切，双段 GIF 预览。【创意构思】同一人约 15 秒逛十国，每切一地换一套；涩谷路口等街景把旅行蒙太奇做成换装节奏。",
+      "intro_background": "创作者 Zentrix（@ZentrixHQ）的旅行 lookbook 成片，非品牌客户片；帖文写明 Seedance 2.5（makeugc）。",
+      "intro_production": "帖文写明 Seedance 2.5（makeugc）；约 15–18 秒横版，十个目的地硬切，双段 GIF 预览。",
+      "intro_concept": "同一人约 15 秒逛十国，每切一地换一套；涩谷路口等街景把旅行蒙太奇做成换装节奏。",
+      "collected_date": "2026-10-26",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-26/zentrix-10dest-a.gif",
+      "gif_b_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-26/zentrix-10dest-b.gif",
+      "cover_url": "",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-26/zentrix-10dest.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "X 帖；Seedance 2.5 on makeugc；10 destinations",
       "week_id": "2026-W44",
       "weekly_slot": null
     },
@@ -4712,7 +4813,7 @@
     {
       "date": "2026-10-26",
       "week_id": "2026-W44",
-      "count": 11
+      "count": 14
     },
     {
       "date": "2026-10-25",
@@ -4904,7 +5005,7 @@
           "reason": ""
         }
       ],
-      "candidate_count": 11,
+      "candidate_count": 14,
       "alternates": [
         "2026-10-26-canada-goose-ritual-engine",
         "2026-10-26-black-vector-the-riviera-escape",
@@ -4916,7 +5017,10 @@
         "2026-10-26-sophia-4seasons-ootd",
         "2026-10-26-john-clothes-ground-seedance",
         "2026-10-26-himazin-10wardrobe-kling",
-        "2026-10-26-thenewblack-outfit-morph"
+        "2026-10-26-thenewblack-outfit-morph",
+        "2026-10-26-actionway-redlight-outfit",
+        "2026-10-26-plangton-7looks-street",
+        "2026-10-26-zentrix-10dest-travel"
       ]
     },
     {
