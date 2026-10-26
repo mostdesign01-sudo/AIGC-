@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T05:26:05+00:00",
+  "generated_at": "2026-10-26T06:07:43+00:00",
   "timezone": "Asia/Shanghai",
   "categories": [
     {
@@ -512,6 +512,72 @@
       "influence_score": null,
       "creativity_score": null,
       "source_notes": "X 帖；Seedance 2.5 on makeugc；10 destinations",
+      "week_id": "2026-W44",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-26-john-paper-commute",
+      "title": "一周通勤·电梯揉纸换装",
+      "url": "https://x.com/johnAGI168/status/2097966617996963890",
+      "platform": "x",
+      "author": "John (@johnAGI168)",
+      "orientation": "vertical",
+      "category": "fashion",
+      "tags": [
+        "Seedance",
+        "2.5",
+        "揉纸",
+        "换装",
+        "电梯",
+        "通勤"
+      ],
+      "intro_zh": "【背景】创作者 John（@johnAGI168）的一周通勤穿搭短片，非品牌客户片；电梯镜面自拍场景。【制作】帖文写明 Seedance 2.5；约 15 秒竖版，人物纸片揉团转场后接静态照片卡点。【创意构思】把人揉成纸团再展开成下一套通勤装，用「纸团」做一周七套换装的硬切借口。",
+      "intro_background": "创作者 John（@johnAGI168）的一周通勤穿搭短片，非品牌客户片；电梯镜面自拍场景。",
+      "intro_production": "帖文写明 Seedance 2.5；约 15 秒竖版，人物纸片揉团转场后接静态照片卡点。",
+      "intro_concept": "把人揉成纸团再展开成下一套通勤装，用「纸团」做一周七套换装的硬切借口。",
+      "collected_date": "2026-10-26",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-26/john-paper-commute.gif",
+      "gif_b_url": "",
+      "cover_url": "",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-26/john-paper-commute.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "X 帖；SEEDANCE 2.5｜一周通勤穿搭·揉纸换装",
+      "week_id": "2026-W44",
+      "weekly_slot": null
+    },
+    {
+      "id": "2026-10-26-troovex-paper-fold",
+      "title": "街边纸折换装",
+      "url": "https://x.com/troovex/status/2105999509364838402",
+      "platform": "x",
+      "author": "troovex (@troovex)",
+      "orientation": "vertical",
+      "category": "fashion",
+      "tags": [
+        "揉纸",
+        "纸折",
+        "换装",
+        "OOTD"
+      ],
+      "intro_zh": "【背景】创作者 troovex（@troovex）的街边纸折换装短片，非品牌客户片。【制作】制作工具未公开；约 10 秒竖版。【创意构思】人像纸片向内对折收成一团再展开成下一套，把「折纸」做成可复刻的换装转场。",
+      "intro_background": "创作者 troovex（@troovex）的街边纸折换装短片，非品牌客户片。",
+      "intro_production": "制作工具未公开；约 10 秒竖版。",
+      "intro_concept": "人像纸片向内对折收成一团再展开成下一套，把「折纸」做成可复刻的换装转场。",
+      "collected_date": "2026-10-26",
+      "gif_a_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-26/troovex-paper-fold.gif",
+      "gif_b_url": "",
+      "cover_url": "",
+      "source_video_url": "",
+      "video_download_url": "https://github.com/mostdesign01-sudo/AIGC-/releases/download/daily-2026-10-26/troovex-paper-fold.mp4",
+      "video_download_note": "",
+      "heat_score": null,
+      "influence_score": null,
+      "creativity_score": null,
+      "source_notes": "X 帖；纸折换装机制（body folds into paper）",
       "week_id": "2026-W44",
       "weekly_slot": null
     },
@@ -4813,7 +4879,7 @@
     {
       "date": "2026-10-26",
       "week_id": "2026-W44",
-      "count": 14
+      "count": 16
     },
     {
       "date": "2026-10-25",
@@ -5005,7 +5071,7 @@
           "reason": ""
         }
       ],
-      "candidate_count": 14,
+      "candidate_count": 16,
       "alternates": [
         "2026-10-26-canada-goose-ritual-engine",
         "2026-10-26-black-vector-the-riviera-escape",
@@ -5020,7 +5086,9 @@
         "2026-10-26-thenewblack-outfit-morph",
         "2026-10-26-actionway-redlight-outfit",
         "2026-10-26-plangton-7looks-street",
-        "2026-10-26-zentrix-10dest-travel"
+        "2026-10-26-zentrix-10dest-travel",
+        "2026-10-26-john-paper-commute",
+        "2026-10-26-troovex-paper-fold"
       ]
     },
     {
