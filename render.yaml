@@ -7,6 +7,12 @@ services:
     buildCommand: cd backend && pip install -r requirements.txt
     startCommand: cd backend && python run.py
     envVars:
+      # pydantic==2.5.0 requires pydantic-core==2.14.1 (wheels only through cp312).
+      # A bare runtime.txt of "3.12" is not applied; this service was created
+      # 2026-04-20, so Render's default interpreter is 3.14.x and the pip build
+      # exits 1 while compiling pydantic-core. Fully qualified; overrides .python-version.
+      - key: PYTHON_VERSION
+        value: "3.12.11"
       - key: QINIU_ACCESS_KEY
         sync: false
       - key: QINIU_SECRET_KEY
