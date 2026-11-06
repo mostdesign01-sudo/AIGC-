@@ -1,0 +1,10 @@
+{
+  "title": "19F · PRODUCT",
+  "note": "把 POIZON_统一产品互动演示 解压到本目录后，按下面格式补 src 即可嵌进 19F 工位屏。",
+  "demos": [
+    { "id": "tee",    "name": "11 周年 T 恤", "en": "ANNIVERSARY TEE", "mode": "three", "case": 0 },
+    { "id": "box",    "name": "物流箱",       "en": "LOGISTICS BOX",   "mode": "three", "case": 1 },
+    { "id": "trophy", "name": "奖杯 AR",      "en": "TROPHY AR",       "mode": "three", "case": 2 },
+    { "id": "nono",   "name": "NONO 盲盒",    "en": "NONO BLINDBOX",   "mode": "three", "case": 3 }
+  ]
+}

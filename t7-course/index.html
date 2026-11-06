@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>走进 HTML：一份内容，三种交付 · 得物 T7</title>
+<link rel="icon" href="assets/brand/dewu-logo-app.png">
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div id="scroll-track" aria-hidden="true"></div>
+
+<div id="stage" aria-label="T7 课程影像">
+  <div id="stills"></div>
+  <canvas id="atmosphere" aria-hidden="true"></canvas>
+  <div id="fg-layers" aria-hidden="true">
+    <img id="fg-branch" class="fg" src="assets/fg/branch.png" alt="">
+    <img id="fg-shrub" class="fg" src="assets/fg/shrub.png" alt="">
+  </div>
+  <div id="vignette"></div>
+  <div id="enter-veil"></div>
+</div>
+
+<div id="deck-slot" class="diegetic" aria-label="19F 会议室主屏">
+  <canvas id="deck-canvas" width="1440" height="752"></canvas>
+</div>
+
+<div id="product-slot" class="diegetic" aria-label="19F 工位产品演示">
+  <div class="product-chrome"><span>19F · PRODUCT</span><span>HTML</span></div>
+  <div class="product-view">
+    <iframe id="product-frame" title="产品演示" hidden></iframe>
+    <canvas id="lab-gl" aria-label="互动产品模型"></canvas>
+  </div>
+</div>
+
+<div id="cinema-slot" class="diegetic" aria-label="19F 放映银幕">
+  <video id="hf-video" src="assets/video/hyperframes-demo.mp4" playsinline preload="auto" loop></video>
+</div>
+
+<div id="loader">
+  <img src="assets/brand/dewu-logo-app.png" alt="得物" class="loader-logo">
+  <div class="loader-kicker">CHAPTER 00 · 门前</div>
+  <div class="loader-title">走进 HTML</div>
+  <div class="loader-sub" id="loader-sub">正在升起 T7 · 0%</div>
+  <div class="loader-bar"><div class="loader-bar-fill" id="loader-fill"></div></div>
+  <button id="enter-btn" class="enter-btn" disabled>正在升起…</button>
+  <div class="loader-hint">滚动走进广场 · 只有直梯 · 设计部与 CEO 在 19F</div>
+</div>
+
+<header id="hud-top" class="hud">
+  <div class="hud-brand">
+    <img src="assets/brand/dewu-logo-app.png" alt="得物">
+    <span class="hud-course">走进 HTML<em>一份内容，三种交付</em></span>
+  </div>
+  <div class="hud-status">
+    <span id="hud-floor">GF · 广场</span>
+    <span class="hud-sep"></span>
+    <span id="hud-chapter">01 / T7 外景</span>
+  </div>
+  <div class="hud-actions">
+    <button id="btn-audio" class="hud-btn" title="声音开关">声音 关</button>
+    <button id="btn-motion" class="hud-btn" title="减少动画">动效 全</button>
+    <button id="btn-top" class="hud-btn" title="返回首屏">返回顶部</button>
+  </div>
+</header>
+
+<nav id="chapter-nav" aria-label="章节进度">
+  <div class="nav-line"><div id="nav-line-fill"></div></div>
+</nav>
+
+<main id="content"></main>
+
+<div id="lab-panel" class="panel hidden-panel">
+  <div class="lab-cases" id="lab-cases"></div>
+  <div class="lab-variants" id="lab-variants"></div>
+  <div class="panel-tip" id="lab-tip">工位屏里的产品可拖转 / 换色</div>
+</div>
+
+<div id="cinema-panel" class="panel hidden-panel">
+  <div class="cinema-controls">
+    <button id="video-play" class="cine-btn">播放</button>
+    <button id="video-restart" class="cine-btn">重播</button>
+    <button id="video-fs" class="cine-btn">全屏</button>
+  </div>
+  <div class="cinema-progress"><div id="cinema-progress-fill"></div></div>
+</div>
+
+<div id="scroll-cue">滚动进入<span></span></div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "./assets/vendor/three.module.js",
+  "gltfloader": "./assets/vendor/GLTFLoader.js"
+} }
+</script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
