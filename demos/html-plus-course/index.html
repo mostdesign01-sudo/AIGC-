@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML+：AI 时代的工作表达新方式</title>
+  <style>
+    :root {
+      /* Klein brand — overrides Linear lavender */
+      --klein: #002FA7;
+      --klein-deep: #002fa7;
+      --klein-hover: #1a4bc4;
+      --klein-pressed: #00268c;
+      --klein-ink: #002FA7;
+      --aurora: #01c2c3;
+
+      /* Linear inverse ladder → light classroom */
+      --bg: #f5f6f6;
+      --stage: #ffffff;
+      --surface-1: #ffffff;
+      --surface-2: #f6f7f7;
+      --surface-3: #eef0f1;
+      --ink: #0a0b0d;
+      --text: #0a0b0d;
+      --soft: #3c4043;
+      --dim: #62666d;
+      --faint: rgba(10, 11, 13, 0.06);
+      --line: #e4e6e8;
+      --line-strong: #d0d3d6;
+
+      /* Linear type / space / radius */
+      --sans: "SF Pro Display", "SF Pro Text", "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", "Droid Sans Fallback", Inter, -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+      --mono: ui-monospace, "SF Mono", Menlo, "JetBrains Mono", monospace;
+      --r-xs: 4px;
+      --r-sm: 6px;
+      --r-md: 8px;
+      --r-lg: 12px;
+      --r-xl: 16px;
+      --space-xxs: 4px;
+      --space-xs: 8px;
+      --space-sm: 12px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --shadow-1: 0 0 0 1px #e4e6e8;
+      --shadow-2: 0 0 0 1px #d0d3d6, 0 1px 2px rgba(10, 11, 13, 0.04);
+      --focus: 0 0 0 2px rgba(0, 47, 167, 0.5);
+      --rail: 208px;
+      --hud: 64px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: -0.05px;
+      -webkit-font-smoothing: antialiased;
+      color-scheme: light;
+    }
+    @media (min-width: 980px) {
+      html, body { height: 100%; overflow: hidden; }
+    }
+    @media (max-width: 979px) {
+      html, body { height: auto; overflow-x: hidden; overflow-y: auto; }
+    }
+    ::selection { background: var(--klein); color: #fff; }
+    button, textarea { font-family: inherit; color: inherit; }
+    button { appearance: none; background: none; border: 0; }
+    button:focus-visible,
+    .copy-row button:focus-visible,
+    .nav-btns button:focus-visible,
+    .notes-btn:focus-visible,
+    .roles button:focus-visible {
+      outline: 2px solid rgba(0, 47, 167, 0.5);
+      outline-offset: 2px;
+    }
+
+    .app {
+      height: 100%;
+      display: grid;
+      grid-template-columns: var(--rail) 1fr;
+      grid-template-rows: 1fr;
+    }
+
+    .rail {
+      padding: 24px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: var(--klein);
+      color: #fff;
+    }
+    .rail-brand {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.4;
+    }
+    .rail-brand b {
+      display: block;
+      margin-top: 8px;
+      font-size: 22px;
+      letter-spacing: -0.4px;
+      font-weight: 600;
+      color: #fff;
+      text-transform: none;
+      line-height: 1.25;
+    }
+    .rail-tick {
+      width: 16px;
+      height: 2px;
+      background: var(--aurora);
+      margin: 16px 0 24px;
+    }
+    .rail nav { display: flex; flex-direction: column; gap: 4px; }
+    .rail .ch {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 8px;
+      align-items: baseline;
+      text-align: left;
+      padding: 8px 12px;
+      margin-left: -12px;
+      cursor: pointer;
+      border-left: 2px solid transparent;
+      border-radius: 0 var(--r-md) var(--r-md) 0;
+    }
+    .rail .ch .num {
+      font-variant-numeric: tabular-nums;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .rail .ch .lab {
+      font-size: 14px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.78);
+    }
+    .rail .ch:hover { background: rgba(255, 255, 255, 0.08); }
+    .rail .ch:hover .lab { color: #fff; }
+    .rail .ch.is-on {
+      border-left-color: var(--aurora);
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+    .rail .ch.is-on .num { color: #fff; }
+    .rail .ch.is-on .lab { color: #fff; font-weight: 500; }
+
+    .rail-progress { margin-top: auto; padding-top: 16px; }
+    .rail-progress .meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 8px;
+    }
+    .bar { height: 2px; background: rgba(255, 255, 255, 0.16); position: relative; }
+    .bar > i {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0;
+      background: var(--aurora);
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      min-height: 0;
+      background: var(--bg);
+    }
+    .stage-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 24px 8px;
+      min-height: 0;
+    }
+    .stage {
+      width: min(100%, calc((100vh - 92px) * 16 / 9));
+      aspect-ratio: 16 / 9;
+      background: var(--stage);
+      border: 1px solid var(--line);
+      border-radius: var(--r-xl);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-1);
+    }
+    .stage::after { display: none; }
+
+    .page {
+      display: none;
+      position: absolute;
+      inset: 0;
+      padding: clamp(24px, 3.4vw, 48px) clamp(24px, 3.8vw, 48px);
+      overflow: hidden;
+    }
+    .page.is-on {
+      display: flex;
+      flex-direction: column;
+      animation: in 240ms ease;
+    }
+    @keyframes in {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .page.is-on { animation: none; }
+    }
+
+    .kicker {
+      margin: 0 0 12px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: var(--dim);
+      line-height: 1.3;
+      flex: none;
+    }
+    .kicker em { font-style: normal; color: var(--dim); margin: 0 8px; }
+
+    h1, h2, h3, p { margin: 0; }
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+    }
+    h2 {
+      font-size: clamp(1.375rem, 2.6vw, 1.75rem);
+      font-weight: 600;
+      letter-spacing: -0.6px;
+      line-height: 1.2;
+    }
+    .lede {
+      margin-top: 16px;
+      max-width: 36em;
+      font-size: clamp(15px, 1.4vw, 16px);
+      line-height: 1.5;
+      letter-spacing: -0.05px;
+      color: var(--soft);
+    }
+    .punch {
+      margin-top: auto;
+      padding-top: 16px;
+      font-size: clamp(16px, 1.6vw, 18px);
+      font-weight: 500;
+      letter-spacing: -0.1px;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+    .punch u, .gold u {
+      text-decoration: none;
+      box-shadow: inset 0 -2px 0 var(--aurora);
+    }
+    .gold {
+      font-size: clamp(1.375rem, 3vw, 2.5rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+    }
+
+    .cover {
+      justify-content: center;
+      text-align: left;
+      overflow: hidden;
+    }
+    .cover.klein-field, .center-page.klein-field, .close-page.klein-field {
+      background: var(--klein);
+      color: #fff;
+    }
+    .cover > :not(.door-field) { position: relative; z-index: 3; }
+    .cover .who,
+    .cover h1,
+    .cover .sub,
+    .cover .ask { max-width: 18em; }
+    .cover.klein-field .sub,
+    .cover.klein-field .ask { color: rgba(255, 255, 255, 0.78); }
+    .klein-field .flow-step,
+    .klein-field .chain span,
+    .klein-field .door,
+    .klein-field .qs article {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.16);
+      color: #fff;
+    }
+    .cover.klein-field .beat b {
+      background: transparent;
+      border: 0;
+      color: #fff;
+    }
+    .klein-field .door p, .klein-field .flow p { color: rgba(255, 255, 255, 0.75); }
+    .cover .who {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .cover .sub {
+      margin-top: 16px;
+      font-size: clamp(16px, 1.6vw, 18px);
+      font-weight: 400;
+      color: var(--soft);
+      max-width: 28em;
+      line-height: 1.5;
+      letter-spacing: -0.1px;
+    }
+    .beat {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin: 32px 0 0;
+      flex-wrap: wrap;
+    }
+    .beat b {
+      min-width: 0;
+      padding: 0 2px;
+      border: 0;
+      background: transparent;
+      font-size: 15px;
+      font-weight: 500;
+      text-align: left;
+    }
+    .cover .beat b.is-last {
+      box-shadow: inset 0 -2px 0 var(--aurora);
+      background: transparent;
+      color: #fff;
+    }
+    .beat i {
+      width: 24px;
+      height: 2px;
+      background: var(--aurora);
+      opacity: 1;
+      flex: none;
+    }
+    .ask {
+      margin-top: 24px;
+      font-size: clamp(15px, 1.4vw, 16px);
+      color: var(--soft);
+      max-width: 32em;
+      line-height: 1.5;
+    }
+
+    .center-page {
+      justify-content: center;
+    }
+    .center-page .ch-no {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .watermark {
+      position: absolute;
+      right: 36px;
+      bottom: 20px;
+      font-size: clamp(5rem, 14vw, 10rem);
+      font-weight: 600;
+      letter-spacing: -0.06em;
+      color: rgba(255, 255, 255, 0.08);
+      pointer-events: none;
+      line-height: 1;
+    }
+    .klein-bar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      max-width: none;
+      padding: 8px 12px;
+      background: var(--klein);
+      border-left: 2px solid var(--aurora);
+      color: #fff;
+      font-size: 13px;
+      line-height: 1.4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      z-index: 2;
+    }
+    .klein-bar .punch, .klein-bar .ask, .klein-bar .gold { margin: 0; color: #fff; font-size: inherit; font-weight: 500; }
+    .klein-bar u { text-decoration: none; box-shadow: inset 0 -2px 0 var(--aurora); }
+
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
+    .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px; }
+    .grid6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 16px; }
+
+    .card, .pick, .job, .scene, .dim, .door, .task, .check, .flow-step {
+      background: var(--surface-1);
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+    }
+    .card, .pick, .job, .scene, .dim, .door, .task {
+      padding: 16px 16px 20px;
+      text-align: left;
+      overflow: hidden;
+      min-width: 0;
+    }
+    .page h1, .page h2, .page h3, .page p, .page li, .page .ch-no, .page .klein-bar, .page .prompt pre {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      min-width: 0;
+    }
+    .page [contenteditable] { outline: none; cursor: text; }
+    .page [contenteditable]:focus { outline: 1px dashed rgba(0, 47, 167, 0.22); outline-offset: 3px; }
+    .edit-hint { font-size: 11px; letter-spacing: 0.06em; color: var(--dim); font-weight: 400; }
+    .pick, .job, .scene, .door, .task, .check { cursor: pointer; }
+    .pick, .scene, .task, .door, .job, .card {
+      transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    }
+    .pick:hover, .job:hover, .scene:hover, .door:hover, .task:hover, .card:hover {
+      background: var(--surface-2);
+      border-color: var(--line-strong);
+      box-shadow: var(--shadow-2);
+    }
+    .pick.is-on, .job.is-on, .scene.is-on, .door.is-on, .task.is-on, .dim.is-on {
+      border-color: transparent;
+      background: var(--klein);
+      color: #fff;
+      box-shadow: none;
+    }
+    .pick.is-on p, .scene.is-on p, .task.is-on p, .job.is-on p, .dim.is-on p { color: rgba(255, 255, 255, 0.78); }
+    .tag {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: var(--dim);
+      line-height: 1.4;
+    }
+    .pick.is-on .tag, .job.is-on .tag, .scene.is-on .tag, .task.is-on .tag { color: #fff; }
+    .card h3, .pick h3, .job h3, .scene h3, .dim h3, .door h3, .task h3 {
+      margin-top: 8px;
+      font-size: clamp(16px, 1.4vw, 18px);
+      font-weight: 500;
+      letter-spacing: -0.2px;
+      line-height: 1.25;
+      transition: font-size 160ms ease;
+    }
+    .card:hover h3, .pick:hover h3, .job:hover h3, .scene:hover h3, .door:hover h3, .task:hover h3 {
+      font-size: clamp(17px, 1.55vw, 20px);
+    }
+    .pick.is-on h3, .scene.is-on h3, .task.is-on h3, .job.is-on h3, .door.is-on h3 {
+      font-size: clamp(18px, 1.7vw, 22px);
+    }
+    .card p, .pick p, .job p, .scene p, .dim p, .door p, .task p {
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--soft);
+    }
+
+    .quote {
+      margin-top: 8px;
+      padding: 16px 20px;
+      border-left: 2px solid var(--aurora);
+      background: var(--surface-2);
+      border-radius: 0 var(--r-lg) var(--r-lg) 0;
+      color: var(--ink);
+      font-size: clamp(15px, 1.45vw, 16px);
+      line-height: 1.5;
+      max-width: 42em;
+    }
+
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .pills span {
+      border: 1px solid var(--line);
+      background: var(--surface-1);
+      border-radius: var(--r-sm);
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--soft);
+    }
+
+    .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+    .vs article { padding: 16px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface-1); }
+    .vs .old { color: var(--dim); }
+    .vs .new { border-color: transparent; background: var(--klein); color: #fff; }
+    .vs .lab { font-size: 12px; font-weight: 500; letter-spacing: 0.4px; color: var(--dim); }
+    .vs .new .lab { color: rgba(255, 255, 255, 0.78); }
+    .vs h3 { margin-top: 8px; font-size: 18px; font-weight: 500; letter-spacing: -0.2px; }
+
+    .jobs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
+    .job { min-height: 72px; }
+    .job-out {
+      margin-top: 12px;
+      min-height: 28px;
+      font-size: 14px;
+      color: var(--soft);
+    }
+    .job-out b { color: var(--klein); font-weight: 500; }
+
+    .compare { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 24px; flex: 1; }
+    .compare article {
+      padding: 16px 16px 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      background: var(--surface-1);
+      display: flex;
+      flex-direction: column;
+    }
+    .compare article.is-html {
+      border-color: transparent;
+      background: var(--klein);
+      color: #fff;
+    }
+    .compare .kind { font-size: 12px; font-weight: 500; letter-spacing: 0.4px; color: var(--dim); }
+    .compare article.is-html .kind { color: rgba(255, 255, 255, 0.78); }
+    .compare article.is-html .more { color: rgba(255, 255, 255, 0.75); }
+    .compare h3 { margin-top: 10px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; }
+    .compare .use { margin-top: 12px; font-size: 15px; font-weight: 500; line-height: 1.4; }
+    .compare .more { margin-top: auto; padding-top: 16px; font-size: 13px; color: var(--soft); line-height: 1.5; }
+
+    .flow { display: flex; align-items: stretch; gap: 0; margin-top: 24px; }
+    .flow-step {
+      flex: 1;
+      padding: 16px 12px 16px;
+    }
+    .flow i {
+      width: 14px;
+      align-self: center;
+      height: 2px;
+      background: var(--aurora);
+      opacity: 1;
+      flex: none;
+    }
+    .flow .n { font-size: 12px; font-weight: 500; color: var(--dim); letter-spacing: 0.4px; }
+    .klein-field .flow .n { color: rgba(255, 255, 255, 0.7); }
+    .flow h3 { margin-top: 8px; font-size: 17px; font-weight: 500; }
+    .flow p { margin-top: 6px; font-size: 12px; color: var(--soft); line-height: 1.4; }
+
+    .split { display: grid; grid-template-columns: 1fr 1.05fr; gap: 16px; margin-top: 12px; min-height: 0; flex: 1; }
+    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .demo {
+      border: 1px solid var(--line);
+      border-radius: var(--r-xl);
+      padding: 16px 16px 42px;
+      background: var(--surface-2);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .demo h3 { font-size: 18px; font-weight: 500; letter-spacing: -0.2px; }
+    .roles { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .roles button {
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.2;
+      background: var(--surface-1);
+    }
+    .roles button:hover { background: var(--surface-2); border-color: var(--line-strong); }
+    .roles button.is-on { border-color: transparent; background: var(--klein); color: #fff; }
+    .next-step {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--soft);
+      min-height: 4.6em;
+    }
+    .next-step b { color: var(--ink); }
+
+    .chain { display: flex; align-items: center; gap: 0; margin-top: 32px; }
+    .chain span {
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .chain i { width: 22px; height: 2px; background: var(--aurora); opacity: 1; }
+
+    .scene .more { display: none; margin-top: 10px; }
+    .scene.is-on .more { display: block; }
+
+    .dims { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 24px; }
+    .dim { padding: 16px; }
+    .scene-mini { display: grid; gap: 8px; margin-top: 12px; }
+    .scene-mini button {
+      text-align: left;
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      background: var(--surface-1);
+      color: var(--ink);
+    }
+    .dim.is-on .scene-mini button {
+      border-color: rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+    .scene-mini button.is-on { border-color: transparent; background: #fff; color: var(--klein); }
+
+    .decide { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 16px; margin-top: 16px; flex: 1; }
+    .rows { display: grid; gap: 8px; }
+    .rows li {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: baseline;
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      background: var(--surface-1);
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+    .rows { margin: 0; padding: 0; }
+    .rows b { color: var(--ink); font-weight: 500; }
+    .rows li:last-child { background: var(--klein); color: #fff; border-color: transparent; }
+    .rows li:last-child b { color: #fff; }
+    .checks { display: grid; gap: 8px; }
+    .check {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 8px;
+      align-items: start;
+      padding: 10px 12px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .check .n { color: var(--klein); font-weight: 600; }
+    .check.is-on, .check.is-stop { background: var(--klein); color: #fff; border-color: transparent; }
+    .check.is-on .n, .check.is-stop .n { color: #fff; }
+    .check.is-stop .hint { display: block; margin-top: 6px; font-size: 12px; color: #fff; }
+
+    .doors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 24px; }
+    .door { min-height: 210px; display: flex; flex-direction: column; }
+    .door .go { margin-top: auto; padding-top: 16px; font-size: 12px; letter-spacing: 0.4px; color: var(--dim); }
+    .klein-field .door .go { color: rgba(255, 255, 255, 0.6); }
+
+    .beats4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 16px; }
+    .beats4 button {
+      text-align: left;
+      padding: 12px 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      background: var(--surface-1);
+      cursor: pointer;
+      min-height: 96px;
+      transition: background 160ms ease, border-color 160ms ease;
+    }
+    .beats4 button:hover { background: var(--surface-2); border-color: var(--line-strong); }
+    .beats4 button.is-on { border-color: transparent; background: var(--klein); color: #fff; }
+    .beats4 button.is-on p { color: rgba(255, 255, 255, 0.78); }
+    .beats4 .n { font-size: 12px; font-weight: 500; letter-spacing: 0.4px; color: var(--dim); }
+    .beats4 button.is-on .n { color: #fff; }
+
+    .device {
+      background: var(--surface-1);
+      border: 1px solid var(--line);
+      border-radius: var(--r-xl);
+      display: flex;
+      flex-direction: column;
+      aspect-ratio: 3 / 2;
+      min-height: 0;
+      overflow: hidden;
+      box-shadow: var(--shadow-1);
+    }
+    .device-chrome {
+      height: 22px;
+      flex: none;
+      background: var(--klein);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+    .device-view {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+      background: var(--surface-2);
+      overflow: hidden;
+    }
+    .device-view > .tee,
+    .device-view > .nono-grid,
+    .device-view > .timeline-box {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 118%;
+      object-fit: cover;
+      object-position: top center;
+    }
+    .beats4 h3 { margin-top: 8px; font-size: 16px; font-weight: 500; letter-spacing: -0.2px; }
+    .beats4 p { margin-top: 8px; font-size: 13px; color: var(--soft); line-height: 1.45; }
+
+    .case-extra {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      min-height: 0;
+      flex: 1;
+    }
+    .case-extra .device { width: min(100%, 420px); }
+    .device-view .job-out {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 36px;
+      margin: 0;
+      z-index: 1;
+      font-size: 12px;
+    }
+    .value-line {
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--soft);
+      padding: 12px 0 0;
+    }
+    .value-line b { color: var(--ink); }
+
+    .tee {
+      height: 100%;
+      min-height: 0;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 10%;
+      background: var(--surface-2);
+    }
+    .shirt {
+      width: 118px;
+      height: 124px;
+      position: relative;
+      cursor: grab;
+      transform: perspective(480px) rotateY(var(--ry, 0deg));
+      filter: drop-shadow(0 8px 16px rgba(10, 11, 13, 0.16));
+    }
+    .shirt svg { width: 100%; height: 100%; display: block; }
+    .shirt .mark {
+      position: absolute;
+      left: 50%;
+      top: 44%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: #fff;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    .tee-tools { display: flex; gap: 6px; position: absolute; left: 10px; bottom: 10px; }
+    .tee-tools button {
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      background: var(--surface-1);
+    }
+    .tee-tools button.is-on { border-color: transparent; background: var(--klein); color: #fff; }
+    .tee-cap { position: absolute; right: 10px; bottom: 10px; font-size: 12px; color: var(--dim); }
+
+    .nono-grid {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 6px;
+    }
+    .nono {
+      aspect-ratio: 3 / 4;
+      border: 1px solid var(--line);
+      border-radius: var(--r-xs);
+      background: var(--surface-1);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 6px;
+      font-size: 10px;
+      color: var(--soft);
+      cursor: pointer;
+    }
+    .nono-grid { height: 100%; align-content: center; padding: 10px; }
+    .nono.is-on { border-color: transparent; background: var(--klein); color: #fff; }
+    .nono b { font-size: 12px; }
+
+    .timeline-box {
+      height: 100%;
+      padding: 12px;
+      background: var(--surface-2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .fake-page {
+      height: 88px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      background: var(--surface-1);
+      padding: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      position: relative;
+      overflow: hidden;
+    }
+    .fake-page.is-play .layer {
+      animation: rise 900ms ease both;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
+    }
+    .tl {
+      margin-top: 10px;
+      height: 2px;
+      background: var(--faint);
+      position: relative;
+    }
+    .tl > i {
+      position: absolute;
+      top: -5px;
+      width: 2px;
+      height: 12px;
+      background: var(--aurora);
+      opacity: 0;
+    }
+    .tl.is-on > i { opacity: 1; }
+    .tl-btns { display: flex; gap: 6px; margin-top: 10px; }
+    .tl-btns button {
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      background: var(--surface-1);
+    }
+    .tl-btns button.is-on { border-color: transparent; background: var(--klein); color: #fff; }
+    .hf {
+      display: none;
+      margin-top: 8px;
+      font-size: 10px;
+      letter-spacing: 0.4px;
+      color: var(--dim);
+    }
+    .hf.is-on { display: block; }
+
+    .sum3 { display: grid; gap: 10px; margin-top: 24px; }
+    .sum3 article {
+      display: grid;
+      grid-template-columns: 88px 1fr 1fr 1.3fr;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      background: var(--surface-1);
+      padding: 12px 14px;
+      font-size: 14px;
+    }
+    .sum3 .who { color: #fff; font-weight: 600; background: var(--klein); padding: 8px 10px; border-radius: var(--r-xs); }
+    .sum3 b { color: var(--dim); font-weight: 500; font-size: 12px; letter-spacing: 0.4px; display: block; margin-bottom: 4px; }
+
+    .qs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 24px; }
+    .qs article { padding: 16px 14px; border: 1px solid var(--line); border-radius: var(--r-lg); }
+    .qs h3 { font-size: 18px; font-weight: 500; letter-spacing: -0.2px; }
+
+    .prompt {
+      margin-top: 12px;
+      border-left: 2px solid var(--aurora);
+      background: var(--surface-2);
+      color: var(--ink);
+      padding: 16px 16px 12px;
+      border-radius: 0 var(--r-lg) var(--r-lg) 0;
+    }
+    .prompt pre {
+      margin: 0;
+      white-space: pre-wrap;
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .copy-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+    .copy-row button {
+      border: 0;
+      border-radius: var(--r-md);
+      background: var(--klein);
+      color: #fff;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.2;
+      min-height: 40px;
+    }
+    .copy-row button:hover { background: var(--klein-hover); }
+    .copy-row button:active { background: var(--klein-pressed); }
+    .copy-row span { font-size: 12px; color: var(--dim); }
+    .list4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 16px; }
+    .list4 li {
+      list-style: none;
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      background: var(--surface-1);
+      padding: 10px 12px;
+      font-size: 13px;
+      color: var(--soft);
+    }
+    .list4 { margin-left: 0; padding: 0; }
+
+    .close-page {
+      justify-content: center;
+    }
+    .close-page .who {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .dock {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 8px 24px 16px;
+      color: var(--dim);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+    .dots { display: flex; flex-wrap: wrap; gap: 5px; flex: 1; }
+    .dots button {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--faint);
+      cursor: pointer;
+      padding: 0;
+    }
+    .dots button.is-on { background: var(--klein); }
+    .dots button.is-ch { outline: 2px solid var(--aurora); outline-offset: 2px; }
+    .nav-btns { display: flex; gap: 6px; }
+    .nav-btns button {
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--ink);
+      background: var(--surface-1);
+    }
+    .nav-btns button:hover { background: var(--surface-2); border-color: var(--line-strong); }
+    .nav-btns button { min-height: 40px; }
+    .hint { white-space: nowrap; }
+
+    .notes {
+      display: none;
+      position: fixed;
+      left: var(--rail);
+      right: 0;
+      bottom: 0;
+      background: var(--surface-1);
+      border-top: 1px solid var(--line);
+      padding: 12px 24px 14px;
+      z-index: 20;
+    }
+    .notes.is-on { display: block; }
+    .notes .lab { font-size: 12px; font-weight: 500; letter-spacing: 0.4px; color: var(--klein); }
+    .notes p { margin-top: 6px; font-size: 14px; color: var(--soft); line-height: 1.5; }
+
+    .toast {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      background: var(--klein);
+      border: 0;
+      border-radius: var(--r-md);
+      color: #fff;
+      padding: 8px 14px;
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms;
+      z-index: 30;
+    }
+    .toast.is-on { opacity: 1; }
+
+    /* 门前 — T7 街拍原图未落到磁盘，不使用带 T2 字样的错楼。建筑 + 字，无角色。 */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: var(--klein);
+      overflow: hidden;
+      transition: opacity 0.9s ease, visibility 0.9s;
+    }
+    #loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+    #loader.done .loader-copy { opacity: 0; transition: opacity 0.15s ease; }
+
+    .door-field {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      background: var(--klein);
+    }
+    .door-still {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 22% 16%;
+      transform: scale(1.12);
+      transform-origin: 22% 18%;
+      transition: transform 1.35s cubic-bezier(.16, 1, .3, 1);
+    }
+    .door-field::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0, 47, 167, 0.42) 0%, rgba(0, 47, 167, 0.12) 48%, transparent 72%);
+      pointer-events: none;
+    }
+
+    .cine-word {
+      position: absolute;
+      left: 5vw;
+      top: 16vh;
+      z-index: 3;
+      margin: 0;
+      font-size: clamp(5.5rem, 18vw, 13rem);
+      font-weight: 600;
+      letter-spacing: -0.07em;
+      line-height: 0.82;
+      color: rgba(255, 255, 255, 0.94);
+      pointer-events: none;
+    }
+    .cover > .door-field { z-index: 0; }
+    .cover.is-push .door-still { transform: scale(1.2); }
+    .cover .cine-word { display: none; }
+
+    .loader-copy {
+      position: absolute;
+      left: clamp(24px, 6vw, 88px);
+      bottom: clamp(28px, 9vh, 80px);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      text-align: left;
+      max-width: 28em;
+    }
+    .loader-kicker {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.3;
+    }
+    .loader-title {
+      font-size: clamp(22px, 3.2vw, 32px);
+      letter-spacing: -0.6px;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .loader-sub {
+      max-width: 26em;
+      margin: 0;
+      font-size: clamp(14px, 1.5vw, 16px);
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: -0.05px;
+      color: rgba(255, 255, 255, 0.72);
+    }
+    .loader-bar {
+      width: 48px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.2);
+      overflow: hidden;
+    }
+    .loader-bar-fill {
+      width: 0;
+      height: 100%;
+      background: var(--aurora);
+      transition: width 1s ease;
+    }
+    .loader-bar-fill.is-ready { width: 100%; }
+    .enter-btn {
+      margin-top: 4px;
+      padding: 8px 14px;
+      min-height: 40px;
+      min-width: 120px;
+      background: #fff;
+      color: var(--klein);
+      border: 0;
+      border-radius: var(--r-md);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 1.2;
+      cursor: pointer;
+      transition: background 0.16s ease, box-shadow 0.16s ease;
+    }
+    .enter-btn:hover {
+      background: #f5f6f6;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35), 0 0 28px rgba(255, 255, 255, 0.18);
+    }
+    .enter-btn:active { background: #eef0f1; }
+    .enter-btn:focus-visible { outline: 2px solid rgba(255, 255, 255, 0.5); outline-offset: 2px; }
+    .loader-hint {
+      margin: 0;
+      font-size: 12px;
+      letter-spacing: 0;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .door-still, .cover.is-push .door-still { transform: none !important; transition: none; }
+    }
+    body:not(.started) .rail,
+    body:not(.started) .hud,
+    body:not(.started) .dock {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .hud { display: none; }
+    .notes-btn {
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--ink);
+      background: var(--surface-1);
+      min-height: 40px;
+    }
+    .notes-btn:hover { background: var(--surface-2); border-color: var(--line-strong); }
+    .notes-btn.is-on { background: var(--klein); color: #fff; border-color: transparent; }
+
+    @media (max-width: 979px) {
+      .app {
+        grid-template-columns: 1fr;
+        min-height: 100dvh;
+        padding-bottom: 0;
+      }
+      .rail { display: none; }
+      .hud {
+        display: flex;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 25;
+        background: var(--klein);
+        border-top: 0;
+        min-height: var(--hud);
+      }
+      .hud .ch {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        min-height: 44px;
+        padding: 8px 2px;
+        cursor: pointer;
+      }
+      .hud .ch .num { font-size: 10px; letter-spacing: 0.4px; color: rgba(255, 255, 255, 0.5); }
+      .hud .ch .lab { font-size: 10px; color: rgba(255, 255, 255, 0.78); line-height: 1.2; }
+      .hud .ch.is-on { background: rgba(255, 255, 255, 0.12); box-shadow: inset 0 2px 0 var(--aurora); color: #fff; }
+      .hud .ch.is-on .num, .hud .ch.is-on .lab { color: #fff; }
+      .notes { left: 0; bottom: var(--hud); }
+      .main { min-height: calc(100dvh - var(--hud)); }
+      .stage-wrap { padding: 0; align-items: stretch; }
+      .stage {
+        width: 100%;
+        aspect-ratio: auto;
+        min-height: calc(100dvh - var(--hud));
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        overflow: visible;
+      }
+      .stage::after { display: none; }
+      .page {
+        position: relative;
+        inset: auto;
+        display: none;
+        overflow: visible;
+        padding: clamp(20px, 5vw, 32px) 4vw calc(var(--hud) + 68px);
+        max-width: 40rem;
+        margin: 0 auto;
+      }
+      .page.is-on { display: flex; }
+      .page.cover.is-on {
+        min-height: calc(100svh - var(--hud));
+        min-height: calc(100dvh - var(--hud));
+        max-width: none;
+        width: 100%;
+        box-sizing: border-box;
+        background: var(--klein);
+      }
+      .main:has(.cover.is-on),
+      .stage:has(.cover.is-on) {
+        background: var(--klein);
+        min-height: calc(100dvh - var(--hud));
+      }
+      .main:has(.cover.is-on) .dock {
+        background: var(--klein);
+        border-top: 0;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .main:has(.cover.is-on) .edit-hint { color: rgba(255, 255, 255, 0.45); }
+      .main:has(.cover.is-on) .nav-btns button,
+      .main:has(.cover.is-on) .notes-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.22);
+        color: #fff;
+      }
+      .klein-bar {
+        white-space: normal;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+      .watermark { display: none; }
+      .grid3, .grid4, .compare, .beats4, .qs, .list4, .jobs, .dims, .doors, .actions { grid-template-columns: 1fr; }
+      .grid6, .nono-grid { grid-template-columns: repeat(3, 1fr); }
+      .split, .decide, .case-extra, .sum3 article, .vs { grid-template-columns: 1fr; }
+      .flow, .chain { flex-wrap: wrap; }
+      .beat {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 24px;
+      }
+      .beat i { display: none; }
+      .cover .beat b {
+        min-width: 0;
+        width: 100%;
+        padding: 10px 8px;
+        font-size: 14px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .cover .beat b.is-last {
+        box-shadow: none;
+        border-color: transparent;
+        background: rgba(255, 255, 255, 0.16);
+      }
+      .cine-word {
+        left: 6vw;
+        top: 7vh;
+        font-size: clamp(4.4rem, 22vw, 6.4rem);
+      }
+      .loader-copy {
+        left: 24px;
+        right: 24px;
+        bottom: 10vh;
+        max-width: none;
+      }
+      .cover h1 { max-width: 14em; }
+      .demo { padding-bottom: 48px; }
+      .device { width: 100%; }
+      .hint.desk { display: none; }
+      .dock {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: var(--hud);
+        z-index: 24;
+        background: rgba(245, 246, 246, 0.94);
+        border-top: 1px solid var(--line);
+        padding: 6px 12px;
+        gap: 10px;
+      }
+      .dock .dots { display: none; }
+      .toast { bottom: calc(var(--hud) + 60px); }
+      .nav-btns button, .copy-row button, .roles button, .notes-btn { min-height: 44px; }
+    }
+    @media (min-width: 600px) and (max-width: 979px) {
+      .grid4, .compare, .beats4, .qs, .list4, .jobs, .actions { grid-template-columns: repeat(2, 1fr); }
+      .grid3, .dims, .doors { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div id="loader" role="dialog" aria-modal="true" aria-label="门前">
+    <div class="door-field" aria-hidden="true">
+      <img class="door-still" src="door-still.webp" alt="">
+    </div>
+    <div class="cine-word">HTML+</div>
+    <div class="loader-copy">
+      <div class="loader-kicker">CHAPTER 00 · 门前</div>
+      <div class="loader-title">走进 HTML+</div>
+      <p class="loader-sub">不用学编程，也能做出能讲、能点、能分享的工作成果</p>
+      <div class="loader-bar" aria-hidden="true"><div class="loader-bar-fill" id="loader-bar"></div></div>
+      <button type="button" id="enter-btn" class="enter-btn">进入课堂</button>
+      <p class="loader-hint">点进去，从一份写好的内容开始。</p>
+    </div>
+  </div>
+  <div class="app">
+    <aside class="rail">
+      <div class="rail-brand">POIZON 全员课<b>HTML+</b></div>
+      <div class="rail-tick"></div>
+      <nav>
+        <button class="ch is-on" data-go="0"><span class="num">00</span><span class="lab">开场</span></button>
+        <button class="ch" data-go="2"><span class="num">01</span><span class="lab">什么是 HTML</span></button>
+        <button class="ch" data-go="5"><span class="num">02</span><span class="lab">可以做什么</span></button>
+        <button class="ch" data-go="7"><span class="num">03</span><span class="lab">怎么选择</span></button>
+        <button class="ch" data-go="11"><span class="num">04</span><span class="lab">我们的案例</span></button>
+        <button class="ch" data-go="16"><span class="num">05</span><span class="lab">轮到你了</span></button>
+      </nav>
+      <div class="rail-progress">
+        <div class="meta"><span>进度</span><span id="prog-label">P01 / 20</span></div>
+        <div class="bar"><i id="prog-bar"></i></div>
+      </div>
+    </aside>
+
+    <nav class="hud" aria-label="章节">
+      <button class="ch is-on" data-go="0"><span class="num">00</span><span class="lab">开场</span></button>
+      <button class="ch" data-go="2"><span class="num">01</span><span class="lab">什么是 HTML</span></button>
+      <button class="ch" data-go="5"><span class="num">02</span><span class="lab">可以做什么</span></button>
+      <button class="ch" data-go="7"><span class="num">03</span><span class="lab">怎么选择</span></button>
+      <button class="ch" data-go="11"><span class="num">04</span><span class="lab">我们的案例</span></button>
+      <button class="ch" data-go="16"><span class="num">05</span><span class="lab">轮到你了</span></button>
+    </nav>
+
+    <div class="main">
+      <div class="stage-wrap">
+        <div class="stage" id="stage">
+
+          <section class="page cover klein-field is-on" data-ch="0" data-note="先停在开场问题上：内容写好了，别人却看不懂、不想看、不会用。四个拍子只点一下：文档变成页面，再变成能点、能分享。">
+            <div class="door-field" aria-hidden="true">
+              <img class="door-still" src="door-still.webp" alt="">
+            </div>
+            <p class="who">POIZON 全员课</p>
+            <h1>《HTML+：AI 时代的<br>工作表达新方式》</h1>
+            <p class="sub">不用学编程，也能做出能讲、能点、能分享的工作成果</p>
+            <div class="beat" aria-hidden="true">
+              <b>文档</b><i></i><b>页面</b><i></i><b>交互</b><i></i><b class="is-last">分享</b>
+            </div>
+            <p class="ask">你有没有遇到过：内容已经写好了，但别人还是看不懂、不想看、不会用？</p>
+          </section>
+
+          <section class="page" data-ch="0" data-note="点四件事，跳进对应章。结课状态只读一句：找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。">
+            <p class="kicker">P02<em>·</em>总览</p>
+            <h2>今天不学代码，学会四件事</h2>
+            <div class="grid4" style="flex:1">
+              <button class="pick" data-jump="2"><span class="tag">01</span><h3>重新认识 HTML</h3><p>它不是程序员的网页课，是工作内容的容器。</p></button>
+              <button class="pick" data-jump="5"><span class="tag">02</span><h3>看见 HTML 的能力</h3><p>普通文件交给你内容，HTML 还能回应操作。</p></button>
+              <button class="pick" data-jump="7"><span class="tag">03</span><h3>学会判断和选择</h3><p>先问谁要用它完成什么，再选交付形式。</p></button>
+              <button class="pick" data-jump="16"><span class="tag">04</span><h3>完成自己的作品</h3><p>选一个真实场景，和 AI 一起做出能打开的一版。</p></button>
+            </div>
+            <p class="punch">找到一个适合 HTML 的工作场景，与 AI 共同完成真实任务。</p>
+          </section>
+
+          <section class="page center-page klein-field" data-ch="1" data-note="章封面只立一句。看见、理解、操作——三件事同时需要时，内容就可以变成 HTML。">
+            <p class="ch-no">01  什么是 HTML</p>
+            <p class="gold">当内容需要被看见、被理解、被操作时，<br>它就可以变成一个 HTML。</p>
+            <span class="watermark">01</span>
+          </section>
+
+          <section class="page" data-ch="1" data-note="先读定义，一字不改。再点岗位卡：每个岗位都能借 AI 做轻量工作界面。">
+            <p class="kicker">P04<em>·</em>定义</p>
+            <p class="quote">HTML 是一种可以被浏览器直接打开的内容容器。借助 AI，我们可以把文字、图片、数据和流程，快速变成一个可查看、可点击、可演示的工作界面。</p>
+            <div class="pills" aria-label="装得下的工作内容">
+              <span>文字图片</span><span>视频动画</span><span>表格图表</span><span>按钮选择</span><span>流程跳转</span><span>简单计算</span>
+            </div>
+            <div class="vs">
+              <article class="old"><div class="lab">旧认知</div><h3>程序员做网页</h3></article>
+              <article class="new"><div class="lab">新认知</div><h3>每个岗位都能借 AI 做的轻量工作界面</h3></article>
+            </div>
+            <div class="jobs" id="jobs">
+              <button class="job" data-job="新同学第一天该去哪、找谁、带什么"><span class="tag">HR</span><h3>入职导航</h3></button>
+              <button class="job" data-job="选场次、看名额、当场确认参加"><span class="tag">行政</span><h3>报名指引</h3></button>
+              <button class="job" data-job="按条件筛，留下要跟的那几条"><span class="tag">运营</span><h3>筛选看板</h3></button>
+              <button class="job" data-job="点开关键路径，看卡住的地方"><span class="tag">产品</span><h3>可点原型</h3></button>
+              <button class="job" data-job="换方案、比材质，当场对齐"><span class="tag">设计</span><h3>动态提案</h3></button>
+              <button class="job" data-job="边看边练，而不是只听"><span class="tag">培训</span><h3>可操作课件</h3></button>
+            </div>
+            <p class="job-out" id="job-out">点一张岗位卡，看它装的是哪类工作内容。</p>
+          </section>
+
+          <section class="page" data-ch="1" data-note="四列对照：共同改稿用文档表格，现场线性讲用 PPT，固定节奏用视频。HTML 负责查看、选择、互动、复用。">
+            <p class="kicker">P05<em>·</em>对照</p>
+            <h2>同一份内容，四种打开方式</h2>
+            <div class="compare">
+              <article>
+                <div class="kind">共同改稿</div>
+                <h3>文档表格</h3>
+                <p class="use">一起改，一起留痕</p>
+                <p class="more">适合还在对齐文字和数字的时候。</p>
+              </article>
+              <article>
+                <div class="kind">现场线性讲</div>
+                <h3>PPT</h3>
+                <p class="use">你讲，别人顺着听</p>
+                <p class="more">适合一次会议、一条叙事线。</p>
+              </article>
+              <article>
+                <div class="kind">固定节奏</div>
+                <h3>视频</h3>
+                <p class="use">按时间播，不能停下来选</p>
+                <p class="more">适合传播，不适合当场操作。</p>
+              </article>
+              <article class="is-html">
+                <div class="kind">查看 · 选择 · 互动 · 复用</div>
+                <h3>HTML</h3>
+                <p class="use">内容随操作变化</p>
+                <p class="more">别人自己看、自己选、自己走下一步。</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="page center-page klein-field" data-ch="2" data-note="先立对比：文件把内容交给你；HTML 还会回应。下一页用活动通知当场试。">
+            <p class="ch-no">02  HTML 可以做什么</p>
+            <p class="gold">普通文件把内容交给你，<br>HTML 还可以回应你的操作。</p>
+            <div class="flow">
+              <div class="flow-step"><div class="n">01</div><h3>文档</h3><p>活动资料写在一处</p></div><i></i>
+              <div class="flow-step"><div class="n">02</div><h3>清晰页</h3><p>打开就能看懂结构</p></div><i></i>
+              <div class="flow-step"><div class="n">03</div><h3>可选择</h3><p>按身份点进去</p></div><i></i>
+              <div class="flow-step"><div class="n">04</div><h3>给出结果</h3><p>拿到自己的下一步</p></div>
+            </div>
+            <span class="watermark">02</span>
+          </section>
+
+          <section class="page" data-ch="2" data-note="四个动作不是等级。点动作，再让现场选一个身份——让人感觉到：内容因为操作变了。">
+            <p class="kicker">P07<em>·</em>四个基础动作</p>
+            <div class="split">
+              <div>
+                <h2>不是更多内容，<br>是会回应的内容</h2>
+                <div class="actions" id="actions" style="margin-top:16px">
+                  <button class="pick" data-act="hold"><span class="tag">01</span><h3>装下内容</h3><p>通知、流程、注意都在这一页。</p></button>
+                  <button class="pick" data-act="org"><span class="tag">02</span><h3>组织信息</h3><p>先选身份，再看对应流程。</p></button>
+                  <button class="pick" data-act="recv"><span class="tag">03</span><h3>接收操作</h3><p>点一下，系统知道你是谁。</p></button>
+                  <button class="pick" data-act="reply"><span class="tag">04</span><h3>给出回应</h3><p>每个人拿到自己的下一步。</p></button>
+                </div>
+              </div>
+              <div class="demo" id="demo">
+                <div class="tag">活动通知</div>
+                <h3>本周六开放日</h3>
+                <p style="margin-top:8px;font-size:13px;color:var(--soft)">请选择你的身份，看对应流程。</p>
+                <div class="roles" id="roles">
+                  <button data-role="new">新同学</button>
+                  <button data-role="vol">志愿者</button>
+                  <button data-role="vip">嘉宾</button>
+                  <button data-role="org">组织者</button>
+                </div>
+                <p class="next-step" id="next-step">还没选。点一个身份，看内容怎么变。</p>
+                <div class="klein-bar">HTML 最特别的地方，不是内容更多，而是<u>内容可以根据人的操作发生变化</u>。</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="page center-page klein-field" data-ch="3" data-note="先改问题，再谈形式。链式四步：任务 → 使用者 → 使用方式 → 交付形式。">
+            <p class="ch-no">03  工作中怎么选择</p>
+            <p class="gold">不要先问「能不能做成 HTML」，<br>先问「谁要用它完成什么」。</p>
+            <div class="chain">
+              <span>任务</span><i></i><span>使用者</span><i></i><span>使用方式</span><i></i><span>交付形式</span>
+            </div>
+            <span class="watermark">03</span>
+          </section>
+
+          <section class="page" data-ch="3" data-note="四种高频场景，点开只看交付形态。现场只展开一个，避免四张一起念。">
+            <p class="kicker">P09<em>·</em>四种高频场景</p>
+            <h2>先认场景，再谈做成什么样</h2>
+            <div class="grid4" id="scenes" style="margin-top:22px">
+              <button class="scene"><span class="tag">01</span><h3>讲清楚</h3><p class="more">结构化页面、翻页演示。别人按自己的节奏看完一件事。</p></button>
+              <button class="scene"><span class="tag">02</span><h3>走完流程</h3><p class="more">步骤导航、清单、进度。自己走完，少问一句「然后呢」。</p></button>
+              <button class="scene"><span class="tag">03</span><h3>比较和选择</h3><p class="more">筛选、对比、计算。把分散确认收进同一页。</p></button>
+              <button class="scene"><span class="tag">04</span><h3>让想法被体验</h3><p class="more">可点原型、动态叙事、三维互动。让人先感受到，再讨论。</p></button>
+            </div>
+          </section>
+
+          <section class="page" data-ch="3" data-note="三个维度一起看。任务只许选一个场景。复用：一次会不要过度；长期用先确认负责人。">
+            <p class="kicker">P10<em>·</em>三维度</p>
+            <h2>做之前，只看这三件事</h2>
+            <div class="dims">
+              <article class="dim">
+                <span class="tag">01</span>
+                <h3>使用者</h3>
+                <p>谁会打开它？在什么场合用？一个人看，还是一桌人一起点？</p>
+              </article>
+              <article class="dim is-on">
+                <span class="tag">02</span>
+                <h3>任务 · 只选一个场景</h3>
+                <p>一件事做透。点一个，其他先放下。</p>
+                <div class="scene-mini" id="one-scene">
+                  <button>讲清楚</button>
+                  <button>走完流程</button>
+                  <button>比较和选择</button>
+                  <button>让想法被体验</button>
+                </div>
+              </article>
+              <article class="dim">
+                <span class="tag">03</span>
+                <h3>是否复用</h3>
+                <p>一次会，不要过度。长期用，先确认负责人：谁改、谁发、谁收场。</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="page" data-ch="3" data-note="最轻有效：能用文档表格 / PPT / 视频解决就不要上 HTML。三自检第三问否定，当场不做。">
+            <p class="kicker">P11<em>·</em>最轻有效方案</p>
+            <h2>价值不是看起来像网站，<br>是减少解释和重复劳动</h2>
+            <div class="decide">
+              <ul class="rows">
+                <li>共同编辑<b>文档表格</b></li>
+                <li>现场线性讲<b>PPT</b></li>
+                <li>固定节奏传播<b>视频</b></li>
+                <li>查看 · 选择 · 互动 · 复用<b>HTML</b></li>
+              </ul>
+              <div>
+                <p class="tag">三自检</p>
+                <div class="checks" id="checks">
+                  <button class="check"><span class="n">1</span><span>谁会使用？</span></button>
+                  <button class="check"><span class="n">2</span><span>他要完成什么？</span></button>
+                  <button class="check is-stop"><span class="n">3</span><span>HTML 是否比原来更省事？<span class="hint">第三个否定，就不做。</span></span></button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="page center-page klein-field" data-ch="4" data-note="点门进房间。口播只讲动作，不讲实现配方。">
+            <p class="ch-no">04  我们的 HTML 案例</p>
+            <p class="gold">同一种能力，解决不同类型的内容。</p>
+            <div class="doors">
+              <button class="door" data-jump="12"><span class="tag">案例一 · 比较 / 体验</span><h3>11 周年物料</h3><p>T恤、物流箱、奖杯、防伪。平面稿看不出结构。</p><span class="go">进入房间 →</span></button>
+              <button class="door" data-jump="13"><span class="tag">案例二 · 比较选择</span><h3>NONO 九款</h3><p>九款进同一页，把分散确认收起来。</p><span class="go">进入房间 →</span></button>
+              <button class="door" data-jump="14"><span class="tag">案例三 · 讲清楚 / 体验</span><h3>业务知多少</h3><p>已有 HTML，再给页加上时间。现场叫它视频插件。</p><span class="go">进入房间 →</span></button>
+            </div>
+            <span class="watermark">04</span>
+          </section>
+
+          <section class="page" data-ch="4" data-note="房间四拍：原来 / 不够 / 多了哪个动作 / 交付给谁。右侧可拖衣服、换贴花。可写 AI Coding。">
+            <p class="kicker">P13<em>·</em>案例一 · 比较 / 体验</p>
+            <h2>11 周年 T恤 + 物流箱 + 奖杯 + 防伪</h2>
+            <div class="beats4" data-beats>
+              <button class="is-on"><span class="n">原来</span><h3>四套平面稿</h3><p>衣服、箱子、奖杯、防伪，分开看图。</p></button>
+              <button><span class="n">旧形式不够</span><h3>看不出材质结构</h3><p>静态稿无法转、无法比、无法换贴花。</p></button>
+              <button><span class="n">多了哪个动作</span><h3>接收操作 + 给出回应</h3><p>让人拖、换贴花、比结构。</p></button>
+              <button><span class="n">交付给谁</span><h3>活动 / 履约 / 防伪</h3><p>给沟通对象自己观察、自己比较。</p></button>
+            </div>
+            <div class="case-extra">
+              <div class="device">
+                <div class="device-chrome"><span>HTML</span><span>3:2</span></div>
+                <div class="device-view">
+              <div class="tee" id="tee" title="拖一拖，换一换">
+                <div class="shirt" id="shirt">
+                  <svg viewBox="0 0 120 130" aria-hidden="true">
+                    <path fill="#1c2126" stroke="rgba(238,244,246,0.22)" stroke-width="1.2" d="M24 18 L48 10 H72 L96 18 L110 38 L92 46 V118 H28 V46 L10 38 Z"/>
+                    <path fill="none" stroke="rgba(1,194,195,0.35)" stroke-width="1" d="M48 12 C54 22 66 22 72 12"/>
+                  </svg>
+                  <span class="mark" id="shirt-mark">11</span>
+                </div>
+                <div class="tee-tools">
+                  <button class="is-on" data-decal="11">字标</button>
+                  <button data-decal="POIZON">贴花</button>
+                  <button data-decal="吊牌">吊牌</button>
+                </div>
+                <span class="tee-cap">拖一拖 · 换贴花</span>
+              </div>
+              <div class="klein-bar"><b>价值</b>　静态设计稿变成能观察比较的沟通工具。可用 AI Coding 把已有物料收进同一页。</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="page" data-ch="4" data-note="九款进一页。口播只说组织信息 + 接收操作。不要点配方名词。可写 AI Coding。">
+            <p class="kicker">P14<em>·</em>案例二 · 比较选择</p>
+            <h2>NONO 九款，进同一页</h2>
+            <div class="beats4" data-beats>
+              <button class="is-on"><span class="n">原来</span><h3>九份确认</h3><p>款式散在不同文件、不同群。</p></button>
+              <button><span class="n">旧形式不够</span><h3>分散确认成本高</h3><p>对一次、漏一次、再问一次。</p></button>
+              <button><span class="n">多了哪个动作</span><h3>组织信息 + 接收操作</h3><p>同一页里筛、点、比。</p></button>
+              <button><span class="n">交付给谁</span><h3>要对齐的人</h3><p>自己点两款，当场看差别。</p></button>
+            </div>
+            <div class="case-extra">
+              <div class="device">
+                <div class="device-chrome"><span>HTML</span><span>3:2</span></div>
+                <div class="device-view">
+                <div class="nono-grid" id="nono">
+                  <button class="nono"><b>01</b>高帮</button>
+                  <button class="nono"><b>02</b>低帮</button>
+                  <button class="nono"><b>03</b>高帮</button>
+                  <button class="nono"><b>04</b>袜套</button>
+                  <button class="nono"><b>05</b>低帮</button>
+                  <button class="nono"><b>06</b>高帮</button>
+                  <button class="nono"><b>07</b>低帮</button>
+                  <button class="nono"><b>08</b>袜套</button>
+                  <button class="nono"><b>09</b>高帮</button>
+                </div>
+                <p class="job-out" id="nono-out">点两款，看「比较」怎么发生。</p>
+                <div class="klein-bar"><b>价值</b>　把比较收进一页。可用 AI Coding 先出能打开的操作台，再用人话改到能用。</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="page" data-ch="4" data-note="口播说视频插件。固定节奏传播仍可用视频；这里看的是页怎么被加上时间。HyperFrames 只是房间里的小标签。">
+            <p class="kicker">P15<em>·</em>案例三 · 讲清楚 / 体验</p>
+            <h2>《得物业务知多少》VOL.06</h2>
+            <p class="lede" style="margin-top:8px">第三章「我们相信什么，决定了我们是谁」。页能看，但不能按时间讲。给页加上时间、转场、声音——现场叫它<b style="color:var(--ink)">视频插件</b>。</p>
+            <div class="beats4" data-beats>
+              <button class="is-on"><span class="n">原来</span><h3>已有 HTML</h3><p>第三章的页，打开就能看。</p></button>
+              <button><span class="n">旧形式不够</span><h3>不能按时间讲</h3><p>人还在，页不会自己往前走。</p></button>
+              <button><span class="n">多了哪个动作</span><h3>加上时间</h3><p>出现、转场、声音，页开始被讲述。</p></button>
+              <button><span class="n">交付给谁</span><h3>要讲这一章的人</h3><p>按时间走，而不是干翻页。</p></button>
+            </div>
+            <div class="case-extra">
+              <div class="device">
+                <div class="device-chrome"><span>HTML</span><span>3:2</span></div>
+                <div class="device-view">
+              <div class="timeline-box" id="vol06">
+                <div class="fake-page" id="fake-page">
+                  <div class="layer">我们相信什么，决定了我们是谁</div>
+                </div>
+                <div class="tl" id="tl"><i style="left:12%"></i><i style="left:48%"></i><i style="left:78%"></i></div>
+                <div class="tl-btns">
+                  <button data-add="time">加上时间</button>
+                  <button data-add="move">加上转场</button>
+                  <button data-add="sound">加上声音</button>
+                </div>
+                <div class="hf" id="hf">HyperFrames</div>
+              </div>
+              <div class="klein-bar"><b>对照</b>　固定节奏传播仍可用视频；这里看的是页怎么被加上时间。</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="page" data-ch="4" data-note="只留三行。原来 / 不够 / 多了哪个动作。不要再展开故事。">
+            <p class="kicker">P16<em>·</em>三案对照</p>
+            <h2>三个案例，只记三行</h2>
+            <div class="sum3">
+              <article>
+                <div class="who">周年物料</div>
+                <div><b>原来</b>平面稿</div>
+                <div><b>不够</b>看不出材质结构</div>
+                <div><b>多了哪个动作</b>拖、换、比（接收操作 + 给出回应）</div>
+              </article>
+              <article>
+                <div class="who">NONO 九款</div>
+                <div><b>原来</b>分散确认</div>
+                <div><b>不够</b>成本高</div>
+                <div><b>多了哪个动作</b>组织信息 + 接收操作</div>
+              </article>
+              <article>
+                <div class="who">业务知多少</div>
+                <div><b>原来</b>页能看</div>
+                <div><b>不够</b>不能按时间讲</div>
+                <div><b>多了哪个动作</b>时间、转场、声音</div>
+              </article>
+            </div>
+          </section>
+
+          <section class="page center-page klein-field" data-ch="5" data-note="把野心收小。从少解释一次什么开始。四问只点到现场有共鸣的那一个。">
+            <p class="ch-no">05  轮到你了</p>
+            <p class="gold">不要从「我要做一个很厉害的网站」开始。<br>从「我想少解释一次什么」开始。</p>
+            <div class="qs">
+              <article><span class="tag">01</span><h3>重复解释</h3></article>
+              <article><span class="tag">02</span><h3>找不到重点</h3></article>
+              <article><span class="tag">03</span><h3>文字说不清</h3></article>
+              <article><span class="tag">04</span><h3>能变成小工具</h3></article>
+            </div>
+            <span class="watermark">05</span>
+          </section>
+
+          <section class="page" data-ch="5" data-note="三选一，点一个就停。作业锁在得物三个例子上，不要改题。">
+            <p class="kicker">P18<em>·</em>小任务</p>
+            <h2>三选一，做一件能打开的事</h2>
+            <div class="grid3" id="tasks" style="margin-top:22px">
+              <button class="task" data-hint="使用者是活动同事，需要完成：打开一页就看懂 11 周年怎么讲。">
+                <span class="tag">01 讲清楚</span>
+                <h3>11 周年活动页</h3>
+                <p>把活动要点收成一页，别人自己翻完。</p>
+              </button>
+              <button class="task" data-hint="使用者是新同学，需要完成：按防伪五件套走完入职鉴别。">
+                <span class="tag">02 走流程</span>
+                <h3>入职鉴别指引</h3>
+                <p>防伪五件套。一步一步走完，少问一句。</p>
+              </button>
+              <button class="task" data-hint="使用者是品牌与履约同事，需要完成：点开就理解物流箱也是品牌。">
+                <span class="tag">03 演示想法</span>
+                <h3>一页可点方案</h3>
+                <p>物流箱也是品牌。让人先点到，再讨论。</p>
+              </button>
+            </div>
+            <p class="job-out" id="task-out">点一个任务。下一页打开蓝龙虾。</p>
+          </section>
+
+          <section class="page" data-ch="5" data-note="入口只有蓝龙虾。提示词整段复制，不要改。人话改到能用就停，再过三自检。">
+            <p class="kicker">P19<em>·</em>打开蓝龙虾</p>
+            <h2>先填谁、什么事，再生成能打开的一版</h2>
+            <div class="prompt">
+              <pre id="prompt">我想把这份材料做成一个可以直接打开的 HTML。使用者是【谁】，需要完成【什么事】。请先帮我整理内容结构，再生成一个简单、清楚、容易使用的版本。</pre>
+              <div class="copy-row">
+                <button type="button" id="copy-btn">复制提示词</button>
+                <span id="copy-state">整段复制，到蓝龙虾里贴上。</span>
+              </div>
+            </div>
+            <ul class="list4">
+              <li>填谁 / 什么事</li>
+              <li>先出能打开的一版</li>
+              <li>人话改到能用就停</li>
+              <li>过三自检</li>
+            </ul>
+          </section>
+
+          <section class="page close-page klein-field" data-ch="5" data-note="结课句一字不改。停住，把房间还给他们。">
+            <p class="who">结课</p>
+            <p class="gold">未来真正重要的，不是每个人都会写代码，而是每个人都能把自己的专业判断，变成别人可以直接使用的成果。</p>
+          </section>
+
+        </div>
+      </div>
+
+      <div class="dock">
+        <div class="dots" id="dots"></div>
+        <div class="nav-btns">
+          <button type="button" id="prev">上一页</button>
+          <button type="button" id="next">下一页</button>
+        </div>
+        <span class="hint" id="page-label">P01 / 20</span>
+        <span class="hint edit-hint">点字可改</span>
+        <button type="button" class="notes-btn" id="notes-btn">讲稿</button>
+        <span class="hint desk">← → 空格 · F 全屏</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes" id="notes">
+    <div class="lab">讲稿</div>
+    <p id="notes-text"></p>
+  </div>
+  <div class="toast" id="toast">已复制</div>
+
+  <script>
+    (function () {
+      const pages = [...document.querySelectorAll(".page")];
+      const chBtns = [...document.querySelectorAll(".ch[data-go]")];
+      const dots = document.getElementById("dots");
+      const bar = document.getElementById("prog-bar");
+      const progLabel = document.getElementById("prog-label");
+      const pageLabel = document.getElementById("page-label");
+      const notes = document.getElementById("notes");
+      const notesText = document.getElementById("notes-text");
+      const toast = document.getElementById("toast");
+      const stage = document.getElementById("stage");
+      const loader = document.getElementById("loader");
+      const enterBtn = document.getElementById("enter-btn");
+      const loaderBar = document.getElementById("loader-bar");
+      const chStarts = [0, 2, 5, 7, 11, 16];
+      let index = 0;
+      let notesOn = false;
+      let started = false;
+
+      pages.forEach((_, i) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.title = "P" + String(i + 1).padStart(2, "0");
+        if (chStarts.includes(i)) b.classList.add("is-ch");
+        b.addEventListener("click", () => go(i));
+        dots.appendChild(b);
+      });
+      const dotBtns = [...dots.children];
+
+      function go(n) {
+        if (!started) return;
+        index = Math.max(0, Math.min(pages.length - 1, n));
+        pages.forEach((p, i) => p.classList.toggle("is-on", i === index));
+        dotBtns.forEach((d, i) => d.classList.toggle("is-on", i === index));
+        const ch = Number(pages[index].dataset.ch || 0);
+        const start = chStarts[ch];
+        chBtns.forEach((r) => r.classList.toggle("is-on", Number(r.dataset.go) === start));
+        window.scrollTo(0, 0);
+        const label = "P" + String(index + 1).padStart(2, "0");
+        pageLabel.textContent = label + " / 20";
+        progLabel.textContent = label + " / 20";
+        bar.style.width = ((index + 1) / pages.length * 100) + "%";
+        notesText.textContent = pages[index].dataset.note || "";
+        history.replaceState(null, "", "#p" + String(index + 1).padStart(2, "0"));
+      }
+
+      function next() { go(index + 1); }
+      function prev() { go(index - 1); }
+
+      chBtns.forEach((btn) => btn.addEventListener("click", () => go(Number(btn.dataset.go))));
+      document.getElementById("next").addEventListener("click", next);
+      document.getElementById("prev").addEventListener("click", prev);
+      const notesBtn = document.getElementById("notes-btn");
+      function setNotes(on) {
+        notesOn = on;
+        notes.classList.toggle("is-on", notesOn);
+        notesBtn.classList.toggle("is-on", notesOn);
+      }
+      notesBtn.addEventListener("click", () => setNotes(!notesOn));
+
+      document.addEventListener("keydown", (e) => {
+        if (e.target.closest("[contenteditable], textarea, input")) {
+          if (e.key === "Escape") e.target.blur();
+          return;
+        }
+        if (!started) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            enterClass();
+          }
+          return;
+        }
+        if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+          e.preventDefault();
+          next();
+        } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+          e.preventDefault();
+          prev();
+        } else if (e.key === "f" || e.key === "F") {
+          if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+          else document.exitFullscreen().catch(() => {});
+        } else if (e.key === "s" || e.key === "S") {
+          setNotes(!notesOn);
+        } else if (e.key === "Escape") {
+          setNotes(false);
+        }
+      });
+
+      let sx = 0, sy = 0, swipeIgnore = false;
+      stage.addEventListener("touchstart", (e) => {
+        swipeIgnore = !!e.target.closest("[contenteditable]");
+        const t = e.changedTouches[0];
+        sx = t.clientX; sy = t.clientY;
+      }, { passive: true });
+      stage.addEventListener("touchend", (e) => {
+        if (swipeIgnore || e.target.closest("[contenteditable], button, a, .tee, .shirt, .nono-grid, .prompt, .roles, .scene-mini, .beats4, .timeline-box, .jobs, .actions, .checks")) return;
+        const t = e.changedTouches[0];
+        const dx = t.clientX - sx;
+        const dy = t.clientY - sy;
+        if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy)) return;
+        if (dx < 0) next(); else prev();
+      }, { passive: true });
+
+      stage.addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable], button, a, .tee, .nono-grid, .prompt, .roles, .scene-mini, .beats4, .timeline-box, .jobs, .actions, .checks, .device")) return;
+        const rect = stage.getBoundingClientRect();
+        if (e.clientX < rect.left + rect.width * 0.22) prev();
+        else if (e.clientX > rect.right - rect.width * 0.22) next();
+      });
+
+      document.querySelectorAll("[data-jump]").forEach((el) => {
+        el.addEventListener("click", (e) => {
+          if (e.target.closest("[contenteditable]")) return;
+          e.stopPropagation();
+          go(Number(el.dataset.jump));
+        });
+      });
+
+      const jobOut = document.getElementById("job-out");
+      document.getElementById("jobs").addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable]")) return;
+        const btn = e.target.closest(".job");
+        if (!btn) return;
+        document.querySelectorAll("#jobs .job").forEach((j) => j.classList.toggle("is-on", j === btn));
+        jobOut.innerHTML = "<b>" + btn.querySelector("h3").textContent + "</b>　" + btn.dataset.job;
+        persistEdits();
+      });
+
+      const roles = {
+        new: "<b>新同学</b>　先到 1F 签到处领访客证，再按楼层指引上楼。",
+        vol: "<b>志愿者</b>　先到 B1 物料区领对讲机，9:20 前到你负责的点位。",
+        vip: "<b>嘉宾</b>　走南门贵宾通道，对接人会在门口等你。",
+        org: "<b>组织者</b>　打开当日清单，先核对 9:00 节点。"
+      };
+      const nextStep = document.getElementById("next-step");
+      document.getElementById("roles").addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable]")) return;
+        const btn = e.target.closest("button");
+        if (!btn) return;
+        document.querySelectorAll("#roles button").forEach((b) => b.classList.toggle("is-on", b === btn));
+        document.querySelectorAll("#actions .pick").forEach((p) => {
+          p.classList.toggle("is-on", p.dataset.act === "recv" || p.dataset.act === "reply");
+        });
+        nextStep.innerHTML = roles[btn.dataset.role];
+        persistEdits();
+      });
+      document.getElementById("actions").addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable]")) return;
+        const btn = e.target.closest(".pick");
+        if (!btn) return;
+        document.querySelectorAll("#actions .pick").forEach((p) => p.classList.toggle("is-on", p === btn));
+        if (btn.dataset.act === "hold") nextStep.innerHTML = "这一页<b>装下了</b>时间、地点、身份和注意。先保证内容在。";
+        if (btn.dataset.act === "org") nextStep.innerHTML = "信息被<b>组织</b>成：先选身份，再看对应流程。";
+        if (btn.dataset.act === "recv") nextStep.innerHTML = "现在轮到人操作。点上面的身份，页才知道你是谁。";
+        if (btn.dataset.act === "reply") nextStep.innerHTML = "选完身份，页<b>给出回应</b>：每个人拿到自己的下一步。";
+        persistEdits();
+      });
+
+      document.getElementById("scenes").addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable]")) return;
+        const btn = e.target.closest(".scene");
+        if (!btn) return;
+        const on = btn.classList.contains("is-on");
+        document.querySelectorAll("#scenes .scene").forEach((s) => s.classList.remove("is-on"));
+        if (!on) btn.classList.add("is-on");
+      });
+
+      document.getElementById("one-scene").addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable]")) return;
+        const btn = e.target.closest("button");
+        if (!btn) return;
+        document.querySelectorAll("#one-scene button").forEach((b) => b.classList.toggle("is-on", b === btn));
+      });
+
+      document.getElementById("checks").addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable]")) return;
+        const btn = e.target.closest(".check");
+        if (!btn) return;
+        document.querySelectorAll("#checks .check").forEach((c) => c.classList.toggle("is-on", c === btn));
+      });
+
+      document.querySelectorAll("[data-beats]").forEach((box) => {
+        box.addEventListener("click", (e) => {
+          if (e.target.closest("[contenteditable]")) return;
+          const btn = e.target.closest("button");
+          if (!btn) return;
+          box.querySelectorAll("button").forEach((b) => b.classList.toggle("is-on", b === btn));
+        });
+      });
+
+      const shirt = document.getElementById("shirt");
+      const mark = document.getElementById("shirt-mark");
+      let drag = false, lastX = 0, ry = 0;
+      shirt.addEventListener("pointerdown", (e) => { drag = true; lastX = e.clientX; shirt.style.cursor = "grabbing"; });
+      window.addEventListener("pointerup", () => { drag = false; shirt.style.cursor = "grab"; });
+      window.addEventListener("pointermove", (e) => {
+        if (!drag) return;
+        ry = Math.max(-40, Math.min(40, ry + (e.clientX - lastX) * 0.4));
+        lastX = e.clientX;
+        shirt.style.setProperty("--ry", ry + "deg");
+      });
+      document.querySelectorAll(".tee-tools button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".tee-tools button").forEach((b) => b.classList.toggle("is-on", b === btn));
+          mark.textContent = btn.dataset.decal;
+        });
+      });
+
+      const nonoOut = document.getElementById("nono-out");
+      document.getElementById("nono").addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable]")) return;
+        const btn = e.target.closest(".nono");
+        if (!btn) return;
+        btn.classList.toggle("is-on");
+        const picked = [...document.querySelectorAll("#nono .nono.is-on")].map((n) => n.textContent.trim().replace(/\s+/g, " "));
+        if (picked.length === 0) nonoOut.textContent = "点两款，看「比较」怎么发生。";
+        else if (picked.length === 1) nonoOut.textContent = "已选 " + picked[0] + "。再点一款。";
+        else nonoOut.textContent = "正在比较：" + picked.slice(0, 2).join("  /  ");
+        persistEdits();
+      });
+
+      document.getElementById("vol06").addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-add]");
+        if (!btn) return;
+        btn.classList.toggle("is-on");
+        document.getElementById("hf").classList.add("is-on");
+        const page = document.getElementById("fake-page");
+        const tl = document.getElementById("tl");
+        if (btn.dataset.add === "time") tl.classList.toggle("is-on", btn.classList.contains("is-on"));
+        if (btn.dataset.add === "move") {
+          page.classList.remove("is-play");
+          if (btn.classList.contains("is-on")) requestAnimationFrame(() => page.classList.add("is-play"));
+        }
+      });
+
+      const taskOut = document.getElementById("task-out");
+      document.getElementById("tasks").addEventListener("click", (e) => {
+        if (e.target.closest("[contenteditable]")) return;
+        const btn = e.target.closest(".task");
+        if (!btn) return;
+        document.querySelectorAll("#tasks .task").forEach((t) => t.classList.toggle("is-on", t === btn));
+        taskOut.innerHTML = btn.dataset.hint;
+        persistEdits();
+      });
+
+      const promptEl = document.getElementById("prompt");
+      document.getElementById("copy-btn").addEventListener("click", async () => {
+        const promptText = (promptEl.innerText || promptEl.textContent || "").replace(/\u00a0/g, " ").trim();
+        try {
+          await navigator.clipboard.writeText(promptText);
+        } catch {
+          const ta = document.createElement("textarea");
+          ta.value = promptText;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          ta.remove();
+        }
+        toast.classList.add("is-on");
+        document.getElementById("copy-state").textContent = "已复制，去蓝龙虾贴上。";
+        setTimeout(() => toast.classList.remove("is-on"), 1400);
+      });
+
+      const EDIT_KEY = "htmlplus-course-edits-v1";
+      const editSel = ".page h1, .page h2, .page h3, .page p:not(.kicker), .page li, .page .ch-no, .page .prompt pre, .page .klein-bar, .page .sum3 article > div";
+      function persistEdits() {
+        const data = {};
+        document.querySelectorAll("[data-edit]").forEach((el) => {
+          data[el.getAttribute("data-edit")] = el.innerHTML;
+        });
+        try { localStorage.setItem(EDIT_KEY, JSON.stringify(data)); } catch (err) {}
+      }
+      (function bindEdits() {
+        let saved = {};
+        try { saved = JSON.parse(localStorage.getItem(EDIT_KEY) || "{}") || {}; } catch (err) { saved = {}; }
+        document.querySelectorAll(editSel).forEach((el, i) => {
+          el.setAttribute("contenteditable", "true");
+          el.setAttribute("spellcheck", "false");
+          el.setAttribute("data-edit", String(i));
+          if (saved[i] != null) el.innerHTML = saved[i];
+          el.addEventListener("input", persistEdits);
+          el.addEventListener("blur", persistEdits);
+          el.addEventListener("click", (e) => e.stopPropagation());
+          el.addEventListener("mousedown", (e) => e.stopPropagation());
+          el.addEventListener("paste", (e) => {
+            e.preventDefault();
+            const t = (e.clipboardData || window.clipboardData).getData("text/plain");
+            document.execCommand("insertText", false, t);
+          });
+        });
+      })();
+
+      const cover = document.querySelector(".cover");
+
+      function enterClass() {
+        if (started) return;
+        started = true;
+        document.body.classList.add("started");
+        if (cover) cover.classList.add("is-push");
+        loader.classList.add("done");
+        go(0);
+      }
+      enterBtn.addEventListener("click", enterClass);
+      requestAnimationFrame(() => loaderBar.classList.add("is-ready"));
+    })();
+  </script>
+</body>
+</html>
